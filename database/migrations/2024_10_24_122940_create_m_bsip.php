@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('m_bsip', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('provinsi')->unique();
+            $table->text('alamat')->unique();
             $table->timestamps();
         });
     }
