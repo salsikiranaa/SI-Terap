@@ -16,8 +16,15 @@ class DatabaseSeeder extends Seeder
             mRoleSeeder::class,
             mServiceSeeder::class,
             UserSeeder::class,
-
             pServiceAccessSeeder::class,
+
+            mMetodeSeeder::class,
+            mSIPSeeder::class,
+            mSasaranSeeder::class,
+            mJenisStandardSeeder::class,
+            mKelompokStandardSeeder::class,
+            mLembagaSeeder::class,
+            mBSIPSeeder::class,
         ]);
     }
 }
