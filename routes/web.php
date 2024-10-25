@@ -13,9 +13,6 @@ use App\Http\Controllers\Manage\mMetodeController;
 use App\Http\Controllers\Manage\mSasaranController;
 use App\Http\Controllers\Manage\mServiceController;
 use App\Http\Controllers\Manage\mSIPController;
-use App\Models\pServiceAccess;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -102,8 +99,7 @@ Route::middleware('authenticated')->group(function () {
         });
     });
 
-    // middleware('service:Kinerja Kegiatan')->
-    Route::prefix('/kinerja-kegiatan')->group(function () {
+    Route::middleware('service:Kinerja Kegiatan')->prefix('/kinerja-kegiatan')->group(function () {
         Route::prefix('/identifikasi')->group(function () {
             Route::get('/', [IdentifikasiController::class, 'get'])->name('kinerja.identifikasi.view');
             Route::get('/{id}', [IdentifikasiController::class, 'getById'])->name('kinerja.identifikasi.detail');
