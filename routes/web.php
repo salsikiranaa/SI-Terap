@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Kinerja\DiseminasiController;
+use App\Http\Controllers\Kinerja\IdentifikasiController;
+use App\Http\Controllers\Kinerja\PendampinganController;
 use App\Http\Controllers\Manage\AccountsController;
 use App\Http\Controllers\Manage\mBSIPController;
 use App\Http\Controllers\Manage\mJenisStandardController;
@@ -96,6 +99,31 @@ Route::middleware('authenticated')->group(function () {
             Route::post('/', [mSIPController::class, 'store'])->name('manage.sip.store');
             Route::put('/{id}', [mSIPController::class, 'update'])->name('manage.sip.update');
             Route::delete('/{id}', [mSIPController::class, 'destroy'])->name('manage.sip.destroy');
+        });
+    });
+
+    // middleware('service:Kinerja Kegiatan')->
+    Route::prefix('/kinerja-kegiatan')->group(function () {
+        Route::prefix('/identifikasi')->group(function () {
+            Route::get('/', [IdentifikasiController::class, 'get'])->name('kinerja.identifikasi.view');
+            Route::get('/{id}', [IdentifikasiController::class, 'getById'])->name('kinerja.identifikasi.detail');
+            Route::post('/', [IdentifikasiController::class, 'store'])->name('kinerja.identifikasi.store');
+            Route::put('/{id}', [IdentifikasiController::class, 'update'])->name('kinerja.identifikasi.update');
+            Route::delete('/{id}', [IdentifikasiController::class, 'destroy'])->name('kinerja.identifikasi.destroy');
+        });
+        Route::prefix('/diseminasi')->group(function () {
+            Route::get('/', [DiseminasiController::class, 'get'])->name('kinerja.diseminasi.view');
+            Route::get('/{id}', [DiseminasiController::class, 'getById'])->name('kinerja.diseminasi.detail');
+            Route::post('/', [DiseminasiController::class, 'store'])->name('kinerja.diseminasi.store');
+            Route::put('/{id}', [DiseminasiController::class, 'update'])->name('kinerja.diseminasi.update');
+            Route::delete('/{id}', [DiseminasiController::class, 'destroy'])->name('kinerja.diseminasi.destroy');
+        });
+        Route::prefix('/pendampingan')->group(function () {
+            Route::get('/', [PendampinganController::class, 'get'])->name('kinerja.pendampingan.view');
+            Route::get('/{id}', [PendampinganController::class, 'getById'])->name('kinerja.pendampingan.detail');
+            Route::post('/', [PendampinganController::class, 'store'])->name('kinerja.pendampingan.store');
+            Route::put('/{id}', [PendampinganController::class, 'update'])->name('kinerja.pendampingan.update');
+            Route::delete('/{id}', [PendampinganController::class, 'destroy'])->name('kinerja.pendampingan.destroy');
         });
     });
 });

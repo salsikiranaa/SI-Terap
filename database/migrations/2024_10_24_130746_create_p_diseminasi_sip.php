@@ -19,6 +19,8 @@ return new class extends Migration
 
             $table->foreign('diseminasi_id')->references('id')->on('diseminasi')->onDelete('cascade');
             $table->foreign('sip_id')->references('id')->on('m_sip')->onDelete('cascade');
+
+            $table->unique(['diseminasi_id', 'sip_id']);
         });
     }
 
