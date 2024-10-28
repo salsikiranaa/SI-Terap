@@ -17,37 +17,39 @@ class mJenisStandardController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255|unique:m_jenis_standard'
         ], [
             'name.required' => 'Jenis Standard name is required',
             'name.string' => 'Jenis Standard name must be a string',
-            'name.max' => 'Jenis Standard name must not be greater than 255 characters'
+            'name.max' => 'Jenis Standard name must not be greater than 255 characters',
+            'name.unique' => 'Jenis Standard name already exists'
         ]);
         $jenis = mJenisStandard::create(['name' => $request->name]);
-        return 'created';
-        // return redirect()->route('<manage jenis standard route>')->with('success', 'data created');
+        // return 'created';
+        return redirect()->route('manage.jenis_standard.view')->with('success', 'data created');
     }
 
     public function update($id, Request $request) {
         $jenis = mJenisStandard::find(Crypt::decryptString($id));
         if (!$jenis) return back()->withErrors('cannot found jenis');
         $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255|unique:m_jenis_standard'
         ], [
             'name.required' => 'Jenis Standard name is required',
             'name.string' => 'Jenis Standard name must be a string',
-            'name.max' => 'Jenis Standard name must not be greater than 255 characters'
+            'name.max' => 'Jenis Standard name must not be greater than 255 characters',
+            'name.unique' => 'Jenis Standard name already exists'
         ]);
         $jenis->update(['name' => $request->name]);
-        return 'updated';
-        // return redirect()->route('<manage jenis standard route>')->with('success', 'data updated');
+        // return 'updated';
+        return redirect()->route('manage.jenis_standard.view')->with('success', 'data updated');
     }
 
     public function destroy($id) {
         $jenis = mJenisStandard::find(Crypt::decryptString($id));
         if (!$jenis) return back()->withErrors('cannot found jenis');
         $jenis->delete();
-        return 'deleted';
-        // return redirect()->route('<manage jenis standard route>')->with('success', 'data deleted');
+        // return 'deleted';
+        return redirect()->route('manage.jenis_standard.view')->with('success', 'data deleted');
     }
 }

@@ -17,37 +17,39 @@ class mSIPController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255|unique:m_sip'
         ], [
             'name.required' => 'SIP name is required',
             'name.string' => 'SIP name must be a string',
-            'name.max' => 'SIP name must not be greater than 255 characters'
+            'name.max' => 'SIP name must not be greater than 255 characters',
+            'name.unique' => 'SIP name already exists'
         ]);
         $sip = mSIP::create(['name' => $request->name]);
-        return 'created';
-        // return redirect()->route('<manage sip route>')->with('success', 'data created');
+        // return 'created';
+        return redirect()->route('manage.sip.view')->with('success', 'data created');
     }
 
     public function update($id, Request $request) {
         $sip = mSIP::find(Crypt::decryptString($id));
         if (!$sip) return back()->withErrors('cannot found sip');
         $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255|unique:m_sip'
         ], [
             'name.required' => 'SIP name is required',
             'name.string' => 'SIP name must be a string',
-            'name.max' => 'SIP name must not be greater than 255 characters'
+            'name.max' => 'SIP name must not be greater than 255 characters',
+            'name.unique' => 'SIP name already exists'
         ]);
         $sip->update(['name' => $request->name]);
-        return 'updated';
-        // return redirect()->route('<manage sip route>')->with('success', 'data updated');
+        // return 'updated';
+        return redirect()->route('manage.sip.view')->with('success', 'data updated');
     }
 
     public function destroy($id) {
         $sip = mSIP::find(Crypt::decryptString($id));
         if (!$sip) return back()->withErrors('cannot found sip');
         $sip->delete();
-        return 'deleted';
-        // return redirect()->route('<manage sip route>')->with('success', 'data deleted');
+        // return 'deleted';
+        return redirect()->route('manage.sip.view')->with('success', 'data deleted');
     }
 }

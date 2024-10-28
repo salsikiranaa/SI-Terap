@@ -17,37 +17,39 @@ class mKelompokStandardController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255|unique:m_kelompok_standard'
         ], [
             'name.required' => 'Kelompok Standard name is required',
             'name.string' => 'Kelompok Standard name must be a string',
-            'name.max' => 'Kelompok Standard name must not be greater than 255 characters'
+            'name.max' => 'Kelompok Standard name must not be greater than 255 characters',
+            'name.unique' => 'Kelompok Standard name already exists'
         ]);
         $kelompok = mKelompokStandard::create(['name' => $request->name]);
-        return 'created';
-        // return redirect()->route('<manage kelompok standard route>')->with('success', 'data created');
+        // return 'created';
+        return redirect()->route('manage.kelompok_standard.view')->with('success', 'data created');
     }
 
     public function update($id, Request $request) {
         $kelompok = mKelompokStandard::find(Crypt::decryptString($id));
         if (!$kelompok) return back()->withErrors('cannot found kelompok');
         $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255|unique:m_kelompok_standard'
         ], [
             'name.required' => 'Kelompok Standard name is required',
             'name.string' => 'Kelompok Standard name must be a string',
-            'name.max' => 'Kelompok Standard name must not be greater than 255 characters'
+            'name.max' => 'Kelompok Standard name must not be greater than 255 characters',
+            'name.unique' => 'Kelompok Standard name already exists'
         ]);
         $kelompok->update(['name' => $request->name]);
-        return 'updated';
-        // return redirect()->route('<manage kelompok standard route>')->with('success', 'data updated');
+        // return 'updated';
+        return redirect()->route('manage.kelompok_standard.view')->with('success', 'data updated');
     }
 
     public function destroy($id) {
         $kelompok = mKelompokStandard::find(Crypt::decryptString($id));
         if (!$kelompok) return back()->withErrors('cannot found kelompok');
         $kelompok->delete();
-        return 'deleted';
-        // return redirect()->route('<manage kelompok standard route>')->with('success', 'data deleted');
+        // return 'deleted';
+        return redirect()->route('manage.kelompok_standard.view')->with('success', 'data deleted');
     }
 }
