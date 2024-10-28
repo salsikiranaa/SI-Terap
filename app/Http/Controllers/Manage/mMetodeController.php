@@ -17,37 +17,39 @@ class mMetodeController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255|unique:m_metode'
         ], [
             'name.required' => 'Metode name is required',
             'name.string' => 'Metode name must be a string',
-            'name.max' => 'Metode name must not be greater than 255 characters'
+            'name.max' => 'Metode name must not be greater than 255 characters',
+            'name.unique' => 'Metode name already exists'
         ]);
         $metode = mMetode::create(['name' => $request->name]);
-        return 'created';
-        // return redirect()->route('<manage metode route>')->with('success', 'data created');
+        // return 'created';
+        return redirect()->route('manage.metode.view')->with('success', 'data created');
     }
 
     public function update($id, Request $request) {
         $metode = mMetode::find(Crypt::decryptString($id));
         if (!$metode) return back()->withErrors('cannot found metode');
         $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255|unique:m_metode'
         ], [
             'name.required' => 'Metode name is required',
             'name.string' => 'Metode name must be a string',
-            'name.max' => 'Metode name must not be greater than 255 characters'
+            'name.max' => 'Metode name must not be greater than 255 characters',
+            'name.unique' => 'Metode name already exists'
         ]);
         $metode->update(['name' => $request->name]);
-        return 'updated';
-        // return redirect()->route('<manage metode route>')->with('success', 'data updated');
+        // return 'updated';
+        return redirect()->route('manage.metode.view')->with('success', 'data updated');
     }
 
     public function destroy($id) {
         $metode = mMetode::find(Crypt::decryptString($id));
         if (!$metode) return back()->withErrors('cannot found metode');
         $metode->delete();
-        return 'deleted';
-        // return redirect()->route('<manage metode route>')->with('success', 'data deleted');
+        // return 'deleted';
+        return redirect()->route('manage.metode.view')->with('success', 'data deleted');
     }
 }
