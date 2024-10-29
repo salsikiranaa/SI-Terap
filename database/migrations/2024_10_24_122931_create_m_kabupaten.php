@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('m_bsip', function (Blueprint $table) {
+        Schema::create('m_kabupaten', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('provinsi_id')->unsigned();
             $table->string('name');
-            $table->bigInteger('provinsi_id')->unsigned()->unique();
-            $table->text('alamat')->unique();
             $table->timestamps();
 
             $table->foreign('provinsi_id')->references('id')->on('m_provinsi');
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('m_bsip');
+        Schema::dropIfExists('m_kabupaten');
     }
 };

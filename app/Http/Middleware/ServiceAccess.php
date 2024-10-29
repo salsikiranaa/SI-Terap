@@ -18,7 +18,7 @@ class ServiceAccess
     {
         $user_services = Auth::user()->service;
         foreach ($user_services as $service) {
-            if ($service->name == $guard) return $next($request);
+            if ($service->name == $guard && !$service->is_locked) return $next($request);
         }
         return redirect()->route('home');
     }
