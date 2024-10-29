@@ -143,7 +143,7 @@
                 <div class="col-md-6">
                     <div class="contact-info">
                         <p><b>KONTAK</b></p>
-                        <p>(0251) 8531727 | WA : 085282828696</p>
+                        <p><a href="tel:+6202518531727"></a>(0251) 8531727 | WA : <a href="https://wa.me/085282828696">085282828696</a></p>
                         <p>Email: <a href="mailto:bbpsip@apps.pertanian.go.id">bbpsip@apps.pertanian.go.id</a></p>
                         <p>Jl. Tentara Pelajar No.10, RT.04/RW.07, Ciwaringin, Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16124</p>
     
