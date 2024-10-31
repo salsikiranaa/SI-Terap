@@ -18,6 +18,10 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             pServiceAccessSeeder::class,
 
+            mProvinsiSeeder::class,
+            mKabupatenSeeder::class,
+            mKecamatanSeeder::class,
+            
             mMetodeSeeder::class,
             mSIPSeeder::class,
             mSasaranSeeder::class,

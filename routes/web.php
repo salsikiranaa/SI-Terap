@@ -1,18 +1,21 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Kinerja\DiseminasiController;
+use App\Http\Controllers\Kinerja\IdentifikasiController;
+use App\Http\Controllers\Kinerja\PendampinganController;
 use App\Http\Controllers\Manage\AccountsController;
 use App\Http\Controllers\Manage\mBSIPController;
 use App\Http\Controllers\Manage\mJenisStandardController;
+use App\Http\Controllers\Manage\mKabupatenController;
+use App\Http\Controllers\Manage\mKecamatanController;
 use App\Http\Controllers\Manage\mKelompokStandardController;
 use App\Http\Controllers\Manage\mLembagaController;
 use App\Http\Controllers\Manage\mMetodeController;
+use App\Http\Controllers\Manage\mProvinsiController;
 use App\Http\Controllers\Manage\mSasaranController;
 use App\Http\Controllers\Manage\mServiceController;
 use App\Http\Controllers\Manage\mSIPController;
-use App\Models\pServiceAccess;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +33,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+
 Route::middleware('guest')->prefix('/auth')->group(function () {
     Route::get('/login', function () {return view('auth.login');})->name('auth.login.view');
     Route::get('/register', function () {return 'register view';})->name('auth.register.view');
@@ -41,13 +45,42 @@ Route::middleware('authenticated')->group(function () {
     Route::get('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
     
     Route::middleware('admin')->prefix('/manage')->group(function () {
+        Route::get('/test', function () {
+            return view('api-test.index');
+        });
         Route::get('/', function () {return 'admin dashboard';})->name('manage.dashboard');
+        Route::prefix('/service')->group(function () {
+            Route::get('/', [mServiceController::class, 'get'])->name('manage.service.view');
+            Route::post('/', [mServiceController::class, 'store'])->name('manage.service.store');
+            Route::put('/{id}', [mServiceController::class, 'update'])->name('manage.service.update');
+            Route::put('/{id}/lock', [mServiceController::class, 'lock'])->name('manage.service.lock');
+            Route::put('/{id}/unlock', [mServiceController::class, 'unlock'])->name('manage.service.unlock');
+            Route::delete('/{id}', [mServiceController::class, 'destroy'])->name('manage.service.destroy');
+        });
         Route::prefix('/accounts')->group(function () {
             Route::put('/{id}/verify', [AccountsController::class, 'verifyUser'])->name('manage.accounts.verify');
             Route::put('/{id}/unverify', [AccountsController::class, 'unverifyUser'])->name('manage.accounts.unverify');
             Route::put('/{id}/service-access-update', [AccountsController::class, 'serviceAccess'])->name('manage.accounts.service_access_update');
             Route::put('/{id}/set-as-admin', [AccountsController::class, 'setAsAdmin'])->name('manage.accounts.set_as_admin');
             Route::put('/{id}/remove-admin', [AccountsController::class, 'removeAdmin'])->name('manage.accounts.remove_admin');
+        });
+        Route::prefix('/provinsi')->group(function () {
+            Route::get('/', [mProvinsiController::class, 'get'])->name('manage.provinsi.view');
+            Route::post('/', [mProvinsiController::class, 'store'])->name('manage.provinsi.store');
+            Route::put('/{id}', [mProvinsiController::class, 'update'])->name('manage.provinsi.update');
+            Route::delete('/{id}', [mProvinsiController::class, 'destroy'])->name('manage.provinsi.destroy');
+        });
+        Route::prefix('/kabupaten')->group(function () {
+            Route::get('/', [mKabupatenController::class, 'get'])->name('manage.kabupaten.view');
+            Route::post('/', [mKabupatenController::class, 'store'])->name('manage.kabupaten.store');
+            Route::put('/{id}', [mKabupatenController::class, 'update'])->name('manage.kabupaten.update');
+            Route::delete('/{id}', [mKabupatenController::class, 'destroy'])->name('manage.kabupaten.destroy');
+        });
+        Route::prefix('/kecamatan')->group(function () {
+            Route::get('/', [mKecamatanController::class, 'get'])->name('manage.kecamatan.view');
+            Route::post('/', [mKecamatanController::class, 'store'])->name('manage.kecamatan.store');
+            Route::put('/{id}', [mKecamatanController::class, 'update'])->name('manage.kecamatan.update');
+            Route::delete('/{id}', [mKecamatanController::class, 'destroy'])->name('manage.kecamatan.destroy');
         });
         Route::prefix('/bsip')->group(function () {
             Route::get('/', [mBSIPController::class, 'get'])->name('manage.bsip.view');
@@ -85,12 +118,6 @@ Route::middleware('authenticated')->group(function () {
             Route::put('/{id}', [mSasaranController::class, 'update'])->name('manage.sasaran.update');
             Route::delete('/{id}', [mSasaranController::class, 'destroy'])->name('manage.sasaran.destroy');
         });
-        Route::prefix('/service')->group(function () {
-            Route::get('/', [mServiceController::class, 'get'])->name('manage.service.view');
-            Route::post('/', [mServiceController::class, 'store'])->name('manage.service.store');
-            Route::put('/{id}', [mServiceController::class, 'update'])->name('manage.service.update');
-            Route::delete('/{id}', [mServiceController::class, 'destroy'])->name('manage.service.destroy');
-        });
         Route::prefix('/sip')->group(function () {
             Route::get('/', [mSIPController::class, 'get'])->name('manage.sip.view');
             Route::post('/', [mSIPController::class, 'store'])->name('manage.sip.store');
@@ -98,4 +125,32 @@ Route::middleware('authenticated')->group(function () {
             Route::delete('/{id}', [mSIPController::class, 'destroy'])->name('manage.sip.destroy');
         });
     });
+
+    Route::middleware('service:Kinerja Kegiatan')->prefix('/kinerja-kegiatan')->group(function () {
+        Route::prefix('/identifikasi')->group(function () {
+            Route::get('/', [IdentifikasiController::class, 'get'])->name('kinerja.identifikasi.view');
+            Route::get('/{id}', [IdentifikasiController::class, 'getById'])->name('kinerja.identifikasi.detail');
+            Route::post('/', [IdentifikasiController::class, 'store'])->name('kinerja.identifikasi.store');
+            Route::put('/{id}', [IdentifikasiController::class, 'update'])->name('kinerja.identifikasi.update');
+            Route::delete('/{id}', [IdentifikasiController::class, 'destroy'])->name('kinerja.identifikasi.destroy');
+        });
+        Route::prefix('/diseminasi')->group(function () {
+            Route::get('/', [DiseminasiController::class, 'get'])->name('kinerja.diseminasi.view');
+            Route::get('/{id}', [DiseminasiController::class, 'getById'])->name('kinerja.diseminasi.detail');
+            Route::post('/', [DiseminasiController::class, 'store'])->name('kinerja.diseminasi.store');
+            Route::put('/{id}', [DiseminasiController::class, 'update'])->name('kinerja.diseminasi.update');
+            Route::delete('/{id}', [DiseminasiController::class, 'destroy'])->name('kinerja.diseminasi.destroy');
+        });
+        Route::prefix('/pendampingan')->group(function () {
+            Route::get('/', [PendampinganController::class, 'get'])->name('kinerja.pendampingan.view');
+            Route::get('/{id}', [PendampinganController::class, 'getById'])->name('kinerja.pendampingan.detail');
+            Route::post('/', [PendampinganController::class, 'store'])->name('kinerja.pendampingan.store');
+            Route::put('/{id}', [PendampinganController::class, 'update'])->name('kinerja.pendampingan.update');
+            Route::delete('/{id}', [PendampinganController::class, 'destroy'])->name('kinerja.pendampingan.destroy');
+        });
+    });
+});
+
+Route::get('/beranda', function () {
+    return view('guest.beranda');
 });
