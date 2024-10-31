@@ -6,14 +6,34 @@
     <title>SI TERAP - BBPSIP</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* Custom CSS */
         body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
-        .hero {
-            background: linear-gradient(rgba(5, 117, 230, 0.5), rgba(0, 242, 96, 0.5)), 
-                        url('https://bbpsip.bsip.pertanian.go.id/storage/assets/uploads/images/organisasi/thumbnail/RfIjVGaHNl6p0pLLpb7S1oWYzu2J0cw9oS1l6wxw.jpg');
+        .navbar {
+            display: flex;
+            max-width: 100%;
+            height: 75px;
+            padding: 0px 20px;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            position: fixed;
+            width: 100%;
+            z-index: 999;
+        }
+
+        .navbar-brand img {
+            width: 200px;
+        }
+        .hero-section {
+            background-image: url('/assets/img/bsip_depan.png');
             background-size: cover;
             background-position: center;
             height: 500px;
@@ -21,11 +41,53 @@
             justify-content: center;
             align-items: center;
             color: white;
-            font-size: 24px;
             text-align: center;
+            margin-bottom: 50px;
         }
+
         .hero h1 {
+            font-size: 4rem;
             font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 1.75rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.25rem;
+            }
+        }
+
+        .custom-button {
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 10px;
+            border: 2px solid green;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .custom-button.daftar {
+            margin-right: 10px;
+            background-color: white;
+            color: green;
+        }
+
+        .custom-button.masuk {
+            background-color: green;
+            color: white;
+        }
+
+        .custom-button:hover {
+            background-color: green;
+            color: white;
         }
         .services .card {
             border: none;
@@ -65,14 +127,23 @@
 
 <body>
 
-    <!-- Header Section -->
-    <header class="hero">
-        <div class="container">
-            {{-- <img src="" alt="Logo" class="mb-4"> --}}
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+        <a class="navbar-brand" href="#">
+            <img src="/assets/img/logo_green.png" alt="Logo">
+        </a>
+        <ul class="navbar-nav ml-auto">
+            <li><button class="custom-button daftar">Daftar</button></li>
+            <li><button class="custom-button masuk">Masuk</button></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero">
             <h1>SI TERAP</h1>
             <p>Portal Sistem Informasi Terpadu Balai Besar Penerapan Standar Instrumen Pertanian</p>
         </div>
-    </header>
+    </div>
 
     <!-- Services Section -->
     <section class="services py-5">
