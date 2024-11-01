@@ -6,14 +6,18 @@
     <title>SI TERAP - BBPSIP</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* Custom CSS */
         body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
-        .hero {
-            background: linear-gradient(to right,rgba(5, 117, 230, 0.5), rgba(0, 242, 96, 0.5)), 
-                        url('https://bbpsip.bsip.pertanian.go.id/storage/assets/uploads/images/organisasi/thumbnail/RfIjVGaHNl6p0pLLpb7S1oWYzu2J0cw9oS1l6wxw.jpg');
+
+        .hero-section {
+            background-image: url('/assets/img/bsip_depan.png');
             background-size: cover;
             background-position: center;
             height: 500px;
@@ -21,66 +25,91 @@
             justify-content: center;
             align-items: center;
             color: white;
-            font-size: 24px;
             text-align: center;
+            margin-bottom: 50px;
         }
+
         .hero h1 {
+            font-size: 4rem;
             font-weight: bold;
         }
-        .services .card {
-            border: none;
+
+        .hero p {
+            font-size: 1.5rem;
         }
+
         .footer {
             background-image: linear-gradient(to right, #006400, rgb(37, 148, 116));
             color: white;
             padding: 40px 0;
         }
+
         .header {
-            background-color: rgba(0, 0, 0, 0.3);
+            background-color: white;
             color: white;
             padding: 10px 0;
             position: fixed;
             width: 100%;
             z-index: 1000;
         }
+
         .header .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+
         footer .contact-info p a {
             color: white;
             text-decoration: none;
         }
+
         footer .social-links {
         margin-top: 10px;
         }
+
         footer .social-links a {
             color: white;
             text-decoration: none;
             margin: 0 10px;
         }
+
         footer .social-links a:hover {
             text-decoration: underline;
         }
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan */
-            border-color: #006400 !important;
-            border-width: 1px !important;
-        }
+        
         .card{
             border-radius: 10px;
             padding: 2px;
+            border-width: 0.5px !important;
         }
-        .btn-outline-light {
-            color: white; 
+        
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 100, 0, 0.2); 
+            border-color: #00640025 !important;
+            border-width: 0.5px !important;
+        }
+        
+        .btn-outline-light-daftar {
+            color: green; 
             border-width: 0.5px;
-            border-color: white;
+            border-color: green;
         }
-        .btn-outline-light:hover {
-            background-color: rgba(0, 0, 0, 0.3);
-            color: white; 
+        
+        .btn-outline-light-daftar:hover {
+            background-color: green;
+            color: white;
+        }
+
+        .btn-outline-light-masuk{
+            background-color: green;
+            color: white;
+        }
+
+        .btn-outline-light-masuk:hover{
+            background-color: green;
+            color: white;
         }
     </style>
 </head>
@@ -88,27 +117,26 @@
 <body>
     <header class="header">
         <div class="container">
-            <img src="/assets/img/logo_light.png" alt="Logo" style="height: 50px;">
+            <a href=""><img src="/assets/img/logo_green.png" alt="Logo" style="height: 50px;"></a>
             <div>
-                <a href="" class="btn btn-outline-light mr-2">Daftar</a>
-                <a href="" class="btn btn-outline-light mr-2">Masuk</a>
+                <a href="" class="btn btn-outline-light-daftar mr-2">Daftar</a>
+                <a href="" class="btn btn-outline-light-masuk mr-2">Masuk</a>
             </div>
         </div>
     </header>
 
-    <!-- Header Section -->
-    <header class="hero">
-        <div class="container" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)">
-            <img src="/assets/img/logobbpsip.png" alt="Logo" class="mb-4">
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero">
             <h1>SI TERAP</h1>
             <p>Portal Sistem Informasi Terpadu Balai Besar Penerapan Standar Instrumen Pertanian</p>
         </div>
-    </header>
+    </div>
 
     <!-- Services Section -->
     <section class="services py-5">
         <div class="container text-center">
-            <h2 class="mb-5"><b>Layanan</b></h2>
+            <h2 class="mb-5" style="color: green"><b>Layanan</b></h2>
             <div class="row d-flex justify-content-center">
                 <div class="col-md-2">
                     <a href="#" style="text-decoration: none">
