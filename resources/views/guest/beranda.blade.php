@@ -12,7 +12,7 @@
             font-family: Arial, sans-serif;
         }
         .hero {
-            background: linear-gradient(rgba(5, 117, 230, 0.5), rgba(0, 242, 96, 0.5)), 
+            background: linear-gradient(to right,rgba(5, 117, 230, 0.5), rgba(0, 242, 96, 0.5)), 
                         url('https://bbpsip.bsip.pertanian.go.id/storage/assets/uploads/images/organisasi/thumbnail/RfIjVGaHNl6p0pLLpb7S1oWYzu2J0cw9oS1l6wxw.jpg');
             background-size: cover;
             background-position: center;
@@ -34,6 +34,19 @@
             background-image: linear-gradient(to right, #006400, rgb(37, 148, 116));
             color: white;
             padding: 40px 0;
+        }
+        .header {
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         footer .contact-info p a {
             color: white;
@@ -60,15 +73,33 @@
             border-radius: 10px;
             padding: 2px;
         }
+        .btn-outline-light {
+            color: white; 
+            border-width: 0.5px;
+            border-color: white;
+        }
+        .btn-outline-light:hover {
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white; 
+        }
     </style>
 </head>
 
 <body>
+    <header class="header">
+        <div class="container">
+            <img src="/assets/img/logo_light.png" alt="Logo" style="height: 50px;">
+            <div>
+                <a href="" class="btn btn-outline-light mr-2">Daftar</a>
+                <a href="" class="btn btn-outline-light mr-2">Masuk</a>
+            </div>
+        </div>
+    </header>
 
     <!-- Header Section -->
     <header class="hero">
-        <div class="container">
-            {{-- <img src="" alt="Logo" class="mb-4"> --}}
+        <div class="container" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)">
+            <img src="/assets/img/logobbpsip.png" alt="Logo" class="mb-4">
             <h1>SI TERAP</h1>
             <p>Portal Sistem Informasi Terpadu Balai Besar Penerapan Standar Instrumen Pertanian</p>
         </div>
