@@ -15,23 +15,7 @@
             box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
-        .navbar {
-            display: flex;
-            max-width: 100%;
-            height: 75px;
-            padding: 0px 20px;
-            justify-content: space-between;
-            align-items: center;
-            background-color: white;
-            border-bottom: 1px solid #ddd;
-            position: fixed;
-            width: 100%;
-            z-index: 999;
-        }
 
-        .navbar-brand img {
-            width: 200px;
-        }
         .hero-section {
             background-image: url('/assets/img/bsip_depan.png');
             background-size: cover;
@@ -51,91 +35,95 @@
         }
 
         .hero p {
-            font-size: 1.75rem;
+            font-size: 1.5rem;
         }
 
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
-
-            .hero p {
-                font-size: 1.25rem;
-            }
-        }
-
-        .custom-button {
-            display: inline-block;
-            padding: 5px 20px;
-            border-radius: 10px;
-            border: 2px solid green;
-            text-align: center;
-            text-decoration: none;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .custom-button.daftar {
-            margin-right: 10px;
-            background-color: white;
-            color: green;
-        }
-
-        .custom-button.masuk {
-            background-color: green;
-            color: white;
-        }
-
-        .custom-button:hover {
-            background-color: green;
-            color: white;
-        }
-        .services .card {
-            border: none;
-        }
         .footer {
             background-image: linear-gradient(to right, #006400, rgb(37, 148, 116));
             color: white;
             padding: 40px 0;
         }
+
+        .header {
+            background-color: white;
+            color: white;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         footer .contact-info p a {
             color: white;
             text-decoration: none;
         }
+
         footer .social-links {
         margin-top: 10px;
         }
+
         footer .social-links a {
             color: white;
             text-decoration: none;
             margin: 0 10px;
         }
+
         footer .social-links a:hover {
             text-decoration: underline;
         }
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan */
-            border-color: #006400 !important;
-            border-width: 1px !important;
-        }
+        
         .card{
             border-radius: 10px;
             padding: 2px;
+            border-width: 0.5px !important;
+        }
+        
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 100, 0, 0.2); 
+            border-color: #00640025 !important;
+            border-width: 0.5px !important;
+        }
+        
+        .btn-outline-light-daftar {
+            color: green; 
+            border-width: 0.5px;
+            border-color: green;
+        }
+        
+        .btn-outline-light-daftar:hover {
+            background-color: green;
+            color: white;
+        }
+
+        .btn-outline-light-masuk{
+            background-color: green;
+            color: white;
+        }
+
+        .btn-outline-light-masuk:hover{
+            background-color: green;
+            color: white;
         }
     </style>
 </head>
 
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
-        <a class="navbar-brand" href="#">
-            <img src="/assets/img/logo_green.png" alt="Logo">
-        </a>
-        <ul class="navbar-nav ml-auto">
-            <li><button class="custom-button daftar">Daftar</button></li>
-            <li><button class="custom-button masuk">Masuk</button></li>
-        </ul>
-    </nav>
+    <header class="header">
+        <div class="container">
+            <a href=""><img src="/assets/img/logo_green.png" alt="Logo" style="height: 50px;"></a>
+            <div>
+                <a href="" class="btn btn-outline-light-daftar mr-2">Daftar</a>
+                <a href="" class="btn btn-outline-light-masuk mr-2">Masuk</a>
+            </div>
+        </div>
+    </header>
 
     <!-- Hero Section -->
     <div class="hero-section">
@@ -148,7 +136,7 @@
     <!-- Services Section -->
     <section class="services py-5">
         <div class="container text-center">
-            <h2 class="mb-5"><b>Layanan</b></h2>
+            <h2 class="mb-5" style="color: green"><b>Layanan</b></h2>
             <div class="row d-flex justify-content-center">
                 <div class="col-md-2">
                     <a href="#" style="text-decoration: none">
