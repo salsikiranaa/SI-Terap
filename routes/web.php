@@ -150,3 +150,7 @@ Route::middleware('authenticated')->group(function () {
         });
     });
 });
+
+Route::get('/beranda', function () {
+    return view('guest.beranda');
+});
