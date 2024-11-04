@@ -59,4 +59,14 @@ class mKabupatenController extends Controller
         $kabupaten->delete();
         return redirect()->route('manage.kabupaten.view')->with('success', 'deleted');
     }
+
+    public function apiGet() {
+        $kabupaten = mKabupaten::get();
+        return $kabupaten;
+    }
+
+    public function apiGetByProvinsi($provinsi_id) {
+        $kabupaten = mKabupaten::where('provinsi_id', Crypt::decryptString($provinsi_id))->get();
+        return $kabupaten;
+    }
 }
