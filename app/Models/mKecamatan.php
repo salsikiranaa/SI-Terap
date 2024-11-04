@@ -20,4 +20,8 @@ class mKecamatan extends Model
     public function penyuluh() : HasMany {
         return $this->hasMany(Penyuluh::class, 'kecamatan_id', 'id');
     }
+
+    public function riset() : HasMany {
+        return $this->hasMany(Riset::class, 'kecamatan_id', 'id');
+    }
 }

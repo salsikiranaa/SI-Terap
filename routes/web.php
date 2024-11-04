@@ -5,6 +5,7 @@ use App\Http\Controllers\Guest\GuestController;
 use App\Http\Controllers\Kinerja\DiseminasiController;
 use App\Http\Controllers\Kinerja\IdentifikasiController;
 use App\Http\Controllers\Kinerja\PendampinganController;
+use App\Http\Controllers\Lab\RisetController;
 use App\Http\Controllers\Manage\AccountsController;
 use App\Http\Controllers\Manage\mBSIPController;
 use App\Http\Controllers\Manage\mJenisStandardController;
@@ -147,6 +148,16 @@ Route::middleware('authenticated')->group(function () {
             Route::post('/', [PendampinganController::class, 'store'])->name('kinerja.pendampingan.store');
             Route::put('/{id}', [PendampinganController::class, 'update'])->name('kinerja.pendampingan.update');
             Route::delete('/{id}', [PendampinganController::class, 'destroy'])->name('kinerja.pendampingan.destroy');
+        });
+    });
+
+    Route::middleware('service:2')->prefix('/lab')->group(function () {
+        Route::prefix('/riset')->group(function () {
+            Route::get('/', [RisetController::class, 'get'])->name('lab.riset.view');
+            Route::get('/{id}', [RisetController::class, 'getById'])->name('lab.riset.detail');
+            Route::post('/', [RisetController::class, 'store'])->name('lab.riset.store');
+            Route::put('/{id}', [RisetController::class, 'update'])->name('lab.riset.update');
+            Route::delete('/{id}', [RisetController::class, 'destroy'])->name('lab.riset.destroy');
         });
     });
 
