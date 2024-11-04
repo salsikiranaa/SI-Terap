@@ -54,4 +54,9 @@ class mProvinsiController extends Controller
         // return back()->with('success', 'deleted');
         return redirect()->route('manage.provinsi.view')->with('success', 'deleted');
     }
+    
+    public function apiGet() {
+        $provinsi = mProvinsi::get();
+        return $provinsi;
+    }
 }
