@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Guest\GuestController;
 use App\Http\Controllers\Kinerja\DiseminasiController;
 use App\Http\Controllers\Kinerja\IdentifikasiController;
 use App\Http\Controllers\Kinerja\PendampinganController;
+use App\Http\Controllers\Lab\RisetController;
 use App\Http\Controllers\Manage\AccountsController;
 use App\Http\Controllers\Manage\mBSIPController;
 use App\Http\Controllers\Manage\mJenisStandardController;
@@ -16,6 +18,7 @@ use App\Http\Controllers\Manage\mProvinsiController;
 use App\Http\Controllers\Manage\mSasaranController;
 use App\Http\Controllers\Manage\mServiceController;
 use App\Http\Controllers\Manage\mSIPController;
+use App\Http\Controllers\Penyuluh\PenyuluhController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,9 +32,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [GuestController::class, 'home'])->name('home');
 
 
 Route::middleware('guest')->prefix('/auth')->group(function () {
@@ -126,7 +127,7 @@ Route::middleware('authenticated')->group(function () {
         });
     });
 
-    Route::middleware('service:Kinerja Kegiatan')->prefix('/kinerja-kegiatan')->group(function () {
+    Route::middleware('service:1')->prefix('/kinerja-kegiatan')->group(function () {
         Route::prefix('/identifikasi')->group(function () {
             Route::get('/', [IdentifikasiController::class, 'get'])->name('kinerja.identifikasi.view');
             Route::get('/{id}', [IdentifikasiController::class, 'getById'])->name('kinerja.identifikasi.detail');
@@ -147,6 +148,26 @@ Route::middleware('authenticated')->group(function () {
             Route::post('/', [PendampinganController::class, 'store'])->name('kinerja.pendampingan.store');
             Route::put('/{id}', [PendampinganController::class, 'update'])->name('kinerja.pendampingan.update');
             Route::delete('/{id}', [PendampinganController::class, 'destroy'])->name('kinerja.pendampingan.destroy');
+        });
+    });
+
+    Route::middleware('service:2')->prefix('/lab')->group(function () {
+        Route::prefix('/riset')->group(function () {
+            Route::get('/', [RisetController::class, 'get'])->name('lab.riset.view');
+            Route::get('/{id}', [RisetController::class, 'getById'])->name('lab.riset.detail');
+            Route::post('/', [RisetController::class, 'store'])->name('lab.riset.store');
+            Route::put('/{id}', [RisetController::class, 'update'])->name('lab.riset.update');
+            Route::delete('/{id}', [RisetController::class, 'destroy'])->name('lab.riset.destroy');
+        });
+    });
+
+    Route::middleware('service:5')->prefix('/direktori-penyuluh')->group(function () {
+        Route::prefix('/penyuluh')->group(function () {
+            Route::get('/', [PenyuluhController::class, 'get'])->name('direktori_penyuluh.penyuluh.view');
+            Route::get('/{id}', [PenyuluhController::class, 'getById'])->name('direktori_penyuluh.penyuluh.detail');
+            Route::post('/', [PenyuluhController::class, 'store'])->name('direktori_penyuluh.penyuluh.store');
+            Route::put('/{id}', [PenyuluhController::class, 'update'])->name('direktori_penyuluh.penyuluh.update');
+            Route::delete('/{id}', [PenyuluhController::class, 'destroy'])->name('direktori_penyuluh.penyuluh.destroy');
         });
     });
 });
