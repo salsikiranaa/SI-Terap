@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('m_provinsi', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->double('longitude');
+            $table->double('latitude');
             $table->timestamps();
         });
     }
