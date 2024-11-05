@@ -22,6 +22,8 @@ class mProvinsiSeeder extends Seeder
             $provinsi[] = [
                 'id' => $row[0],
                 'name' => $row[1],
+                'longitude' => $row[2],
+                'latitude' => $row[3],
             ];
         }
         fclose($csv_file);
