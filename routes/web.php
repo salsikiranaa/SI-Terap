@@ -8,6 +8,7 @@ use App\Http\Controllers\Kinerja\PendampinganController;
 use App\Http\Controllers\Lab\RisetController;
 use App\Http\Controllers\Manage\AccountsController;
 use App\Http\Controllers\Manage\mBSIPController;
+use App\Http\Controllers\Manage\mIP2SIPController;
 use App\Http\Controllers\Manage\mJenisStandardController;
 use App\Http\Controllers\Manage\mKabupatenController;
 use App\Http\Controllers\Manage\mKecamatanController;
@@ -88,6 +89,12 @@ Route::middleware('authenticated')->group(function () {
             Route::post('/', [mBSIPController::class, 'store'])->name('manage.bsip.store');
             Route::put('/{id}', [mBSIPController::class, 'update'])->name('manage.bsip.update');
             Route::delete('/{id}', [mBSIPController::class, 'destroy'])->name('manage.bsip.destroy');
+        });
+        Route::prefix('/ip2sip')->group(function () {
+            Route::get('/', [mIP2SIPController::class, 'get'])->name('manage.ip2sip.view');
+            Route::post('/', [mIP2SIPController::class, 'store'])->name('manage.ip2sip.store');
+            Route::put('/{id}', [mIP2SIPController::class, 'update'])->name('manage.ip2sip.update');
+            Route::delete('/{id}', [mIP2SIPController::class, 'destroy'])->name('manage.ip2sip.destroy');
         });
         Route::prefix('/jenis-standard')->group(function () {
             Route::get('/', [mJenisStandardController::class, 'get'])->name('manage.jenis_standard.view');

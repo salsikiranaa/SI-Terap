@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             mKelompokStandardSeeder::class,
             mLembagaSeeder::class,
             mBSIPSeeder::class,
+            mIP2SIPSeeder::class,
         ]);
     }
 }
