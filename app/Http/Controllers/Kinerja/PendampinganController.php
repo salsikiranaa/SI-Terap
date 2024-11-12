@@ -76,8 +76,8 @@ class PendampinganController extends Controller
             'updated_by' => Auth::user()->id,
         ];
         Pendampingan::create($data_pendampingan);
-        return back()->with('success', 'created');
-        // return redirect()->route('<pendampingan route>')->with('success', 'created');
+        // return back()->with('success', 'created');
+        return redirect()->route('kinerja.pendampingan.view')->with('success', 'created');
     }
 
     public function update($id, Request $request) {
@@ -134,15 +134,15 @@ class PendampinganController extends Controller
             'updated_by' => Auth::user()->id,
         ];
         $pendampingan->update($data_pendampingan);
-        return back()->with('success', 'updated');
-        // return redirect()->route('<pendampingan route>')->with('success', 'updated');
+        // return back()->with('success', 'updated');
+        return redirect()->route('kinerja.pendampingan.view')->with('success', 'updated');
     }
     
     public function destroy($id) {
         $pendampingan = Pendampingan::find(Crypt::decryptString($id));
         if (!$pendampingan) return back()->withErrors('data not found');
         $pendampingan->delete();
-        return back()->with('success', 'deleted');
-        // return redirect()->route('<pendampingan route>')->with('success', 'deleted');
+        // return back()->with('success', 'deleted');
+        return redirect()->route('kinerja.pendampingan.view')->with('success', 'deleted');
     }
 }

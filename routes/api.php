@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Manage\mKabupatenController;
+use App\Http\Controllers\Manage\mKecamatanController;
+use App\Http\Controllers\Manage\mProvinsiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/provinsi', [mProvinsiController::class, 'apiGet']);
+Route::get('/kabupaten-provinsi/{provinsi_id}', [mKabupatenController::class, 'apiGetByProvinsi']);
+Route::get('/kabupaten', [mKabupatenController::class, 'apiGet']);
+Route::get('/kecamatan-kabupaten/{kabupaten_id}', [mKecamatanController::class, 'apiGetByKabupaten']);
+Route::get('/kecamatan', [mKecamatanController::class, 'apiGet']);

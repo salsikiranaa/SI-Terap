@@ -18,7 +18,7 @@ class mServiceSeeder extends Seeder
             ['id' => 2, 'name' => 'Laboratorium Pengujian', 'is_locked' => true],
             ['id' => 3, 'name' => 'Perbenihan', 'is_locked' => true],
             ['id' => 4, 'name' => 'IP2SIP', 'is_locked' => true],
-            ['id' => 5, 'name' => 'Direktori Penyluh', 'is_locked' => true],
+            ['id' => 5, 'name' => 'Direktori SDM Penyluh', 'is_locked' => true],
         ];
 
         DB::table('m_service')->insert($service);

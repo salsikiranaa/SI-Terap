@@ -59,4 +59,14 @@ class mKecamatanController extends Controller
         $kecamatan->delete();
         return redirect()->route('manage.kecamatan.view')->with('success', 'deleted');
     }
+    
+    public function apiGet() {
+        $kecamatan = mKecamatan::get();
+        return $kecamatan;
+    }
+    
+    public function apiGetByKabupaten($kabupaten_id) {
+        $kecamatan = mKecamatan::where('kabupaten_id', Crypt::decryptString($kabupaten_id))->get();
+        return $kecamatan;
+    }
 }
