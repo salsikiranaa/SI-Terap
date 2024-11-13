@@ -194,7 +194,7 @@ Route::get('/identifikasi/form', function () {
 })->name('form_sip');
 
 //beranda di identifikasi
-Route::get('/beranda', [DashboardController::class, 'beranda'])->name('beranda');
+Route::get('/berandaIdentifikasi', [DashboardController::class, 'beranda'])->name('beranda');
 
 Route::get('/diseminasi/peserta', function () {
     return view('kinerja.diseminasi.peserta'); 
