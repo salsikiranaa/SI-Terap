@@ -1,4 +1,4 @@
-@extends('layouts.header_navbar_footer')
+@extends('layouts.layoutKinerja')
 
 @section('content')
     <style>
@@ -6,7 +6,7 @@
             padding: 20px;
             background-color: #f5f5f5;
         }
-        .container {
+        .maincontainer {
             max-width: 1200px;
             margin: 0 auto;
             background: #ffffff;
@@ -16,7 +16,7 @@
         }
         h1 {
             text-align: center;
-            color: #009144;
+            color: #006400;
         }
         .infographics {
             display: flex;
@@ -56,7 +56,7 @@
     </style>
 
     <section class="dashboard">
-        <div class="container">
+        <div class="maincontainer">
             <h1>Dashboard SIP per Sub Sektor</h1>
             <div class="infographics">
                 <div class="infographic">
