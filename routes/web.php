@@ -17,6 +17,8 @@ use App\Http\Controllers\Manage\mSasaranController;
 use App\Http\Controllers\Manage\mServiceController;
 use App\Http\Controllers\Manage\mSIPController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -154,3 +156,40 @@ Route::middleware('authenticated')->group(function () {
 Route::get('/beranda', function () {
     return view('guest.beranda');
 });
+
+Route::get('/identifikasi', function () {
+    return view('kinerja.identifikasi.beranda');
+})->name('identifikasi_beranda');
+
+Route::get('/identifikasi/form', function () {
+    return view('kinerja.identifikasi.form_sip');
+})->name('form_sip');
+
+//beranda di identifikasi
+Route::get('/beranda', [DashboardController::class, 'beranda'])->name('beranda');
+
+Route::get('/diseminasi/peserta', function () {
+    return view('kinerja.diseminasi.peserta'); 
+})->name('diseminasi.peserta');
+
+Route::get('/diseminasi/sip-sub-sektor', function () {
+    return view('kinerja.diseminasi.sip_sub_sektor');
+})->name('diseminasi.sip_sub_sektor');
+
+Route::get('/diseminasi/form', function () {
+    return view('kinerja.diseminasi.form_peserta'); // Adjust the view path if necessary
+})->name('diseminasi.form_peserta');
+
+Route::post('/diseminasi/store', function (Request $request) {
+    // For now, just return the input data as a JSON response
+    return response()->json($request->all());
+})->name('diseminasi.store');
+
+Route::get('/form-sektor', function () {
+    return view('kinerja.diseminasi.form_sektor');
+})->name('diseminasi.form_sektor');
+
+
+Route::get('/provinsi/{nama_provinsi}', function ($nama_provinsi) {
+    return view('kinerja.identifikasi.provinsi', ['nama_provinsi' => $nama_provinsi]);
+})->name('provinsi');
