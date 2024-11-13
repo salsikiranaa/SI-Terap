@@ -68,16 +68,18 @@ class DiseminasiController extends Controller
             'updated_by' => Auth::user()->id,
         ];
         $diseminasi = Diseminasi::create($data_diseminasi);
-        $p_sip = $request->sip_id->map(function ($item) use ($diseminasi) {
-            return ['diseminasi_id' => $diseminasi->id, 'sip_id' => $item];
-        });
-        $p_sasaran = $request->sasaran_id->map(function ($item) use ($diseminasi) {
-            return ['diseminasi_id' => $diseminasi->id, 'sasaran_id' => $item];
-        });
+        $p_sip = [];
+        foreach ($request->sip_id as $id) {
+            $p_sip[] = ['diseminasi_id' => $diseminasi->id, 'sip_id' => $id];
+        }
+        $p_sasaran = [];
+        foreach ($request->sasaran_id as $id) {
+            $p_sasaran[] = ['diseminasi_id' => $diseminasi->id, 'sasaran_id' => $id];
+        }
         $diseminasi->sip()->saveMany($p_sip);
         $diseminasi->sasaran()->saveMany($p_sasaran);
-        return back()->with('success', 'created');
-        // return redirect()->route('<diseminasi view>')->with('success', 'created');
+        // return back()->with('success', 'created');
+        return redirect()->route('kinerja.diseminasi.view')->with('success', 'created');
     }
 
     public function update($id, Request $request) {
@@ -124,25 +126,27 @@ class DiseminasiController extends Controller
             'updated_by' => Auth::user()->id,
         ];
         $diseminasi = Diseminasi::create($data_diseminasi);
-        $p_sip = $request->sip_id->map(function ($item) use ($diseminasi) {
-            return ['diseminasi_id' => $diseminasi->id, 'sip_id' => $item];
-        });
-        $p_sasaran = $request->sasaran_id->map(function ($item) use ($diseminasi) {
-            return ['diseminasi_id' => $diseminasi->id, 'sasaran_id' => $item];
-        });
+        $p_sip = [];
+        foreach ($request->sip_id as $id) {
+            $p_sip[] = ['diseminasi_id' => $diseminasi->id, 'sip_id' => $id];
+        }
+        $p_sasaran = [];
+        foreach ($request->sasaran_id as $id) {
+            $p_sasaran[] = ['diseminasi_id' => $diseminasi->id, 'sasaran_id' => $id];
+        }
         pDiseminasiSIP::where('diseminasi_id', $diseminasi->id)->delete();
         pDiseminasiSasaran::where('diseminasi_id', $diseminasi->id)->delete();
         $diseminasi->sip()->saveMany($p_sip);
         $diseminasi->sasaran()->saveMany($p_sasaran);
-        return back()->with('success', 'updated');
-        // return redirect()->route('<diseminasi view>')->with('success', 'updated');
+        // return back()->with('success', 'updated');
+        return redirect()->route('kinerja.diseminasi.view')->with('success', 'updated');
     }
 
     public function destroy($id) {
         $diseminasi = Diseminasi::find(Crypt::decryptString($id));
         if (!$diseminasi) return back()->withErrors('data not found');
         $diseminasi->delete();
-        return back()->with('success', 'deleted');
-        // return redirect()->route('<diseminasi view>')->with('success', 'deleted');
+        // return back()->with('success', 'deleted');
+        return redirect()->route('kinerja.diseminasi.view')->with('success', 'deleted');
     }
 }
