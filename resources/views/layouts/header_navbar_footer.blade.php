@@ -22,40 +22,39 @@
         .header-container {
             display: flex;
             align-items: center;
-            justify-content: space-between; 
+            justify-content: space-between;
             padding: 15px 30px;
-            background-color: #009144; 
-            color: #ffffff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); 
+            background-color: #009144;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             position: relative;
-            z-index: 1000; 
+            z-index: 1000;
         }
 
         .logo {
-            width: 150px; 
+            width: 180px;
             height: auto;
-            margin-right: 20px; 
+            margin-right: 20px;
         }
 
         .navbar {
             display: flex;
-            justify-content: center; 
-            gap: 30px; 
+            justify-content: center;
+            gap: 30px;
             margin-left: auto;
-            margin-right: auto; 
-            align-items: center; 
-            position: relative; /* Needed for dropdown positioning */
+            margin-right: auto;
+            align-items: center;
+            position: relative;
         }
 
         .navbar a {
             color: #ffffff;
             text-decoration: none;
-            font-weight: 400; 
-            position: relative; 
-            padding: 10px 15px; 
-            transition: color 0.3s ease, font-weight 0.3s ease; 
-            text-align: center; 
-            display: inline-block; 
+            font-weight: 400;
+            position: relative;
+            padding: 10px 15px;
+            transition: color 0.3s ease, font-weight 0.3s ease;
+            text-align: center;
+            display: inline-block;
         }
 
         .navbar a::after {
@@ -63,23 +62,23 @@
             position: absolute;
             width: 100%;
             height: 3px;
-            background-color: #ffffff; 
+            background-color: #ffffff;
             left: 0;
-            bottom: -5px; 
+            bottom: -5px;
             transform: scaleX(0);
-            transition: transform 0.3s ease; 
+            transition: transform 0.3s ease;
         }
 
         .navbar a:hover {
-            color: #ffffff; 
+            color: #ffffff;
         }
 
         .navbar a:hover::after {
-            transform: scaleX(1); 
+            transform: scaleX(1);
         }
 
         .navbar a.active {
-            font-weight: 700; 
+            font-weight: 700;
         }
 
         .dropdown {
@@ -110,12 +109,6 @@
         .dropdown-content a:hover {
             background-color: #007739;
         }
-        body {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
 
         .hero-section {
             background-image: url('/assets/img/bsip_depan.png');
@@ -141,118 +134,18 @@
 
         .footer {
             background-color: #006400;
-            color: white;
             padding-bottom: 40px;
             overflow: visible;
             position: relative;
-        }
-
-        @import url("https://fonts.googleapis.com/css?family=Lato:400,400i,700");
-
-        svg {
-            width:100%;
-        }
-
-        .arrow {
-            stroke-width: .3px;
-            stroke:green;
-        }
-
-        .wave {
-            animation: wave 3s linear;
-            animation-iteration-count:infinite;
-            fill: #006400;
-        }
-
-        .drop {
-            fill: transparent;
-            animation: drop 5s ease infinite normal;
-            stroke: #006400;
-            stroke-width:0.5;
-            opacity:.6; 
-            transform: translateY(80%);
-        }
-
-        .drop1 {
-            transform-origin: 20px 3px;
-        }
-
-        .drop2 {
-            animation-delay: 3s;
-            animation-duration:3s;
-            transform-origin: 25px 3px;
-        }
-
-        .drop3 {
-            animation-delay: -2s;
-            animation-duration:3.4s;
-            transform-origin: 16px 3px;
-        }
-
-        .gooeff {
-            filter: url(#goo);
-        }
-
-        #wave2 {
-            animation-duration:5s;
-            animation-direction: reverse;
-            opacity: .6
-        }
-
-        #wave3 {
-            animation-duration: 7s;
-            opacity:.3;
-        }
-
-        @keyframes drop {
-            0% {
-                transform: translateY(80%); 
-                opacity:.6; 
-            }
-            80% {
-                transform: translateY(80%); 
-                opacity:.6; 
-            }
-            90% { 
-                transform: translateY(10%) ; 
-                opacity:.6; 
-            }
-            100% { 
-                transform: translateY(0%) scale(1.5);  
-                stroke-width:0.2;
-                opacity:0; 
-            }
-        }
-
-        @keyframes wave {
-            to {transform: translateX(-100%);}
-            }
-            @keyframes ball {
-            to {transform: translateY(20%);}
-        }
-
-        .header {
-            background-color: white;
             color: white;
-            padding: 10px 0;
-            position: fixed;
-            width: 100%;
-            z-index: 20;
-        }
-
-        .header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
         footer .contact-info p a {
-            color: white;
             text-decoration: none;
         }
 
         footer .social-links {
-        margin-top: 10px;
+            margin-top: 10px;
         }
 
         footer .social-links a {
@@ -264,37 +157,37 @@
         footer .social-links a:hover {
             text-decoration: underline;
         }
-        
-        .card{
+
+        .card {
             border-radius: 10px;
             padding: 2px;
             border-width: 0.5px !important;
         }
-        
+
         .card:hover {
             transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 100, 0, 0.2); 
+            box-shadow: 0 4px 8px rgba(0, 100, 0, 0.2);
             border-color: #00640025 !important;
             border-width: 0.5px !important;
         }
-        
+
         .btn-outline-light-daftar {
-            color: #006400; 
+            color: #006400;
             border-width: 0.5px;
             border-color: #006400;
         }
-        
+
         .btn-outline-light-daftar:hover {
             background-color: #006400;
             color: white;
         }
 
-        .btn-outline-light-masuk{
+        .btn-outline-light-masuk {
             background-color: #006400;
             color: white;
         }
 
-        .btn-outline-light-masuk:hover{
+        .btn-outline-light-masuk:hover {
             background-color: #006400;
             color: white;
         }
@@ -303,9 +196,9 @@
 <body>
     <header>
         <div class="header-container">
-            <img src="/assets/img/logo_green.png" alt="Logo" class="logo"> 
+            <img src="/assets/img/logo_light.webp" alt="Logo" class="logo">
             <nav class="navbar">
-                <a class="nav-link {{ request()->is('beranda') ? 'active' : '' }}" href="{{ route('beranda') }}">Beranda</a>
+                <a class="nav-link {{ request()->routeIs('beranda_kinerja') ? 'active' : '' }}" href="{{ route('beranda_kinerja') }}">Beranda</a>
                 <a class="nav-link {{ request()->routeIs('identifikasi_beranda') ? 'active' : '' }}" href="{{ route('identifikasi_beranda') }}">Identifikasi</a>
                 <div class="dropdown">
                     <a class="nav-link {{ request()->routeIs('diseminasi.index') ? 'active' : '' }}" href="#">Diseminasi SIP</a>
@@ -325,73 +218,71 @@
 
     {{-- OMBAK --}}
     <svg viewBox="0 0 120 28">
-        <defs> 
+        <defs>
             <mask id="xxx">
                 <circle cx="7" cy="12" r="40" fill="#fff" />
             </mask>
-          
+
             <filter id="goo">
                 <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
-                <feColorMatrix in="blur" mode="matrix" values="
-                    1 0 0 0 0  
-                    0 1 0 0 0  
-                    0 0 1 0 0  
-                    0 0 0 13 -9" result="goo" />
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 13 -9" result="goo" />
                 <feBlend in="SourceGraphic" in2="goo" />
             </filter>
 
             <path id="wave" d="M 0,10 C 30,10 30,15 60,15 90,15 90,10 120,10 150,10 150,15 180,15 210,15 210,10 240,10 v 28 h -240 z" />
-        </defs> 
-       
-        <use id="wave3" class="wave" xlink:href="#wave" x="0" y="-2" ></use> 
-        <use id="wave2" class="wave" xlink:href="#wave" x="0" y="0" ></use>
-        
+        </defs>
+
+        <use id="wave3" class="wave" xlink:href="#wave" x="0" y="-2"></use>
+        <use id="wave2" class="wave" xlink:href="#wave" x="0" y="0"></use>
+
         <a href="#top" class="topball">
             <circle class="ball" cx="110" cy="8" r="4" stroke="none" stroke-width="0" fill="white" />
-                <g class="arrow">
-                <polyline class="" points="108,8 110,6 112,8" fill="none"  />
-                <polyline class="" points="110,6 110,10.5" fill="none"  />
-                </g>
+            <g class="arrow">
+                <polyline points="108,8 110,6 112,8" fill="none" />
+                <polyline points="110,6 110,10.5" fill="none" />
+            </g>
         </a>
 
         <g class="gooeff">
-        <circle class="drop drop1" cx="20" cy="2" r="1.8"  />
-        <circle class="drop drop2" cx="25" cy="2.5" r="1.5"  />
-        <circle class="drop drop3" cx="16" cy="2.8" r="1.2"  />
-        <use id="wave1" class="wave" xlink:href="#wave" x="0" y="1" />
+            <circle class="drop drop1" cx="20" cy="2" r="1.8" />
+            <circle class="drop drop2" cx="25" cy="2.5" r="1.5" />
+            <circle class="drop drop3" cx="16" cy="2.8" r="2.2" />
         </g>
     </svg>
 
-    <!-- Footer Section -->
     <footer class="footer">
         <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.5443994375355!2d106.78557271018322!3d-6.5790339933869735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c5311ad80031%3A0xae42de3ba17aceb7!2sBalai%20Besar%20Penerapan%20Standar%20Instrumen%20Pertanian%20(BBPSIP)!5e0!3m2!1sen!2sid!4v1722608683905!5m2!1sen!2sid" width="100%" height="250" style="border:0; border-radius: 5px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-                <div class="col-md-6">
-                    <div class="contact-info">
-                        <p><b>KONTAK</b></p>
-                        <p><a href="tel:+6202518531727"></a>(0251) 8531727 | WA : <a href="https://wa.me/085282828696">085282828696</a></p>
-                        <p>Email: <a href="mailto:bbpsip@apps.pertanian.go.id">bbpsip@apps.pertanian.go.id</a></p>
-                        <p>Jl. Tentara Pelajar No.10, RT.04/RW.07, Ciwaringin, Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16124</p>
-                        
-                        <p><a href="https://bbpsip.bsip.pertanian.go.id" target="_blank">https://bbpsip.bsip.pertanian.go.id</a></p>
-                        <div class="social-links">
-                            <a href="https://www.facebook.com/BSIPPenerapan/" target="_blank"><i class="fab fa-facebook"></i></a>
-                            <a href="https://www.youtube.com/@bsippenerapan" target="_blank"><i class="fab fa-youtube"></i></a>
-                            <a href="https://instagram.com/bsippenerapan" target="_blank"><i class="fab fa-instagram"></i></a>
-                            <a href="https://twitter.com/bsippenerapan" target="_blank"><i class="fab fa-x-twitter"></i></a>
-                            <a href="https://tiktok.com/@bsippenerapan" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p class="text-white"><strong>Hubungi Kami</strong></p>
+                            <p><a href="tel:+6285153001224" class="text-white">+62 851-5300-1224</a></p>
+                            <p><a href="mailto:info@si-terap.com" class="text-white">info@si-terap.com</a></p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="text-white"><strong>Ikuti Kami</strong></p>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-facebook"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-youtube"></i></a>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-md-4">
+                    <div id="map"></div>
                 </div>
             </div>
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        var map = L.map('map').setView([-6.1751, 106.8650], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+    </script>
 </body>
 </html>

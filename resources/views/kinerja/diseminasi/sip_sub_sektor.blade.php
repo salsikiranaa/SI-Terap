@@ -4,7 +4,7 @@
     <style>
         .dashboard {
             padding: 20px;
-            background-color: #f5f5f5;
+            background-color: transparent;
         }
         .container {
             max-width: 1200px;
@@ -39,6 +39,10 @@
         }
         .map-container {
             margin-top: 20px;
+            height: 400px; /* Ensure the map has a set height */
+        }
+        #map {
+            height: 100%; /* Ensure the map takes up the full height of the container */
         }
         .btn-form {
             display: block;
@@ -101,17 +105,29 @@
 
             <div class="map-container">
                 <h2>Peta Sebaran SIP</h2>
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.5443994375355!2d106.78557271018322!3d-6.5790339933869735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c5311ad80031%3A0xae42de3ba17aceb7!2sBalai%20Besar%20Penerapan%20Standar%20Instrumen%20Pertanian%20(BBPSIP)!5e0!3m2!1sen!2sid!4v1722608683905!5m2!1sen!2sid"
-                    width="100%" 
-                    height="400" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy">
-                </iframe>
+                <div id="map"></div>
             </div>
         </div>
     </section>
 
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- Leaflet.js CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([-6.5790339933869735, 106.78557271018322], 13); // Set center and zoom level
+
+        // Add tile layer (OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Add a marker to the map
+        L.marker([-6.5790339933869735, 106.78557271018322])
+            .addTo(map)
+            .bindPopup('<b>Balai Besar Penerapan Standar Instrumen Pertanian (BBPSIP)</b>')
+            .openPopup();
+    </script>
 @endsection

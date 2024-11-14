@@ -193,8 +193,9 @@ Route::get('/identifikasi/form', function () {
     return view('kinerja.identifikasi.form_sip');
 })->name('form_sip');
 
-//beranda di identifikasi
-Route::get('/berandaIdentifikasi', [DashboardController::class, 'beranda'])->name('beranda');
+Route::get('/berandakinerja', function () {
+    return view('kinerja.berandakinerja');
+})->name('beranda_kinerja');
 
 Route::get('/diseminasi/peserta', function () {
     return view('kinerja.diseminasi.peserta'); 
@@ -218,6 +219,9 @@ Route::get('/form-sektor', function () {
 })->name('diseminasi.form_sektor');
 
 
-Route::get('/provinsi/{nama_provinsi}', function ($nama_provinsi) {
-    return view('kinerja.identifikasi.provinsi', ['nama_provinsi' => $nama_provinsi]);
-})->name('provinsi');
+Route::get('identifikasi/provinsi', function () {
+    return view('kinerja.identifikasi.provinsi');
+})->name('identifikasi.provinsi');
+
+
+

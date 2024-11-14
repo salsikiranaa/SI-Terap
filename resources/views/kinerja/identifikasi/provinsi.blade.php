@@ -2,99 +2,201 @@
 
 @section('content')
     <style>
-        .map-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 30px 0;
-            width: 100%;
+        .content.stylish-content {
+            padding: 20px;
         }
-        #map-provinsi {
-            width: 100%;
-            max-width: 1200px;
-            height: 600px;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+        .page-title {
+            text-align: center;
+            font-size: 2em;
+            color: #00452C;
+            margin: 20px 0;
         }
-        .data-table {
-            width: 100%;
-            max-width: 800px;
+
+        .stylish-button {
+            display: block;
+            width: fit-content;
             margin: 20px auto;
-            border-collapse: collapse;
-            font-family: 'Poppins', sans-serif;
-            color: #333;
+            padding: 12px 25px;
+            color: white;
+            background-color: #00452C;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1.1em;
         }
-        .data-table th, .data-table td {
+
+        .stylish-button:hover {
+            background-color: #006633;
+        }
+
+        .stylish-content {
+            margin: 0 auto;
+            max-width: 1200px;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
             padding: 10px;
             border: 1px solid #ddd;
             text-align: center;
         }
-        .data-table th {
+
+        th {
             background-color: #00452C;
-            color: #fff;
+            color: white;
+        }
+
+        .filter-container {
+            margin-bottom: 20px;
+        }
+
+        .filter-container select, .filter-container input {
+            padding: 8px;
+            font-size: 1em;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .filter-container button {
+            padding: 8px 15px;
+            background-color: #00452C;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .filter-container button:hover {
+            background-color: #006633;
         }
     </style>
 
     <div class="content stylish-content">
-        <h1 class="page-title">Peta Sebaran - Provinsi Aceh</h1>
+        <h1 class="page-title">Peta Sebaran Identifikasi dan Inventarisasi SIP - Jawa Barat</h1>
 
-        <div class="map-container">
-            <div id="map-provinsi"></div> 
+        <!-- Leaflet Map -->
+        <div id="map"></div> <!-- Map Container -->
+
+        <!-- Filter Section -->
+        <div class="filter-container">
+            <label for="bpsip">BPSIP:</label>
+            <select id="bpsip">
+                <option value="">Pilih BPSIP</option>
+                <option value="bpsip1">BPSIP 1</option>
+                <option value="bpsip2">BPSIP 2</option>
+                <!-- Tambahkan pilihan lainnya sesuai kebutuhan -->
+            </select>
+
+            <label for="year">Tahun:</label>
+            <input type="number" id="year" placeholder="Tahun" />
+
+            <label for="sip-type">Usulan SIP/Revisi SIP:</label>
+            <select id="sip-type">
+                <option value="">Pilih Usulan SIP/Revisi SIP</option>
+                <option value="usulan">Usulan SIP</option>
+                <option value="revisi">Revisi SIP</option>
+            </select>
+
+            <button type="button" onclick="filterData()">Filter</button>
         </div>
 
-        <table class="data-table">
+        <!-- Kegiatan Table -->
+        <h2>Data Kegiatan yang Dilakukan</h2>
+        <table id="kegiatan-table">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>BSIP</th>
+                    <th>BPSIP</th>
                     <th>Tahun</th>
-                    <th>SIP</th>
-                    <th>Sasaran Penerap</th>
-                    <th>Jenis Usulan</th>
+                    <th>Usulan SIP/Revisi SIP</th>
+                    <th>Nama Kegiatan</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>BSIP-ACEH-001</td>
-                    <td>2023</td>
-                    <td>SIP-ACEH-1001</td>
-                    <td>Pertanian</td>
-                    <td>Usulan Baru</td>
-                </tr>
             </tbody>
         </table>
     </div>
 
-    <!-- Include Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Add Leaflet JS after the map -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <script>
-        var mapProvinsi = L.map('map-provinsi').setView([5.2649, 95.2930], 9);
+        var map = L.map('map').setView([-6.4, 106.8], 13); // Koordinat Depok, Jawa Barat
 
+        // Add OpenStreetMap tiles
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(mapProvinsi);
+        }).addTo(map);
 
-        var acehPolygon = L.polygon([
-            [5.2649, 95.2930],
-            [5.3781, 95.5557],
-            [5.4930, 95.6655],
-            [5.6926, 95.4510],
-            [5.5665, 95.2100],
-            [5.3622, 95.2192],
-            [5.2649, 95.2930]
-        ], {
-            color: 'blue',
-            fillColor: '#3388ff',
-            fillOpacity: 0.5
-        }).addTo(mapProvinsi);
+        var marker = L.marker([-6.4, 106.8]).addTo(map);
+        marker.bindPopup("<b>Depok</b><br>Ini adalah lokasi Depok.").openPopup();
 
-        acehPolygon.bindTooltip("Provinsi Aceh", {
-            permanent: true,
-            direction: 'center',
-            className: 'aceh-tooltip'
-        });
+        var polygon = L.polygon([
+            [-6.45, 106.8],
+            [-6.35, 106.8],
+            [-6.35, 106.9],
+            [-6.45, 106.9]
+        ]).addTo(map);
+        polygon.bindPopup("<b>Area Depok</b><br><a href='#'>Klik untuk info lebih lanjut</a>").openPopup();
+
+        const kegiatanData = [
+            { no: 1, bpsip: 'BPSIP 1', tahun: 2023, type: 'Usulan SIP', nama: 'Kegiatan A' },
+            { no: 2, bpsip: 'BPSIP 2', tahun: 2024, type: 'Revisi SIP', nama: 'Kegiatan B' },
+            { no: 3, bpsip: 'BPSIP 1', tahun: 2023, type: 'Usulan SIP', nama: 'Kegiatan C' },
+        ];
+
+        function filterData() {
+            const bpsip = document.getElementById('bpsip').value;
+            const year = document.getElementById('year').value;
+            const sipType = document.getElementById('sip-type').value;
+
+            const filteredData = kegiatanData.filter(item => {
+                return (
+                    (bpsip === '' || item.bpsip === bpsip) &&
+                    (year === '' || item.tahun === parseInt(year)) &&
+                    (sipType === '' || item.type === sipType)
+                );
+            });
+
+            displayData(filteredData);
+        }
+
+        function displayData(data) {
+            const tableBody = document.querySelector('#kegiatan-table tbody');
+            tableBody.innerHTML = ''; 
+
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.no}</td>
+                    <td>${item.bpsip}</td>
+                    <td>${item.tahun}</td>
+                    <td>${item.type}</td>
+                    <td>${item.nama}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        displayData(kegiatanData);
     </script>
 @endsection
