@@ -94,9 +94,7 @@
     <h1 class="page-title">Sebaran Lembaga Penerap SIP di Indonesia </h1>
 
     <div class="map-container">
-        <div class="map">
-            <?xml version="1.0"?>
-    
+        <div class="map">    
             <div id="tooltip"></div>
     
             <svg
