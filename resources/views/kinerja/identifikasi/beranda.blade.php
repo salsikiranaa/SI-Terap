@@ -1,4 +1,4 @@
-@extends('layouts.header_navbar_footer')
+@extends('layouts.layoutKinerja')
 
 @section('content')
     <style>
@@ -28,7 +28,7 @@
             margin: 20px auto;
             padding: 12px 25px;
             color: white;
-            background-color: #00452C;
+            background-color: #006633;
             text-decoration: none;
             border-radius: 5px;
             text-align: center;
@@ -36,7 +36,7 @@
         }
 
         .stylish-button:hover {
-            background-color: #006633;
+            background-color: #009144;
         }
 
         .map-container {
