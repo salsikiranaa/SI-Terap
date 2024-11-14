@@ -233,7 +233,7 @@
             <h2 class="mb-5" style="color: green"><b>Layanan</b></h2>
             <div class="row d-flex justify-content-center">
                 <div class="col-md-2">
-                    <a href="{{ url('kinerja') }}" style="text-decoration: none">
+                    <a href="{{route('beranda_kinerja')}}" style="text-decoration: none">
                         <div class="card border" style="border: 10px">
                             <img src="https://img.freepik.com/free-vector/statistical-data-research-company-performance-indicators-return-investment-percentage-ratio-indexes-fluctuation-significative-change_335657-1165.jpg?t=st=1730187597~exp=1730191197~hmac=424ad0cd8b99667514e8edd11b892ed3ad446e241525bdda6789f6c64167f256&w=740" alt="Kinerja Kegiatan" class="card-img-top">
                             <div class="card-body">

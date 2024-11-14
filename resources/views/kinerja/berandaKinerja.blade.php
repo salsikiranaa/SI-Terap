@@ -2,11 +2,15 @@
 
 @section('content')
 <nav class="navbar">
-    <span>Ini Beranda</span> <!-- Menampilkan teks "Ini Beranda" tanpa link -->
-
-    <li class="nav-item {{ request()->routeIs('identifikasi_beranda') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('identifikasi_beranda') }}">Identifikasi</a>
-    </li>
+    <p>
+    HAI GUYS <br>
+    INI BERANDA <br>
+    MAU DIISI APAAN YA? <br>
+    BINGUNG WEHH <br>   
+    POLOS AJA KAH? <br>
+    HELP DONG? <br>
+    YAHH GA DIRESPON :( <br>
+    </p>
 
     <a href="#">Diseminasi SIP</a>
     <a href="#">Link Lainnya</a>
