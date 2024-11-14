@@ -1,4 +1,4 @@
-@extends('layouts.header_navbar_footer')
+@extends('layouts.layoutKinerja')
 
 @section('content')
     <style>
@@ -6,7 +6,6 @@
             padding: 20px;
             background-color: transparent; 
         }
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -95,7 +94,7 @@
     </style>
 
     <section class="dashboard">
-        <div class="container">
+        <div class="maincontainer">
             <h1>Dashboard Diseminasi Peserta</h1>
             <div class="infographics">
                 <div class="infographic">

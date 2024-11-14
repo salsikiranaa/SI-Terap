@@ -225,3 +225,13 @@ Route::get('identifikasi/provinsi', function () {
 
 
 
+
+
+// PENDAMPINGAN
+Route::get('/pendampingan', function () {
+    return view('kinerja.pendampingan.main');
+})->name('pendampingan_main');
+
+Route::get('/pendampingan/form', function () {
+    return view('kinerja.pendampingan.formPendampingan');
+})->name('pendampingan_form');
