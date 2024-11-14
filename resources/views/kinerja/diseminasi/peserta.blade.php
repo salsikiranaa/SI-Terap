@@ -2,14 +2,19 @@
 
 @section('content')
     <style>
+        body {
+            padding-top: 80px; 
+        }
+
         .dashboard {
             padding: 20px;
-            background-color: transparent; 
+            background-color: transparent;
         }
-        .container {
+
+        .maincontainer {
             max-width: 1200px;
             margin: 0 auto;
-            background-color: transparent;
+            background: #ffffff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -52,13 +57,6 @@
             font-size: 40px;
             color: #009144;
             margin: 5px;
-        }
-
-        .icon-container p {
-            font-size: 36px; /* Increase the font size */
-            font-weight: bold; /* Make the text bold */
-            color: #333; /* Dark color for better readability */
-            margin-top: 10px;
         }
 
         .map-container {
