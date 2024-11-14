@@ -12,9 +12,28 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; 
+            padding: 15px 30px;
+            background-color: #009144; 
+            color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); 
+            position: relative;
+            z-index: 1000; 
+        }
+
         .logo {
-            width: auto; 
-            height: 50px;
+            width: 150px; 
+            height: auto;
             margin-right: 20px; 
         }
 
@@ -73,7 +92,6 @@
             background-color: #009144;
             min-width: 160px;
             z-index: 1;
-            border-radius: 5px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
@@ -92,13 +110,11 @@
         .dropdown-content a:hover {
             background-color: #007739;
         }
-
         body {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
-            background-color: white;
         }
 
         .hero-section {
@@ -216,13 +232,12 @@
         }
 
         .header {
-            background-color: #006400;
+            background-color: white;
             color: white;
-            padding: 5px 0;
+            padding: 10px 0;
             position: fixed;
             width: 100%;
-            top: 0;
-            z-index: 1000;
+            z-index: 20;
         }
 
         .header .container {
@@ -263,15 +278,15 @@
             border-width: 0.5px !important;
         }
         
-        .btn-outline-light-logout {
-            color: white; 
+        .btn-outline-light-daftar {
+            color: #006400; 
             border-width: 0.5px;
-            border-color: white;
+            border-color: #006400;
         }
         
-        .btn-outline-light-logout:hover {
-            background-color: white;
-            color: #006400;
+        .btn-outline-light-daftar:hover {
+            background-color: #006400;
+            color: white;
         }
 
         .btn-outline-light-masuk{
@@ -286,29 +301,9 @@
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <a href=""><img src="/assets/img/logo_light.png" alt="Logo" style="height: 50px;"></a>
-            <nav class="navbar">
-                <a class="nav-link {{ request()->is('beranda') ? 'active' : '' }}" href="{{ route('beranda') }}">Beranda</a>
-                <a class="nav-link {{ request()->routeIs('identifikasi_beranda') ? 'active' : '' }}" href="{{ route('identifikasi_beranda') }}">Identifikasi</a>
-                <div class="dropdown">
-                    <a class="nav-link {{ request()->routeIs('diseminasi.index') ? 'active' : '' }}" href="#">Diseminasi SIP</a>
-                    <div class="dropdown-content">
-                        <a class="{{ request()->routeIs('diseminasi.peserta') ? 'active' : '' }}" href="{{ route('diseminasi.peserta') }}">Diseminasi Peserta</a>
-                        <a class="{{ request()->routeIs('diseminasi.sip_sub_sektor') ? 'active' : '' }}" href="{{ route('diseminasi.sip_sub_sektor') }}">SIP per Sub Sektor</a>
-                    </div>
-                </div>
-                <a class="nav-link {{ request()->routeIs('pendampingan_main') ? 'active' : '' }}" href="{{ route('pendampingan_main') }}">Pendampingan</a>
-            </nav>
-            <div>
-                <a href="" class="btn btn-outline-light-logout mr-2">Logout</a>
-            </div>
-        </div>
-    </header>
-    {{-- <header>
+    <header>
         <div class="header-container">
-            <img src="/assets/img/logo_light.png" alt="Logo" class="logo"> 
+            <img src="/assets/img/logo_green.png" alt="Logo" class="logo"> 
             <nav class="navbar">
                 <a class="nav-link {{ request()->is('beranda') ? 'active' : '' }}" href="{{ route('beranda') }}">Beranda</a>
                 <a class="nav-link {{ request()->routeIs('identifikasi_beranda') ? 'active' : '' }}" href="{{ route('identifikasi_beranda') }}">Identifikasi</a>
@@ -321,9 +316,8 @@
                 </div>
                 <a class="nav-link" href="#">Pendampingan</a>
             </nav>
-            <a href="" class="btn btn-outline-light-logout mr-2">Logout</a>
         </div>
-    </header> --}}
+    </header>
 
     <div style="margin-top: 80px;">
         @yield('content')
