@@ -139,7 +139,8 @@
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <script>
-        var map = L.map('map').setView([-6.4, 106.8], 13); // Koordinat Depok, Jawa Barat
+        // Set map to focus on the coordinates of Jawa Barat
+        var map = L.map('map').setView([-6.914744, 107.60981], 8); // Koordinat Bandung, Jawa Barat
 
         // Add OpenStreetMap tiles
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -147,17 +148,21 @@
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
-        var marker = L.marker([-6.4, 106.8]).addTo(map);
-        marker.bindPopup("<b>Depok</b><br>Ini adalah lokasi Depok.").openPopup();
+        // Example markers in Jawa Barat
+        var cities = [
+            { name: "Bandung", coords: [-6.914744, 107.60981] },
+            { name: "Bogor", coords: [-6.589722, 106.789444] },
+            { name: "Bekasi", coords: [-6.241586, 106.992416] },
+            { name: "Depok", coords: [-6.4, 106.8] }
+        ];
 
-        var polygon = L.polygon([
-            [-6.45, 106.8],
-            [-6.35, 106.8],
-            [-6.35, 106.9],
-            [-6.45, 106.9]
-        ]).addTo(map);
-        polygon.bindPopup("<b>Area Depok</b><br><a href='#'>Klik untuk info lebih lanjut</a>").openPopup();
+        // Add markers for each city with popups
+        cities.forEach(city => {
+            var marker = L.marker(city.coords).addTo(map);
+            marker.bindPopup(`<b>${city.name}</b><br>Ini adalah lokasi ${city.name}.`).openPopup();
+        });
 
+        // Data kegiatan (dummy data)
         const kegiatanData = [
             { no: 1, bpsip: 'BPSIP 1', tahun: 2023, type: 'Usulan SIP', nama: 'Kegiatan A' },
             { no: 2, bpsip: 'BPSIP 2', tahun: 2024, type: 'Revisi SIP', nama: 'Kegiatan B' },
