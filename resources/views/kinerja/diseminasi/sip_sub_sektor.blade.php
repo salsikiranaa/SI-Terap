@@ -1,63 +1,67 @@
 @extends('layouts.layoutKinerja')
 
 @section('content')
-    <style>
-        .dashboard {
-            padding: 20px;
-            background-color: transparent;
-        }
-        .maincontainer {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #006400;
-        }
-        .infographics {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-        .infographic {
-            flex: 1 1 30%;
-            margin: 10px;
-            text-align: center;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .icon {
-            font-size: 48px;
-            color: #009144;
-        }
-        .map-container {
-            margin-top: 20px;
-            height: 400px; /* Ensure the map has a set height */
-        }
-        #map {
-            height: 100%; /* Ensure the map takes up the full height of the container */
-        }
-        .btn-form {
-            display: block;
-            width: 150px;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background-color: #009144;
-            color: #ffffff;
-            text-align: center;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            cursor: pointer;
-        }
-    </style>
+<style>
+    .dashboard {
+        padding: 20px;
+        background-color: transparent;
+    }
+    .maincontainer {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        text-align: center;
+        color: #006400;
+    }
+    .infographics {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+    .infographic {
+        flex: 1 1 30%;
+        margin: 10px;
+        text-align: center;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .icon {
+        font-size: 48px;
+        color: #009144;
+    }
+    .map-container {
+        margin-top: 20px;
+        max-width: 100%; 
+        height: 400px;
+        overflow: hidden; 
+    }
+    #map {
+        height: 100%;
+        width: 100%;
+    }
+    .btn-form {
+        display: block;
+        width: 150px;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: #009144;
+        color: #ffffff;
+        text-align: center;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
+
 
     <section class="dashboard">
         <div class="maincontainer">

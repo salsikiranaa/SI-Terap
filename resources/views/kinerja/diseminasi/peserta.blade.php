@@ -119,7 +119,6 @@
                         <option value="">BPSIP</option>
                         <option value="aceh">Aceh</option>
                         <option value="papua">Papua</option>
-                        <!-- Add other BPSIP options -->
                     </select>
                     <input type="text" name="tanggal" id="tanggal" placeholder="Tanggal Pelaksanaan" />
                     <select name="sip" id="sip">
@@ -130,7 +129,6 @@
                         <option value="nak">Nak</option>
                         <option value="agroinput">Agroinput</option>
                         <option value="paspa">Paspa</option>
-                        <!-- Add other SIP options -->
                     </select>
                     <button type="submit">Filter</button>
                 </form>
@@ -148,7 +146,6 @@
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <script>
-        // Initialize the map with a center and zoom level, focus on Indonesia
         var map = L.map('map').setView([-6.200000, 106.816666], 5); // Koordinat Indonesia
 
         // Add OpenStreetMap tiles

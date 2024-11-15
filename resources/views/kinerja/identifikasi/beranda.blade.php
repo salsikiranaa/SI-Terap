@@ -40,7 +40,7 @@
         }
 
         #map {
-            height: 400px;
+            height: 500px;
             width: 100%;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -58,34 +58,33 @@
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <script>
-        // Initialize the map with a center and zoom level, focus on Indonesia
-        var map = L.map('map').setView([-6.200000, 106.816666], 5); // Koordinat Indonesia
+        // Inisialisasi peta dengan koordinat pusat Indonesia
+        var map = L.map('map').setView([-2.5489, 118.0149], 5); // Koordinat Indonesia
 
-        // Add OpenStreetMap tiles
+        // Tambahkan tile layer dari OpenStreetMap
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
-        // Add marker to Java Barat (Depok as an example)
-        var marker = L.marker([-6.4, 106.8]).addTo(map);
-        marker.bindPopup("<b>Jawa Barat</b><br><a href='{{ route('identifikasi.provinsi') }}' target='_blank'>Klik untuk melihat Provinsi</a>").openPopup();
+        // Data koordinat untuk beberapa provinsi di Indonesia
+        var provinces = [
+            { name: "Aceh", coords: [4.695135, 96.749397] },
+            { name: "Sumatera Utara", coords: [3.585242, 98.675598] },
+            { name: "Sumatera Barat", coords: [-0.789275, 100.650558] },
+            { name: "Riau", coords: [0.507068, 101.447777] },
+            { name: "Jawa Barat", coords: [-6.917464, 107.619125] },
+            { name: "Jawa Tengah", coords: [-7.566298, 110.831787] },
+            { name: "Jawa Timur", coords: [-7.250445, 112.768845] },
+            { name: "Kalimantan Timur", coords: [-0.502106, 117.153709] },
+            { name: "Sulawesi Selatan", coords: [-5.147665, 119.432732] },
+            { name: "Papua", coords: [-4.269928, 138.080353] }
+        ];
 
-
-        // Add a polygon to mark a larger area (Jawa Barat Region Example)
-        var jawaBaratPolygon = L.polygon([
-            [-7.5, 108.5], // coordinates of Jawa Barat polygon
-            [-7.5, 106.5],
-            [-6.5, 106.5],
-            [-6.5, 108.5]
-        ]).addTo(map);
-
-        jawaBaratPolygon.bindPopup("<b>Jawa Barat</b><br><a href='{{ route('identifikasi.provinsi') }}' target='_blank'>Klik untuk melihat Provinsi</a>").openPopup();
-
-        // Optional: Set up a map click event
-        function onMapClick(e) {
-            alert("You clicked the map at " + e.latlng);
-        }
-        map.on('click', onMapClick);
+        // Loop untuk menambahkan marker dan popup untuk setiap provinsi
+        provinces.forEach(function(province) {
+            var marker = L.marker(province.coords).addTo(map);
+            marker.bindPopup("<b>" + province.name + "</b><br><a href='{{ route('identifikasi.provinsi') }}?provinsi=" + encodeURIComponent(province.name) + "' target='_blank'>Klik untuk melihat detail</a>");
+        });
     </script>
 @endsection
