@@ -218,7 +218,7 @@
         justify-content: center;
         width: 25px;
         height: 25px;
-        border: 2px solid #086404; 
+        border: 1.5px solid #086404; 
         color: #086404;
         border-radius: 5px;
         font-weight: bold;
