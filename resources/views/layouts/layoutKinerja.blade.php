@@ -288,7 +288,7 @@
 <body>
     <header class="header">
         <div class="container">
-            <a href=""><img src="/assets/img/logo_light.png" alt="Logo" style="height: 50px;"></a>
+            <a href="{{ route('mainBeranda') }}"><img src="/assets/img/logo_light.png" alt="Logo" style="height: 50px;"></a>
             <nav class="navbar">
                 <a class="nav-link {{ request()->is('beranda_kinerja') ? 'active' : '' }}" href="{{ route('beranda_kinerja') }}">Beranda</a>
                 <a class="nav-link {{ request()->routeIs('identifikasi_beranda') ? 'active' : '' }}" href="{{ route('identifikasi_beranda') }}">Identifikasi</a>

@@ -183,7 +183,7 @@ Route::middleware('authenticated')->group(function () {
 
 Route::get('/beranda', function () {
     return view('guest.beranda');
-});
+})->name('mainBeranda');
 
 Route::get('/identifikasi', function () {
     return view('kinerja.identifikasi.beranda');
@@ -226,7 +226,7 @@ Route::get('identifikasi/provinsi', function () {
 
 // PENDAMPINGAN
 Route::get('/pendampingan', function () {
-    return view('kinerja.pendampingan.main');
+    return view('kinerja.pendampingan.mainPendampingan');
 })->name('pendampingan_main');
 
 Route::get('/pendampingan/form', function () {
@@ -236,3 +236,8 @@ Route::get('/pendampingan/form', function () {
 Route::get('/pendampingan/tabel', function () {
     return view('kinerja.pendampingan.tabelPendampingan');
 })->name('pendampingan_tabel');
+
+// PENGELOLAAN
+Route::get('/pengelolaan', function () {
+    return view('pengelolaan.berandaPengelolaanUpbs');
+})->name('beranda_pengelolaan');
