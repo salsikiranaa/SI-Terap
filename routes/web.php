@@ -232,3 +232,7 @@ Route::get('/pendampingan', function () {
 Route::get('/pendampingan/form', function () {
     return view('kinerja.pendampingan.formPendampingan');
 })->name('pendampingan_form');
+
+Route::get('/pendampingan/tabel', function () {
+    return view('kinerja.pendampingan.tabelPendampingan');
+})->name('pendampingan_tabel');
