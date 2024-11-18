@@ -288,9 +288,9 @@
 <body>
     <header class="header">
         <div class="container">
-            <a href=""><img src="/assets/img/logo_light.png" alt="Logo" style="height: 50px;"></a>
+            <a href="{{ route('mainBeranda') }}"><img src="/assets/img/logo_light.png" alt="Logo" style="height: 50px;"></a>
             <nav class="navbar">
-                <a class="nav-link {{ request()->is('beranda') ? 'active' : '' }}" href="{{ route('beranda') }}">Beranda</a>
+                <a class="nav-link {{ request()->is('beranda_kinerja') ? 'active' : '' }}" href="{{ route('beranda_kinerja') }}">Beranda</a>
                 <a class="nav-link {{ request()->routeIs('identifikasi_beranda') ? 'active' : '' }}" href="{{ route('identifikasi_beranda') }}">Identifikasi</a>
                 <div class="dropdown">
                     <a class="nav-link {{ request()->routeIs('diseminasi.index') ? 'active' : '' }}" href="#">Diseminasi SIP</a>
@@ -306,24 +306,6 @@
             </div>
         </div>
     </header>
-    {{-- <header>
-        <div class="header-container">
-            <img src="/assets/img/logo_light.png" alt="Logo" class="logo"> 
-            <nav class="navbar">
-                <a class="nav-link {{ request()->is('beranda') ? 'active' : '' }}" href="{{ route('beranda') }}">Beranda</a>
-                <a class="nav-link {{ request()->routeIs('identifikasi_beranda') ? 'active' : '' }}" href="{{ route('identifikasi_beranda') }}">Identifikasi</a>
-                <div class="dropdown">
-                    <a class="nav-link {{ request()->routeIs('diseminasi.index') ? 'active' : '' }}" href="#">Diseminasi SIP</a>
-                    <div class="dropdown-content">
-                        <a class="{{ request()->routeIs('diseminasi.peserta') ? 'active' : '' }}" href="{{ route('diseminasi.peserta') }}">Diseminasi Peserta</a>
-                        <a class="{{ request()->routeIs('diseminasi.sip_sub_sektor') ? 'active' : '' }}" href="{{ route('diseminasi.sip_sub_sektor') }}">SIP per Sub Sektor</a>
-                    </div>
-                </div>
-                <a class="nav-link" href="#">Pendampingan</a>
-            </nav>
-            <a href="" class="btn btn-outline-light-logout mr-2">Logout</a>
-        </div>
-    </header> --}}
 
     <div style="margin-top: 80px;">
         @yield('content')

@@ -183,7 +183,7 @@ Route::middleware('authenticated')->group(function () {
 
 Route::get('/beranda', function () {
     return view('guest.beranda');
-});
+})->name('mainBeranda');
 
 Route::get('/identifikasi', function () {
     return view('kinerja.identifikasi.beranda');
@@ -193,8 +193,9 @@ Route::get('/identifikasi/form', function () {
     return view('kinerja.identifikasi.form_sip');
 })->name('form_sip');
 
-//beranda di identifikasi
-Route::get('/berandaIdentifikasi', [DashboardController::class, 'beranda'])->name('beranda');
+Route::get('/berandakinerja', function () {
+    return view('kinerja.berandakinerja');
+})->name('beranda_kinerja');
 
 Route::get('/diseminasi/peserta', function () {
     return view('kinerja.diseminasi.peserta'); 
@@ -218,16 +219,25 @@ Route::get('/form-sektor', function () {
 })->name('diseminasi.form_sektor');
 
 
-Route::get('/provinsi/{nama_provinsi}', function ($nama_provinsi) {
-    return view('kinerja.identifikasi.provinsi', ['nama_provinsi' => $nama_provinsi]);
-})->name('provinsi');
+Route::get('identifikasi/provinsi', function () {
+    return view('kinerja.identifikasi.provinsi');
+})->name('identifikasi.provinsi');
 
 
 // PENDAMPINGAN
 Route::get('/pendampingan', function () {
-    return view('kinerja.pendampingan.main');
+    return view('kinerja.pendampingan.mainPendampingan');
 })->name('pendampingan_main');
 
 Route::get('/pendampingan/form', function () {
     return view('kinerja.pendampingan.formPendampingan');
 })->name('pendampingan_form');
+
+Route::get('/pendampingan/tabel', function () {
+    return view('kinerja.pendampingan.tabelPendampingan');
+})->name('pendampingan_tabel');
+
+// PENGELOLAAN
+Route::get('/pengelolaan', function () {
+    return view('pengelolaan.berandaPengelolaanUpbs');
+})->name('beranda_pengelolaan');
