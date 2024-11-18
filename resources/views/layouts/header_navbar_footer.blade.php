@@ -3,12 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SI TERAP - BBPSIP</title>
+    <title>SI Terap - BBPSIP</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Custom CSS */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; 
+            padding: 15px 30px;
+            background-color: #009144; 
+            color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); 
+            position: relative;
+            z-index: 1000; 
+        }
+
+        .logo {
+            width: 150px; 
+            height: auto;
+            margin-right: 20px; 
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center; 
+            gap: 30px; 
+            margin-left: auto;
+            margin-right: auto; 
+            align-items: center; 
+            position: relative; /* Needed for dropdown positioning */
+        }
+
+        .navbar a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 400; 
+            position: relative; 
+            padding: 10px 15px; 
+            transition: color 0.3s ease, font-weight 0.3s ease; 
+            text-align: center; 
+            display: inline-block; 
+        }
+
+        .navbar a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background-color: #ffffff; 
+            left: 0;
+            bottom: -5px; 
+            transform: scaleX(0);
+            transition: transform 0.3s ease; 
+        }
+
+        .navbar a:hover {
+            color: #ffffff; 
+        }
+
+        .navbar a:hover::after {
+            transform: scaleX(1); 
+        }
+
+        .navbar a.active {
+            font-weight: 700; 
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #009144;
+            min-width: 160px;
+            z-index: 1;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #007739;
+        }
         body {
             margin: 0;
             padding: 0;
@@ -54,15 +155,7 @@
 
         .arrow {
             stroke-width: .3px;
-            stroke:yellow;
-        }
-
-        .topball {
-            animation: ball 1.5s ease-in-out;
-            animation-iteration-count:infinite;
-            animation-direction: alternate;
-            animation-delay: 0.3s;
-            cursor:pointer;
+            stroke:green;
         }
 
         .wave {
@@ -207,84 +300,28 @@
         }
     </style>
 </head>
-
 <body>
-    <header class="header">
-        <div class="container">
-            <a href=""><img src="/assets/img/logo_green.png" alt="Logo" style="height: 50px;"></a>
-            <div>
-                <a href="" class="btn btn-outline-light-daftar mr-2">Daftar</a>
-                <a href="" class="btn btn-outline-light-masuk mr-2">Masuk</a>
-            </div>
+    <header>
+        <div class="header-container">
+            <img src="/assets/img/logo_green.png" alt="Logo" class="logo"> 
+            <nav class="navbar">
+                <a class="nav-link {{ request()->is('beranda') ? 'active' : '' }}" href="{{ route('beranda') }}">Beranda</a>
+                <a class="nav-link {{ request()->routeIs('identifikasi_beranda') ? 'active' : '' }}" href="{{ route('identifikasi_beranda') }}">Identifikasi</a>
+                <div class="dropdown">
+                    <a class="nav-link {{ request()->routeIs('diseminasi.index') ? 'active' : '' }}" href="#">Diseminasi SIP</a>
+                    <div class="dropdown-content">
+                        <a class="{{ request()->routeIs('diseminasi.peserta') ? 'active' : '' }}" href="{{ route('diseminasi.peserta') }}">Diseminasi Peserta</a>
+                        <a class="{{ request()->routeIs('diseminasi.sip_sub_sektor') ? 'active' : '' }}" href="{{ route('diseminasi.sip_sub_sektor') }}">SIP per Sub Sektor</a>
+                    </div>
+                </div>
+                <a class="nav-link" href="#">Pendampingan</a>
+            </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <div class="hero-section">
-        <div class="hero">
-            <h1>SI TERAP</h1>
-            <p>Portal Sistem Informasi Terpadu Balai Besar Penerapan Standar Instrumen Pertanian</p>
-        </div>
+    <div style="margin-top: 80px;">
+        @yield('content')
     </div>
-
-    <!-- Section Layanan -->
-    <section class="services py-5">
-        <div class="container text-center">
-            <h2 class="mb-5" style="color: green"><b>Layanan</b></h2>
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-2">
-                    <a href="#" style="text-decoration: none">
-                        <div class="card border" style="border: 10px">
-                            <img src="https://img.freepik.com/free-vector/statistical-data-research-company-performance-indicators-return-investment-percentage-ratio-indexes-fluctuation-significative-change_335657-1165.jpg?t=st=1730187597~exp=1730191197~hmac=424ad0cd8b99667514e8edd11b892ed3ad446e241525bdda6789f6c64167f256&w=740" alt="Kinerja Kegiatan" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">Kinerja Kegiatan</h5>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-2">
-                    <a href="#" style="text-decoration: none">
-                        <div class="card border">
-                            <img src="https://img.freepik.com/free-vector/business-audit-financial-specialist-cartoon-character-with-magnifier-examination-statistical-graphic-information-statistics-diagram-chart_335657-834.jpg?t=st=1730188656~exp=1730192256~hmac=4e5713040e496c8a7f0130c0651f08f1fbb0e456055e79d4e4d5cbbb4adfd42f&w=740" alt="Lab Pengujian" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">Lab Pengujian <br></h5>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-2">
-                    <a href="#" style="text-decoration: none">
-                        <div class="card border">
-                            <img src="https://img.freepik.com/free-vector/bug-fixing-software-testing-computer-virus-searching-tool-devops-web-optimization-antivirus-app-magnifier-cogwheel-monitor-design-element_335657-211.jpg?t=st=1730187126~exp=1730190726~hmac=66b3253705fcec65c36d963573a90c2fae0a167433173ae3ad9caee35e6ce6cc&w=740" alt="Perbenihan" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">Perbenihan</h5>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-2">
-                    <a href="#" style="text-decoration: none">
-                        <div class="card border">
-                            <img src="https://img.freepik.com/free-vector/customer-self-service-abstract-concept-illustration-e-support-system-electronic-proactive-customer-online-assistance-faqs-knowledge-base-representative-free-shop_335657-46.jpg?t=st=1730188492~exp=1730192092~hmac=55fb09f5873e946b328714bdf21ecfbbc27f923aa61231d0886288681d96a534&w=740" alt="IP2SIP" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">IP2SIP</h5>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-2">
-                    <a href="#" style="text-decoration: none">
-                        <div class="card border">
-                            <img src="https://img.freepik.com/free-vector/dashboard-analytics-computer-performance-evaluation-chart-screen-statistics-analysis-infographic-assessment-business-report-display-isolated-concept-metaphor-illustration_335657-1149.jpg?t=st=1730188574~exp=1730192174~hmac=062d414ad7f4ba7ea2bff35402cca9842a482fe9ff3607cbf442e81a40e3b083&w=740" alt="Direktori SDM Penyuluh" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">Direktori SDM Penyuluh</h5>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
 
     {{-- OMBAK --}}
     <svg viewBox="0 0 120 28">
@@ -310,7 +347,7 @@
         <use id="wave2" class="wave" xlink:href="#wave" x="0" y="0" ></use>
         
         <a href="#top" class="topball">
-            <circle class="ball" cx="110" cy="8" r="4" stroke="none" stroke-width="0" fill="red" />
+            <circle class="ball" cx="110" cy="8" r="4" stroke="none" stroke-width="0" fill="white" />
                 <g class="arrow">
                 <polyline class="" points="108,8 110,6 112,8" fill="none"  />
                 <polyline class="" points="110,6 110,10.5" fill="none"  />
@@ -354,5 +391,7 @@
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

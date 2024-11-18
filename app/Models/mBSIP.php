@@ -28,4 +28,8 @@ class mBSIP extends Model
     public function pendampingan() : HasMany {
         return $this->hasMany(Pendampingan::class, 'bsip_id', 'id');
     }
+
+    public function ip2sip() : HasMany {
+        return $this->hasMany(mIP2SIP::class, 'bsip_id', 'id');
+    }
 }

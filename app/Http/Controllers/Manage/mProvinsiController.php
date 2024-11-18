@@ -17,15 +17,25 @@ class mProvinsiController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'name' => 'required|string|max:255|unique:m_provinsi'
+            'name' => 'required|string|max:255|unique:m_provinsi',
+            'longitude' => 'required|numeric',
+            'latitude' => 'required|numeric',
         ], [
             'name.required' => 'Provinsi name cannot be null',
             'name.string' => 'Provinsi name must be a string',
             'name.max' => 'Provinsi name must not be more than 255 characters',
-            'name.unique' => 'Provinsi name already exists'
+            'name.unique' => 'Provinsi name already exists',
+            'longitude.required' => 'Longitude cannot be null',
+            'longitude.numeric' => 'Longitude must be a number',
+            'latitude.required' => 'Latitude cannot be null',
+            'latitude.numeric' => 'Latitude must be a number',
         ]);
 
-        mProvinsi::create(['name' => $request->name]);
+        mProvinsi::create([
+            'name' => $request->name,
+            'longitude' => $request->longitude,
+            'latitude' => $request->latitude,
+        ]);
 
         // return back()->with('success', 'created');
         return redirect()->route('manage.provinsi.view')->with('success', 'created');
@@ -35,14 +45,24 @@ class mProvinsiController extends Controller
         $provinsi = mProvinsi::find(Crypt::decryptString($id));
         if (!$provinsi) return back()->withErrors('data not found');
         $request->validate([
-            'name' => 'required|string|max:255|unique:m_provinsi'
+            'name' => 'required|string|max:255|unique:m_provinsi',
+            'longitude' => 'required|numeric',
+            'latitude' => 'required|numeric',
         ], [
             'name.required' => 'Provinsi name cannot be null',
             'name.string' => 'Provinsi name must be a string',
             'name.max' => 'Provinsi name must not be more than 255 characters',
-            'name.unique' => 'Provinsi name already exists'
+            'name.unique' => 'Provinsi name already exists',
+            'longitude.required' => 'Longitude cannot be null',
+            'longitude.numeric' => 'Longitude must be a number',
+            'latitude.required' => 'Latitude cannot be null',
+            'latitude.numeric' => 'Latitude must be a number',
         ]);
-        $provinsi->update(['name' => $request->name]);
+        $provinsi->update([
+            'name' => $request->name,
+            'longitude' => $request->longitude,
+            'latitude' => $request->latitude,
+        ]);
         // return back()->with('success', 'updated');
         return redirect()->route('manage.provinsi.view')->with('success', 'updated');
     }
@@ -53,5 +73,10 @@ class mProvinsiController extends Controller
         $provinsi->delete();
         // return back()->with('success', 'deleted');
         return redirect()->route('manage.provinsi.view')->with('success', 'deleted');
+    }
+    
+    public function apiGet() {
+        $provinsi = mProvinsi::get();
+        return $provinsi;
     }
 }

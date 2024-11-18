@@ -57,16 +57,18 @@ class IdentifikasiController extends Controller
         ];
         $identifikasi = Identifikasi::create($data_identifikasi);
 
-        $p_sip = $request->sip_id->map(function ($item) use ($identifikasi) {
-            return ['identifikasi_id' => $identifikasi->id, 'sip_id' => $item];
-        });
-        $p_sasaran = $request->sasaran_id->map(function ($item) use ($identifikasi) {
-            return ['identifikasi_id' => $identifikasi->id, 'sasaran_id' => $item];
-        });
+        $p_sip = [];
+        foreach ($request->sip_id as $id) {
+            $p_sip[] = ['identifikasi_id' => $identifikasi->id, 'sip_id' => $id];
+        }
+        $p_sasaran = [];
+        foreach ($request->sasaran_id as $id) {
+            $p_sasaran[] = ['identifikasi_id' => $identifikasi->id, 'sasaran_id' => $id];
+        }
         DB::table('p_identifikasi_sip')->insert($p_sip);
         DB::table('p_identifikasi_sasaran')->insert($p_sasaran);
-        return back()->with('success', 'created');
-        // return redirect()->route('<identifikasi view>')->with('success', 'created');
+        // return back()->with('success', 'created');
+        return redirect()->route('kinerja.identifikasi.view')->with('success', 'created');
     }
 
     public function update($id, Request $request) {
@@ -101,24 +103,27 @@ class IdentifikasiController extends Controller
         ];
         $identifikasi->update($data_identifikasi);
 
-        $p_sip = $request->sip_id->map(function ($item) use ($identifikasi) {
-            return ['identifikasi_id' => $identifikasi->id, 'sip_id' => $item];
-        });
-        $p_sasaran = $request->sasaran_id->map(function ($item) use ($identifikasi) {
-            return ['identifikasi_id' => $identifikasi->id, 'sasaran_id' => $item];
-        });
+        $p_sip = [];
+        foreach ($request->sip_id as $id) {
+            $p_sip[] = ['identifikasi_id' => $identifikasi->id, 'sip_id' => $id];
+        }
+        $p_sasaran = [];
+        foreach ($request->sasaran_id as $id) {
+            $p_sasaran[] = ['identifikasi_id' => $identifikasi->id, 'sasaran_id' => $id];
+        }
         pIdentifikasiSIP::where('identifikasi_id', $identifikasi->id)->delete();
         pIdentifikasiSasaran::where('identifikasi_id', $identifikasi->id)->delete();
         DB::table('p_identifikasi_sip')->insert($p_sip);
         DB::table('p_identifikasi_sasaran')->insert($p_sasaran);
-        return back()->with('success', 'updated');
-        // return redirect()->route('<identifikasi view>')->with('success', 'updated');
+        // return back()->with('success', 'updated');
+        return redirect()->route('kinerja.identifikasi.view')->with('success', 'updated');
     }
 
     public function destroy($id) {
         $identifikasi = Identifikasi::find(Crypt::decryptString($id));
         if (!$identifikasi) return back()->withErrors('data not found');
         $identifikasi->delete();
-        return back()->with('success', 'delete data successful');
+        // return back()->with('success', 'delete data successful');
+        return redirect()->route('kinerja.identifikasi.view')->with('success', 'deleted');
     }
 }
