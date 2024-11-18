@@ -1,4 +1,4 @@
-@extends('layouts.header_navbar_footer')
+@extends('layouts.layoutKinerja')
 
 @section('content')
     <style>

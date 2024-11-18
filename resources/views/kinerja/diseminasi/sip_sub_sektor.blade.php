@@ -1,62 +1,70 @@
-@extends('layouts.header_navbar_footer')
+@extends('layouts.layoutKinerja')
 
 @section('content')
-    <style>
-        .dashboard {
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #009144;
-        }
-        .infographics {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-        .infographic {
-            flex: 1 1 30%;
-            margin: 10px;
-            text-align: center;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .icon {
-            font-size: 48px;
-            color: #009144;
-        }
-        .map-container {
-            margin-top: 20px;
-        }
-        .btn-form {
-            display: block;
-            width: 150px;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background-color: #009144;
-            color: #ffffff;
-            text-align: center;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            cursor: pointer;
-        }
-    </style>
+<style>
+    .dashboard {
+        padding: 20px;
+        background-color: transparent;
+    }
+    .maincontainer {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        text-align: center;
+        color: #006400;
+    }
+    .infographics {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+    .infographic {
+        flex: 1 1 30%;
+        margin: 10px;
+        text-align: center;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .icon {
+        font-size: 48px;
+        color: #009144;
+    }
+    .map-container {
+        margin-top: 20px;
+        max-width: 100%; 
+        height: 400px;
+        overflow: hidden; 
+    }
+    #map {
+        height: 100%;
+        width: 100%;
+    }
+    .btn-form {
+        display: block;
+        width: 150px;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: #009144;
+        color: #ffffff;
+        text-align: center;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
+
 
     <section class="dashboard">
-        <div class="container">
+        <div class="maincontainer">
             <h1>Dashboard SIP per Sub Sektor</h1>
             <div class="infographics">
                 <div class="infographic">
@@ -101,17 +109,29 @@
 
             <div class="map-container">
                 <h2>Peta Sebaran SIP</h2>
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.5443994375355!2d106.78557271018322!3d-6.5790339933869735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c5311ad80031%3A0xae42de3ba17aceb7!2sBalai%20Besar%20Penerapan%20Standar%20Instrumen%20Pertanian%20(BBPSIP)!5e0!3m2!1sen!2sid!4v1722608683905!5m2!1sen!2sid"
-                    width="100%" 
-                    height="400" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy">
-                </iframe>
+                <div id="map"></div>
             </div>
         </div>
     </section>
 
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- Leaflet.js CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([-6.5790339933869735, 106.78557271018322], 13); // Set center and zoom level
+
+        // Add tile layer (OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Add a marker to the map
+        L.marker([-6.5790339933869735, 106.78557271018322])
+            .addTo(map)
+            .bindPopup('<b>Balai Besar Penerapan Standar Instrumen Pertanian (BBPSIP)</b>')
+            .openPopup();
+    </script>
 @endsection
