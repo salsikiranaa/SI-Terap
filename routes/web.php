@@ -21,6 +21,8 @@ use App\Http\Controllers\Manage\mServiceController;
 use App\Http\Controllers\Manage\mSIPController;
 use App\Http\Controllers\Penyuluh\PenyuluhController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -181,4 +183,61 @@ Route::middleware('authenticated')->group(function () {
 
 Route::get('/beranda', function () {
     return view('guest.beranda');
-});
+})->name('mainBeranda');
+
+Route::get('/identifikasi', function () {
+    return view('kinerja.identifikasi.beranda');
+})->name('identifikasi_beranda');
+
+Route::get('/identifikasi/form', function () {
+    return view('kinerja.identifikasi.form_sip');
+})->name('form_sip');
+
+Route::get('/berandakinerja', function () {
+    return view('kinerja.berandakinerja');
+})->name('beranda_kinerja');
+
+Route::get('/diseminasi/peserta', function () {
+    return view('kinerja.diseminasi.peserta'); 
+})->name('diseminasi.peserta');
+
+Route::get('/diseminasi/sip-sub-sektor', function () {
+    return view('kinerja.diseminasi.sip_sub_sektor');
+})->name('diseminasi.sip_sub_sektor');
+
+Route::get('/diseminasi/form', function () {
+    return view('kinerja.diseminasi.form_peserta'); // Adjust the view path if necessary
+})->name('diseminasi.form_peserta');
+
+Route::post('/diseminasi/store', function (Request $request) {
+    // For now, just return the input data as a JSON response
+    return response()->json($request->all());
+})->name('diseminasi.store');
+
+Route::get('/form-sektor', function () {
+    return view('kinerja.diseminasi.form_sektor');
+})->name('diseminasi.form_sektor');
+
+
+Route::get('identifikasi/provinsi', function () {
+    return view('kinerja.identifikasi.provinsi');
+})->name('identifikasi.provinsi');
+
+
+// PENDAMPINGAN
+Route::get('/pendampingan', function () {
+    return view('kinerja.pendampingan.mainPendampingan');
+})->name('pendampingan_main');
+
+Route::get('/pendampingan/form', function () {
+    return view('kinerja.pendampingan.formPendampingan');
+})->name('pendampingan_form');
+
+Route::get('/pendampingan/tabel', function () {
+    return view('kinerja.pendampingan.tabelPendampingan');
+})->name('pendampingan_tabel');
+
+// PENGELOLAAN
+Route::get('/pengelolaan', function () {
+    return view('pengelolaan.berandaPengelolaanUpbs');
+})->name('beranda_pengelolaan');
