@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('m_provinsi', function (Blueprint $table) {
-            $table->decimal('latitude', 10, 8)->nullable()->after('name');  // Sesuaikan dengan kolom 'name'
-            $table->decimal('longitude', 11, 8)->nullable()->after('latitude');
-            $table->integer('jumlah_dokumen')->default(0)->after('longitude');
-        });
+        // Schema::table('m_provinsi', function (Blueprint $table) {
+        //     $table->decimal('latitude', 10, 8)->nullable()->after('name');  // Sesuaikan dengan kolom 'name'
+        //     $table->decimal('longitude', 11, 8)->nullable()->after('latitude');
+        //     $table->integer('jumlah_dokumen')->default(0)->after('longitude');
+        // });
     }
 
     /**
@@ -23,8 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('m_provinsi', function (Blueprint $table) {
-            $table->dropColumn(['latitude', 'longitude', 'jumlah_dokumen']);
-        });
+        // Schema::table('m_provinsi', function (Blueprint $table) {
+        //     $table->dropColumn(['latitude', 'longitude', 'jumlah_dokumen']);
+        // });
     }
 };
