@@ -267,3 +267,8 @@ Route::get('/pendampingan/tabel', function () {
 Route::get('/pengelolaan', function () {
     return view('pengelolaan.berandaPengelolaanUpbs');
 })->name('beranda_pengelolaan');
+
+//Lab
+Route::get('/beranda-Lab', function () {
+    return view('laboratorium.berandaLab'); 
+})->name('beranda-Lab');
