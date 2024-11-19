@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->double('longitude');
             $table->double('latitude');
+            $table->integer('jumlah_dokumen')->default(0);
             $table->timestamps();
         });
     }

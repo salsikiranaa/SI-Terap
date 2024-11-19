@@ -22,7 +22,7 @@ use App\Http\Controllers\Manage\mSIPController;
 use App\Http\Controllers\Penyuluh\PenyuluhController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
-
+use GuzzleHttp\Psr7\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -185,6 +185,36 @@ Route::get('/beranda', function () {
     return view('guest.beranda');
 })->name('mainBeranda');
 
+//lp2tp
+Route::get('/dashboard-lp2tp', function () {
+    return view('lp2tp.dashboard-lp2tp'); 
+})->name('dashboard-lp2tp');
+
+Route::get('/aset/tanah', function () {
+    return view('lp2tp.aset.tanah'); 
+})->name('aset.tanah');
+
+Route::get('/aset/gedung', function () {
+    return view('lp2tp.aset.gedung'); 
+})->name('aset.gedung');
+
+Route::get('/aset/lab', function () {
+    return view('lp2tp.aset.lab'); 
+})->name('aset.lab');
+
+Route::get('/aset/rumah_negara', function () {
+    return view('lp2tp.aset.rumah_negara'); 
+})->name('aset.rumah_negara');
+
+Route::get('/aset/alat_mesin', function () {
+    return view('lp2tp.aset.alat_mesin'); 
+})->name('aset.alat_mesin');
+
+Route::get('/pemanfaatan_kp', function () {
+    return view('lp2tp.pemanfaatan_kp'); 
+})->name('lp2tp.pemanfaatan_kp');
+
+
 Route::get('/identifikasi', function () {
     return view('kinerja.identifikasi.beranda');
 })->name('identifikasi_beranda');
@@ -209,10 +239,6 @@ Route::get('/diseminasi/form', function () {
     return view('kinerja.diseminasi.form_peserta'); // Adjust the view path if necessary
 })->name('diseminasi.form_peserta');
 
-Route::post('/diseminasi/store', function (Request $request) {
-    // For now, just return the input data as a JSON response
-    return response()->json($request->all());
-})->name('diseminasi.store');
 
 Route::get('/form-sektor', function () {
     return view('kinerja.diseminasi.form_sektor');
