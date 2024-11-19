@@ -9,7 +9,7 @@
     <style>
     
     #carousel .carousel-item img {
-        height: 100px; /* Adjust height as needed */
+        height: 100px;
         width: 100%;
         object-fit: cover;
         height: 500px;
@@ -17,12 +17,13 @@
         margin-bottom: 50px;  
          
     }
+
     .navbar {
   margin-bottom: 0; /* Hilangkan jarak bawah navbar */
 }
 
-.carousel {
-  margin-top: 0; /* Hilangkan jarak atas carousel */
+#carousel {
+  margin-top: 0 !important;
 }
 
 
@@ -34,9 +35,13 @@
         max-width: 1200px;
         margin: 0 auto;
     }
+
+  
     #map {
             height: 500px;
             width: 100%;
+            padding: 50px;
+            margin: 10px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
@@ -45,49 +50,40 @@
 /* Add more CSS rules to style the rest of the elements */
     </style>
 
-<div id="carousel" class="carousel-slide">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+<div id="carousel-siterap" class="carousel slide" data-bs-ride="true">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="/assets/img/kebun1.png"  class="d-block w-100" alt="kebun">
+      <div class="carousel-caption d-none d-md-block">
+        <h4>Gapoknak Wijaya Kusumah,Danda Jaya, Barito Kuala</h4>
+        <p>3°6'38",114°40'30",51,0m, 178°</p>
+        <p>23/07/2018 13:40:18</p>
+      </div>
     </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="https://suratanbali.com/img/IMG09072022045339.jpg"
-         class="d-block w-100" alt="Gapoknak Wijaya Kusumah">
-        <div class="carousel-caption d-none d-md-block">
-            <h5>Gapoknak Wijaya Kusumah,Danda Jaya, Barito Kuala</h5>
-            <p>3°6'38",114°40'30",51,0m, 178°</p>
-            <p>23/07/2018 13:40:18</p>
 
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="..." class="d-block w-100" alt="...">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Second slide label</h5>
-          <p>Some representative placeholder content for the second slide.</p>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="..." class="d-block w-100" alt="...">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Third slide label</h5>
-          <p>Some representative placeholder content for the third slide.</p>
-        </div>
-      </div>
+    <div class="carousel-item">
+      <img src="assets/img/sapi.png" class="d-block w-100" alt="Gapoknak Wijaya Kusumah">
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
+
+    <div class="carousel-item">
+      <img src="assets/img/kpgayo.png" class="d-block w-100" alt="kebun percobaan Gayo">
+    </div>
+
   </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>   
+
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
   <div class="content stylish-content">
-    <h1 class="page-title">Peta Sebaran Identifikasi dan Inventarisasi SIP</h1>
+    <h4 class="page-title">Sebaran Instalasi Penelitian dan Pengkajian Teknologi Pertanian di Indonesia</h4>
     <div id="map"></div> <!-- Map Container -->
     <a href="{{ route('form_sip') }}" class="stylish-button">Isi Data Lembaga Penerap SIP</a>
 </div>
