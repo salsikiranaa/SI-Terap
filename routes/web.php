@@ -22,7 +22,7 @@ use App\Http\Controllers\Manage\mSIPController;
 use App\Http\Controllers\Penyuluh\PenyuluhController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
-
+use GuzzleHttp\Psr7\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -182,6 +182,43 @@ Route::middleware('authenticated')->group(function () {
     });
 });
 
+//lp2tp
+Route::get('/dashboard-lp2tp', function () {
+    return view('lp2tp.dashboard-lp2tp'); 
+})->name('dashboard-lp2tp');
+
+Route::get('/aset/tanah', function () {
+    return view('lp2tp.aset.tanah'); 
+})->name('aset.tanah');
+
+Route::get('/aset/gedung', function () {
+    return view('lp2tp.aset.gedung'); 
+})->name('aset.gedung');
+
+Route::get('/aset/lab', function () {
+    return view('lp2tp.aset.lab'); 
+})->name('aset.lab');
+
+Route::get('/aset/rumah_negara', function () {
+    return view('lp2tp.aset.rumah_negara'); 
+})->name('aset.rumah_negara');
+
+Route::get('/aset/alat_mesin', function () {
+    return view('lp2tp.aset.alat_mesin'); 
+})->name('aset.alat_mesin');
+
+Route::get('/pemanfaatan_kp', function () {
+    return view('lp2tp.pemanfaatan_kp'); 
+})->name('lp2tp.pemanfaatan_kp');
+
+Route::get('/form_riset', function () {
+    return view('lp2tp.form_riset'); 
+})->name('form_riset');
+
+Route::get('/form_sdm', function () {
+    return view('lp2tp.form_sdm'); 
+})->name('form_sdm');
+
 Route::get('/identifikasi', function () {
     return view('kinerja.identifikasi.beranda');
 })->name('identifikasi_beranda');
@@ -193,6 +230,11 @@ Route::get('/identifikasi/form', function () {
 Route::get('/berandakinerja', function () {
     return view('kinerja.berandakinerja');
 })->name('beranda_kinerja');
+
+Route::get('/diseminasi', function () {
+    return view('kinerja.diseminasi.beranda');
+})->name('diseminasi_beranda');
+
 
 Route::get('/diseminasi/peserta', function () {
     return view('kinerja.diseminasi.peserta'); 
@@ -238,3 +280,16 @@ Route::get('/pendampingan/tabel', function () {
 Route::get('/pengelolaan', function () {
     return view('pengelolaan.berandaPengelolaanUpbs');
 })->name('beranda_pengelolaan');
+
+//Lab
+Route::get('/beranda-Lab', function () {
+    return view('laboratorium.berandaLab'); 
+})->name('beranda-Lab');
+
+Route::get('/data-Lab', function () {
+    return view('laboratorium.lab.beranda'); 
+})->name('data-Lab');
+
+Route::get('/form-Lab', function () {
+    return view('laboratorium.lab.form_lab'); 
+})->name('form-Lab');
