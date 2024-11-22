@@ -197,6 +197,11 @@ Route::get('/berandakinerja', function () {
     return view('kinerja.berandakinerja');
 })->name('beranda_kinerja');
 
+Route::get('/diseminasi', function () {
+    return view('kinerja.diseminasi.beranda');
+})->name('diseminasi_beranda');
+
+
 Route::get('/diseminasi/peserta', function () {
     return view('kinerja.diseminasi.peserta'); 
 })->name('diseminasi.peserta');
