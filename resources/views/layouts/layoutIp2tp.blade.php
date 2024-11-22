@@ -81,7 +81,9 @@
         }
 
         .navbar a.active {
-            font-weight: 700; 
+            font-weight: 700; /* Tetap mempertebal teks */
+            border-bottom: 3px solid white; /* Tambahkan garis putih di bawah elemen aktif */
+            padding-bottom: 10px; /* Sesuaikan padding agar terlihat rapi */
         }
 
         .dropdown {
@@ -242,11 +244,21 @@
             z-index: 20;
         }
 
-        .header .container {
+        .header-container {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between; 
+            padding: 15px 30px;
+            background-color: #009144; 
+            color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); 
+            position: fixed; /* Membuat navbar tetap di atas */
+            top: 0; /* Posisi di bagian atas */
+            left: 0;
+            width: 100%; /* Lebar penuh */
+            z-index: 1000; /* Pastikan berada di atas elemen lain */
         }
+
 
         footer .contact-info p a {
             color: white;
@@ -300,6 +312,26 @@
             background-color: #006400;
             color: white;
         }
+        .btn-outline-light-logout {
+            color: white; 
+            border-width: 0.5px;
+            border-color: white;
+        }
+        
+        .btn-outline-light-logout:hover {
+            background-color: white;
+            color: #006400;
+        }
+
+        .btn-outline-light-masuk{
+            background-color: #006400;
+            color: white;
+        }
+
+        .btn-outline-light-masuk:hover{
+            background-color: #006400;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -320,13 +352,17 @@
                 </div>
                 <a class="{{ request()->routeIs('lp2tp.pemanfaatan_kp') ? 'active' : '' }}" href="{{ route('lp2tp.pemanfaatan_kp') }}">Pemanfaatan KP</a>
                 <a class="nav-link" href="#">Galeri</a>
-                <a class="nav-link" href="#">Direktori SDM Penyuluh</a>
-                <a class="nav-link" href="#">Riset</a>
+                <a class="{{ request()->routeIs('form_sdm') ? 'active' : '' }}" href="{{ route('form_sdm') }}">Direktori SDM Penyuluh</a>
+                <a class="{{ request()->routeIs('form_riset') ? 'active' : '' }}" href="{{ route('form_riset') }}">Riset</a>
             </nav>
+
+            <div>
+                <a href="" class="btn btn-outline-light-logout mr-2">Logout</a>
+            </div>
         </div>
     </header>
 
-    <div style="margin-top: 80px;">
+    <div>
         @yield('content')
     </div>
 
