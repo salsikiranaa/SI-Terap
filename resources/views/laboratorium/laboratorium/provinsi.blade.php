@@ -1,4 +1,4 @@
-@extends('layouts.header_navbar_footer_lab')
+@extends('layouts.layoutKinerja')
 
 @section('content')
     <style>
@@ -89,8 +89,7 @@
     </style>
 
     <div class="content stylish-content">
-        <h1 class="page-title">Peta Sebaran Identifikasi dan Inventarisasi SIP 
-        </h1>
+        <h1 class="page-title">Peta Sebaran Identifikasi dan Inventarisasi SIP - Jawa Barat</h1>
 
         <!-- Leaflet Map -->
         <div id="map"></div> <!-- Map Container -->
@@ -120,30 +119,19 @@
 
         <!-- Kegiatan Table -->
         <h2>Data Kegiatan yang Dilakukan</h2>
-<table border="1" id="kegiatan-table">
-  <thead>
-    <tr>
-      <th rowspan="3">No</th>
-      <th rowspan="3">Nama BPSIP</th>
-      <th rowspan="3">Jenis Laboratorium</th>
-      <th colspan="2">Ruang Lingkup Analisis</th>
-      <th colspan="4">Dukungan SDM Laboratorium</th>
-    </tr>
-    <tr>
-      <th rowspan="2">Jenis Analisis</th>
-      <th rowspan="2">Metode Analisis</th>
-      <th rowspan="2">Analisis</th>
-      <th rowspan="2">Kompetensi Personal</th>
-      <th colspan="2">Pelatihan</th>
-    </tr>
-    <tr>
-      <th>Nama/Jenis</th>
-      <th>Waktu</th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table>
+        <table id="kegiatan-table">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>BPSIP</th>
+                    <th>Tahun</th>
+                    <th>Usulan SIP/Revisi SIP</th>
+                    <th>Nama Kegiatan</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </div>
 
     <!-- Add Leaflet JS after the map -->
@@ -151,7 +139,8 @@
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <script>
-    var map = L.map('map').setView([-2.5489, 118.0149], 5); // Koordinat Indonesia
+        // Set map to focus on the coordinates of Jawa Barat
+        var map = L.map('map').setView([-6.914744, 107.60981], 8); // Koordinat Bandung, Jawa Barat
 
         // Add OpenStreetMap tiles
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -160,82 +149,24 @@
         }).addTo(map);
 
         // Example markers in Jawa Barat
-        var provinces = [
-          { name: "Aceh", coords: [4.695135, 96.749397] },
-        { name: "Sumatera Utara", coords: [3.585242, 98.675598] },
-        { name: "Sumatera Barat", coords: [-0.789275, 100.650558] },
-        { name: "Riau", coords: [0.507068, 101.447777] },
-        { name: "Jawa Barat", coords: [-6.917464, 107.619125] },
-        { name: "Jawa Tengah", coords: [-7.566298, 110.831787] },
-        { name: "Jawa Timur", coords: [-7.250445, 112.768845] },
-        { name: "Kalimantan Timur", coords: [-0.502106, 117.153709] },
-        { name: "Sulawesi Selatan", coords: [-5.147665, 119.432732] },
-        { name: "Papua", coords: [-4.269928, 138.080353] }
+        var cities = [
+            { name: "Bandung", coords: [-6.914744, 107.60981] },
+            { name: "Bogor", coords: [-6.589722, 106.789444] },
+            { name: "Bekasi", coords: [-6.241586, 106.992416] },
+            { name: "Depok", coords: [-6.4, 106.8] }
         ];
 
         // Add markers for each city with popups
-        provinces.forEach(city => {
+        cities.forEach(city => {
             var marker = L.marker(city.coords).addTo(map);
             marker.bindPopup(`<b>${city.name}</b><br>Ini adalah lokasi ${city.name}.`).openPopup();
         });
 
         // Data kegiatan (dummy data)
         const kegiatanData = [
-            {
-        no: 1,
-        bpsip: "BPSIP SUMSEL",
-        jenisLab: "Laboratorium Pengujian Kimia Tanah dan Mutu Beras",
-        jenisAnalisis: "Analisa Kimia Tanah Rutin dan Analisa Mutu Beras",
-        metodeAnalisis: "Kolorimetri/Pewarnaan",
-        analisis: "Tidak ada",
-        kompetensiPersonal: "Belum ada",
-        namaPelatihan: "Pelatihan Pemahaman SNI ISO/IEC 17025:2017",
-        waktu: "2023"
-    },
-    {
-        no: 2,
-        bpsip: "BPSIP JAWA BARAT",
-        jenisLab: "Laboratorium Analisa Pupuk",
-        jenisAnalisis: "Analisa Nitrogen dan Fosfat",
-        metodeAnalisis: "Spektrofotometri dan Titrasi",
-        analisis: "Nitrogen total, Fosfat total",
-        kompetensiPersonal: "Ada",
-        namaPelatihan: "Pelatihan Analisa Pupuk dan Tanah",
-        waktu: "2022"
-    },
-    {
-        no: 3,
-        bpsip: "BPSIP JAWA TIMUR",
-        jenisLab: "Laboratorium Mutu Pangan",
-        jenisAnalisis: "Analisa Kimia Pangan",
-        metodeAnalisis: "Kromatografi Gas dan Cair",
-        analisis: "Kadar Air, Protein, Lemak, dan Karbohidrat",
-        kompetensiPersonal: "Tidak ada",
-        namaPelatihan: "Pelatihan Penerapan ISO 17025",
-        waktu: "2021"
-    },
-    {
-        no: 4,
-        bpsip: "BPSIP SUMATERA BARAT",
-        jenisLab: "Laboratorium Uji Sampel Air",
-        jenisAnalisis: "Analisa Parameter Fisika dan Kimia Air",
-        metodeAnalisis: "Spektrofotometri, TDS, dan pH Meter",
-        analisis: "TSS, COD, BOD, dan pH",
-        kompetensiPersonal: "Ada",
-        namaPelatihan: "Pelatihan Pengendalian Mutu Air",
-        waktu: "2023"
-    },
-    {
-        no: 5,
-        bpsip: "BPSIP KALIMANTAN TENGAH",
-        jenisLab: "Laboratorium Uji Kesuburan Tanah",
-        jenisAnalisis: "Analisa Unsur Hara Makro dan Mikro",
-        metodeAnalisis: "Titrasi dan Spektrofotometri",
-        analisis: "Nitrogen, Fosfat, Kalium, Magnesium, dan Kalsium",
-        kompetensiPersonal: "Ada",
-        namaPelatihan: "Workshop Penilaian Kesuburan Tanah",
-        waktu: "2020"
-    }
+            { no: 1, bpsip: 'BPSIP 1', tahun: 2023, type: 'Usulan SIP', nama: 'Kegiatan A' },
+            { no: 2, bpsip: 'BPSIP 2', tahun: 2024, type: 'Revisi SIP', nama: 'Kegiatan B' },
+            { no: 3, bpsip: 'BPSIP 1', tahun: 2023, type: 'Usulan SIP', nama: 'Kegiatan C' },
         ];
 
         function filterData() {
@@ -263,13 +194,9 @@
                 row.innerHTML = `
                     <td>${item.no}</td>
                     <td>${item.bpsip}</td>
-                    <td>${item.jenisLab}</td>
-                    <td>${item.jenisAnalisis}</td>
-                    <td>${item.metodeAnalisis}</td>
-                    <td>${item.analisis}</td>
-                    <td>${item.kompetensiPersonal}</td>
-                    <td>${item.namaPelatihan}</td>
-                    <td>${item.waktu}</td>
+                    <td>${item.tahun}</td>
+                    <td>${item.type}</td>
+                    <td>${item.nama}</td>
                 `;
                 tableBody.appendChild(row);
             });
@@ -278,4 +205,3 @@
         displayData(kegiatanData);
     </script>
 @endsection
-
