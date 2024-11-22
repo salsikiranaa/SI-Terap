@@ -276,3 +276,7 @@ Route::get('/beranda-Lab', function () {
 Route::get('/data-Lab', function () {
     return view('laboratorium.lab.beranda'); 
 })->name('data-Lab');
+
+Route::get('/form-Lab', function () {
+    return view('laboratorium.lab.form_lab'); 
+})->name('form-Lab');
