@@ -292,13 +292,14 @@
             <nav class="navbar">
                 <a class="nav-link {{ request()->is('beranda_kinerja') ? 'active' : '' }}" href="{{ route('beranda_kinerja') }}">Beranda</a>
                 <a class="nav-link {{ request()->routeIs('identifikasi_beranda') ? 'active' : '' }}" href="{{ route('identifikasi_beranda') }}">Identifikasi</a>
-                <div class="dropdown">
+                <!-- <div class="dropdown">
                     <a class="nav-link {{ request()->routeIs('diseminasi.index') ? 'active' : '' }}" href="#">Diseminasi SIP</a>
                     <div class="dropdown-content">
                         <a class="{{ request()->routeIs('diseminasi.peserta') ? 'active' : '' }}" href="{{ route('diseminasi.peserta') }}">Diseminasi Peserta</a>
                         <a class="{{ request()->routeIs('diseminasi.sip_sub_sektor') ? 'active' : '' }}" href="{{ route('diseminasi.sip_sub_sektor') }}">SIP per Sub Sektor</a>
                     </div>
-                </div>
+                </div> -->
+                <a class="nav-link {{ request()->routeIs('diseminasi_beranda') ? 'active': '' }}" href="{{ route('diseminasi_beranda') }}">Diseminasi</a>
                 <a class="nav-link {{ request()->routeIs('pendampingan_main') ? 'active' : '' }}" href="{{ route('pendampingan_main') }}">Pendampingan</a>
             </nav>
             <div>
