@@ -288,7 +288,7 @@
 <body>
     <header class="header">
         <div class="container">
-            <a href="{{ route('mainBeranda') }}"><img src="/assets/img/logo_light.png" alt="Logo" style="height: 50px;"></a>
+            <a href="{{ route('home') }}"><img src="/assets/img/logo_light.png" alt="Logo" style="height: 50px;"></a>
             <nav class="navbar">
                 <a class="nav-link {{ request()->is('beranda-Lab') ? 'active' : '' }}" href="{{ route('beranda-Lab') }}">Beranda</a>
                 <a class="nav-link {{ request()->routeIs('data-Lab') ? 'active' : '' }}" href="{{ route('data-Lab') }}">Laboratorium</a>
