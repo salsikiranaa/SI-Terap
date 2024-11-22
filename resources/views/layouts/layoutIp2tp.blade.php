@@ -239,7 +239,7 @@
             background-color: white;
             color: white;
             padding: 10px 0;
-            position: fixed;
+            /* position: fixed; */
             width: 100%;
             z-index: 20;
         }
@@ -252,7 +252,7 @@
             background-color: #009144; 
             color: #ffffff;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); 
-            position: fixed; /* Membuat navbar tetap di atas */
+            /* position: fixed; Membuat navbar tetap di atas */
             top: 0; /* Posisi di bagian atas */
             left: 0;
             width: 100%; /* Lebar penuh */
