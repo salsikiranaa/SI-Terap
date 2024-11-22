@@ -1,4 +1,4 @@
-@extends('layouts.layoutKinerja')
+@extends('layouts.header_navbar_footer_lab')
 @section('content')
     <style>
         .form-container {

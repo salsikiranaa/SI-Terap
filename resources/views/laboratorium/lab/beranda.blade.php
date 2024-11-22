@@ -106,7 +106,7 @@
         <h2 style="margin: 0;">Data Lab</h2>
         <span style="color: #666; font-size: 14px;">Informasi terkait laboratorium</span>
     </div>
-    <a href="{{ route('form_sip') }}" class="stylish-button" style="text-decoration: none; color: #fff; background-color: #007bff; padding: 10px 15px; border-radius: 5px; justify-content: space-between;">
+    <a href="{{ route('form_sip') }}" class="stylish-button" style="text-decoration: none; color: #fff; background-color: #00452C; padding: 10px 15px; border-radius: 5px; justify-content: space-between;">
         Isi Data Lembaga Penerap SIP
     </a>
 </div>
