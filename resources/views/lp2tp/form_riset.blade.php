@@ -1,4 +1,4 @@
-@extends('layouts.header_navbar_footer_lp2tp')
+@extends('layouts.layoutIp2tp')
 @section('content')
     <style>
         .container {

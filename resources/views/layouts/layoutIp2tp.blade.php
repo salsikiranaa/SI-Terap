@@ -81,7 +81,9 @@
         }
 
         .navbar a.active {
-            font-weight: 700; 
+            font-weight: 700; /* Tetap mempertebal teks */
+            border-bottom: 3px solid white; /* Tambahkan garis putih di bawah elemen aktif */
+            padding-bottom: 10px; /* Sesuaikan padding agar terlihat rapi */
         }
 
         .dropdown {
@@ -242,11 +244,21 @@
             z-index: 20;
         }
 
-        .header .container {
+        .header-container {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between; 
+            padding: 15px 30px;
+            background-color: #009144; 
+            color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); 
+            position: fixed; /* Membuat navbar tetap di atas */
+            top: 0; /* Posisi di bagian atas */
+            left: 0;
+            width: 100%; /* Lebar penuh */
+            z-index: 1000; /* Pastikan berada di atas elemen lain */
         }
+
 
         footer .contact-info p a {
             color: white;
