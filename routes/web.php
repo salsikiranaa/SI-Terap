@@ -214,6 +214,13 @@ Route::get('/pemanfaatan_kp', function () {
     return view('lp2tp.pemanfaatan_kp'); 
 })->name('lp2tp.pemanfaatan_kp');
 
+Route::get('/form_riset', function () {
+    return view('lp2tp.form_riset'); 
+})->name('form_riset');
+
+Route::get('/form_sdm', function () {
+    return view('lp2tp.form_sdm'); 
+})->name('form_sdm');
 
 Route::get('/identifikasi', function () {
     return view('kinerja.identifikasi.beranda');
