@@ -272,3 +272,7 @@ Route::get('/pengelolaan', function () {
 Route::get('/beranda-Lab', function () {
     return view('laboratorium.berandaLab'); 
 })->name('beranda-Lab');
+
+Route::get('/data-Lab', function () {
+    return view('laboratorium.lab.beranda'); 
+})->name('data-Lab');

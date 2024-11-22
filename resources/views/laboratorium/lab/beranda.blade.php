@@ -19,7 +19,7 @@
             margin: 20px auto;
             padding: 12px 25px;
             color: white;
-            background-color: #00452C;
+            background-color: #006633;
             text-decoration: none;
             border-radius: 5px;
             text-align: center;
@@ -27,7 +27,7 @@
         }
 
         .stylish-button:hover {
-            background-color: #006633;
+            background-color: #009144;
         }
 
         .stylish-content {
@@ -35,13 +35,6 @@
             max-width: 1200px;
             padding: 40px 20px;
             background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        }
-
-        #map {
-            height: 400px;
-            width: 100%;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
@@ -86,15 +79,10 @@
         .filter-container button:hover {
             background-color: #006633;
         }
+
     </style>
 
     <div class="content stylish-content">
-        <h1 class="page-title">Peta Sebaran Identifikasi dan Inventarisasi SIP 
-        </h1>
-
-        <!-- Leaflet Map -->
-        <div id="map"></div> <!-- Map Container -->
-
         <!-- Filter Section -->
         <div class="filter-container">
             <label for="bpsip">BPSIP:</label>
@@ -108,11 +96,21 @@
             <label for="year">Tahun:</label>
             <input type="number" id="year" placeholder="Tahun" />
 
+
             <button type="button" onclick="filterData()">Filter</button>
         </div>
 
         <!-- Kegiatan Table -->
-        <h2>Data Lab</h2>
+<div style="display: flex; align-items: center; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+    <div style="display: flex; flex-direction: column; gap: 5px;">
+        <h2 style="margin: 0;">Data Lab</h2>
+        <span style="color: #666; font-size: 14px;">Informasi terkait laboratorium</span>
+    </div>
+    <a href="{{ route('form_sip') }}" class="stylish-button" style="text-decoration: none; color: #fff; background-color: #007bff; padding: 10px 15px; border-radius: 5px; justify-content: space-between;">
+        Isi Data Lembaga Penerap SIP
+    </a>
+</div>
+
 <table border="1" id="kegiatan-table">
   <thead>
     <tr>
@@ -138,42 +136,13 @@
   </tbody>
 </table>
     </div>
+        <div id="map"></div> <!-- Map Container -->
+        <a href="{{ route('form_sip') }}" class="stylish-button">Isi Data Lembaga Penerap SIP</a>
+    </div>
 
-    <!-- Add Leaflet JS after the map -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
-    <script>
-    var map = L.map('map').setView([-2.5489, 118.0149], 5); // Koordinat Indonesia
-
-        // Add OpenStreetMap tiles
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
-
-        // Example markers in Jawa Barat
-        var provinces = [
-          { name: "Aceh", coords: [4.695135, 96.749397] },
-        { name: "Sumatera Utara", coords: [3.585242, 98.675598] },
-        { name: "Sumatera Barat", coords: [-0.789275, 100.650558] },
-        { name: "Riau", coords: [0.507068, 101.447777] },
-        { name: "Jawa Barat", coords: [-6.917464, 107.619125] },
-        { name: "Jawa Tengah", coords: [-7.566298, 110.831787] },
-        { name: "Jawa Timur", coords: [-7.250445, 112.768845] },
-        { name: "Kalimantan Timur", coords: [-0.502106, 117.153709] },
-        { name: "Sulawesi Selatan", coords: [-5.147665, 119.432732] },
-        { name: "Papua", coords: [-4.269928, 138.080353] }
-        ];
-
-        // Add markers for each city with popups
-        provinces.forEach(city => {
-            var marker = L.marker(city.coords).addTo(map);
-            marker.bindPopup(`<b>${city.name}</b><br>Ini adalah lokasi ${city.name}.`).openPopup();
-        });
-
-        // Data kegiatan (dummy data)
-        const kegiatanData = [
+<script>
+    // Data kegiatan (dummy data)
+    const kegiatanData = [
             {
         no: 1,
         bpsip: "BPSIP SUMSEL",
@@ -269,6 +238,5 @@
         }
 
         displayData(kegiatanData);
-    </script>
+</script>
 @endsection
-

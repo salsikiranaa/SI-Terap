@@ -291,7 +291,7 @@
             <a href="{{ route('mainBeranda') }}"><img src="/assets/img/logo_light.png" alt="Logo" style="height: 50px;"></a>
             <nav class="navbar">
                 <a class="nav-link {{ request()->is('beranda-Lab') ? 'active' : '' }}" href="{{ route('beranda-Lab') }}">Beranda</a>
-                <a class="nav-link {{ request()->routeIs('identifikasi_beranda') ? 'active' : '' }}" href="{{ route('identifikasi_beranda') }}">Laboratorium</a>
+                <a class="nav-link {{ request()->routeIs('data-Lab') ? 'active' : '' }}" href="{{ route('data-Lab') }}">Laboratorium</a>
             </nav>
             <div>
                 <a href="" class="btn btn-outline-light-logout mr-2">Logout</a>
