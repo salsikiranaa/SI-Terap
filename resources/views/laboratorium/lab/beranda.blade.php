@@ -106,8 +106,8 @@
         <h2 style="margin: 0;">Data Lab</h2>
         <span style="color: #666; font-size: 14px;">Informasi terkait laboratorium</span>
     </div>
-    <a href="{{ route('form_sip') }}" class="stylish-button" style="text-decoration: none; color: #fff; background-color: #00452C; padding: 10px 15px; border-radius: 5px; justify-content: space-between;">
-        Isi Data Lembaga Penerap SIP
+    <a href="{{ route('form-Lab') }}" class="stylish-button" style="text-decoration: none; color: #fff; background-color: #00452C; padding: 10px 15px; border-radius: 5px; justify-content: space-between;">
+        Isi Data Lab
     </a>
 </div>
 
@@ -135,10 +135,6 @@
   <tbody>
   </tbody>
 </table>
-    </div>
-        <div id="map"></div> <!-- Map Container -->
-        <a href="{{ route('form_sip') }}" class="stylish-button">Isi Data Lembaga Penerap SIP</a>
-    </div>
 
 <script>
     // Data kegiatan (dummy data)

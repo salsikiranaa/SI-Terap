@@ -2,7 +2,7 @@
 @section('content')
     <style>
         .form-container {
-            max-width: 600px;
+            max-width: 800px;
             margin: auto;
             background-color: #ffffff;
             padding: 30px;
@@ -22,6 +22,14 @@
             text-transform: uppercase;
         }
 
+        .form-section-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #00452C;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
         .form-group {
             margin-bottom: 25px;
         }
@@ -33,7 +41,7 @@
             color: #333;
         }
 
-        select, input[type="text"], input[type="number"] {
+        select, input[type="text"], input[type="number"], textarea {
             width: 100%;
             padding: 12px;
             border: 2px solid #ccc;
@@ -42,20 +50,9 @@
             transition: border-color 0.3s ease;
         }
 
-        select:focus, input[type="text"]:focus, input[type="number"]:focus {
+        select:focus, input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
             border-color: #00452C;
             outline: none;
-        }
-
-        .checkbox-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .radio-group {
-            display: flex;
-            gap: 20px;
         }
 
         .submit-button {
@@ -76,37 +73,54 @@
             background-color: #006a44;
             box-shadow: 0 4px 8px rgba(0, 100, 70, 0.3);
         }
-
-        .form-group input[type="checkbox"] {
-            margin-right: 5px;
-        }
-
-        .form-group input[type="radio"] {
-            margin-right: 5px;
-        }
     </style>
 
     <div class="form-container">
-        <h2 class="form-title">Form Data Lembaga Penerap SIP</h2>
-        <form action="#" method="POST"> 
+        <h2 class="form-title">Form Data Laboratorium</h2>
+        <form action="#" method="POST">
+            <!-- Bagian Nama BPSIP -->
             <div class="form-group">
-                <label for="bsip">BSIP</label>
-                <select name="bsip" id="bsip" required>
-                    <option value="" disabled selected>Pilih Daerah BSIP</option>
-                    <option value="daerah1">Daerah 1</option>
-                    <option value="daerah2">Daerah 2</option>
-                    <option value="daerah3">Daerah 3</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="sip">SIP</label>
-                <input type="text" name="sip" id="sip" placeholder="Masukkan Daerah SIP" required>
+                <label for="nama_bpsip">Nama BPSIP</label>
+                <input type="text" name="nama_bpsip" id="nama_bpsip" placeholder="Masukkan nama BPSIP" required>
             </div>
 
+            <!-- Bagian Jenis Laboratorium -->
             <div class="form-group">
-                <label for="tahun">Tahun</label>
-                <select name="tahun" id="tahun" required>
+                <label for="jenis_lab">Jenis Laboratorium</label>
+                <input type="text" name="jenis_lab" id="jenis_lab" placeholder="Masukkan jenis laboratorium" required>
+            </div>
+
+            <!-- Ruang Lingkup Analisis -->
+            <div class="form-section-title">Ruang Lingkup Analisis</div>
+            <div class="form-group">
+                <label for="jenis_analisis">Jenis Analisis</label>
+                <textarea name="jenis_analisis" id="jenis_analisis" rows="3" placeholder="Masukkan jenis analisis yang dilakukan" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="metode_analisis">Metode Analisis</label>
+                <textarea name="metode_analisis" id="metode_analisis" rows="3" placeholder="Masukkan metode analisis" required></textarea>
+            </div>
+
+            <!-- Dukungan SDM Laboratorium -->
+            <div class="form-section-title">Dukungan SDM Laboratorium</div>
+            <div class="form-group">
+                <label for="analisis">Analisis</label>
+                <textarea name="analisis" id="analisis" rows="3" placeholder="Masukkan analisis yang dilakukan" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="kompetensi_personal">Kompetensi Personal</label>
+                <textarea name="kompetensi_personal" id="kompetensi_personal" rows="2" placeholder="Masukkan informasi kompetensi personal" required></textarea>
+            </div>
+
+            <!-- Pelatihan -->
+            <div class="form-section-title">Pelatihan</div>
+            <div class="form-group">
+                <label for="pelatihan">Nama Pelatihan</label>
+                <textarea name="pelatihan" id="pelatihan" rows="3" placeholder="Masukkan nama dan jenis pelatihan" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="waktu">Waktu</label>
+                <select name="waktu" id="waktu" required>
                     <option value="" disabled selected>Pilih Tahun</option>
                     @for ($year = now()->year; $year >= 2000; $year--)
                         <option value="{{ $year }}">{{ $year }}</option>
@@ -114,25 +128,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
-                <label>Sasaran Penerap</label>
-                <div class="checkbox-group">
-                    <label><input type="checkbox" name="sasaran_penerap[]" value="petani"> Petani</label>
-                    <label><input type="checkbox" name="sasaran_penerap[]" value="umkm"> UMKM</label>
-                    <label><input type="checkbox" name="sasaran_penerap[]" value="pelaku_usaha"> Pelaku Usaha</label>
-                    <label><input type="checkbox" name="sasaran_penerap[]" value="koperasi"> Koperasi</label>
-                    <label><input type="checkbox" name="sasaran_penerap[]" value="bumdes"> BUMDes</label>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Jenis Usulan</label>
-                <div class="radio-group">
-                    <label><input type="radio" name="jenis_usulan" value="revisi" required> Revisi</label>
-                    <label><input type="radio" name="jenis_usulan" value="baru" required> Baru</label>
-                </div>
-            </div>
-
+            <!-- Tombol Submit -->
             <div class="form-group">
                 <button type="submit" class="submit-button">Kirim Data</button>
             </div>
