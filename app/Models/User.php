@@ -47,7 +47,7 @@ class User extends Authenticatable
     ];
 
     public function role() : BelongsTo {
-        return $this->belongsTo(mRole::class);
+        return $this->belongsTo(mRole::class, 'role_id', 'id');
     }
 
     public function service() : BelongsToMany {
