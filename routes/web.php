@@ -234,6 +234,11 @@ Route::get('/berandakinerja', function () {
     return view('kinerja.berandakinerja');
 })->name('beranda_kinerja');
 
+Route::get('/diseminasi', function () {
+    return view('kinerja.diseminasi.beranda');
+})->name('diseminasi_beranda');
+
+
 Route::get('/diseminasi/peserta', function () {
     return view('kinerja.diseminasi.peserta'); 
 })->name('diseminasi.peserta');
@@ -274,3 +279,8 @@ Route::get('/pendampingan/tabel', function () {
 Route::get('/pengelolaan', function () {
     return view('pengelolaan.berandaPengelolaanUpbs');
 })->name('beranda_pengelolaan');
+
+//Lab
+Route::get('/beranda-Lab', function () {
+    return view('laboratorium.berandaLab'); 
+})->name('beranda-Lab');

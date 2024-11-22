@@ -49,7 +49,7 @@
 
     <div class="content stylish-content">
         <h1 class="page-title">Peta Sebaran Identifikasi dan Inventarisasi SIP</h1>
-        <div id="map"></div> <!-- Map Container -->
+        <div id="map"></div> 
         <a href="{{ route('form_sip') }}" class="stylish-button">Isi Data Lembaga Penerap SIP</a>
     </div>
 
