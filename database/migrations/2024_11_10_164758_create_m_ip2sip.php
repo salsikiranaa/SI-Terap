@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('bsip_id')->unsigned();
             $table->string('name')->unique();
-            $table->double('luas_lahan')->unsigned();
             $table->timestamps();
 
             $table->foreign('bsip_id')->references('id')->on('m_bsip');

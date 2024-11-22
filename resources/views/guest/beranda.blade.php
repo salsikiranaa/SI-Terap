@@ -243,7 +243,7 @@
                     </a>
                 </div>
                 <div class="col-md-2">
-                    <a href="#" style="text-decoration: none">
+                    <a href="{{route('beranda-Lab')}}" style="text-decoration: none">
                         <div class="card border">
                             <img src="https://img.freepik.com/free-vector/business-audit-financial-specialist-cartoon-character-with-magnifier-examination-statistical-graphic-information-statistics-diagram-chart_335657-834.jpg?t=st=1730188656~exp=1730192256~hmac=4e5713040e496c8a7f0130c0651f08f1fbb0e456055e79d4e4d5cbbb4adfd42f&w=740" alt="Lab Pengujian" class="card-img-top">
                             <div class="card-body">
@@ -253,7 +253,7 @@
                     </a>
                 </div>
                 <div class="col-md-2">
-                    <a href="#" style="text-decoration: none">
+                    <a href="{{route('beranda_pengelolaan')}}" style="text-decoration: none">
                         <div class="card border">
                             <img src="https://img.freepik.com/free-vector/bug-fixing-software-testing-computer-virus-searching-tool-devops-web-optimization-antivirus-app-magnifier-cogwheel-monitor-design-element_335657-211.jpg?t=st=1730187126~exp=1730190726~hmac=66b3253705fcec65c36d963573a90c2fae0a167433173ae3ad9caee35e6ce6cc&w=740" alt="Perbenihan" class="card-img-top">
                             <div class="card-body">
@@ -263,7 +263,7 @@
                     </a>
                 </div>
                 <div class="col-md-2">
-                    <a href="#" style="text-decoration: none">
+                    <a href="{{route('dashboard-lp2tp')}}" style="text-decoration: none">
                         <div class="card border">
                             <img src="https://img.freepik.com/free-vector/customer-self-service-abstract-concept-illustration-e-support-system-electronic-proactive-customer-online-assistance-faqs-knowledge-base-representative-free-shop_335657-46.jpg?t=st=1730188492~exp=1730192092~hmac=55fb09f5873e946b328714bdf21ecfbbc27f923aa61231d0886288681d96a534&w=740" alt="IP2SIP" class="card-img-top">
                             <div class="card-body">
