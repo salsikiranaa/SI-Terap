@@ -290,17 +290,8 @@
         <div class="container">
             <a href="{{ route('mainBeranda') }}"><img src="/assets/img/logo_light.png" alt="Logo" style="height: 50px;"></a>
             <nav class="navbar">
-                <a class="nav-link {{ request()->is('beranda_kinerja') ? 'active' : '' }}" href="{{ route('beranda_kinerja') }}">Beranda</a>
-                <a class="nav-link {{ request()->routeIs('identifikasi_beranda') ? 'active' : '' }}" href="{{ route('identifikasi_beranda') }}">Identifikasi</a>
-                <!-- <div class="dropdown">
-                    <a class="nav-link {{ request()->routeIs('diseminasi.index') ? 'active' : '' }}" href="#">Diseminasi SIP</a>
-                    <div class="dropdown-content">
-                        <a class="{{ request()->routeIs('diseminasi.peserta') ? 'active' : '' }}" href="{{ route('diseminasi.peserta') }}">Diseminasi Peserta</a>
-                        <a class="{{ request()->routeIs('diseminasi.sip_sub_sektor') ? 'active' : '' }}" href="{{ route('diseminasi.sip_sub_sektor') }}">SIP per Sub Sektor</a>
-                    </div>
-                </div> -->
-                <a class="nav-link {{ request()->routeIs('diseminasi_beranda') ? 'active': '' }}" href="{{ route('diseminasi_beranda') }}">Diseminasi</a>
-                <a class="nav-link {{ request()->routeIs('pendampingan_main') ? 'active' : '' }}" href="{{ route('pendampingan_main') }}">Pendampingan</a>
+                <a class="nav-link {{ request()->is('beranda-Lab') ? 'active' : '' }}" href="{{ route('beranda-Lab') }}">Beranda</a>
+                <a class="nav-link {{ request()->routeIs('data-Lab') ? 'active' : '' }}" href="{{ route('data-Lab') }}">Laboratorium</a>
             </nav>
             <div>
                 <a href="" class="btn btn-outline-light-logout mr-2">Logout</a>

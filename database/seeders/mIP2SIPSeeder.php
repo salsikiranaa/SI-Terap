@@ -23,7 +23,6 @@ class mIP2SIPSeeder extends Seeder
                 'id' => $row[0],
                 'bsip_id' => $row[1],
                 'name' => $row[2],
-                'luas_lahan' => $row[3],
             ];
         }
         fclose($csv_file);
