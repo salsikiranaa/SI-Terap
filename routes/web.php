@@ -40,13 +40,14 @@ Route::get('/', [GuestController::class, 'home'])->name('home');
 
 Route::middleware('guest')->prefix('/auth')->group(function () {
     Route::get('/login', function () {return view('auth.login');})->name('auth.login.view');
-    Route::get('/register', function () {return 'register view';})->name('auth.register.view');
+    Route::get('/register', function () {return view('auth.register');})->name('auth.register.view');
     Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
     Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 });
 
 Route::middleware('authenticated')->group(function () {
     Route::get('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
+    Route::get('/auth/no-service', function() {return view('auth.noService');})->middleware('noservice')->name('auth.no_service');
     
     Route::middleware('admin')->prefix('/manage')->group(function () {
         Route::get('/test', function () {
@@ -181,10 +182,6 @@ Route::middleware('authenticated')->group(function () {
     });
 });
 
-Route::get('/beranda', function () {
-    return view('guest.beranda');
-})->name('mainBeranda');
-
 Route::get('/identifikasi', function () {
     return view('kinerja.identifikasi.beranda');
 })->name('identifikasi_beranda');
@@ -209,10 +206,10 @@ Route::get('/diseminasi/form', function () {
     return view('kinerja.diseminasi.form_peserta'); // Adjust the view path if necessary
 })->name('diseminasi.form_peserta');
 
-Route::post('/diseminasi/store', function (Request $request) {
-    // For now, just return the input data as a JSON response
-    return response()->json($request->all());
-})->name('diseminasi.store');
+// Route::post('/diseminasi/store', function (Request $request) {
+//     // For now, just return the input data as a JSON response
+//     return response()->json($request->all());
+// })->name('diseminasi.store');
 
 Route::get('/form-sektor', function () {
     return view('kinerja.diseminasi.form_sektor');

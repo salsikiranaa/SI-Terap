@@ -7,20 +7,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class ServiceAccess
+class NoServiceMiddleware
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, string $guard): Response
+    public function handle(Request $request, Closure $next): Response
     {
-        $user_services = Auth::user()->service;
-        if (!count($user_services)) return redirect()->route('auth.no_service');
-        foreach ($user_services as $service) {
-            if ($service->id == $guard && !$service->is_locked) return $next($request);
-        }
+        $user = Auth::user();
+        $services = $user->service;
+        if ($services->count() == 0) return $next($request);
         return redirect()->route('home');
     }
 }
