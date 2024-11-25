@@ -272,9 +272,13 @@ Route::get('/pendampingan/form', function () {
     return view('kinerja.pendampingan.formPendampingan');
 })->name('pendampingan_form');
 
-Route::get('/pendampingan/tabel', function () {
+Route::get('/pendampingan/tabel-data', function () {
     return view('kinerja.pendampingan.tabelPendampingan');
 })->name('pendampingan_tabel');
+
+Route::get('/pendampingan/detail-data', function () {
+    return view('kinerja.pendampingan.detailDataPendampingan');
+})->name('pendampingan_detail');
 
 // PENGELOLAAN
 Route::get('/pengelolaan', function () {
