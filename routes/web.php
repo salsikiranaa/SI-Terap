@@ -40,13 +40,14 @@ Route::get('/', [GuestController::class, 'home'])->name('home');
 
 Route::middleware('guest')->prefix('/auth')->group(function () {
     Route::get('/login', function () {return view('auth.login');})->name('auth.login.view');
-    Route::get('/register', function () {return 'register view';})->name('auth.register.view');
+    Route::get('/register', function () {return view('auth.register');})->name('auth.register.view');
     Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
     Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 });
 
 Route::middleware('authenticated')->group(function () {
     Route::get('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
+    Route::get('/auth/no-service', function() {return view('auth.noService');})->middleware('noservice')->name('auth.no_service');
     
     Route::middleware('admin')->prefix('/manage')->group(function () {
         Route::get('/test', function () {
@@ -181,10 +182,6 @@ Route::middleware('authenticated')->group(function () {
     });
 });
 
-Route::get('/beranda', function () {
-    return view('guest.beranda');
-})->name('mainBeranda');
-
 //lp2tp
 Route::get('/dashboard-lp2tp', function () {
     return view('lp2tp.dashboard-lp2tp'); 
@@ -214,6 +211,13 @@ Route::get('/pemanfaatan_kp', function () {
     return view('lp2tp.pemanfaatan_kp'); 
 })->name('lp2tp.pemanfaatan_kp');
 
+Route::get('/form_riset', function () {
+    return view('lp2tp.form_riset'); 
+})->name('form_riset');
+
+Route::get('/form_sdm', function () {
+    return view('lp2tp.form_sdm'); 
+})->name('form_sdm');
 
 Route::get('/identifikasi', function () {
     return view('kinerja.identifikasi.beranda');
@@ -227,6 +231,11 @@ Route::get('/berandakinerja', function () {
     return view('kinerja.berandakinerja');
 })->name('beranda_kinerja');
 
+Route::get('/diseminasi', function () {
+    return view('kinerja.diseminasi.beranda');
+})->name('diseminasi_beranda');
+
+
 Route::get('/diseminasi/peserta', function () {
     return view('kinerja.diseminasi.peserta'); 
 })->name('diseminasi.peserta');
@@ -239,6 +248,10 @@ Route::get('/diseminasi/form', function () {
     return view('kinerja.diseminasi.form_peserta'); // Adjust the view path if necessary
 })->name('diseminasi.form_peserta');
 
+// Route::post('/diseminasi/store', function (Request $request) {
+//     // For now, just return the input data as a JSON response
+//     return response()->json($request->all());
+// })->name('diseminasi.store');
 
 Route::get('/form-sektor', function () {
     return view('kinerja.diseminasi.form_sektor');
@@ -267,3 +280,16 @@ Route::get('/pendampingan/tabel', function () {
 Route::get('/pengelolaan', function () {
     return view('pengelolaan.berandaPengelolaanUpbs');
 })->name('beranda_pengelolaan');
+
+//Lab
+Route::get('/beranda-Lab', function () {
+    return view('laboratorium.berandaLab'); 
+})->name('beranda-Lab');
+
+Route::get('/data-Lab', function () {
+    return view('laboratorium.lab.beranda'); 
+})->name('data-Lab');
+
+Route::get('/form-Lab', function () {
+    return view('laboratorium.lab.form_lab'); 
+})->name('form-Lab');

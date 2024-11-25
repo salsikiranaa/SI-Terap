@@ -52,7 +52,7 @@
 
     <div class="form-container">
         <h2>Form Peserta</h2>
-        <form action="{{ route('diseminasi.store') }}" method="POST">
+        <form action="{{ route('kinerja.diseminasi.store') }}" method="POST">
             @csrf
 
             <div class="form-group">

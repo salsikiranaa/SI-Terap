@@ -213,8 +213,24 @@
         <div class="container">
             <a href=""><img src="/assets/img/logo_green.png" alt="Logo" style="height: 50px;"></a>
             <div>
-                <a href="" class="btn btn-outline-light-daftar mr-2">Daftar</a>
-                <a href="" class="btn btn-outline-light-masuk mr-2">Masuk</a>
+                @if (auth()->user())
+                    {{-- <div style="color: #006400">{{ auth()->user()->name }}</div> --}}
+                    <div class="dropdown">
+                        <button class="bg-transparent border-0 dropdown-toggle" style="color: #006400;" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ auth()->user()->name }}
+                        </button>
+                    
+                        <ul class="dropdown-menu">
+                            @if (auth()->user()->role_id == 1)
+                                <li><a class="dropdown-item" href="{{ route('manage.dashboard') }}" style="color: #006400">Dashboard</a></li>
+                            @endif
+                            <li><a class="dropdown-item" href="{{ route('auth.logout') }}" style="color: #006400">Logout</a></li>
+                        </ul>
+                    </div>
+                @else
+                    <a href="{{ route('auth.register.view') }}" class="btn btn-outline-light-daftar mr-2">Daftar</a>
+                    <a href="{{ route('auth.login.view') }}" class="btn btn-outline-light-masuk mr-2">Masuk</a>
+                @endif
             </div>
         </div>
     </header>
@@ -243,7 +259,7 @@
                     </a>
                 </div>
                 <div class="col-md-2">
-                    <a href="#" style="text-decoration: none">
+                    <a href="{{route('beranda-Lab')}}" style="text-decoration: none">
                         <div class="card border">
                             <img src="https://img.freepik.com/free-vector/business-audit-financial-specialist-cartoon-character-with-magnifier-examination-statistical-graphic-information-statistics-diagram-chart_335657-834.jpg?t=st=1730188656~exp=1730192256~hmac=4e5713040e496c8a7f0130c0651f08f1fbb0e456055e79d4e4d5cbbb4adfd42f&w=740" alt="Lab Pengujian" class="card-img-top">
                             <div class="card-body">
@@ -292,7 +308,7 @@
             <mask id="xxx">
                 <circle cx="7" cy="12" r="40" fill="#fff" />
             </mask>
-          
+
             <filter id="goo">
                 <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
                 <feColorMatrix in="blur" mode="matrix" values="
@@ -305,7 +321,7 @@
 
             <path id="wave" d="M 0,10 C 30,10 30,15 60,15 90,15 90,10 120,10 150,10 150,15 180,15 210,15 210,10 240,10 v 28 h -240 z" />
         </defs> 
-       
+
         <use id="wave3" class="wave" xlink:href="#wave" x="0" y="-2" ></use> 
         <use id="wave2" class="wave" xlink:href="#wave" x="0" y="0" ></use>
         
