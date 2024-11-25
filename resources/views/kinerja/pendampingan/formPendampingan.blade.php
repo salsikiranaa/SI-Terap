@@ -121,12 +121,17 @@
             </div>
             
             <div class="form-group col-md-5">
-                <label for="tanggalpendampingan">Tanggal</label>
-                <input type="date" name="tanggalpendampingan" class="form-control" id="tanggalpendampingan" required>
+                <label for="alamatpendampingan">Alamat</label>
+                <input type="text" name="alamatpendampingan" id="alamatpendampingan" placeholder="Masukkan Alamat lengkap" required>
             </div>
         </div>
 
         <div class="form-row">
+            <div class="form-group col-md-5">
+                <label for="tanggalpendampingan">Tanggal</label>
+                <input type="date" name="tanggalpendampingan" class="form-control" id="tanggalpendampingan" required>
+            </div>
+
             <div class="form-group col-md-5">
                 <label for="bentukLembaga">Bentuk Lembaga</label>
                 <select name="bentukLembaga" id="bentukLembaga" required>
@@ -142,25 +147,6 @@
             </div>
             
             <div class="form-group col-md-5">
-                <label for="standarDitetapkan">Standar yang Ditetapkan</label>
-                <select name="standarDitetapkan" id="standarDitetapkan" required>
-                    <option value="" disabled selected>Pilih Salah Satu</option>
-                    <option value="sni">SNI</option>
-                    <option value="GAP">GAP</option>
-                    <option value="GHP">GHP</option>
-                    <option value="GMP">GMP</option>
-                    <option value="PTM">PTM</option>
-                </select>
-            </div>
-            
-            <div class="form-group col-md-5">
-                <label for="nostandar">Nomor Tanda Standar</label>
-                <input type="number" name="nostandar" id="nostandar" placeholder="Masukkan Nomor Tanda Standar" required>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-5">
                 <label for="skalaPenerapan">Skala Penerapan</label>
                 <div class="form-row">
                     <input type="number" name="noSkalaPenerapan" id="noSkalaPenerapan" placeholder="Isi Nomor Skala" required>
@@ -172,10 +158,24 @@
                     </select>    
                 </div>
             </div>
+        </div>
 
+        <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="lpk">LPK</label>
-                <input type="number" name="lpk" id="lpk" placeholder="Masukkan LPK" required>
+                <input type="text" name="lpk" id="lpk" placeholder="Masukkan LPK" required>
+            </div>
+
+            <div class="form-group col-md-5">
+                <label for="standarDitetapkan">Standar yang Ditetapkan</label>
+                <select name="standarDitetapkan" id="standarDitetapkan" required>
+                    <option value="" disabled selected>Pilih Salah Satu</option>
+                    <option value="sni">SNI</option>
+                    <option value="GAP">GAP</option>
+                    <option value="GHP">GHP</option>
+                    <option value="GMP">GMP</option>
+                    <option value="PTM">PTM</option>
+                </select>
             </div>
     
             <div class="form-group col-md-5">
@@ -195,6 +195,11 @@
             <div class="form-group col-md-5">
                 <label for="judulStandar">Judul Standar</label>
                 <input type="text" name="judulStandar" id="judulStandar" placeholder="Masukkan Judul Standar" required>
+            </div>
+
+            <div class="form-group col-md-5">
+                <label for="nostandar">Nomor Tanda Standar</label>
+                <input type="number" name="nostandar" id="nostandar" placeholder="Masukkan Nomor Tanda Standar" required>
             </div>
 
             <div class="form-group col-md-5">
