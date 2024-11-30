@@ -211,7 +211,7 @@
 <body>
     <header class="header">
         <div class="container">
-            <a href=""><img src="/assets/img/logo_green.png" alt="Logo" style="height: 50px;"></a>
+            <a href=""><img src="/storage/cms/logo_green.png" alt="Logo" style="height: 50px;"></a>
             <div>
                 @if (auth()->user())
                     {{-- <div style="color: #006400">{{ auth()->user()->name }}</div> --}}

@@ -291,7 +291,7 @@
 <body>
     <header class="header">
         <div class="container">
-            <a href="{{ route('home') }}"><img src="/assets/img/logo_light.png" alt="Logo" style="height: 50px;"></a>
+            <a href="{{ route('home') }}"><img src="/storage/cms/logo_light.png" alt="Logo" style="height: 50px;"></a>
             
             <div>
                 <a href="" class="btn btn-outline-light-logout mr-2">Logout</a>
