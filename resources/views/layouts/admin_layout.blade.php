@@ -64,7 +64,7 @@
             <br>
             <div style="display: flex;flex-direction:column;">
                 <a href="{{ route('manage.service.view') }}" class="nav-item">service</a>
-                {{-- <a href="{{ route('manage.accounts.view') }}" class="nav-item">accounts</a> --}}
+                <a href="{{ route('manage.accounts.view') }}" class="nav-item">accounts</a>
                 <a href="{{ route('manage.provinsi.view') }}" class="nav-item">provinsi</a>
                 <a href="{{ route('manage.kabupaten.view') }}" class="nav-item">kabupaten</a>
                 <a href="{{ route('manage.kecamatan.view') }}" class="nav-item">kecamatan</a>

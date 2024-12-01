@@ -15,7 +15,7 @@ class CMSController extends Controller
     public function index() {
         $cms = CMS::first();
         $social = Social::get();
-        return view('manage.cms', [
+        return view('manage.cms.cms', [
             'cms' => $cms,
             'social' => $social,
         ]);

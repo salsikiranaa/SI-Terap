@@ -72,6 +72,7 @@ Route::middleware('authenticated')->group(function () {
             Route::delete('/{id}', [mServiceController::class, 'destroy'])->name('manage.service.destroy');
         });
         Route::prefix('/accounts')->group(function () {
+            Route::get('/', [AccountsController::class, 'index'])->name('manage.accounts.view');
             Route::put('/{id}/verify', [AccountsController::class, 'verifyUser'])->name('manage.accounts.verify');
             Route::put('/{id}/unverify', [AccountsController::class, 'unverifyUser'])->name('manage.accounts.unverify');
             Route::put('/{id}/service-access-update', [AccountsController::class, 'serviceAccess'])->name('manage.accounts.service_access_update');
