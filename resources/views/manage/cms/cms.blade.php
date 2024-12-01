@@ -151,7 +151,14 @@
                                 @method('PUT')
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
-                                    <input type="text" name="name" value="{{ $sc->name }}" style="width:450px; border:none;padding: 10px;">
+                                    {{-- <input type="text" name="name" value="{{ $sc->name }}" style="width:450px; border:none;padding: 10px;"> --}}
+                                    <select name="name" id="" style="width:450px; border:none;padding: 10px;">
+                                        <option value="facebook" {{ $sc->name == 'facebook' ? 'selected' : '' }}>Facebook</option>
+                                        <option value="youtube" {{ $sc->name == 'youtube' ? 'selected' : '' }}>Youtube</option>
+                                        <option value="instagram" {{ $sc->name == 'instagram' ? 'selected' : '' }}>Instagram</option>
+                                        <option value="x-twitter" {{ $sc->name == 'x-twitter' ? 'selected' : '' }}>X-Twitter</option>
+                                        <option value="tiktok" {{ $sc->name == 'tiktok' ? 'selected' : '' }}>Tiktok</option>
+                                    </select>
                                 </td>
                                 <td>
                                     <input type="text" name="url" value="{{ $sc->url }}" style="width:450px; border:none;padding: 10px;">

@@ -53,7 +53,7 @@ class User extends Authenticatable
     }
 
     public function service() : BelongsToMany {
-        return $this->belongsToMany(mService::class, 'p_service_access', 'user_id', 'id');
+        return $this->belongsToMany(mService::class, 'p_service_access', 'user_id', 'service_id');
     }
 
     public function update_cms() : HasOne {
