@@ -22,6 +22,7 @@ use App\Http\Controllers\Manage\mSIPController;
 use App\Http\Controllers\Penyuluh\PenyuluhController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\IP2SIP\PemanfaatanSIPController;
 use App\Http\Controllers\Manage\AdminDashboardController;
 use App\Http\Controllers\Manage\CMSController;
 use GuzzleHttp\Psr7\Request;
@@ -185,6 +186,13 @@ Route::middleware('authenticated')->group(function () {
         });
     });
 
+    Route::middleware('service:4')->prefix('/ip2sip')->group(function () {
+        Route::prefix('/pemanfaatan_kp')->group(function () {
+            Route::get('/form', [PemanfaatanSIPController::class, 'create'])->name('lp2tp.pemanfaatan_kp.create');
+            Route::post('/store', [PemanfaatanSIPController::class, 'store'])->name('lp2tp.pemanfaatan_kp.store');
+        });
+    });
+
     Route::middleware('service:5')->prefix('/direktori-penyuluh')->group(function () {
         Route::prefix('/penyuluh')->group(function () {
             Route::get('/', [PenyuluhController::class, 'get'])->name('direktori_penyuluh.penyuluh.view');
@@ -206,7 +214,7 @@ Route::prefix('/ip2sip')->group(function () {
         Route::get('/rumah_negara', function () { return view('lp2tp.aset.rumah_negara'); })->name('aset.rumah_negara');
         Route::get('/alat_mesin', function () { return view('lp2tp.aset.alat_mesin'); })->name('aset.alat_mesin');
     });
-    Route::get('/pemanfaatan_kp', function () { return view('lp2tp.pemanfaatan_kp'); })->name('lp2tp.pemanfaatan_kp');
+    Route::get('/pemanfaatan_kp', [PemanfaatanSIPController::class, 'index'])->name('lp2tp.pemanfaatan_kp');
 
     Route::get('/form_riset', function () { return view('lp2tp.form_riset'); })->name('form_riset');
     Route::get('/form_sdm', function () { return view('lp2tp.form_sdm'); })->name('form_sdm');
