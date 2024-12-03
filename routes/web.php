@@ -20,6 +20,7 @@ use App\Http\Controllers\Manage\mSasaranController;
 use App\Http\Controllers\Manage\mServiceController;
 use App\Http\Controllers\Manage\mSIPController;
 use App\Http\Controllers\Penyuluh\PenyuluhController;
+use App\Http\Controllers\pengelolaanBenih\ProvinceBenihController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IP2SIP\PemanfaatanSIPController;
@@ -242,6 +243,11 @@ Route::prefix('/kinerja-kegiatan')->group(function () {
 
 // PENGELOLAAN
 Route::get('/pengelolaan', function () { return view('pengelolaan.berandaPengelolaanUpbs'); })->name('beranda_pengelolaan');
+
+Route::get('/pengelolaan/tabelBenih/{province}', function ($province) {
+    return view('pengelolaan.tabelBenih', ['province' => $province]);
+})->name('tabelBenih');
+Route::get('/pengelolaan/tabelBenih/{province}', [ProvinceBenihController::class, 'show'])->name('tabelBenih');
 
 //Lab
 Route::get('/beranda-Lab', function () { return view('laboratorium.berandaLab');  })->name('beranda-Lab');

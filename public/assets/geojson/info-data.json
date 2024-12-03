@@ -1,0 +1,10 @@
+{
+    "Aceh": {
+        "jumlah_lembaga": 100,
+        "info": "Informasi lebih lanjut tentang Aceh."
+    },
+    "Bali": {
+        "jumlah_lembaga": 50,
+        "info": "Informasi lebih lanjut tentang Bali."
+    }
+}

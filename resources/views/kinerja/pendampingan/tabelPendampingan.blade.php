@@ -218,8 +218,8 @@
         justify-content: center;
         width: 25px;
         height: 25px;
-        border: 1.5px solid #086404; 
-        color: #086404;
+        border: 1.5px solid #00452C; 
+        color: #00452C;
         border-radius: 5px;
         font-weight: bold;
         cursor: pointer;
@@ -227,13 +227,13 @@
     }
 
     .page-item.active {
-        background-color: #086404;
+        background-color: #00452C;
         color: white;
         border: none;
     }
 
     .page-item.active:hover {
-        background-color: #086404;
+        background-color: #00452C;
         color: white;
         border: none;
     }
