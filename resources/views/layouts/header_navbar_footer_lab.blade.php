@@ -1,9 +1,15 @@
+@php
+    use App\Models\CMS;
+    use App\Models\Social;
+    $cms = CMS::first();
+    $social = Social::get();
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SI Terap - BBPSIP</title>
+    <title>{{ $cms->app_name }} - {{ $cms->institute }}</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -288,7 +294,7 @@
 <body>
     <header class="header">
         <div class="container">
-            <a href="{{ route('home') }}"><img src="/assets/img/logo_light.png" alt="Logo" style="height: 50px;"></a>
+            <a href="{{ route('home') }}"><img src="/storage/cms/logo_light.png" alt="Logo" style="height: 50px;"></a>
             <nav class="navbar">
                 <a class="nav-link {{ request()->is('beranda-Lab') ? 'active' : '' }}" href="{{ route('beranda-Lab') }}">Beranda</a>
                 <a class="nav-link {{ request()->routeIs('data-Lab') ? 'active' : '' }}" href="{{ route('data-Lab') }}">Laboratorium</a>
@@ -352,17 +358,15 @@
                 <div class="col-md-6">
                     <div class="contact-info">
                         <p><b>KONTAK</b></p>
-                        <p><a href="tel:+6202518531727"></a>(0251) 8531727 | WA : <a href="https://wa.me/085282828696">085282828696</a></p>
-                        <p>Email: <a href="mailto:bbpsip@apps.pertanian.go.id">bbpsip@apps.pertanian.go.id</a></p>
-                        <p>Jl. Tentara Pelajar No.10, RT.04/RW.07, Ciwaringin, Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16124</p>
+                        <p><a href="tel:+6202518531727"></a>{{ $cms->contact_1 }} | WA : <a href="https://wa.me/{{ $cms->contact_2 }}">{{ $cms->contact_2 }}</a></p>
+                        <p>Email: <a href="mailto:{{ $cms->email }}">{{ $cms->email }}</a></p>
+                        <p>{{ $cms->address }}</p>
                         
-                        <p><a href="https://bbpsip.bsip.pertanian.go.id" target="_blank">https://bbpsip.bsip.pertanian.go.id</a></p>
+                        <p><a href="{{ $cms->website }}" target="_blank">{{ $cms->website }}</a></p>
                         <div class="social-links">
-                            <a href="https://www.facebook.com/BSIPPenerapan/" target="_blank"><i class="fab fa-facebook"></i></a>
-                            <a href="https://www.youtube.com/@bsippenerapan" target="_blank"><i class="fab fa-youtube"></i></a>
-                            <a href="https://instagram.com/bsippenerapan" target="_blank"><i class="fab fa-instagram"></i></a>
-                            <a href="https://twitter.com/bsippenerapan" target="_blank"><i class="fab fa-x-twitter"></i></a>
-                            <a href="https://tiktok.com/@bsippenerapan" target="_blank"><i class="fab fa-tiktok"></i></a>
+                            @foreach ($social as $sc)
+                                <a href="{{ $sc->url }}" target="_blank"><i class="fab fa-{{ $sc->name }}"></i></a>
+                            @endforeach
                         </div>
                     </div>
                 </div>

@@ -13,6 +13,6 @@ class mService extends Model
     protected $guarded = [];
 
     public function user() : BelongsToMany {
-        return $this->belongsToMany(User::class, 'm_service_user', 'service_id', 'id');
+        return $this->belongsToMany(User::class, 'p_service_access', 'service_id', 'user_id');
     }
 }
