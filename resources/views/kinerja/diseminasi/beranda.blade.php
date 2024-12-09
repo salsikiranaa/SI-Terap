@@ -40,6 +40,7 @@
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 15px;
+        align-items: flex-end;
         margin: 20px 0;
         padding: 20px;
     }
@@ -170,44 +171,57 @@
             <div class="infographic">
                 <h2>Sasaran Peserta</h2>
                 <div class="icon"><i class="fas fa-users"></i></div>
-                <p>100</p>
+                <p>{{ $jumlah_sasaran }}</p>
             </div>
         </div>
 
         <!-- Filter Form -->
-        <div class="filter-container">
+        <form action="{{ route('diseminasi_beranda') }}" class="filter-container">
             <div class="filter-group">
-                <select id="bpsip" name="bpsip" class="filter-input">
-                    <option value="">BPSIP</option>
-                    <option value="aceh">Aceh</option>
-                    <option value="papua">Papua</option>
+                BSIP
+                <select id="bpsip" name="bsip_id" class="filter-input">
+                    <option value="">Semua</option>
+                    @foreach ($bsip as $b)
+                        <option value="{{ $b->id }}" {{ request()->bsip_id == $b->id ? 'selected' : '' }}>{{ $b->name }}</option>
+                    @endforeach
                 </select>
             </div>
 
             <div class="filter-group">
-                <input id="tanggal" type="month" name="tanggal" class="filter-input">
-            </div>
-
-            <div class="filter-group">
-                <select id="sip" name="sip" class="filter-input">
-                    <option value="">SIP</option>
-                    <option value="tp">TP</option>
-                    <option value="horti">Horti</option>
+                {{-- <input id="tahun" type="month" name="tahun" class="filter-input"> --}}
+                Tahun
+                <select name="tahun" id="tahun" class="filter-input">
+                    <option value="">Semua</option>
+                    @for ($year = now()->year; $year >= 2000; $year--)
+                        <option value="{{ $year }}" {{ request()->tahun == $year ? 'selected' : '' }}>{{ $year }}</option>
+                    @endfor
                 </select>
             </div>
 
             <div class="filter-group">
-                <select id="jenis-standar" name="jenis-standar" class="filter-input">
-                    <option value="">Jenis Standar</option>
-                    <option value="sni">SNI</option>
-                    <option value="iso">ISO</option>
+                SIP
+                <select id="sip" name="sip_id" class="filter-input">
+                    <option value="">Semua</option>
+                    @foreach ($sip as $sp)
+                        <option value="{{ $sp->id }}" {{ request()->sip_id == $sp->id ? 'selected' : '' }}>{{ $sp->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="filter-group">
+                Jenis Standard
+                <select id="jenis-standar" name="jenis_standard_id" class="filter-input">
+                    <option value="">Semua</option>
+                    @foreach ($jenis_standard as $js)
+                        <option value="{{ $js->id }}" {{ request()->jenis_standard_id == $js->id ? 'selected' : '' }}>{{ $js->name }}</option>
+                    @endforeach
                 </select>
             </div>
 
             <div class="filter-group">
                 <button type="submit" class="btn-filter">Filter</button>
             </div>
-        </div>
+        </form>
 
         <!-- Kegiatan Table -->
         <table id="kegiatan-table">
@@ -223,6 +237,29 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($diseminasi as $ds)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $ds->bsip->name }}</td>
+                        <td>{{ $ds->tahun }}</td>
+                        <td>
+                            <ul>
+                                @foreach ($ds->sip as $sip)
+                                    <li>{{ $sip->name }}</li>
+                                @endforeach
+                            </ul>
+                        </td>
+                        <td>{{ $ds->metode->name }}</td>
+                        <td>
+                            <ul>
+                                @foreach ($ds->sasaran as $sasaran)
+                                    <li>{{ $sasaran->name }}</li>
+                                @endforeach
+                            </ul>
+                        </td>
+                        <td>{{ $ds->jumlah_sasaran }}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
 
@@ -314,63 +351,69 @@
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <script>
-    var map = L.map('map').setView([-6.200000, 106.816666], 5);
+    const bsip = {!! $bsip !!}
+    
+    var map = L.map('map').setView([-6.200000, 106.816666], 4.5);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-    L.marker([-6.200000, 106.816666]).addTo(map).bindPopup("Jakarta").openPopup();
+    // L.marker([-6.200000, 106.816666]).addTo(map).bindPopup("Jakarta").openPopup();
+    bsip.forEach(function(bsip) {
+        var marker = L.marker([bsip.provinsi.longitude, bsip.provinsi.latitude]).addTo(map);
+        marker.bindPopup(bsip.name);
+    });
 
         // Data kegiatan (dummy data)
-        const kegiatanData = [
-            { no: 1, bpsip: 'Aceh', tahun: 2023, sip: 'TP', metode: 'Bimbingan Teknis', sasaran: 'Petani', jumlah: '10' },
-            { no: 2, bpsip: 'Aceh', tahun: 2023, sip: 'TP', metode: 'Bimbingan Teknis', sasaran: 'Petani', jumlah: '10' },
-            { no: 3, bpsip: 'Aceh', tahun: 2023, sip: 'TP', metode: 'Bimbingan Teknis', sasaran: 'Petani', jumlah: '10' },
-        ];
-        function displayData(data) {
-            const tableBody = document.querySelector('#kegiatan-table tbody');
-            tableBody.innerHTML = ''; 
+        // const kegiatanData = [
+        //     { no: 1, bpsip: 'Aceh', tahun: 2023, sip: 'TP', metode: 'Bimbingan Teknis', sasaran: 'Petani', jumlah: '10' },
+        //     { no: 2, bpsip: 'Aceh', tahun: 2023, sip: 'TP', metode: 'Bimbingan Teknis', sasaran: 'Petani', jumlah: '10' },
+        //     { no: 3, bpsip: 'Aceh', tahun: 2023, sip: 'TP', metode: 'Bimbingan Teknis', sasaran: 'Petani', jumlah: '10' },
+        // ];
+        // function displayData(data) {
+        //     const tableBody = document.querySelector('#kegiatan-table tbody');
+        //     tableBody.innerHTML = ''; 
 
-            data.forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${item.no}</td>
-                    <td>${item.bpsip}</td>
-                    <td>${item.tahun}</td>
-                    <td>${item.sip}</td>
-                    <td>${item.metode}</td>
-                    <td>${item.sasaran}</td>
-                    <td>${item.jumlah}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-        }
+        //     data.forEach(item => {
+        //         const row = document.createElement('tr');
+        //         row.innerHTML = `
+        //             <td>${item.no}</td>
+        //             <td>${item.bpsip}</td>
+        //             <td>${item.tahun}</td>
+        //             <td>${item.sip}</td>
+        //             <td>${item.metode}</td>
+        //             <td>${item.sasaran}</td>
+        //             <td>${item.jumlah}</td>
+        //         `;
+        //         tableBody.appendChild(row);
+        //     });
+        // }
 
-        displayData(kegiatanData);
+        // displayData(kegiatanData);
 
          // Data sub sektor (dummy data)
-         const subSektorData = [
-        { no: 1, subSektor: 'Tanaman Pangan (TP)' },
-        { no: 2, subSektor: 'Hortikultura (Horti)' },
-        { no: 3, subSektor: 'Buah-Buahan (Bun)' },
-        { no: 4, subSektor: 'Peternakan (Nak)' },
-        { no: 5, subSektor: 'Agroinput' },
-        { no: 6, subSektor: 'Pasar Pertanian (Paspa)' },
-    ];
+    //      const subSektorData = [
+    //     { no: 1, subSektor: 'Tanaman Pangan (TP)' },
+    //     { no: 2, subSektor: 'Hortikultura (Horti)' },
+    //     { no: 3, subSektor: 'Buah-Buahan (Bun)' },
+    //     { no: 4, subSektor: 'Peternakan (Nak)' },
+    //     { no: 5, subSektor: 'Agroinput' },
+    //     { no: 6, subSektor: 'Pasar Pertanian (Paspa)' },
+    // ];
 
-    function displaySubSektor(data) {
-        const tableBody = document.querySelector('#kegiatan-table-diseminasi tbody');
-        tableBody.innerHTML = ''; 
+    // function displaySubSektor(data) {
+    //     const tableBody = document.querySelector('#kegiatan-table-diseminasi tbody');
+    //     tableBody.innerHTML = ''; 
 
-        data.forEach(item => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${item.no}</td>
-                <td>${item.subSektor}</td>
-            `;
-            tableBody.appendChild(row);
-        });
-    }
+    //     data.forEach(item => {
+    //         const row = document.createElement('tr');
+    //         row.innerHTML = `
+    //             <td>${item.no}</td>
+    //             <td>${item.subSektor}</td>
+    //         `;
+    //         tableBody.appendChild(row);
+    //     });
+    // }
 
-    // Tampilkan data sub sektor
-    displaySubSektor(subSektorData);
+    // // Tampilkan data sub sektor
+    // displaySubSektor(subSektorData);
 
 </script>
 @endsection
