@@ -82,7 +82,7 @@
     </style>
 
     <div class="content stylish-content">
-        <h1 class="page-title">Peta Sebaran Identifikasi dan Inventarisasi SIP - Jawa Barat</h1>
+        <h1 class="page-title">Peta Sebaran Identifikasi dan Inventarisasi SIP Provinsi {{ $provinceName }}</h1>
 
         <!-- Filter Section -->
         <div class="filter-container">

@@ -21,6 +21,8 @@ use App\Http\Controllers\Manage\mServiceController;
 use App\Http\Controllers\Manage\mSIPController;
 use App\Http\Controllers\Penyuluh\PenyuluhController;
 use App\Http\Controllers\pengelolaanBenih\ProvinceBenihController;
+use App\Http\Controllers\Kinerja\ProvinceIdentifikasiController;
+use App\Http\Controllers\Kinerja\ProvinceDiseminasiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IP2SIP\PemanfaatanSIPController;
@@ -288,10 +290,15 @@ Route::get('/form-sektor', function () {
 })->name('diseminasi.form_sektor');
 
 
-Route::get('identifikasi/provinsi', function () {
-    return view('kinerja.identifikasi.provinsi');
+Route::get('identifikasi/provinsi/{province}', function ($province) {
+    return view('kinerja.identifikasi.provinsi', ['province' => $province]);
 })->name('identifikasi.provinsi');
+Route::get('/identifikasi/provinsi/{province}', [ProvinceIdentifikasiController::class, 'show'])->name('provinsi');
 
+Route::get('diseminasi/provinsiDiseminasi/{province}', function ($province) {
+    return view('kinerja.diseminasi.provinsiDiseminasi', ['province' => $province]);
+})->name('diseminasi.provinsiDiseminasi');
+Route::get('/diseminasi/provinsiDiseminasi/{province}', [ProvinceDiseminasiController::class, 'show'])->name('provinsi');
 
 // PENDAMPINGAN
 Route::get('/pendampingan', function () {
@@ -320,3 +327,17 @@ Route::get('/beranda-Lab', function () { return view('laboratorium.berandaLab');
 Route::get('/data-Lab', function () { return view('laboratorium.lab.beranda');  })->name('data-Lab');
 
 Route::get('/form-Lab', function () { return view('laboratorium.lab.form_lab');  })->name('form-Lab');
+
+//Pengkajian
+Route::get('/formriset', function () {
+    return view('pengkajian.formriset');
+})->name('formriset');
+Route::get('/pengkajian-riset', function () {
+    return view('pengkajian.riset');
+})->name('riset');
+Route::get('/pengkajian-sdm', function () {
+    return view('pengkajian.sdm');
+})->name('sdm');
+Route::get('/formsdm', function () {
+    return view('pengkajian.formsdm');
+})->name('formsdm');
