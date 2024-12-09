@@ -22,8 +22,10 @@ class DiseminasiController extends Controller
         $diseminasi = new Diseminasi();
 
         if ($request->bsip_id) $diseminasi = $diseminasi->where('bsip_id', $request->bsip_id);
-        if ($request->tahun) $diseminasi = $diseminasi->where('tahun', $request->tahun);
-        if ($request->sip_id) $diseminasi = $diseminasi->where('sip_id', $request->sip_id);
+        if ($request->tanggal) $diseminasi = $diseminasi->where('tanggal', 'LIKE', "%$request->tanggal%");
+        if ($request->sip_id) $diseminasi = $diseminasi->whereHas('sip', function ($query) use ($request) {
+            $query->where('sip_id', $request->sip_id);
+        });
         if ($request->jenis_standard_id) $diseminasi = $diseminasi->where('jenis_standard_id', $request->jenis_standard_id);
 
         $diseminasi = $diseminasi->get();
@@ -65,7 +67,7 @@ class DiseminasiController extends Controller
         // dd($request->all());
         $request->validate([
             'bsip_id' => 'required',
-            'tahun' => 'required|numeric',
+            'tanggal' => 'required|date',
             'metode_id' =>  'required',
             'jumlah_sasaran' => 'required|integer',
             'jenis_standard_id' => 'required',
@@ -76,8 +78,8 @@ class DiseminasiController extends Controller
             'sasaran_id' => 'required|array', //
         ], [
             'bsip_id.required' => 'BSIP cannot be null',
-            'tahun.required' => 'Tanggal cannot be null',
-            'tahun.numeric' => 'Invalid data input',
+            'tanggal.required' => 'Tanggal cannot be null',
+            'tanggal.date' => 'Invalid data input',
             'metode_id.required' => 'Metode cannot be null',
             'jumlah_sasaran.required' => 'Jumlah sasaran cannot be null',
             'jumlah_sasaran.integer' => 'Invalid data input',
@@ -92,9 +94,10 @@ class DiseminasiController extends Controller
             'sasaran_id.required' => 'SIP cannot be null',
             'sasaran_id.array' => 'Invalid data input',
         ]); 
+        // dd($request->all());
         $data_diseminasi = [
             'bsip_id' => $request->bsip_id,
-            'tahun' => $request->tahun,
+            'tanggal' => $request->tanggal,
             'metode_id' => $request->metode_id,
             'jumlah_sasaran' => $request->jumlah_sasaran,
             'jenis_standard_id' => $request->jenis_standard_id,
@@ -115,7 +118,7 @@ class DiseminasiController extends Controller
         if (!$diseminasi) return back()->withErrors('data not found');
         $request->validate([
             'bsip_id' => 'required',
-            'tahun' => 'required|date',
+            'tanggal' => 'required|date',
             'metode_id' =>  'required',
             'jumlah_sasaran' => 'required|integer',
             'jenis_standard_id' => 'required',
@@ -126,8 +129,8 @@ class DiseminasiController extends Controller
             'sasaran_id' => 'required|array', //
         ], [
             'bsip_id.required' => 'BSIP cannot be null',
-            'tahun.required' => 'Tanggal cannot be null',
-            'tahun.date' => 'Invalid data input',
+            'tanggal.required' => 'Tanggal cannot be null',
+            'tanggal.date' => 'Invalid data input',
             'metode_id.required' => 'Metode cannot be null',
             'jumlah_sasaran.required' => 'Jumlah sasaran cannot be null',
             'jumlah_sasaran.integer' => 'Invalid data input',
@@ -144,7 +147,7 @@ class DiseminasiController extends Controller
         ]); 
         $data_diseminasi = [
             'bsip_id' => $request->bsip_id,
-            'tahun' => $request->tahun,
+            'tanggal' => $request->tanggal,
             'metode_id' => $request->metode_id,
             'jumlah_sasaran' => $request->jumlah_sasaran,
             'jenis_standard_id' => $request->jenis_standard_id,

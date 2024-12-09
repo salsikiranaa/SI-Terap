@@ -19,8 +19,11 @@ class IdentifikasiController extends Controller
 {
     public function index() {
         $bsip = mBSIP::whereHas('identifikasi')->distinct()->get();
+        // dd($bsip[0]->identifikasi);
         foreach ($bsip as $b) {
             $b->provinsi = $b->provinsi;
+            $b->value = count($b->identifikasi);
+            $b['hc-key'] = $b->id;
         }
         return view('kinerja.identifikasi.beranda', [
             'bsip' => $bsip,
@@ -33,7 +36,9 @@ class IdentifikasiController extends Controller
         if ($request->tahun) $identifikasi = $identifikasi->where('tahun', $request->tahun);
         if ($request->jenis_usulan) $identifikasi = $identifikasi->where('jenis_usulan', $request->jenis_usulan);
         $identifikasi = $identifikasi->get();
-        $bsip_identifikasi = mBSIP::find($bsip_id)->provinsi;
+        $bsip_identifikasi = mBSIP::find($bsip_id);
+        if (!$bsip_identifikasi) return back()->withErrors('provinsi belum terdaftar');
+        $bsip_identifikasi = $bsip_identifikasi->provinsi;
         return view('kinerja.identifikasi.provinsi', [
             'bsip' => $bsip,
             'identifikasi' => $identifikasi,

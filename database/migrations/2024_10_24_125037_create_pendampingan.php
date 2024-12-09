@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pendampingan', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('bsip_id')->unsigned(); //
-            $table->year('tahun');
+            $table->date('tanggal');
             $table->string('nama_lembaga');
             $table->bigInteger('lembaga_id')->unsigned(); //
             $table->integer('skala')->unsigned();
