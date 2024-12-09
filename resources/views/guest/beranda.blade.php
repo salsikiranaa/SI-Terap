@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SI TERAP - BBPSIP</title>
+    <title>{{ $cms->app_name }} - {{ $cms->institute }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -211,10 +211,26 @@
 <body>
     <header class="header">
         <div class="container">
-            <a href=""><img src="/assets/img/logo_green.png" alt="Logo" style="height: 50px;"></a>
+            <a href=""><img src="/storage/cms/logo_green.png" alt="Logo" style="height: 50px;"></a>
             <div>
-                <a href="" class="btn btn-outline-light-daftar mr-2">Daftar</a>
-                <a href="" class="btn btn-outline-light-masuk mr-2">Masuk</a>
+                @if (auth()->user())
+                    {{-- <div style="color: #006400">{{ auth()->user()->name }}</div> --}}
+                    <div class="dropdown">
+                        <button class="bg-transparent border-0 dropdown-toggle" style="color: #006400;" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ auth()->user()->name }}
+                        </button>
+                    
+                        <ul class="dropdown-menu">
+                            @if (auth()->user()->role_id == 1)
+                                <li><a class="dropdown-item" href="{{ route('manage.dashboard') }}" style="color: #006400">Dashboard</a></li>
+                            @endif
+                            <li><a class="dropdown-item" href="{{ route('auth.logout') }}" style="color: #006400">Logout</a></li>
+                        </ul>
+                    </div>
+                @else
+                    <a href="{{ route('auth.register.view') }}" class="btn btn-outline-light-daftar mr-2">Daftar</a>
+                    <a href="{{ route('auth.login.view') }}" class="btn btn-outline-light-masuk mr-2">Masuk</a>
+                @endif
             </div>
         </div>
     </header>
@@ -222,8 +238,8 @@
     <!-- Hero Section -->
     <div class="hero-section">
         <div class="hero">
-            <h1>SI TERAP</h1>
-            <p>Portal Sistem Informasi Terpadu Balai Besar Penerapan Standar Instrumen Pertanian</p>
+            <h1>{{ $cms->app_name }}</h1>
+            <p>{{ $cms->description }}</p>
         </div>
     </div>
 
@@ -273,7 +289,7 @@
                     </a>
                 </div>
                 <div class="col-md-2">
-                    <a href="#" style="text-decoration: none">
+                    <a href="{{route('sdm')}}" style="text-decoration: none">
                         <div class="card border">
                             <img src="https://img.freepik.com/free-vector/dashboard-analytics-computer-performance-evaluation-chart-screen-statistics-analysis-infographic-assessment-business-report-display-isolated-concept-metaphor-illustration_335657-1149.jpg?t=st=1730188574~exp=1730192174~hmac=062d414ad7f4ba7ea2bff35402cca9842a482fe9ff3607cbf442e81a40e3b083&w=740" alt="Direktori SDM Penyuluh" class="card-img-top">
                             <div class="card-body">
@@ -292,7 +308,7 @@
             <mask id="xxx">
                 <circle cx="7" cy="12" r="40" fill="#fff" />
             </mask>
-          
+
             <filter id="goo">
                 <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
                 <feColorMatrix in="blur" mode="matrix" values="
@@ -305,7 +321,7 @@
 
             <path id="wave" d="M 0,10 C 30,10 30,15 60,15 90,15 90,10 120,10 150,10 150,15 180,15 210,15 210,10 240,10 v 28 h -240 z" />
         </defs> 
-       
+
         <use id="wave3" class="wave" xlink:href="#wave" x="0" y="-2" ></use> 
         <use id="wave2" class="wave" xlink:href="#wave" x="0" y="0" ></use>
         
@@ -335,17 +351,15 @@
                 <div class="col-md-6">
                     <div class="contact-info">
                         <p><b>KONTAK</b></p>
-                        <p><a href="tel:+6202518531727"></a>(0251) 8531727 | WA : <a href="https://wa.me/085282828696">085282828696</a></p>
-                        <p>Email: <a href="mailto:bbpsip@apps.pertanian.go.id">bbpsip@apps.pertanian.go.id</a></p>
-                        <p>Jl. Tentara Pelajar No.10, RT.04/RW.07, Ciwaringin, Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16124</p>
+                        <p><a href="tel:+6202518531727"></a>{{ $cms->contact_1 }} | WA : <a href="https://wa.me/{{ $cms->contact_2 }}">{{ $cms->contact_2 }}</a></p>
+                        <p>Email: <a href="mailto:{{ $cms->email }}">{{ $cms->email }}</a></p>
+                        <p>{{ $cms->address }}</p>
                         
-                        <p><a href="https://bbpsip.bsip.pertanian.go.id" target="_blank">https://bbpsip.bsip.pertanian.go.id</a></p>
+                        <p><a href="{{ $cms->website }}" target="_blank">{{ $cms->website }}</a></p>
                         <div class="social-links">
-                            <a href="https://www.facebook.com/BSIPPenerapan/" target="_blank"><i class="fab fa-facebook"></i></a>
-                            <a href="https://www.youtube.com/@bsippenerapan" target="_blank"><i class="fab fa-youtube"></i></a>
-                            <a href="https://instagram.com/bsippenerapan" target="_blank"><i class="fab fa-instagram"></i></a>
-                            <a href="https://twitter.com/bsippenerapan" target="_blank"><i class="fab fa-x-twitter"></i></a>
-                            <a href="https://tiktok.com/@bsippenerapan" target="_blank"><i class="fab fa-tiktok"></i></a>
+                            @foreach ($social as $sc)
+                                <a href="{{ $sc->url }}" target="_blank"><i class="fab fa-{{ $sc->name }}"></i></a>
+                            @endforeach
                         </div>
                     </div>
                 </div>

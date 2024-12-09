@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -47,10 +49,22 @@ class User extends Authenticatable
     ];
 
     public function role() : BelongsTo {
-        return $this->belongsTo(mRole::class);
+        return $this->belongsTo(mRole::class, 'role_id', 'id');
     }
 
     public function service() : BelongsToMany {
-        return $this->belongsToMany(mService::class, 'p_service_access', 'user_id', 'id');
+        return $this->belongsToMany(mService::class, 'p_service_access', 'user_id', 'service_id');
+    }
+
+    public function update_cms() : HasOne {
+        return $this->hasOne(CMS::class, 'updated_by', 'id');
+    }
+
+    public function create_social() : HasMany {
+        return $this->hasMany(Social::class, 'created_by', 'id');
+    }
+
+    public function update_social() : HasMany {
+        return $this->hasMany(Social::class, 'updated_by', 'id');
     }
 }

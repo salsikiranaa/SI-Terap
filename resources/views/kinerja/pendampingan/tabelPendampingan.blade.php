@@ -218,8 +218,8 @@
         justify-content: center;
         width: 25px;
         height: 25px;
-        border: 1.5px solid #086404; 
-        color: #086404;
+        border: 1.5px solid #00452C; 
+        color: #00452C;
         border-radius: 5px;
         font-weight: bold;
         cursor: pointer;
@@ -227,13 +227,13 @@
     }
 
     .page-item.active {
-        background-color: #086404;
+        background-color: #00452C;
         color: white;
         border: none;
     }
 
     .page-item.active:hover {
-        background-color: #086404;
+        background-color: #00452C;
         color: white;
         border: none;
     }
@@ -247,6 +247,40 @@
     .page-item:hover {
         background-color: #d6f7e1;
     }
+
+    #resetFilter{
+        /* padding: 8px 15px; */
+        background-color: #e7e7e7;
+        color: #00452C;
+        border-color: #00452C;
+        border-style: solid;
+        border-radius: 5px;
+        border-width: 1.5px;
+        height: 50px;
+        margin-top: 32px;
+    }
+
+    #resetFilter:hover{
+        background-color: #006633;
+        color: white;
+        border-color: #006633;
+        border-style: solid;
+        border-radius: 5px;
+        height: 50px;
+        margin-top: 32px;
+    }
+
+    .link-lembaga {
+        text-decoration: none;
+        color: #00452C;
+        font-weight: bold;
+        transition: color 0.3s;
+    }
+
+    .link-lembaga:hover {
+        color: #007B5E;
+        text-decoration: underline;
+    }
 </style>
 
 <h1 class="page-title">Data Lembaga Penerap SIP - Nanggroe Aceh Darussalam</h1>
@@ -257,14 +291,13 @@
         <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="namaLembaga">Nama Lembaga Penerap</label>
-                <input type="text" name="namaLembaga" id="namaLembaga" placeholder="Masukkan Nama Lembaga Penerap" required>
+                <input type="text" name="namaLembaga" id="namaLembaga" placeholder="Masukkan Nama Lembaga Penerap" style="width: 360px" required>
             </div>
             
             <div class="form-group col-md-5">
                 <label for="bentukLembaga">Bentuk Lembaga</label>
                 <select name="bentukLembaga" id="bentukLembaga" required style="height: 52px">
                     <option value="" disabled selected>Pilih Salah Satu</option>
-                    <option value="">--- Batalkan Filter ---</option>
                     <option value="pt">PT</option>
                     <option value="cv">CV</option>
                     <option value="koperasi">Koperasi</option>
@@ -279,8 +312,22 @@
                 <label for="tahunPendampingan">Tahun</label>
                 <input type="number" name="tahunPendampingan" class="form-control" id="tahunPendampingan" placeholder="Masukkan Tahun" required>
             </div>
-    
+
+            <div class="form-group col-md-5">
+                <label for="sipDiterapkan">SIP</label>
+                <select name="sipDiterapkan" id="sipDiterapkan" required style="height: 52px">
+                    <option value="" disabled selected>Pilih Salah Satu</option>
+                    <option value="sni">SNI</option>
+                    <option value="gap">GAP</option>
+                    <option value="ghp">GHP</option>
+                    <option value="gmp">GMP</option>
+                    <option value="ptm">PTM</option>
+                </select>
+            </div>
+            
             <button type="button" onclick="filterData()">Filter</button>
+
+            <button id="resetFilter" class="btn btn-secondary" type="button">Reset</button>
         </div>
     </div>
 
@@ -292,6 +339,7 @@
                 <th>Nama Lembaga</th>
                 <th>Bentuk Lembaga</th>
                 <th>Tahun</th>
+                <th>SIP</th>
             </tr>
         </thead>
         <tbody>
@@ -309,31 +357,33 @@
 </div>
 
 <script>
-    const kegiatanData = [
-        { no: 1, namaLembaga: 'PT Perkebunan Indonesia', bentukLembaga: 'PT', tahunPendampingan: 2023 },
-        { no: 2, namaLembaga: 'Koperasi Tani Makmur', bentukLembaga: 'Koperasi', tahunPendampingan: 2022 },
-        { no: 3, namaLembaga: 'UD Sumber Pangan', bentukLembaga: 'UD', tahunPendampingan: 2024 },
-        { no: 4, namaLembaga: 'CV Agro Pratama', bentukLembaga: 'CV', tahunPendampingan: 2023 },
-        { no: 5, namaLembaga: 'Kelompok Tani Sido Maju', bentukLembaga: 'Kelompok', tahunPendampingan: 2024 },
-        { no: 6, namaLembaga: 'BUMDes Tani Jaya', bentukLembaga: 'BUMDes', tahunPendampingan: 2022 },
-        { no: 7, namaLembaga: 'PT Agro Sejahtera', bentukLembaga: 'PT', tahunPendampingan: 2023 },
-        { no: 8, namaLembaga: 'CV Agri Nusantara', bentukLembaga: 'CV', tahunPendampingan: 2024 },
-        { no: 9, namaLembaga: 'Kelompok Tani Bersatu', bentukLembaga: 'Kelompok', tahunPendampingan: 2022 },
-        { no: 10, namaLembaga: 'BUMD Agro Mandiri', bentukLembaga: 'BUMD', tahunPendampingan: 2023 }
+    const lembagaSipData = [
+        { no: 1, id: 1, namaLembaga: 'PT Perkebunan Indonesia', bentukLembaga: 'PT', tahunPendampingan: 2023, sipDiterapkan: 'SNI' },
+        { no: 2, id: 2, namaLembaga: 'Koperasi Tani Makmur', bentukLembaga: 'Koperasi', tahunPendampingan: 2022, sipDiterapkan: 'GAP' },
+        { no: 3, id: 3, namaLembaga: 'UD Sumber Pangan', bentukLembaga: 'UD', tahunPendampingan: 2024, sipDiterapkan: 'GHP' },
+        { no: 4, id: 4, namaLembaga: 'CV Agro Pratama', bentukLembaga: 'CV', tahunPendampingan: 2023, sipDiterapkan: 'GMP' },
+        { no: 5, id: 5, namaLembaga: 'Kelompok Tani Sido Maju', bentukLembaga: 'Kelompok', tahunPendampingan: 2024, sipDiterapkan: 'PTM' },
+        { no: 6, id: 6, namaLembaga: 'BUMDes Tani Jaya', bentukLembaga: 'BUMDes', tahunPendampingan: 2022, sipDiterapkan: 'GHP' },
+        { no: 7, id: 7, namaLembaga: 'PT Agro Sejahtera', bentukLembaga: 'PT', tahunPendampingan: 2023, sipDiterapkan: 'SNI' },
+        { no: 8, id: 8, namaLembaga: 'CV Agri Nusantara', bentukLembaga: 'CV', tahunPendampingan: 2024, sipDiterapkan: 'GAP' },
+        { no: 9, id: 9, namaLembaga: 'Kelompok Tani Bersatu', bentukLembaga: 'Kelompok', tahunPendampingan: 2022, sipDiterapkan: 'PTM' },
+        { no: 10, id: 10, namaLembaga: 'BUMD Agro Mandiri', bentukLembaga: 'BUMD', tahunPendampingan: 2023, sipDiterapkan: 'GMP' }
     ];
 
     function filterData() {
         const namaLembaga = document.getElementById('namaLembaga').value.toLowerCase();
         const tahunPendampingan = document.getElementById('tahunPendampingan').value;
         const bentukLembaga = document.getElementById('bentukLembaga').value.toLowerCase();
+        const sipDiterapkan = document.getElementById('sipDiterapkan').value.toLowerCase();
 
-        console.log("Filter values - Nama Lembaga:", namaLembaga, "Tahun Pendampingan:", tahunPendampingan, "Bentuk Lembaga:", bentukLembaga);
+        console.log("Filter values - Nama Lembaga:", namaLembaga, "Tahun Pendampingan:", tahunPendampingan, "Bentuk Lembaga:", bentukLembaga, "SIP Diterapkan:", sipDiterapkan);
 
-        const filteredData = kegiatanData.filter(item => {
+        const filteredData = lembagaSipData.filter(item => {
             return (
                 (namaLembaga === '' || item.namaLembaga.toLowerCase().includes(namaLembaga)) &&
                 (tahunPendampingan === '' || item.tahunPendampingan === parseInt(tahunPendampingan, 10)) &&
-                (bentukLembaga === '' || item.bentukLembaga.toLowerCase() === bentukLembaga)
+                (bentukLembaga === '' || item.bentukLembaga.toLowerCase() === bentukLembaga) &&
+                (sipDiterapkan === '' || item.sipDiterapkan.toLowerCase() === sipDiterapkan)
             );
         });
 
@@ -348,15 +398,33 @@
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${item.no}</td>
-                    <td>${item.namaLembaga}</td>
+                    <td>
+                        <a href="${toDetail}" class="link-lembaga">
+                            ${item.namaLembaga}
+                        </a>    
+                    </td>
                     <td>${item.bentukLembaga}</td>
                     <td>${item.tahunPendampingan}</td>
+                    <td>${item.sipDiterapkan}</td>
                 `;
                 tableBody.appendChild(row);
             });
         }
 
-        displayData(kegiatanData);
+        const toDetail = "{{ route('pendampingan_detail') }}";
+
+        document.getElementById('resetFilter').addEventListener('click', () => {
+    // Reset all input fields to their default values
+            document.getElementById('namaLembaga').value = '';
+            document.getElementById('tahunPendampingan').value = '';
+            document.getElementById('bentukLembaga').value = '';
+            document.getElementById('sipDiterapkan').value = ''; // Reset dropdown to default
+
+            // Display all data since filter is cleared
+            displayData(lembagaSipData);
+        });
+
+        displayData(lembagaSipData);
 </script>
 
 @endsection
