@@ -230,6 +230,11 @@ Route::get('/identifikasi/form', function () {
     return view('kinerja.identifikasi.form_sip');
 })->name('form_sip');
 
+Route::get('/identifikasi/detail', function () {
+    return view('kinerja.identifikasi.detail');
+})->name('identifikasi_detail');
+
+
 Route::get('/berandakinerja', function () {
     return view('kinerja.berandakinerja');
 })->name('beranda_kinerja');
