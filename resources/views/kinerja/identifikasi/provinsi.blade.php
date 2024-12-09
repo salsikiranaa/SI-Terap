@@ -85,27 +85,28 @@
         <h1 class="page-title">Peta Sebaran Identifikasi dan Inventarisasi SIP Provinsi {{ $provinceName }}</h1>
 
         <!-- Filter Section -->
-        <div class="filter-container">
+        <form action="{{ route('identifikasi.provinsi.filter') }}" method="POST" class="filter-container">
+            @csrf
             <label for="bpsip">BPSIP:</label>
-            <select id="bpsip">
-                <option value="">Pilih BPSIP</option>
-                <option value="bpsip1">BPSIP 1</option>
-                <option value="bpsip2">BPSIP 2</option>
-                <!-- Tambahkan pilihan lainnya sesuai kebutuhan -->
+            <select id="bpsip" name="bsip_id">
+                @foreach ($bsip as $b)
+                    <option value="{{ $b->id }}" {{ request()->bsip_id == $b->id ? 'selected' : '' }}>{{ $b->name }}</option>
+                @endforeach
             </select>
 
             <label for="year">Tahun:</label>
-            <input type="number" id="year" placeholder="Tahun" />
+            <input type="number" id="year" placeholder="Tahun" name="tahun" />
 
             <label for="sip-type">Usulan SIP/Revisi SIP:</label>
-            <select id="sip-type">
+            <select id="sip-type" name="jenis_usulan">
                 <option value="">Pilih Usulan SIP/Revisi SIP</option>
-                <option value="usulan">Usulan SIP</option>
+                <option value="baru">Usulan SIP</option>
                 <option value="revisi">Revisi SIP</option>
             </select>
 
-            <button type="button" onclick="filterData()">Filter</button>
-        </div>
+            {{-- <button type="submit" onclick="filterData()">Filter</button> --}}
+            <button type="submit" >Filter</button>
+        </form>
 
         <!-- Kegiatan Table -->
         <h2>Data Kegiatan yang Dilakukan</h2>
@@ -120,6 +121,15 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($identifikasi as $item)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item->bsip->name }}</td>
+                        <td>{{ $item->tahun }}</td>
+                        <td>{{ $item->jenis_usulan == 'baru' ? 'Usulan SIP' : 'Revisi SIP' }}</td>
+                        <td>{{ $item->metode->name }}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

@@ -31,7 +31,7 @@
     .filter-container {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-end;
     gap: 10px;
     margin: 20px 0;
     }
@@ -249,6 +249,7 @@
 
             <!-- Sasaran Diseminasi -->
             <h3>Sasaran Diseminasi</h3>
+
             <div class="infographics">
                 <!-- Target dan Pencapaian -->
                 <div class="infographic">

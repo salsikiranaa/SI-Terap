@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('diseminasi', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('bsip_id')->unsigned(); //
-            $table->date('tanggal');
+            $table->year('tahun');
             $table->bigInteger('metode_id')->unsigned(); //
             $table->integer('jumlah_sasaran')->unsigned();
             $table->bigInteger('jenis_standard_id')->unsigned(); //
