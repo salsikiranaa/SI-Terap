@@ -20,8 +20,12 @@ use App\Http\Controllers\Manage\mSasaranController;
 use App\Http\Controllers\Manage\mServiceController;
 use App\Http\Controllers\Manage\mSIPController;
 use App\Http\Controllers\Penyuluh\PenyuluhController;
+use App\Http\Controllers\pengelolaanBenih\ProvinceBenihController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\IP2SIP\PemanfaatanSIPController;
+use App\Http\Controllers\Manage\AdminDashboardController;
+use App\Http\Controllers\Manage\CMSController;
 use GuzzleHttp\Psr7\Request;
 
 /*
@@ -40,19 +44,27 @@ Route::get('/', [GuestController::class, 'home'])->name('home');
 
 Route::middleware('guest')->prefix('/auth')->group(function () {
     Route::get('/login', function () {return view('auth.login');})->name('auth.login.view');
-    Route::get('/register', function () {return 'register view';})->name('auth.register.view');
+    Route::get('/register', function () {return view('auth.register');})->name('auth.register.view');
     Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
     Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 });
 
 Route::middleware('authenticated')->group(function () {
     Route::get('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
+    Route::get('/auth/no-service', function() {return view('auth.noService');})->middleware('noservice')->name('auth.no_service');
     
     Route::middleware('admin')->prefix('/manage')->group(function () {
         Route::get('/test', function () {
             return view('api-test.index');
         });
-        Route::get('/', function () {return 'admin dashboard';})->name('manage.dashboard');
+        Route::get('/', [AdminDashboardController::class, 'index'])->name('manage.dashboard');
+        Route::prefix('/cms')->group(function () {
+            Route::get('/', [CMSController::class, 'index'])->name('manage.cms.view');
+            Route::put('/cms-update', [CMSController::class, 'cms_update'])->name('manage.cms.update');
+            Route::post('/social-store', [CMSController::class, 'social_store'])->name('manage.social.store');
+            Route::put('/social-update/{id}', [CMSController::class, 'social_update'])->name('manage.social.update');
+            Route::delete('/social-destroy/{id}', [CMSController::class, 'social_destroy'])->name('manage.social.destroy');
+        });
         Route::prefix('/service')->group(function () {
             Route::get('/', [mServiceController::class, 'get'])->name('manage.service.view');
             Route::post('/', [mServiceController::class, 'store'])->name('manage.service.store');
@@ -62,6 +74,7 @@ Route::middleware('authenticated')->group(function () {
             Route::delete('/{id}', [mServiceController::class, 'destroy'])->name('manage.service.destroy');
         });
         Route::prefix('/accounts')->group(function () {
+            Route::get('/', [AccountsController::class, 'index'])->name('manage.accounts.view');
             Route::put('/{id}/verify', [AccountsController::class, 'verifyUser'])->name('manage.accounts.verify');
             Route::put('/{id}/unverify', [AccountsController::class, 'unverifyUser'])->name('manage.accounts.unverify');
             Route::put('/{id}/service-access-update', [AccountsController::class, 'serviceAccess'])->name('manage.accounts.service_access_update');
@@ -138,22 +151,26 @@ Route::middleware('authenticated')->group(function () {
 
     Route::middleware('service:1')->prefix('/kinerja-kegiatan')->group(function () {
         Route::prefix('/identifikasi')->group(function () {
-            Route::get('/', [IdentifikasiController::class, 'get'])->name('kinerja.identifikasi.view');
-            Route::get('/{id}', [IdentifikasiController::class, 'getById'])->name('kinerja.identifikasi.detail');
+            // Route::get('/', [IdentifikasiController::class, 'get'])->name('kinerja.identifikasi.view');
+            // Route::get('/{id}', [IdentifikasiController::class, 'getById'])->name('kinerja.identifikasi.detail');
+            Route::get('/form', function () { return view('kinerja.identifikasi.form_sip'); })->name('form_sip');
             Route::post('/', [IdentifikasiController::class, 'store'])->name('kinerja.identifikasi.store');
             Route::put('/{id}', [IdentifikasiController::class, 'update'])->name('kinerja.identifikasi.update');
             Route::delete('/{id}', [IdentifikasiController::class, 'destroy'])->name('kinerja.identifikasi.destroy');
         });
         Route::prefix('/diseminasi')->group(function () {
-            Route::get('/', [DiseminasiController::class, 'get'])->name('kinerja.diseminasi.view');
-            Route::get('/{id}', [DiseminasiController::class, 'getById'])->name('kinerja.diseminasi.detail');
+            // Route::get('/', [DiseminasiController::class, 'get'])->name('kinerja.diseminasi.view');
+            // Route::get('/{id}', [DiseminasiController::class, 'getById'])->name('kinerja.diseminasi.detail');
+            Route::get('/form', function () { return view('kinerja.diseminasi.form_peserta'); })->name('diseminasi.form_peserta'); // Adjust the view path if necessary
+            Route::get('/form-sektor', function () { return view('kinerja.diseminasi.form_sektor'); })->name('diseminasi.form_sektor');
             Route::post('/', [DiseminasiController::class, 'store'])->name('kinerja.diseminasi.store');
             Route::put('/{id}', [DiseminasiController::class, 'update'])->name('kinerja.diseminasi.update');
             Route::delete('/{id}', [DiseminasiController::class, 'destroy'])->name('kinerja.diseminasi.destroy');
         });
         Route::prefix('/pendampingan')->group(function () {
-            Route::get('/', [PendampinganController::class, 'get'])->name('kinerja.pendampingan.view');
-            Route::get('/{id}', [PendampinganController::class, 'getById'])->name('kinerja.pendampingan.detail');
+            // Route::get('/', [PendampinganController::class, 'get'])->name('kinerja.pendampingan.view');
+            // Route::get('/{id}', [PendampinganController::class, 'getById'])->name('kinerja.pendampingan.detail');
+            Route::get('/form', function () { return view('kinerja.pendampingan.formPendampingan'); })->name('pendampingan_form');
             Route::post('/', [PendampinganController::class, 'store'])->name('kinerja.pendampingan.store');
             Route::put('/{id}', [PendampinganController::class, 'update'])->name('kinerja.pendampingan.update');
             Route::delete('/{id}', [PendampinganController::class, 'destroy'])->name('kinerja.pendampingan.destroy');
@@ -170,6 +187,13 @@ Route::middleware('authenticated')->group(function () {
         });
     });
 
+    Route::middleware('service:4')->prefix('/ip2sip')->group(function () {
+        Route::prefix('/pemanfaatan_kp')->group(function () {
+            Route::get('/form', [PemanfaatanSIPController::class, 'create'])->name('lp2tp.pemanfaatan_kp.create');
+            Route::post('/store', [PemanfaatanSIPController::class, 'store'])->name('lp2tp.pemanfaatan_kp.store');
+        });
+    });
+
     Route::middleware('service:5')->prefix('/direktori-penyuluh')->group(function () {
         Route::prefix('/penyuluh')->group(function () {
             Route::get('/', [PenyuluhController::class, 'get'])->name('direktori_penyuluh.penyuluh.view');
@@ -181,89 +205,53 @@ Route::middleware('authenticated')->group(function () {
     });
 });
 
-Route::get('/beranda', function () {
-    return view('guest.beranda');
-})->name('mainBeranda');
-
 //lp2tp
-Route::get('/dashboard-lp2tp', function () {
-    return view('lp2tp.dashboard-lp2tp'); 
-})->name('dashboard-lp2tp');
+Route::prefix('/ip2sip')->group(function () {
+    Route::get('/', function () { return view('lp2tp.dashboard-lp2tp'); })->name('dashboard-lp2tp');
+    Route::prefix('/aset')->group(function () {
+        Route::get('/tanah', function () { return view('lp2tp.aset.tanah'); })->name('aset.tanah');
+        Route::get('/gedung', function () { return view('lp2tp.aset.gedung'); })->name('aset.gedung');
+        Route::get('/lab', function () { return view('lp2tp.aset.lab'); })->name('aset.lab');
+        Route::get('/rumah_negara', function () { return view('lp2tp.aset.rumah_negara'); })->name('aset.rumah_negara');
+        Route::get('/alat_mesin', function () { return view('lp2tp.aset.alat_mesin'); })->name('aset.alat_mesin');
+    });
+    Route::get('/pemanfaatan_kp', [PemanfaatanSIPController::class, 'index'])->name('lp2tp.pemanfaatan_kp');
 
-Route::get('/aset/tanah', function () {
-    return view('lp2tp.aset.tanah'); 
-})->name('aset.tanah');
+    Route::get('/form_riset', function () { return view('lp2tp.form_riset'); })->name('form_riset');
+    Route::get('/form_sdm', function () { return view('lp2tp.form_sdm'); })->name('form_sdm');
+});
 
-Route::get('/aset/gedung', function () {
-    return view('lp2tp.aset.gedung'); 
-})->name('aset.gedung');
+// kinerja kegiatan
+Route::prefix('/kinerja-kegiatan')->group(function () {
+    Route::get('/', function () { return view('kinerja.berandakinerja'); })->name('beranda_kinerja');
+    Route::prefix('/identifikasi')->group(function () {
+        Route::get('/', function () { return view('kinerja.identifikasi.beranda'); })->name('identifikasi_beranda');
+        Route::get('/provinsi', function () { return view('kinerja.identifikasi.provinsi'); })->name('identifikasi.provinsi');
+    });
+    Route::prefix('/diseminasi')->group(function () {
+        Route::get('/', function () { return view('kinerja.diseminasi.beranda'); })->name('diseminasi_beranda');
+        Route::get('/peserta', function () { return view('kinerja.diseminasi.peserta'); })->name('diseminasi.peserta');
+        Route::get('/sip-sub-sektor', function () { return view('kinerja.diseminasi.sip_sub_sektor'); })->name('diseminasi.sip_sub_sektor');
+    });
+    Route::prefix('/pendampingan')->group(function () {
+        Route::get('/', function () { return view('kinerja.pendampingan.mainPendampingan'); })->name('pendampingan_main');
+        Route::get('/tabel-data', function () { return view('kinerja.pendampingan.tabelPendampingan'); })->name('pendampingan_tabel');
+        Route::get('/detail-data', function () { return view('kinerja.pendampingan.detailDataPendampingan'); })->name('pendampingan_detail');
+    });
 
-Route::get('/aset/lab', function () {
-    return view('lp2tp.aset.lab'); 
-})->name('aset.lab');
-
-Route::get('/aset/rumah_negara', function () {
-    return view('lp2tp.aset.rumah_negara'); 
-})->name('aset.rumah_negara');
-
-Route::get('/aset/alat_mesin', function () {
-    return view('lp2tp.aset.alat_mesin'); 
-})->name('aset.alat_mesin');
-
-Route::get('/pemanfaatan_kp', function () {
-    return view('lp2tp.pemanfaatan_kp'); 
-})->name('lp2tp.pemanfaatan_kp');
-
-
-Route::get('/identifikasi', function () {
-    return view('kinerja.identifikasi.beranda');
-})->name('identifikasi_beranda');
-
-Route::get('/identifikasi/form', function () {
-    return view('kinerja.identifikasi.form_sip');
-})->name('form_sip');
-
-Route::get('/berandakinerja', function () {
-    return view('kinerja.berandakinerja');
-})->name('beranda_kinerja');
-
-Route::get('/diseminasi/peserta', function () {
-    return view('kinerja.diseminasi.peserta'); 
-})->name('diseminasi.peserta');
-
-Route::get('/diseminasi/sip-sub-sektor', function () {
-    return view('kinerja.diseminasi.sip_sub_sektor');
-})->name('diseminasi.sip_sub_sektor');
-
-Route::get('/diseminasi/form', function () {
-    return view('kinerja.diseminasi.form_peserta'); // Adjust the view path if necessary
-})->name('diseminasi.form_peserta');
-
-
-Route::get('/form-sektor', function () {
-    return view('kinerja.diseminasi.form_sektor');
-})->name('diseminasi.form_sektor');
-
-
-Route::get('identifikasi/provinsi', function () {
-    return view('kinerja.identifikasi.provinsi');
-})->name('identifikasi.provinsi');
-
-
-// PENDAMPINGAN
-Route::get('/pendampingan', function () {
-    return view('kinerja.pendampingan.mainPendampingan');
-})->name('pendampingan_main');
-
-Route::get('/pendampingan/form', function () {
-    return view('kinerja.pendampingan.formPendampingan');
-})->name('pendampingan_form');
-
-Route::get('/pendampingan/tabel', function () {
-    return view('kinerja.pendampingan.tabelPendampingan');
-})->name('pendampingan_tabel');
+});
 
 // PENGELOLAAN
-Route::get('/pengelolaan', function () {
-    return view('pengelolaan.berandaPengelolaanUpbs');
-})->name('beranda_pengelolaan');
+Route::get('/pengelolaan', function () { return view('pengelolaan.berandaPengelolaanUpbs'); })->name('beranda_pengelolaan');
+
+Route::get('/pengelolaan/tabelBenih/{province}', function ($province) {
+    return view('pengelolaan.tabelBenih', ['province' => $province]);
+})->name('tabelBenih');
+Route::get('/pengelolaan/tabelBenih/{province}', [ProvinceBenihController::class, 'show'])->name('tabelBenih');
+
+//Lab
+Route::get('/beranda-Lab', function () { return view('laboratorium.berandaLab');  })->name('beranda-Lab');
+
+Route::get('/data-Lab', function () { return view('laboratorium.lab.beranda');  })->name('data-Lab');
+
+Route::get('/form-Lab', function () { return view('laboratorium.lab.form_lab');  })->name('form-Lab');

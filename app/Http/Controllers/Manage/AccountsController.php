@@ -3,14 +3,33 @@
 namespace App\Http\Controllers\Manage;
 
 use App\Http\Controllers\Controller;
+use App\Models\mService;
 use App\Models\pServiceAccess;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
 class AccountsController extends Controller
 {
+    public function index(Request $request) {
+        $users = User::where('id', '!=', Auth::user()->id)->get();
+        if ($request->search) {
+            $query = $request->search;
+            $users = User::where('id', '!=', Auth::user()->id)
+                ->where('name', 'LIKE', "%$query%")
+                ->orWhere('email', 'LIKE', "%$query%")
+                ->get();
+        }
+        $services = mService::get();
+        // dd($users[0]->service);
+        return view('manage.accounts.index', [
+            'users' => $users,
+            'services' => $services,
+        ]);
+    }
+
     public function verifyUser($id) {
         $user = User::find(Crypt::decryptString($id));
         if (!$user) return  back()->withErrors('user not found');
@@ -36,15 +55,13 @@ class AccountsController extends Controller
         $user = User::find($user_id);
         if (!$user) return  back()->withErrors('user not found');
         $request->validate([
-            'service' => 'array'
+            'service' => 'array',
+            'service.*' => 'integer',
         ], [
-            'service.array' => 'service must be an array'
+            'service.array' => 'service must be an array',
+            'service.*.integer' => 'service must be a number',
         ]);
-        $service_access = $request->service->map(function ($item) use ($user_id) {
-            return ['user_id' => $user_id, 'service_id' => $item];
-        });
-        pServiceAccess::where('user_id', $user_id)->delete();
-        DB::table('p_service_access')->insert($service_access);
+        $user->service()->sync($request->service);
         return back()->with('success', 'user service access updated');
     }
 
