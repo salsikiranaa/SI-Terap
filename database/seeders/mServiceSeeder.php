@@ -14,11 +14,11 @@ class mServiceSeeder extends Seeder
     public function run(): void
     {
         $service = [
-            ['id' => 1, 'name' => 'Kinerja Kegiatan', 'is_locked' => true],
-            ['id' => 2, 'name' => 'Laboratorium Pengujian', 'is_locked' => true],
-            ['id' => 3, 'name' => 'Perbenihan', 'is_locked' => true],
-            ['id' => 4, 'name' => 'IP2SIP', 'is_locked' => true],
-            ['id' => 5, 'name' => 'Direktori SDM Penyluh', 'is_locked' => true],
+            ['id' => 1, 'name' => 'Kinerja Kegiatan', 'is_locked' => false],
+            ['id' => 2, 'name' => 'Laboratorium Pengujian', 'is_locked' => false],
+            ['id' => 3, 'name' => 'Perbenihan', 'is_locked' => false],
+            ['id' => 4, 'name' => 'IP2SIP', 'is_locked' => false],
+            ['id' => 5, 'name' => 'Direktori SDM Penyluh', 'is_locked' => false],
         ];
 
         DB::table('m_service')->insert($service);

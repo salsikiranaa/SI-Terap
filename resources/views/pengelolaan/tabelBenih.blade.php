@@ -1,4 +1,4 @@
-@extends('layouts.layoutKinerja')
+@extends('layouts.layoutPengelolaanUpbs')
 
 @section('content')
 
@@ -270,59 +270,86 @@
         margin-top: 32px;
     }
 
-    .link-lembaga {
+    .link-benih {
         text-decoration: none;
         color: #00452C;
         font-weight: bold;
         transition: color 0.3s;
     }
 
-    .link-lembaga:hover {
+    .link-benih:hover {
         color: #007B5E;
         text-decoration: underline;
     }
 </style>
 
-<h1 class="page-title">Data Lembaga Penerap SIP - Nanggroe Aceh Darussalam</h1>
+<h1 class="page-title">Data Perbenihan - Provinsi {{ $provinceName }}</h1>
 
 <div class="content stylish-content">
     <!-- Filter Section -->
     <div class="filter">
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="namaLembaga">Nama Lembaga Penerap</label>
-                <input type="text" name="namaLembaga" id="namaLembaga" placeholder="Masukkan Nama Lembaga Penerap" style="width: 360px" required>
+                <label for="kotaKabupatenBenih">Nama Kota/Kabupaten</label>
+                <input type="text" name="kotaKabupatenBenih" id="kotaKabupatenBenih" placeholder="Masukkan Nama Kota/Kabupaten" style="width: 360px" required>
             </div>
             
             <div class="form-group col-md-5">
-                <label for="bentukLembaga">Bentuk Lembaga</label>
-                <select name="bentukLembaga" id="bentukLembaga" required style="height: 52px">
+                <label for="komoditasBenih">Komoditas</label>
+                <select name="komoditasBenih" id="komoditasBenih" required style="height: 52px">
                     <option value="" disabled selected>Pilih Salah Satu</option>
-                    <option value="pt">PT</option>
-                    <option value="cv">CV</option>
-                    <option value="koperasi">Koperasi</option>
-                    <option value="kelompok">Kelompok</option>
-                    <option value="ud">UD</option>
-                    <option value="bumdes">BUMDes</option>
-                    <option value="BUMD">BUMD</option>
+                    <option value="padi">Padi</option>
+                    <option value="jagung">Jagung</option>
+                    <option value="kacangkedelai">Kacang Kedelai</option>
+                    <option value="ayamkub">Ayam KUB</option>
+                    <option value="domba">Domba</option>
+                    <option value="kopi">Kopi</option>
+                    <option value="sapi">Sapi</option>
+                    <option value="bebekhibrida">Bebek Hibrida</option>
+                    <option value="bawangputih">Bawang Putih</option>
+                    <option value="cabai">Cabai</option>
+                    <option value="bawangmerah">Bawang Merah</option>
+                    <option value="kelapasawit">Kelapa Sawit</option>
+                    <option value="krisan">Krisan</option>
+                    <option value="kacangtanah">Kacang Tanah</option>
+                    <option value="ubikayu">Ubi Kayu</option>
+                    <option value="ubijalar">Ubi Jalar</option>
                 </select>
             </div>
     
             <div class="form-group col-md-5">
-                <label for="tahunPendampingan">Tahun</label>
-                <input type="number" name="tahunPendampingan" class="form-control" id="tahunPendampingan" placeholder="Masukkan Tahun" required>
+                <label for="kelasBenih">Kelas Benih</label>
+                <select name="kelasBenih" id="kelasBenih" required style="height: 52px">
+                    <option value="" disabled selected>Pilih Salah Satu</option>
+                    <option value="bs">BS (Breeder Seed)</option>
+                    <option value="fs">FS (Foundation Seed)</option>
+                    <option value="ss">SS (Stock Seed)</option>
+                    <option value="es">ES (Extention Seed)</option>
+                </select>
             </div>
 
             <div class="form-group col-md-5">
-                <label for="sipDiterapkan">SIP</label>
-                <select name="sipDiterapkan" id="sipDiterapkan" required style="height: 52px">
+                <label for="bulanPerbenihan">Bulan</label>
+                <select name="bulanPerbenihan" id="bulanPerbenihan" required style="height: 52px">
                     <option value="" disabled selected>Pilih Salah Satu</option>
-                    <option value="sni">SNI</option>
-                    <option value="gap">GAP</option>
-                    <option value="ghp">GHP</option>
-                    <option value="gmp">GMP</option>
-                    <option value="ptm">PTM</option>
+                    <option value="benihJanuari">Januari</option>
+                    <option value="benihFebruari">Februari</option>
+                    <option value="benihMaret">Maret</option>
+                    <option value="benihApril">April</option>
+                    <option value="benihMei">Mei</option>
+                    <option value="benihJuni">Juni</option>
+                    <option value="benihJuli">Juli</option>
+                    <option value="benihAgustus">Agustus</option>
+                    <option value="benihSeptember">September</option>
+                    <option value="benihOktober">Oktober</option>
+                    <option value="benihNovember">November</option>
+                    <option value="benihDesember">Desember</option>
                 </select>
+            </div>
+
+            <div class="form-group col-md-5">
+                <label for="tahunPerbenihan">Tahun</label>
+                <input type="number" name="tahunPerbenihan" class="form-control" id="tahunPerbenihan" placeholder="Masukkan Tahun" required>
             </div>
             
             <button type="button" onclick="filterData()">Filter</button>
@@ -332,14 +359,15 @@
     </div>
 
     <!-- Kegiatan Table -->
-    <table id="pendampingan-table">
+    <table id="perbenihan-table">
         <thead>
             <tr>
                 <th>No</th>
-                <th>Nama Lembaga</th>
-                <th>Bentuk Lembaga</th>
+                <th>Kota/Kabupaten</th>
+                <th>Komoditas</th>
+                <th>Kelas Benih</th>
+                <th>Bulan</th>
                 <th>Tahun</th>
-                <th>SIP</th>
             </tr>
         </thead>
         <tbody>
@@ -357,33 +385,35 @@
 </div>
 
 <script>
-    const lembagaSipData = [
-        { no: 1, id: 1, namaLembaga: 'PT Perkebunan Indonesia', bentukLembaga: 'PT', tahunPendampingan: 2023, sipDiterapkan: 'SNI' },
-        { no: 2, id: 2, namaLembaga: 'Koperasi Tani Makmur', bentukLembaga: 'Koperasi', tahunPendampingan: 2022, sipDiterapkan: 'GAP' },
-        { no: 3, id: 3, namaLembaga: 'UD Sumber Pangan', bentukLembaga: 'UD', tahunPendampingan: 2024, sipDiterapkan: 'GHP' },
-        { no: 4, id: 4, namaLembaga: 'CV Agro Pratama', bentukLembaga: 'CV', tahunPendampingan: 2023, sipDiterapkan: 'GMP' },
-        { no: 5, id: 5, namaLembaga: 'Kelompok Tani Sido Maju', bentukLembaga: 'Kelompok', tahunPendampingan: 2024, sipDiterapkan: 'PTM' },
-        { no: 6, id: 6, namaLembaga: 'BUMDes Tani Jaya', bentukLembaga: 'BUMDes', tahunPendampingan: 2022, sipDiterapkan: 'GHP' },
-        { no: 7, id: 7, namaLembaga: 'PT Agro Sejahtera', bentukLembaga: 'PT', tahunPendampingan: 2023, sipDiterapkan: 'SNI' },
-        { no: 8, id: 8, namaLembaga: 'CV Agri Nusantara', bentukLembaga: 'CV', tahunPendampingan: 2024, sipDiterapkan: 'GAP' },
-        { no: 9, id: 9, namaLembaga: 'Kelompok Tani Bersatu', bentukLembaga: 'Kelompok', tahunPendampingan: 2022, sipDiterapkan: 'PTM' },
-        { no: 10, id: 10, namaLembaga: 'BUMD Agro Mandiri', bentukLembaga: 'BUMD', tahunPendampingan: 2023, sipDiterapkan: 'GMP' }
+    const perbenihanData = [
+        { no: 1, id: 1, kotaKabupatenBenih: 'Kabupaten Aceh Besar', komoditasBenih: 'Padi', kelasBenih: 'BS', bulanPerbenihan: 'Februari', tahunPerbenihan: 2023 },
+        { no: 2, id: 2, kotaKabupatenBenih: 'Kabupaten Bireuen', komoditasBenih: 'Jagung', kelasBenih: 'FS', bulanPerbenihan: 'Maret', tahunPerbenihan: 2022 },
+        { no: 3, id: 3, kotaKabupatenBenih: 'Kota Banda Aceh', komoditasBenih: 'Kacang Kedelai', kelasBenih: 'SS', bulanPerbenihan: 'April', tahunPerbenihan: 2024 },
+        { no: 4, id: 4, kotaKabupatenBenih: 'Kabupaten Aceh Tengah', komoditasBenih: 'Bawang Putih', kelasBenih: 'ES', bulanPerbenihan: 'Mei', tahunPerbenihan: 2023 },
+        { no: 5, id: 5, kotaKabupatenBenih: 'Kabupaten Aceh Timur', komoditasBenih: 'Cabai', kelasBenih: 'BS', bulanPerbenihan: 'Juni', tahunPerbenihan: 2022 },
+        { no: 6, id: 6, kotaKabupatenBenih: 'Kabupaten Aceh Barat', komoditasBenih: 'Padi', kelasBenih: 'FS', bulanPerbenihan: 'Juli', tahunPerbenihan: 2024 },
+        { no: 7, id: 7, kotaKabupatenBenih: 'Kabupaten Aceh Selatan', komoditasBenih: 'Jagung', kelasBenih: 'SS', bulanPerbenihan: 'Agustus', tahunPerbenihan: 2023 },
+        { no: 8, id: 8, kotaKabupatenBenih: 'Kabupaten Aceh Singkil', komoditasBenih: 'Kacang Kedelai', kelasBenih: 'ES', bulanPerbenihan: 'September', tahunPerbenihan: 2022 },
+        { no: 9, id: 9, kotaKabupatenBenih: 'Kabupaten Aceh Jaya', komoditasBenih: 'Bawang Putih', kelasBenih: 'BS', bulanPerbenihan: 'Oktober', tahunPerbenihan: 2023 },
+        { no: 10, id: 10, kotaKabupatenBenih: 'Kabupaten Aceh Tamiang', komoditasBenih: 'Cabai', kelasBenih: 'FS', bulanPerbenihan: 'November', tahunPerbenihan: 2024 }
     ];
 
     function filterData() {
-        const namaLembaga = document.getElementById('namaLembaga').value.toLowerCase();
-        const tahunPendampingan = document.getElementById('tahunPendampingan').value;
-        const bentukLembaga = document.getElementById('bentukLembaga').value.toLowerCase();
-        const sipDiterapkan = document.getElementById('sipDiterapkan').value.toLowerCase();
+        const kotaKabupatenBenih = document.getElementById('kotaKabupatenBenih').value.toLowerCase();
+        const tahunPerbenihan = document.getElementById('tahunPerbenihan').value;
+        const bulanPerbenihan = document.getElementById('bulanPerbenihan').value;
+        const komoditasBenih = document.getElementById('komoditasBenih').value.toLowerCase();
+        const kelasBenih = document.getElementById('kelasBenih').value.toLowerCase();
 
-        console.log("Filter values - Nama Lembaga:", namaLembaga, "Tahun Pendampingan:", tahunPendampingan, "Bentuk Lembaga:", bentukLembaga, "SIP Diterapkan:", sipDiterapkan);
+        console.log("Filter values - Kota Kabupaten:", kotaKabupatenBenih, "Komoditas Benih:", komoditasBenih, "Kelas Benih:", kelasBenih, "Bulan Perbenihan:", bulanPerbenihan, "Tahun Perbenihan:", tahunPerbenihan);
 
-        const filteredData = lembagaSipData.filter(item => {
+        const filteredData = perbenihanData.filter(item => {
             return (
-                (namaLembaga === '' || item.namaLembaga.toLowerCase().includes(namaLembaga)) &&
-                (tahunPendampingan === '' || item.tahunPendampingan === parseInt(tahunPendampingan, 10)) &&
-                (bentukLembaga === '' || item.bentukLembaga.toLowerCase() === bentukLembaga) &&
-                (sipDiterapkan === '' || item.sipDiterapkan.toLowerCase() === sipDiterapkan)
+                (kotaKabupatenBenih === '' || item.kotaKabupatenBenih.toLowerCase().includes(kotaKabupatenBenih)) &&
+                (komoditasBenih === '' || item.komoditasBenih.toLowerCase() === komoditasBenih) &&
+                (kelasBenih === '' || item.kelasBenih.toLowerCase() === kelasBenih) &&
+                (bulanPerbenihan === '' || item.bulanPerbenihan.toLowerCase() === bulanPerbenihan) &&
+                (tahunPerbenihan === '' || item.tahunPerbenihan === parseInt(tahunPerbenihan, 10))
             );
         });
 
@@ -391,7 +421,7 @@
         }
 
         function displayData(data) {
-            const tableBody = document.querySelector('#pendampingan-table tbody');
+            const tableBody = document.querySelector('#perbenihan-table tbody');
             tableBody.innerHTML = ''; 
 
             data.forEach(item => {
@@ -399,13 +429,14 @@
                 row.innerHTML = `
                     <td>${item.no}</td>
                     <td>
-                        <a href="${toDetail}" class="link-lembaga">
-                            ${item.namaLembaga}
+                        <a href="${toDetail}" class="link-benih">
+                            ${item.kotaKabupatenBenih}
                         </a>    
                     </td>
-                    <td>${item.bentukLembaga}</td>
-                    <td>${item.tahunPendampingan}</td>
-                    <td>${item.sipDiterapkan}</td>
+                    <td>${item.komoditasBenih}</td>
+                    <td>${item.kelasBenih}</td>
+                    <td>${item.bulanPerbenihan}</td>
+                    <td>${item.tahunPerbenihan}</td>
                 `;
                 tableBody.appendChild(row);
             });
@@ -415,16 +446,17 @@
 
         document.getElementById('resetFilter').addEventListener('click', () => {
     // Reset all input fields to their default values
-            document.getElementById('namaLembaga').value = '';
-            document.getElementById('tahunPendampingan').value = '';
-            document.getElementById('bentukLembaga').value = '';
-            document.getElementById('sipDiterapkan').value = ''; // Reset dropdown to default
+            document.getElementById('kotaKabupatenBenih').value = '';
+            document.getElementById('komoditasBenih').value = '';
+            document.getElementById('kelasBenih').value = ''; // Reset dropdown to default
+            document.getElementById('bulanPerbenihan').value = '';
+            document.getElementById('tahunPerbenihan').value = '';
 
             // Display all data since filter is cleared
-            displayData(lembagaSipData);
+            displayData(perbenihanData);
         });
 
-        displayData(lembagaSipData);
+        displayData(perbenihanData);
 </script>
 
 @endsection
