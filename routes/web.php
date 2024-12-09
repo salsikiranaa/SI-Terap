@@ -20,6 +20,9 @@ use App\Http\Controllers\Manage\mSasaranController;
 use App\Http\Controllers\Manage\mServiceController;
 use App\Http\Controllers\Manage\mSIPController;
 use App\Http\Controllers\Penyuluh\PenyuluhController;
+use App\Http\Controllers\pengelolaanBenih\ProvinceBenihController;
+use App\Http\Controllers\Kinerja\ProvinceIdentifikasiController;
+use App\Http\Controllers\Kinerja\ProvinceDiseminasiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IP2SIP\PemanfaatanSIPController;
@@ -238,9 +241,84 @@ Route::prefix('/kinerja-kegiatan')->group(function () {
     });
 
 });
+Route::get('/form_riset', function () {
+    return view('lp2tp.form_riset'); 
+})->name('form_riset');
+
+Route::get('/form_sdm', function () {
+    return view('lp2tp.form_sdm'); 
+})->name('form_sdm');
+
+Route::get('/identifikasi', function () {
+    return view('kinerja.identifikasi.beranda');
+})->name('identifikasi_beranda');
+
+Route::get('/identifikasi/form', function () {
+    return view('kinerja.identifikasi.form_sip');
+})->name('form_sip');
+
+Route::get('/identifikasi/detail', function () {
+    return view('kinerja.identifikasi.detail');
+})->name('identifikasi_detail');
+
+
+Route::get('/berandakinerja', function () {
+    return view('kinerja.berandakinerja');
+})->name('beranda_kinerja');
+
+Route::get('/diseminasi', function () {
+    return view('kinerja.diseminasi.beranda');
+})->name('diseminasi_beranda');
+
+
+Route::get('/diseminasi/peserta', function () {
+    return view('kinerja.diseminasi.peserta'); 
+})->name('diseminasi.peserta');
+
+Route::get('/diseminasi/sip-sub-sektor', function () {
+    return view('kinerja.diseminasi.sip_sub_sektor');
+})->name('diseminasi.sip_sub_sektor');
+
+Route::get('/diseminasi/form', function () {
+    return view('kinerja.diseminasi.form_peserta'); // Adjust the view path if necessary
+})->name('diseminasi.form_peserta');
+
+
+Route::get('/form-sektor', function () {
+    return view('kinerja.diseminasi.form_sektor');
+})->name('diseminasi.form_sektor');
+
+
+Route::get('identifikasi/provinsi/{province}', function ($province) {
+    return view('kinerja.identifikasi.provinsi', ['province' => $province]);
+})->name('identifikasi.provinsi');
+Route::get('/identifikasi/provinsi/{province}', [ProvinceIdentifikasiController::class, 'show'])->name('provinsi');
+
+Route::get('diseminasi/provinsiDiseminasi/{province}', function ($province) {
+    return view('kinerja.diseminasi.provinsiDiseminasi', ['province' => $province]);
+})->name('diseminasi.provinsiDiseminasi');
+Route::get('/diseminasi/provinsiDiseminasi/{province}', [ProvinceDiseminasiController::class, 'show'])->name('provinsi');
+
+// PENDAMPINGAN
+Route::get('/pendampingan', function () {
+    return view('kinerja.pendampingan.mainPendampingan');
+})->name('pendampingan_main');
+
+Route::get('/pendampingan/form', function () {
+    return view('kinerja.pendampingan.formPendampingan');
+})->name('pendampingan_form');
+
+Route::get('/pendampingan/tabel', function () {
+    return view('kinerja.pendampingan.tabelPendampingan');
+})->name('pendampingan_tabel');
 
 // PENGELOLAAN
 Route::get('/pengelolaan', function () { return view('pengelolaan.berandaPengelolaanUpbs'); })->name('beranda_pengelolaan');
+
+Route::get('/pengelolaan/tabelBenih/{province}', function ($province) {
+    return view('pengelolaan.tabelBenih', ['province' => $province]);
+})->name('tabelBenih');
+Route::get('/pengelolaan/tabelBenih/{province}', [ProvinceBenihController::class, 'show'])->name('tabelBenih');
 
 //Lab
 Route::get('/beranda-Lab', function () { return view('laboratorium.berandaLab');  })->name('beranda-Lab');
@@ -248,3 +326,17 @@ Route::get('/beranda-Lab', function () { return view('laboratorium.berandaLab');
 Route::get('/data-Lab', function () { return view('laboratorium.lab.beranda');  })->name('data-Lab');
 
 Route::get('/form-Lab', function () { return view('laboratorium.lab.form_lab');  })->name('form-Lab');
+
+//Pengkajian
+Route::get('/formriset', function () {
+    return view('pengkajian.formriset');
+})->name('formriset');
+Route::get('/pengkajian-riset', function () {
+    return view('pengkajian.riset');
+})->name('riset');
+Route::get('/pengkajian-sdm', function () {
+    return view('pengkajian.sdm');
+})->name('sdm');
+Route::get('/formsdm', function () {
+    return view('pengkajian.formsdm');
+})->name('formsdm');
