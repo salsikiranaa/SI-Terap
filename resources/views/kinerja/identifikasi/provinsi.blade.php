@@ -82,7 +82,7 @@
     </style>
 
     <div class="content stylish-content">
-        <h1 class="page-title">Peta Sebaran Identifikasi dan Inventarisasi SIP Provinsi {{ $provinceName }}</h1>
+        <h1 class="page-title">Peta Sebaran Identifikasi dan Inventarisasi SIP Provinsi {{ $bsip_identifikasi->name }}</h1>
 
         <!-- Filter Section -->
         <form action="{{ route('identifikasi.provinsi.filter') }}" method="POST" class="filter-container">
@@ -95,7 +95,13 @@
             </select>
 
             <label for="year">Tahun:</label>
-            <input type="number" id="year" placeholder="Tahun" name="tahun" />
+            {{-- <input type="number" id="year" placeholder="Tahun" name="tahun" /> --}}
+            <select name="tahun" id="year">
+                <option value="">Tahun</option>
+                @for ($i = intval(date('Y')); $i >= 2000; $i--)
+                    <option value="{{ $i }}">{{ $i }}</option>
+                @endfor
+            </select>
 
             <label for="sip-type">Usulan SIP/Revisi SIP:</label>
             <select id="sip-type" name="jenis_usulan">
@@ -135,11 +141,11 @@
     </div>
 
     <script>
-        const kegiatanData = [
-            { no: 1, bpsip: 'BPSIP 1', tahun: 2023, type: 'Usulan SIP', nama: 'Kegiatan A' },
-            { no: 2, bpsip: 'BPSIP 2', tahun: 2024, type: 'Revisi SIP', nama: 'Kegiatan B' },
-            { no: 3, bpsip: 'BPSIP 1', tahun: 2023, type: 'Usulan SIP', nama: 'Kegiatan C' },
-        ];
+        // const kegiatanData = [
+        //     { no: 1, bpsip: 'BPSIP 1', tahun: 2023, type: 'Usulan SIP', nama: 'Kegiatan A' },
+        //     { no: 2, bpsip: 'BPSIP 2', tahun: 2024, type: 'Revisi SIP', nama: 'Kegiatan B' },
+        //     { no: 3, bpsip: 'BPSIP 1', tahun: 2023, type: 'Usulan SIP', nama: 'Kegiatan C' },
+        // ];
 
         function filterData() {
             const bpsip = document.getElementById('bpsip').value;

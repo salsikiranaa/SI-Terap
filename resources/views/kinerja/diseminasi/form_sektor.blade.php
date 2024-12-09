@@ -65,13 +65,14 @@
         </div>
         <!--Tanggal-->
         <div class="form-group">
-            <label for="tahun">Tahun</label>
-            <select name="tahun" id="tahun" required>
+            <label for="tanggal">Tanggal</label>
+            {{-- <select name="tahun" id="tahun" required>
                 <option value="" selected disabled>-- Pilih Tahun --</option>
                 @for ($year = now()->year; $year >= 2000; $year--)
                     <option value="{{ $year }}">{{ $year }}</option>
                 @endfor
-            </select>
+            </select> --}}
+            <input type="date" name="tanggal" id="tanggal">
         </div>
         <!--SIP-->
         <div class="form-group">
