@@ -289,7 +289,7 @@
                     </a>
                 </div>
                 <div class="col-md-2">
-                    <a href="#" style="text-decoration: none">
+                    <a href="{{route('sdm')}}" style="text-decoration: none">
                         <div class="card border">
                             <img src="https://img.freepik.com/free-vector/dashboard-analytics-computer-performance-evaluation-chart-screen-statistics-analysis-infographic-assessment-business-report-display-isolated-concept-metaphor-illustration_335657-1149.jpg?t=st=1730188574~exp=1730192174~hmac=062d414ad7f4ba7ea2bff35402cca9842a482fe9ff3607cbf442e81a40e3b083&w=740" alt="Direktori SDM Penyuluh" class="card-img-top">
                             <div class="card-body">
