@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class mIP2SIP extends Model
 {
@@ -14,5 +15,9 @@ class mIP2SIP extends Model
 
     public function bsip() : BelongsTo {
         return $this->belongsTo(mBSIP::class, 'bsip_id', 'id');
+    }
+
+    public function pemanfaatan_sip() : HasOne {
+        return $this->hasOne(PemanfaatanSIP::class, 'ip2sip_id', 'id');
     }
 }

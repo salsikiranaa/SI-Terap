@@ -1,0 +1,47 @@
+@extends('layouts.admin_layout')
+@section('content')
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+    Admin <br>
+@endsection

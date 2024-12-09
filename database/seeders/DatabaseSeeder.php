@@ -30,6 +30,9 @@ class DatabaseSeeder extends Seeder
             mLembagaSeeder::class,
             mBSIPSeeder::class,
             mIP2SIPSeeder::class,
+
+            CMSSeeder::class,
+            SocialSeeder::class,
         ]);
     }
 }

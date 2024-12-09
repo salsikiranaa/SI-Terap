@@ -24,6 +24,7 @@ class mServiceController extends Controller
             'name.max' => 'Service name must not be greater than 255 characters'
         ]);
         $service = mService::create(['name' => $request->name]);
+        if (!$service) return back()->withErrors('Internal server error');
         // return 'created';
         return redirect()->route('manage.service.view')->with('success', 'data created');
     }
