@@ -269,7 +269,7 @@
                     </a>
                 </div>
                 <div class="col-md-2">
-                    <a href="{{route('beranda_pengelolaan')}}" style="text-decoration: none">
+                    <a href="{{route('perbenihan.index')}}" style="text-decoration: none">
                         <div class="card border">
                             <img src="https://img.freepik.com/free-vector/bug-fixing-software-testing-computer-virus-searching-tool-devops-web-optimization-antivirus-app-magnifier-cogwheel-monitor-design-element_335657-211.jpg?t=st=1730187126~exp=1730190726~hmac=66b3253705fcec65c36d963573a90c2fae0a167433173ae3ad9caee35e6ce6cc&w=740" alt="Perbenihan" class="card-img-top">
                             <div class="card-body">
