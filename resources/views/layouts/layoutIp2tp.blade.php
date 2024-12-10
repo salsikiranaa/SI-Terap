@@ -360,8 +360,6 @@
                 </div>
                 <a class="{{ request()->routeIs('lp2tp.pemanfaatan_kp') ? 'active' : '' }}" href="{{ route('lp2tp.pemanfaatan_kp') }}">Pemanfaatan KP</a>
                 <a class="nav-link" href="#">Galeri</a>
-                <a class="{{ request()->routeIs('form_sdm') ? 'active' : '' }}" href="{{ route('form_sdm') }}">Direktori SDM Penyuluh</a>
-                <a class="{{ request()->routeIs('form_riset') ? 'active' : '' }}" href="{{ route('form_riset') }}">Riset</a>
             </nav>
 
             <div>

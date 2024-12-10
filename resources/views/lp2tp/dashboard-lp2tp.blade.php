@@ -183,7 +183,8 @@
                 </div>
             </div>
         </div>
-        <a href="#" class="cta">Info Selengkapnya →</a>
+        <a href="{{ route('profil_bsip') }}" class="cta">Info Selengkapnya →</a>
+
     </div>
 </div>
 
