@@ -31,7 +31,7 @@
     .filter-container {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-end;
     gap: 10px;
     margin: 20px 0;
     }
@@ -165,15 +165,12 @@
         max-width: 1200px;
         padding: 20px 10px; /* Mengurangi padding */
         background-color: #ffffff;
-        border-radius: 10px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     }
 
     .map-container {
         padding: 20px; 
-        background-color: #f4f4f4;
-        border-radius: 15px; 
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+        background-color: #ffffff;
+        border-radius: 0px; 
         margin-bottom: 10px;
     }
 
@@ -244,11 +241,12 @@
                 <div class="icon">
                     <i class="fas fa-users"></i>
                 </div>
-                <p>120</p>
+                <p>{{ $jumlah_sasaran }}</p>
             </div>
 
             <!-- Sasaran Diseminasi -->
             <h3>Sasaran Diseminasi</h3>
+
             <div class="infographics">
                 <!-- Target dan Pencapaian -->
                 <div class="infographic">
@@ -284,39 +282,42 @@
             </div>
 
             <!-- Filter Form -->
-            <div class="filter-container">
+            <form action="{{ route('diseminasi_beranda') }}" class="filter-container">
                 <div class="filter-group">
-                    <select id="bpsip" name="bpsip" class="filter-input">
+                    <select id="bpsip" name="bsip_id" class="filter-input">
                         <option value="">BPSIP</option>
-                        <option value="aceh">Aceh</option>
-                        <option value="papua">Papua</option>
+                        @foreach ($diseminasi as $ds)
+                            <option value="{{ $ds->bsip_id }}" {{ request()->bsip_id == $ds->bsip_id ? 'selected' : '' }}>{{ $ds->bsip->name }}</option>
+                        @endforeach
                     </select>
                 </div>
 
                 <div class="filter-group">
-                    <input id="tanggal" type="month" name="tanggal" class="filter-input">
+                    <input id="tanggal" type="month" name="tanggal" value="{{ request()->tanggal }}" class="filter-input">
                 </div>
 
                 <div class="filter-group">
-                    <select id="sip" name="sip" class="filter-input">
+                    <select id="sip" name="sip_id" class="filter-input">
                         <option value="">SIP</option>
-                        <option value="tp">TP</option>
-                        <option value="horti">Horti</option>
+                        @foreach ($sip as $sp)
+                            <option value="{{ $sp->id }}" {{ request()->sip_id == $sp->id ? 'selected' : '' }}>{{ $sp->name }}</option>
+                        @endforeach
                     </select>
                 </div>
 
                 <div class="filter-group">
-                    <select id="jenis-standar" name="jenis-standar" class="filter-input">
+                    <select id="jenis-standar" name="jenis_standard_id" class="filter-input">
                         <option value="">Jenis Standar</option>
-                        <option value="sni">SNI</option>
-                        <option value="iso">ISO</option>
+                        @foreach ($jenis_standard as $js)
+                            <option value="{{ $js->id }}" {{ request()->jenis_standard_id == $js->id ? 'selected' : '' }}>{{ $js->name }}</option>
+                        @endforeach
                     </select>
                 </div>
 
                 <div class="filter-group">
                     <button type="submit" class="btn-filter">Filter</button>
                 </div>
-            </div>
+            </form>
 
             <!-- Kegiatan Table -->
             <table id="kegiatan-table">
@@ -324,7 +325,7 @@
                     <tr>
                         <th>No</th>
                         <th>BPSIP</th>
-                        <th>Tahun</th>
+                        <th>Tanggal</th>
                         <th>SIP</th>
                         <th>Metode</th>
                         <th>Sasaran</th>
@@ -332,6 +333,29 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($diseminasi as $ds)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $ds->bsip->name }}</td>
+                            <td>{{ $ds->tanggal }}</td>
+                            <td>
+                                <ul>
+                                    @foreach ($ds->sip as $sp)
+                                        <li>{{ $sp->name }}</li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                            <td>{{ $ds->metode->name }}</td>
+                            <td>
+                                <ul>
+                                    @foreach ($ds->sasaran as $sr)
+                                        <li>{{ $sr->name }}</li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                            <td>{{ $ds->jumlah_sasaran }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
 
