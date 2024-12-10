@@ -3,6 +3,14 @@
 @section('content')
 
 <style>
+    .disabled {
+        pointer-events: none;
+        opacity: 0.6;
+        color: white !important;
+        background-color: gray;
+        border: none !important;
+    }
+
     .content.stylish-content {
         padding: 20px;
     }
@@ -367,14 +375,25 @@
             @endforeach
         </tbody>
     </table>
-
+    {{-- {{ dd($perbenihan) }} --}}
     <div class="pagination">
-        <div class="page-item">&lt;</div> <!-- Left arrow -->
-        <div class="page-item active">1</div> <!-- Active page -->
-        <div class="page-item">2</div>
-        <div class="page-item">3</div>
-        <span class="dots">...</span> <!-- Dots -->
-        <div class="page-item">&gt;</div> <!-- Right arrow -->
+        <a href="{{ route('perbenihan.provinsi', ['bsip_id' => request()->bsip_id, ...request()->query(), 'page' => $perbenihan->currentPage()-1]) }}" class="page-item text-decoration-none {{ $perbenihan->currentPage() == 1 ? 'disabled' : '' }}">&lt;</a> <!-- Left arrow -->
+        @if ($perbenihan->lastPage() > 5 && $perbenihan->currentPage() - 5 > 1)
+            <span class="dots">...</span> <!-- Dots -->
+        @endif
+        @for ($i = 1; $i < $perbenihan->currentPage()+1; $i++)
+            @if ($i >= $perbenihan->currentPage() - 5 || $i <= $perbenihan->currentPage() + 5)
+                @if ($i == $perbenihan->currentPage())
+                    <div class="page-item text-decoration-none active">{{ $i }}</div> <!-- Active page -->
+                @else
+                    <a href="{{ route('perbenihan.provinsi', ['bsip_id' => request()->bsip_id, ...request()->query(), 'page' => $i]) }}" class="page-item text-decoration-none">{{ $i }}</a>
+                @endif
+            @endif
+        @endfor
+        @if ($perbenihan->lastPage() > 5 && $perbenihan->lastPage() > $perbenihan->currentPage() + 5)
+            <span class="dots">...</span> <!-- Dots -->
+        @endif
+        <a href="{{ route('perbenihan.provinsi', ['bsip_id' => request()->bsip_id, ...request()->query(), 'page' => $perbenihan->currentPage()+1]) }}" class="page-item text-decoration-none {{ $perbenihan->currentPage() == $perbenihan->lastPage() ? 'disabled' : '' }}">&gt;</a> <!-- Right arrow -->
     </div>
 </div>
 

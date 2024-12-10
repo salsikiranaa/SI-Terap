@@ -28,7 +28,8 @@ class PerbenihanController extends Controller
         if ($request->kelas_benih_id) $perbenihan = $perbenihan->where('kelas_benih_id', $request->kelas_benih_id); 
         if ($request->bulan) $perbenihan = $perbenihan->where('bulan', $request->bulan); 
         if ($request->tahun) $perbenihan = $perbenihan->where('tahun', $request->tahun); 
-        $perbenihan = $perbenihan->get();
+        $perbenihan = $perbenihan->paginate(10);
+        // dd($perbenihan);
         $bulan = [
             "Januari",
             "Februari",
