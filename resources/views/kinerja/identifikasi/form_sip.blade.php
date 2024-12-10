@@ -88,20 +88,36 @@
 
     <div class="form-container">
         <h2 class="form-title"> Form Data identifikasi Standar Instrumen Pertanian</h2>
-        <form action="#" method="POST"> 
+        <form action="{{ route('kinerja.identifikasi.store') }}" method="POST">
+            @csrf
             <div class="form-group">
                 <label for="bsip">BSIP</label>
-                <select name="bsip" id="bsip" required>
+                <select name="bsip_id" id="bsip" required>
                     <option value="" disabled selected>Pilih Daerah BSIP</option>
-                    <option value="daerah1">Daerah 1</option>
-                    <option value="daerah2">Daerah 2</option>
-                    <option value="daerah3">Daerah 3</option>
+                    @foreach ($bsip as $b)
+                        <option value="{{ $b->id }}">{{ $b->name }}</option>
+                    @endforeach
                 </select>
             </div>
             
             <div class="form-group">
                 <label for="sip">SIP</label>
-                <input type="text" name="sip" id="sip" placeholder="Masukkan Daerah SIP" required>
+                {{-- <input type="text" name="sip" id="sip" placeholder="Masukkan Daerah SIP" required> --}}
+                <div class="checkbox-group">
+                    @foreach ($sip as $sp)
+                        <label><input type="checkbox" name="sip_id[]" id="sip" value="{{ $sp->id }}">{{ $sp->name }}</label>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="metode">Metode Identifikasi</label>
+                <select name="metode_id" id="metode" required>
+                    <option value="" disabled selected>Pilih Metode Identifikasi</option>
+                    @foreach ($metode as $met)
+                        <option value="{{ $met->id }}">{{ $met->name }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="form-group">
@@ -117,11 +133,9 @@
             <div class="form-group">
                 <label>Sasaran Penerap</label>
                 <div class="checkbox-group">
-                    <label><input type="checkbox" name="sasaran_penerap[]" value="petani"> Petani</label>
-                    <label><input type="checkbox" name="sasaran_penerap[]" value="umkm"> UMKM</label>
-                    <label><input type="checkbox" name="sasaran_penerap[]" value="pelaku_usaha"> Pelaku Usaha</label>
-                    <label><input type="checkbox" name="sasaran_penerap[]" value="koperasi"> Koperasi</label>
-                    <label><input type="checkbox" name="sasaran_penerap[]" value="bumdes"> BUMDes</label>
+                    @foreach ($sasaran as $sr)
+                        <label><input type="checkbox" name="sasaran_id[]" value="{{ $sr->id }}">{{ $sr->name }}</label>
+                    @endforeach
                 </div>
             </div>
 

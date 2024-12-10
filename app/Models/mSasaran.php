@@ -13,10 +13,10 @@ class mSasaran extends Model
     protected $guarded = [];
 
     public function identifikasi() : BelongsToMany {
-        return $this->belongsToMany(Identifikasi::class, 'm_identifikasi_sasaran', 'sasaran_id', 'identifikasi_id');
+        return $this->belongsToMany(Identifikasi::class, 'p_identifikasi_sasaran', 'sasaran_id', 'identifikasi_id');
     }
 
     public function diseminasi() : BelongsToMany {
-        return $this->belongsToMany(Diseminasi::class, 'm_diseminasi_sasaran', 'sasaran_id', 'diseminasi_id');
+        return $this->belongsToMany(Diseminasi::class, 'p_diseminasi_sasaran', 'sasaran_id', 'diseminasi_id');
     }
 }

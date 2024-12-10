@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('identifikasi', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('bsip_id')->unsigned(); //
-            $table->date('tanggal');
+            $table->year('tahun');
             $table->bigInteger('metode_id')->unsigned(); //
             $table->enum('jenis_usulan', ['revisi', 'baru']);
             $table->bigInteger('created_by')->unsigned(); //
