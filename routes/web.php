@@ -210,6 +210,10 @@ Route::middleware('authenticated')->group(function () {
 //lp2tp
 Route::prefix('/ip2sip')->group(function () {
     Route::get('/', function () { return view('lp2tp.dashboard-lp2tp'); })->name('dashboard-lp2tp');
+    Route::get('/lp2tp/profil_bsip', function () {
+        return view('lp2tp.profil_bsip');
+    })->name('profil_bsip');    
+    
     Route::prefix('/aset')->group(function () {
         Route::get('/tanah', function () { return view('lp2tp.aset.tanah'); })->name('aset.tanah');
         Route::get('/gedung', function () { return view('lp2tp.aset.gedung'); })->name('aset.gedung');
