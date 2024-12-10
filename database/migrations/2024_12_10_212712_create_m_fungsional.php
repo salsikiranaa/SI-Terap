@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('penyuluh', function (Blueprint $table) {
+        Schema::create('m_fungsional', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('kecamatan_id')->unsigned();
-            $table->string('nama_bpp')->unique();
-            $table->text('alamat_bpp')->unique();
-            $table->string('kontak_bpp')->unique();
+            $table->string('name')->unique();
             $table->timestamps();
-
-            $table->foreign('kecamatan_id')->references('id')->on('m_kecamatan');
         });
     }
 
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('penyuluh');
+        Schema::dropIfExists('m_fungsional');
     }
 };

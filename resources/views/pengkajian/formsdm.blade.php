@@ -52,48 +52,56 @@
     <div class="container">
         <h2 class="header-title">Form Data SDM Penyuluh</h2>
 
-        <form action="/submit-pengkajian" method="POST">
+        <form action="{{ route('direktori_penyuluh.penyuluh.store') }}" method="POST">
+            @csrf
             <div class="form-group">
-                <label for="komoditas">Fungsional</label>
-                <select id="komoditas" name="komoditas" required>
-                    <option value="pertama" selected>Pertama</option>
-                    <option value="muda" selected>Muda</option>
-                    <option value="madya" selected>Madya</option>
-                    <option value="utama" selected>Utama</option>
+                <label for="name">Nama Penyuluh</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="contact">Nomor Kontak</label>
+                <input type="text" id="contact" name="contact" required>
+            </div>
+
+            <div class="form-group">
+                <label for="fungsional">Fungsional</label>
+                <select id="fungsional" name="fungsional_id" required>
+                    <option value="" selected disabled>-- Pilih Fungsional --</option>
+                    @foreach ($fungsional as $fn)
+                        <option value="{{ $fn->id }}">{{ $fn->name }}</option>
+                    @endforeach
                 </select>
             </div>
 
 
             <div class="form-group">
                 <label for="provinsi">Provinsi</label>
-                <select id="provinsi" name="provinsi" required>
-                    <option value="jabar" selected>Jawa Barat</option>
-                    <option value="jakarta">DKI Jakarta</option>
-                    <option value="jatim">Jawa Timur</option>
-                    <option value="bali">Bali</option>
-                    <option value="papua">Papua</option>
+                <select id="provinsi" name="provinsi_id" required>
+                    <option value="" selected disabled>-- Pilih Provinsi --</option>
+                    @foreach ($provinsi as $pr)
+                        <option value="{{ $pr->id }}">{{ $pr->name }}</option>
+                    @endforeach
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="kabupaten">Kabupaten</label>
-                <select id="kabupaten" name="kabupaten" required>
-                    <option value="bandung" selected>Bandung</option>
-                    <option value="jakarta">Jakarta Pusat</option>
-                    <option value="surabaya">Surabaya</option>
-                    <option value="denpasar">Denpasar</option>
-                    <option value="jayapura">Jayapura</option>
+                <select id="kabupaten" name="kabupaten_id" required>
+                    <option value="" selected disabled>-- Pilih Kabupaten --</option>
+                    @foreach ($kabupaten as $kb)
+                        <option value="{{ $kb->id }}">{{ $kb->name }}</option>
+                    @endforeach
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="kecamatan">Kecamatan</label>
-                <select id="kecamatan" name="kecamatan" required>
-                    <option value="cicadas" selected>Cicadas</option>
-                    <option value="gambir">Gambir</option>
-                    <option value="kuta">Kuta</option>
-                    <option value="wonokromo">Wonokromo</option>
-                    <option value="abepura">Abepura</option>
+                <select id="kecamatan" name="kecamatan_id" required>
+                    <option value="" selected disabled>-- Pilih Kecamatan --</option>
+                    @foreach ($kecamatan as $kc)
+                        <option value="{{ $kc->id }}">{{ $kc->name }}</option>
+                    @endforeach
                 </select>
             </div>
 
