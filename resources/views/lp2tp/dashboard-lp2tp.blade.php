@@ -225,7 +225,7 @@
 </div>
 
 <div class="content stylish-content">
-        <h1 class="page-title">Peta Sebaran Identifikasi dan Inventarisasi SIP </h1>    
+        <h1 class="page-title">Peta Sebaran Instalasi Penelitian dan Pengkajian Teknologi Pertanian di Indonesia </h1>    
         <div class="map">      
             <div id="mapindo"></div>
         </div>
@@ -302,7 +302,7 @@
 
             series: [{
                 data: data,
-                name: 'Jumlah Benih (ton)',
+                name: 'Sebaran KP',
                 states: {
                     hover: {
                         color: '#e3eee3'
