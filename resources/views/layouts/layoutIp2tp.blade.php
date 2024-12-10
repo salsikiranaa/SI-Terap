@@ -359,7 +359,7 @@
                     </div>
                 </div>
                 <a class="{{ request()->routeIs('lp2tp.pemanfaatan_kp') ? 'active' : '' }}" href="{{ route('lp2tp.pemanfaatan_kp') }}">Pemanfaatan KP</a>
-                <a class="nav-link" href="#">Galeri</a>
+                <a class="{{ request()->routeIs('lp2tp.galeri') ? 'active' : '' }}" href="{{ route('lp2tp.galeri') }}">Galeri</a>
             </nav>
 
             <div>
