@@ -252,31 +252,31 @@
                 <div class="infographic">
                     <h2>Petani</h2>
                     <div class="icon"><i class="fas fa-tractor"></i></div>
-                    <p>Target: 60</p>
+                    <p>Target: {{ $sasaran->petani }}</p>
                     <p>Pencapaian: 50 (83%)</p>
                 </div>
                 <div class="infographic">
                     <h2>UMKM</h2>
                     <div class="icon"><i class="fas fa-store"></i></div>
-                    <p>Target: 40</p>
+                    <p>Target: {{ $sasaran->umkm }}</p>
                     <p>Pencapaian: 30 (75%)</p>
                 </div>
                 <div class="infographic">
                     <h2>Pelaku Usaha</h2>
                     <div class="icon"><i class="fas fa-briefcase"></i></div>
-                    <p>Target: 30</p>
+                    <p>Target: {{ $sasaran->pelaku_usaha }}</p>
                     <p>Pencapaian: 20 (67%)</p>
                 </div>
                 <div class="infographic">
                     <h2>Koperasi</h2>
                     <div class="icon"><i class="fas fa-handshake"></i></div>
-                    <p>Target: 20</p>
+                    <p>Target: {{ $sasaran->koperasi }}</p>
                     <p>Pencapaian: 15 (75%)</p>
                 </div>
                 <div class="infographic">
                     <h2>BUMDes/BUMD</h2>
                     <div class="icon"><i class="fas fa-building"></i></div>
-                    <p>Target: 10</p>
+                    <p>Target: {{ $sasaran->bumd }}</p>
                     <p>Pencapaian: 5 (50%)</p>
                 </div>
             </div>
@@ -364,37 +364,37 @@
                     <div class="infographic">
                         <h2>Tanaman Pangan (TP)</h2>
                         <div class="icon"><i class="fas fa-seedling"></i></div>
-                        <p>Jumlah SNI: 20</p> 
+                        <p>Jumlah SNI: {{ $standard->tp }}</p> 
                         <p>Kelompok SNI: 5</p> 
                     </div>
                     <div class="infographic">
                         <h2>Hortikultura (Horti)</h2>
                         <div class="icon"><i class="fas fa-carrot"></i></div>
-                        <p>Jumlah SNI: 15</p>
+                        <p>Jumlah SNI: {{ $standard->horti }}</p>
                         <p>Kelompok SNI: 3</p>
                     </div>
                     <div class="infographic">
                         <h2>Perkebunan (Bun)</h2>
                         <div class="icon"><i class="fas fa-apple-alt"></i></div>
-                        <p>Jumlah SNI: 10</p>
+                        <p>Jumlah SNI: {{ $standard->bun }}</p>
                         <p>Kelompok SNI: 2</p>
                     </div>
                     <div class="infographic">
                         <h2>Peternakan (Nak)</h2>
                         <div class="icon"><i class="fas fa-regular fa-cow"></i></div>
-                        <p>Jumlah SNI: 12</p>
+                        <p>Jumlah SNI: {{ $standard->nak }}</p>
                         <p>Kelompok SNI: 4</p>
                     </div>
                     <div class="infographic">
                         <h2>Agroinput</h2>
                         <div class="icon"><i class="fas fa-sharp fa-solid fa-bag-seedling"></i></div>
-                        <p>Jumlah SNI: 8</p>
+                        <p>Jumlah SNI: {{ $standard->agroinput }}</p>
                         <p>Kelompok SNI: 2</p>
                     </div>
                     <div class="infographic">
                         <h2>Pasca Panen (Paspa)</h2>
                         <div class="icon"><i class="fas fa-sharp-duotone fa-regular fa-tractor"></i></div>
-                        <p>Jumlah SNI: 18</p>
+                        <p>Jumlah SNI: {{ $standard->paspa }}</p>
                         <p>Kelompok SNI: 6</p>
                     </div>
                 </div>
@@ -410,40 +410,40 @@
             // property by default. See API docs for 'joinBy' for more info on linking
             // data and map.
             const data = [
-                { 'hc-key': 'id-ac', value: 11, name: 'Aceh' },
-                { 'hc-key': 'id-jt', value: 12, name: 'Jawa Tengah' },
-                { 'hc-key': 'id-be', value: 13, name: 'Bengkulu' },
-                { 'hc-key': 'id-bt', value: 14, name: 'Banten' },
-                { 'hc-key': 'id-kb', value: 15, name: 'Kalimantan Barat' },
-                { 'hc-key': 'id-bb', value: 16, name: 'Bangka Belitung' },
-                { 'hc-key': 'id-ba', value: 17, name: 'Bali' },
-                { 'hc-key': 'id-ji', value: 18, name: 'Jawa Timur' },
-                { 'hc-key': 'id-ks', value: 19, name: 'Kalimantan Selatan' },
-                { 'hc-key': 'id-nt', value: 20, name: 'Nusa Tenggara Timur' },
-                { 'hc-key': 'id-se', value: 21, name: 'Sulawesi Selatan' },
-                { 'hc-key': 'id-kr', value: 22, name: 'Kepulauan Riau' },
-                { 'hc-key': 'id-ib', value: 23, name: 'Papua Barat' },
-                { 'hc-key': 'id-su', value: 24, name: 'Sumatera Utara' },
-                { 'hc-key': 'id-ri', value: 25, name: 'Riau' },
-                { 'hc-key': 'id-sw', value: 26, name: 'Sulawesi Utara' },
-                { 'hc-key': 'id-ku', value: 27, name: 'Kalimantan Utara' },
-                { 'hc-key': 'id-la', value: 28, name: 'Maluku Utara' },
-                { 'hc-key': 'id-sb', value: 29, name: 'Sumatera Barat' },
-                { 'hc-key': 'id-ma', value: 30, name: 'Maluku' },
-                { 'hc-key': 'id-nb', value: 31, name: 'Nusa Tenggara Barat' },
-                { 'hc-key': 'id-sg', value: 32, name: 'Sulawesi Tenggara' },
-                { 'hc-key': 'id-st', value: 33, name: 'Sulawesi Tengah' },
-                { 'hc-key': 'id-pa', value: 34, name: 'Papua' },
-                { 'hc-key': 'id-jr', value: 35, name: 'Jawa Barat' },
-                { 'hc-key': 'id-ki', value: 36, name: 'Kalimantan Timur' },
-                { 'hc-key': 'id-1024', value: 37, name: 'Lampung' },
-                { 'hc-key': 'id-jk', value: 38, name: 'Jakarta' },
-                { 'hc-key': 'id-go', value: 39, name: 'Gorontalo' },
-                { 'hc-key': 'id-yo', value: 40, name: 'Yogyakarta' },
-                { 'hc-key': 'id-sl', value: 41, name: 'Sumatera Selatan' },
-                { 'hc-key': 'id-sr', value: 42, name: 'Sulawesi Barat' },
-                { 'hc-key': 'id-ja', value: 43, name: 'Jambi' },
-                { 'hc-key': 'id-kt', value: 44, name: 'Kalimantan Tengah' }
+                { id: 1,'hc-key': 'id-ac', value: 11, name: 'Aceh' },
+                { id: 10,'hc-key': 'id-jt', value: 12, name: 'Jawa Tengah' },
+                { id: null,'hc-key': 'id-be', value: 13, name: 'Bengkulu' },
+                { id: 13,'hc-key': 'id-bt', value: 14, name: 'Banten' },
+                { id: 16,'hc-key': 'id-kb', value: 15, name: 'Kalimantan Barat' },
+                { id: 8,'hc-key': 'id-bb', value: 16, name: 'Bangka Belitung' },
+                { id: null,'hc-key': 'id-ba', value: 17, name: 'Bali' },
+                { id: 12,'hc-key': 'id-ji', value: 18, name: 'Jawa Timur' },
+                { id: 18,'hc-key': 'id-ks', value: 19, name: 'Kalimantan Selatan' },
+                { id: 15,'hc-key': 'id-nt', value: 20, name: 'Nusa Tenggara Timur' },
+                { id: 22,'hc-key': 'id-se', value: 21, name: 'Sulawesi Selatan' },
+                { id: null,'hc-key': 'id-kr', value: 22, name: 'Kepulauan Riau' },
+                { id: 28,'hc-key': 'id-ib', value: 23, name: 'Papua Barat' },
+                { id: 2,'hc-key': 'id-su', value: 24, name: 'Sumatera Utara' },
+                { id: 4,'hc-key': 'id-ri', value: 25, name: 'Riau' },
+                { id: 20,'hc-key': 'id-sw', value: 26, name: 'Sulawesi Utara' },
+                { id: null,'hc-key': 'id-ku', value: 27, name: 'Kalimantan Utara' },
+                { id: 27,'hc-key': 'id-la', value: 28, name: 'Maluku Utara' },
+                { id: 3,'hc-key': 'id-sb', value: 29, name: 'Sumatera Barat' },
+                { id: 26,'hc-key': 'id-ma', value: 30, name: 'Maluku' },
+                { id: 14,'hc-key': 'id-nb', value: 31, name: 'Nusa Tenggara Barat' },
+                { id: 23,'hc-key': 'id-sg', value: 32, name: 'Sulawesi Tenggara' },
+                { id: 21,'hc-key': 'id-st', value: 33, name: 'Sulawesi Tengah' },
+                { id: 29,'hc-key': 'id-pa', value: 34, name: 'Papua' },
+                { id: 9,'hc-key': 'id-jr', value: 35, name: 'Jawa Barat' },
+                { id: 19,'hc-key': 'id-ki', value: 36, name: 'Kalimantan Timur' },
+                { id: 7,'hc-key': 'id-1024', value: 37, name: 'Lampung' },
+                { id: null,'hc-key': 'id-jk', value: 38, name: 'Jakarta' },
+                { id: 24,'hc-key': 'id-go', value: 39, name: 'Gorontalo' },
+                { id: 11,'hc-key': 'id-yo', value: 40, name: 'Yogyakarta' },
+                { id: 6,'hc-key': 'id-sl', value: 41, name: 'Sumatera Selatan' },
+                { id: 25,'hc-key': 'id-sr', value: 42, name: 'Sulawesi Barat' },
+                { id: 5,'hc-key': 'id-ja', value: 43, name: 'Jambi' },
+                { id: 17,'hc-key': 'id-kt', value: 44, name: 'Kalimantan Tengah' }
             ];
 
             // Create the chart
@@ -495,7 +495,7 @@
                         events: {
                             click: function () {
                                 // Arahkan ke halaman lain berdasarkan `hc-key`
-                                const route = `/diseminasi/provinsiDiseminasi/${this['hc-key']}`;
+                                const route = `/kinerja-kegiatan/diseminasi/provinsi/${this.id}`;
                                 window.location.href = route;  // Redirect ke halaman yang sesuai
                             }
                         }
@@ -537,7 +537,7 @@
                         point: {
                             events: {
                                 click: function () {
-                                    const route = `/diseminasi/provinsiDiseminasi/${this['hc-key']}`;
+                                    const route = `/kinerja-kegiatan/diseminasi/provinsi/${this.id}`;
                                     window.location.href = route;
                                 }
                             }
