@@ -123,26 +123,18 @@
             <div class="table-container">
                 <table class="table table-bordered">
                     <tr>
-                      <th>NO</th>
+                      <th>No</th>
                       <th>BPTP/KP</th>
-                      <th>LUAS KP (Ha)</th>
-                      <th>JML SDM (ORG)</th>
-                      <th>ARGO EKOSISTEM</th>
-                      <th>BANGUNAN</th>
-                      <th>LUAS (Ha)</th>
-                      <th>PENGKAJIAN/ DISEMINASI</th>
-                      <th>LUAS (Ha)</th>
+                      <th>Luas IP2SIP (Ha)</th>
+                      <th>Agroekosistem</th>
+                      <th>Pengkajian/Diseminasi</th>
                     </tr>
                     <tr>
                       <td>1</td>
                       <td>BPTP Aceh KP. Gayo</td>
                       <td>18,88</td>
-                      <td>13</td>
                       <td>Lahan Kering Dataran Tinggi</td>
-                      <td>1. Kantor<br>2. Mess dan rumah<br>3. Lain-lain</td>
-                      <td>0,47<br>0,35<br>0,1</td>
                       <td>1. Pengkajian<br>2. Plasma Nutfah<br>3. Kebun Produksi<br>4. Visitor Plot</td>
-                      <td>0,9<br>14,18<br>0,8<br>3</td>
                     </tr>
                   </table>
 
