@@ -30,6 +30,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IP2SIP\PemanfaatanSIPController;
 use App\Http\Controllers\Manage\AdminDashboardController;
 use App\Http\Controllers\Manage\CMSController;
+use App\Http\Controllers\Manage\mKelasBenihController;
+use App\Http\Controllers\Manage\mKomoditasController;
+use App\Http\Controllers\Perbenihan\PerbenihanController;
 use App\Models\Identifikasi;
 use App\Models\mBSIP;
 use GuzzleHttp\Psr7\Request;
@@ -153,6 +156,22 @@ Route::middleware('authenticated')->group(function () {
             Route::put('/{id}', [mSIPController::class, 'update'])->name('manage.sip.update');
             Route::delete('/{id}', [mSIPController::class, 'destroy'])->name('manage.sip.destroy');
         });
+        Route::prefix('/komoditas')->group(function () {
+            Route::get('/', [mKomoditasController::class, 'index'])->name('manage.komoditas.view');
+            Route::get('/create', [mKomoditasController::class, 'create'])->name('manage.komoditas.create');
+            Route::post('/post', [mKomoditasController::class, 'post'])->name('manage.komoditas.post');
+            Route::get('/{id}/edit', [mKomoditasController::class, 'create'])->name('manage.komoditas.create');
+            Route::put('/{id}/update', [mKomoditasController::class, 'update'])->name('manage.komoditas.update');
+            Route::delete('/{id}/destroy', [mKomoditasController::class, 'destroy'])->name('manage.komoditas.update');
+        });
+        Route::prefix('/kelas-benih')->group(function () {
+            Route::get('/', [mKelasBenihController::class, 'index'])->name('manage.kelas_benih.view');
+            Route::get('/create', [mKelasBenihController::class, 'create'])->name('manage.kelas_benih.create');
+            Route::post('/post', [mKelasBenihController::class, 'post'])->name('manage.kelas_benih.post');
+            Route::get('/{id}/edit', [mKelasBenihController::class, 'create'])->name('manage.kelas_benih.create');
+            Route::put('/{id}/update', [mKelasBenihController::class, 'update'])->name('manage.kelas_benih.update');
+            Route::delete('/{id}/destroy', [mKelasBenihController::class, 'destroy'])->name('manage.kelas_benih.update');
+        });
     });
 
     Route::middleware('service:1')->prefix('/kinerja-kegiatan')->group(function () {
@@ -187,6 +206,10 @@ Route::middleware('authenticated')->group(function () {
         });
     });
 
+    Route::middleware('service:3')->prefix('/perbenihan')->group(function () {
+
+    });
+
     Route::middleware('service:4')->prefix('/ip2sip')->group(function () {
         Route::prefix('/pemanfaatan_kp')->group(function () {
             Route::get('/form', [PemanfaatanSIPController::class, 'create'])->name('lp2tp.pemanfaatan_kp.create');
@@ -205,7 +228,7 @@ Route::middleware('authenticated')->group(function () {
     });
 });
 
-//lp2tp
+// (4) IP2SIP
 Route::prefix('/ip2sip')->group(function () {
     Route::get('/', function () { return view('lp2tp.dashboard-lp2tp'); })->name('dashboard-lp2tp');
     Route::get('/lp2tp/profil_bsip', function () {
@@ -226,6 +249,7 @@ Route::prefix('/ip2sip')->group(function () {
     Route::get('/form_riset', function () { return view('lp2tp.form_riset'); })->name('form_riset');
     Route::get('/form_sdm', function () { return view('lp2tp.form_sdm'); })->name('form_sdm');
 });
+// (4) END IP2SIP
 
 Route::get('lp2tp/tabelPeta/{province}', function ($province) {
     return view('lp2tp.tabelPeta', ['province' => $province]);
@@ -234,7 +258,7 @@ Route::get('/lp2tp/tabelPeta/{province}', [ProvinceDashboardController::class, '
 
 
 
-// kinerja kegiatan
+// (1) KINERJA KEGIATAN
 Route::prefix('/kinerja-kegiatan')->group(function () {
     Route::get('/', function () { return view('kinerja.berandakinerja'); })->name('beranda_kinerja');
     Route::prefix('/identifikasi')->group(function () {
@@ -256,6 +280,15 @@ Route::prefix('/kinerja-kegiatan')->group(function () {
     });
 
 });
+// (1) END KINERJA KEGIATAN
+
+// (3) PERBENIHAN
+Route::prefix('/perbenihan')->group(function () {
+    Route::get('/', [PerbenihanController::class, 'index'])->name('perbenihan.index');
+    Route::get('/provinsi/{bsip_id}', [PerbenihanController::class, 'provinsi'])->name('perbenihan.provinsi');
+});
+// (3) END PERBENIHAN
+
 Route::get('/form_riset', function () {
     return view('lp2tp.form_riset'); 
 })->name('form_riset');
@@ -307,12 +340,12 @@ Route::get('/diseminasi/form', function () {
 
 
 // PENGELOLAAN
-Route::get('/pengelolaan', function () { return view('pengelolaan.berandaPengelolaanUpbs'); })->name('beranda_pengelolaan');
+// Route::get('/pengelolaan', function () { return view('pengelolaan.berandaPengelolaanUpbs'); })->name('beranda_pengelolaan');
 
-Route::get('/pengelolaan/tabelBenih/{province}', function ($province) {
-    return view('pengelolaan.tabelBenih', ['province' => $province]);
-})->name('tabelBenih');
-Route::get('/pengelolaan/tabelBenih/{province}', [ProvinceBenihController::class, 'show'])->name('tabelBenih');
+// Route::get('/pengelolaan/tabelBenih/{province}', function ($province) {
+//     return view('pengelolaan.tabelBenih', ['province' => $province]);
+// })->name('tabelBenih');
+// Route::get('/pengelolaan/tabelBenih/{province}', [ProvinceBenihController::class, 'show'])->name('tabelBenih');
 
 //Lab
 Route::get('/beranda-Lab', function () { return view('laboratorium.berandaLab');  })->name('beranda-Lab');
