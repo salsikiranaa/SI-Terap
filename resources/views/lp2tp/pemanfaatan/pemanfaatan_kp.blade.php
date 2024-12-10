@@ -131,7 +131,7 @@
                     </tr>
                     <tr>
                       <td>1</td>
-                      <td>BPTP Aceh KP. Gayo</td>
+                      <td>Aceh KP. Gayo</td>
                       <td>18,88</td>
                       <td>Lahan Kering Dataran Tinggi</td>
                       <td>1. Pengkajian<br>2. Plasma Nutfah<br>3. Kebun Produksi<br>4. Visitor Plot</td>
