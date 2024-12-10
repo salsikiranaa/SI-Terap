@@ -343,9 +343,7 @@
 <body>
     <header>
         <div class="header-container">
-            <a href="{{ route('home') }}">
-                <img src="/storage/cms/logo_light.png" alt="Logo" style="height: 50px;"> 
-            </a>
+            <img src="/assets/img/logo_light.png" alt="Logo" style="height: 50px;"> 
             <nav class="navbar">
                 <a class="nav-link {{ request()->is('dashboard-lp2tp') ? 'active' : '' }}" href="{{ route('dashboard-lp2tp') }}">Beranda</a>
                 <div class="dropdown">
@@ -359,9 +357,7 @@
                     </div>
                 </div>
                 <a class="{{ request()->routeIs('lp2tp.pemanfaatan_kp') ? 'active' : '' }}" href="{{ route('lp2tp.pemanfaatan_kp') }}">Pemanfaatan KP</a>
-                <a class="nav-link" href="#">Galeri</a>
-                <a class="{{ request()->routeIs('form_sdm') ? 'active' : '' }}" href="{{ route('form_sdm') }}">Direktori SDM Penyuluh</a>
-                <a class="{{ request()->routeIs('form_riset') ? 'active' : '' }}" href="{{ route('form_riset') }}">Riset</a>
+                <a class="{{ request()->routeIs('lp2tp.galeri') ? 'active' : '' }}" href="{{ route('lp2tp.galeri') }}">Galeri</a>
             </nav>
 
             <div>

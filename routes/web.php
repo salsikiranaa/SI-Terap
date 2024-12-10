@@ -23,6 +23,8 @@ use App\Http\Controllers\Penyuluh\PenyuluhController;
 use App\Http\Controllers\pengelolaanBenih\ProvinceBenihController;
 use App\Http\Controllers\Kinerja\ProvinceIdentifikasiController;
 use App\Http\Controllers\Kinerja\ProvinceDiseminasiController;
+use App\Http\Controllers\IP2SIP\ProvinceDashboardController;
+use App\Http\Controllers\IP2SIP\GalleryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IP2SIP\PemanfaatanSIPController;
@@ -206,6 +208,10 @@ Route::middleware('authenticated')->group(function () {
 //lp2tp
 Route::prefix('/ip2sip')->group(function () {
     Route::get('/', function () { return view('lp2tp.dashboard-lp2tp'); })->name('dashboard-lp2tp');
+    Route::get('/lp2tp/profil_bsip', function () {
+        return view('lp2tp.profil_bsip');
+    })->name('profil_bsip');    
+    
     Route::prefix('/aset')->group(function () {
         Route::get('/tanah', function () { return view('lp2tp.aset.tanah'); })->name('aset.tanah');
         Route::get('/gedung', function () { return view('lp2tp.aset.gedung'); })->name('aset.gedung');
@@ -213,11 +219,20 @@ Route::prefix('/ip2sip')->group(function () {
         Route::get('/rumah_negara', function () { return view('lp2tp.aset.rumah_negara'); })->name('aset.rumah_negara');
         Route::get('/alat_mesin', function () { return view('lp2tp.aset.alat_mesin'); })->name('aset.alat_mesin');
     });
+    
     Route::get('/pemanfaatan_kp', [PemanfaatanSIPController::class, 'index'])->name('lp2tp.pemanfaatan_kp');
+    Route::get('/galeri', [GalleryController::class, 'index'])->name('lp2tp.galeri');
 
     Route::get('/form_riset', function () { return view('lp2tp.form_riset'); })->name('form_riset');
     Route::get('/form_sdm', function () { return view('lp2tp.form_sdm'); })->name('form_sdm');
 });
+
+Route::get('lp2tp/tabelPeta/{province}', function ($province) {
+    return view('lp2tp.tabelPeta', ['province' => $province]);
+})->name('lp2tp.tabelPeta');
+Route::get('/lp2tp/tabelPeta/{province}', [ProvinceDashboardController::class, 'show'])->name('provinsi');
+
+
 
 // kinerja kegiatan
 Route::prefix('/kinerja-kegiatan')->group(function () {
