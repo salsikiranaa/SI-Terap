@@ -361,7 +361,25 @@
             </nav>
 
             <div>
-                <a href="" class="btn btn-outline-light-logout mr-2">Logout</a>
+                {{-- <a href="" class="btn btn-outline-light-logout mr-2">Logout</a> --}}
+                @if (auth()->user())
+                    {{-- <div style="color: #006400">{{ auth()->user()->name }}</div> --}}
+                    <div class="dropdown">
+                        <button class="bg-transparent border-0 dropdown-toggle" style="color: #fff;" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ auth()->user()->name }}
+                        </button>
+                    
+                        <ul class="dropdown-menu">
+                            @if (auth()->user()->role_id == 1)
+                                <li><a class="dropdown-item" href="{{ route('manage.dashboard') }}" style="color: #006400">Dashboard</a></li>
+                            @endif
+                            <li><a class="dropdown-item" href="{{ route('auth.logout') }}" style="color: #006400">Logout</a></li>
+                        </ul>
+                    </div>
+                @else
+                    <a href="{{ route('auth.register.view') }}" class="btn btn-outline-light mr-2">Daftar</a>
+                    <a href="{{ route('auth.login.view') }}" class="btn mr-2" style="color: #006400; background-color:white">Masuk</a>
+                @endif
             </div>
         </div>
     </header>
