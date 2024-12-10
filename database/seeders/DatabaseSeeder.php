@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             mIP2SIPSeeder::class,
             mKomoditasSeeder::class,
             mKelasBenihSeeder::class,
+            mFungsionalSeeder::class,
 
             CMSSeeder::class,
             SocialSeeder::class,

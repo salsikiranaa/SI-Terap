@@ -92,59 +92,54 @@
         <h2 class="header-title">Direktori SDM Penyuluh</h2>
 
         <!-- Filter Section -->
-        <div class="form-row">
+        <form action="{{ route('sdm') }}" class="form-row" id="form-filter">
             <div class="form-group">
-                <label for="tanggal">Tanggal</label>
-                <input type="date" id="tanggal" name="tanggal">
+                {{-- <label for="tanggal">Tanggal</label>
+                <input type="date" id="tanggal" name="tanggal"> --}}
+                <label for="nama">Nama Penyuluh</label>
+                <input type="text" name="name" id="nama">
             </div>
             <div class="form-group">
-                <label for="komoditas">Fungsional</label>
-                <select id="komoditas" name="komoditas">
-                    <option value="all">All</option>
-                    <option value="Pertama">Pertama</option>
-                    <option value="Muda">Muda</option>
-                    <option value="Madya">Madya</option>
-                    <option value="Utama">Utama</option>
+                <label for="fungsional">Fungsional</label>
+                <select id="fungsional" name="fungsional_id">
+                    <option value="">All</option>
+                    @foreach ($fungsional as $fn)
+                        <option value="{{ $fn->id }}" {{ request()->fungsional_id == $fn->id ? 'selected' : '' }}>{{ $fn->name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group">
-                <label for="provinsi">Provinsi</label>
-                <select id="provinsi" name="provinsi">
-                    <option value="all">All</option>
-                    <option value="jakarta">DKI Jakarta</option>
-                    <option value="jabar">Jawa Barat</option>
-                    <option value="jatim">Jawa Timur</option>
-                    <option value="bali">Bali</option>
-                    <option value="papua">Papua</option>
+                <label for="provinsi-input">Provinsi</label>
+                <select id="provinsi-input" name="provinsi_id" onchange="handleInputProvinsi()">
+                    <option value="">All</option>
+                    @foreach ($provinsi as $pr)
+                        <option value="{{ $pr->id }}" {{ request()->provinsi_id == $pr->id ? 'selected' : '' }}>{{ $pr->name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group">
-                <label for="kabupaten">Kabupaten</label>
-                <select id="kabupaten" name="kabupaten">
-                    <option value="all">All</option>
-                    <option value="jakarta">Jakarta Pusat</option>
-                    <option value="bandung">Bandung</option>
-                    <option value="surabaya">Surabaya</option>
-                    <option value="denpasar">Denpasar</option>
-                    <option value="jayapura">Jayapura</option>
+                <label for="kabupaten-input">Kabupaten</label>
+                <select id="kabupaten-input" name="kabupaten_id" onchange="handleInputKabupaten()">
+                    <option value="">All</option>
+                    @foreach ($kabupaten as $kb)
+                        <option value="{{ $kb->id }}" {{ request()->kabupaten_id == $kb->id ? 'selected' : '' }}>{{ $kb->name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group">
-                <label for="kecamatan">Kecamatan</label>
-                <select id="kecamatan" name="kecamatan">
-                    <option value="all">All</option>
-                    <option value="gambir">Gambir</option>
-                    <option value="kuta">Kuta</option>
-                    <option value="cicadas">Cicadas</option>
-                    <option value="wonokromo">Wonokromo</option>
-                    <option value="abepura">Abepura</option>
+                <label for="kecamatan-input">Kecamatan</label>
+                <select id="kecamatan-input" name="kecamatan_id" onchange="handleInputKecamatan()">
+                    <option value="">All</option>
+                    @foreach ($kecamatan as $kc)
+                        <option value="{{ $kc->id }}" {{ request()->kecamatan_id == $kc->id ? 'selected' : '' }}>{{ $kc->name }}</option>
+                    @endforeach
                 </select>
             </div>
-        </div>
+        </form>
 
         <!-- Buttons Container -->
         <div class="btn-container">
-            <button class="btn-search">Cari</button>
+            <button onclick="submitFilter()" class="btn-search">Cari</button>
             <a href="{{ route('formsdm') }}" class="btn-search">Isi Form</a>
         </div>
 
@@ -162,61 +157,44 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>John Doe</td>
-                    <td>Pertama</td>
-                    <td>081234567890</td>
-                    <td>Jawa Barat</td>
-                    <td>Bandung</td>
-                    <td>Cicadas</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Jane Smith</td>
-                    <td>Utama</td>
-                    <td>081298765432</td>
-                    <td>Jawa Timur</td>
-                    <td>Surabaya</td>
-                    <td>Wonokromo</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Mark Tan</td>
-                    <td>Madya</td>
-                    <td>085623456789</td>
-                    <td>Bali</td>
-                    <td>Denpasar</td>
-                    <td>Kuta</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Susan Lee</td>
-                    <td>Muda</td>
-                    <td>085012345678</td>
-                    <td>Papua</td>
-                    <td>Jayapura</td>
-                    <td>Abepura</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>David Kumar</td>
-                    <td>Utama</td>
-                    <td>082123456789</td>
-                    <td>DKI Jakarta</td>
-                    <td>Jakarta Pusat</td>
-                    <td>Gambir</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>Lisa Wong</td>
-                    <td>Muda</td>
-                    <td>082345678901</td>
-                    <td>Jawa Barat</td>
-                    <td>Bandung</td>
-                    <td>Cicadas</td>
-                </tr>
+                @foreach ($penyuluh as $pn)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $pn->name }}</td>
+                        <td>{{ $pn->fungsional->name }}</td>
+                        <td>{{ $pn->contact }}</td>
+                        <td>{{ $pn->kecamatan->kabupaten->provinsi->name }}</td>
+                        <td>{{ $pn->kecamatan->kabupaten->name }}</td>
+                        <td>{{ $pn->kecamatan->name }}</td>
+                    </tr>               
+                @endforeach
             </tbody>
         </table>
     </div>
+
+    <script>
+        const input_provinsi = document.getElementById('provinsi-input')
+        const input_kabupaten = document.getElementById('kabupaten-input')
+        const input_kecamatan = document.getElementById('kecamatan-input')
+        const formFilter = document.getElementById('form-filter')
+
+        const handleInputProvinsi = () => {
+            input_kabupaten.value = ''
+            input_kecamatan.value = ''
+        }
+
+        const handleInputKabupaten = () => {
+            input_provinsi.value = ''
+            input_kecamatan.value = ''
+        }
+        
+        const handleInputKecamatan = () => {
+            input_provinsi.value = ''
+            input_kabupaten.value = ''
+        }
+
+        const submitFilter = () => {
+            formFilter.submit()
+        }
+    </script>
 @endsection

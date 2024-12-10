@@ -52,63 +52,60 @@
     <div class="container">
         <h2 class="header-title">Form Data Pengkajian Spesifik Lokasi</h2>
 
-        <form action="/submit-pengkajian" method="POST">
+        <form action="{{ route('direktori_penyuluh.riset.store') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="judul">Judul Pengkajian</label>
-                <input type="text" id="judul" name="judul" value="Implementasi Pertanian" required>
+                <input type="text" id="judul" name="judul" required>
             </div>
 
             <div class="form-group">
-                <label for="komoditas">Komoditas</label>
-                <select id="komoditas" name="komoditas" required>
-                    <option value="tp" selected>Tanaman Pangan (TP)</option>
-                    <option value="horti">Hortikultura (Horti)</option>
-                    <option value="bun">Buah-Buahan (Bun)</option>
-                    <option value="nak">Peternakan (Nak)</option>
-                    <option value="agroinput">Agroinput</option>
-                    <option value="paspa">Pasar Pertanian (Paspa)</option>
+                <label for="sip">SIP</label>
+                <select id="sip" name="sip_id" required>
+                    <option value="" selected disabled>-- Pilih SIP --</option>
+                    @foreach ($sip as $sp)
+                        <option value="{{ $sp->id }}">{{ $sp->name }}</option>
+                    @endforeach
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="tahun">Tahun</label>
                 <select id="tahun" name="tahun" required>
-                    <option value="2023" selected>2023</option>
-                    <option value="2024">2024</option>
+                    <option value="" selected disabled>-- Pilih Tahun --</option>
+                    @for ($i = now()->year; $i >= 2000; $i--)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="provinsi">Provinsi</label>
-                <select id="provinsi" name="provinsi" required>
-                    <option value="jabar" selected>Jawa Barat</option>
-                    <option value="jakarta">DKI Jakarta</option>
-                    <option value="jatim">Jawa Timur</option>
-                    <option value="bali">Bali</option>
-                    <option value="papua">Papua</option>
+                <select id="provinsi" name="provinsi_id" required>
+                    <option value="" selected disabled>-- Pilih Provinsi --</option>
+                    @foreach ($provinsi as $pr)
+                        <option value="{{ $pr->id }}">{{ $pr->name }}</option>
+                    @endforeach
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="kabupaten">Kabupaten</label>
-                <select id="kabupaten" name="kabupaten" required>
-                    <option value="bandung" selected>Bandung</option>
-                    <option value="jakarta">Jakarta Pusat</option>
-                    <option value="surabaya">Surabaya</option>
-                    <option value="denpasar">Denpasar</option>
-                    <option value="jayapura">Jayapura</option>
+                <select id="kabupaten" name="kabupaten_id" required>
+                    <option value="" selected disabled>-- Pilih Kabupaten --</option>
+                    @foreach ($kabupaten as $kb)
+                        <option value="{{ $kb->id }}">{{ $kb->name }}</option>
+                    @endforeach
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="kecamatan">Kecamatan</label>
-                <select id="kecamatan" name="kecamatan" required>
-                    <option value="cicadas" selected>Cicadas</option>
-                    <option value="gambir">Gambir</option>
-                    <option value="kuta">Kuta</option>
-                    <option value="wonokromo">Wonokromo</option>
-                    <option value="abepura">Abepura</option>
+                <select id="kecamatan" name="kecamatan_id" required>
+                    <option value="" selected disabled>-- Pilih Kecamatan --</option>
+                    @foreach ($kecamatan as $kc)
+                        <option value="{{ $kc->id }}">{{ $kc->name }}</option>
+                    @endforeach
                 </select>
             </div>
 

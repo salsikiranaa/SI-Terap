@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class mSIP extends Model
 {
@@ -18,5 +19,9 @@ class mSIP extends Model
 
     public function diseminasi() : BelongsToMany {
         return $this->belongsToMany(Diseminasi::class, 'p_diseminasi_sip', 'sip_id', 'diseminasi_id');
+    }
+
+    public function riset() : HasMany {
+        return $this->hasMany(Riset::class, 'sip_id', 'id');
     }
 }

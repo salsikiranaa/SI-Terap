@@ -92,69 +92,66 @@
         <h2 class="header-title">Pengkajian Spesifik Lokasi</h2>
 
         <!-- Filter Section -->
-        <div class="form-row">
+        <form action="{{ route('riset') }}" id="form-filter" class="form-row">
             <div class="form-group">
-                <label for="tanggal">Tanggal</label>
-                <input type="date" id="tanggal" name="tanggal">
-            </div>
-            <div class="form-group">
-                <label for="komoditas">Komoditas</label>
-                <select id="komoditas" name="komoditas">
-                    <option value="all">All</option>
-                    <option value="tp">Tanaman Pangan (TP)</option>
-                    <option value="horti">Hortikultura (Horti)</option>
-                    <option value="bun">Buah-Buahan (Bun)</option>
-                    <option value="nak">Peternakan (Nak)</option>
-                    <option value="agroinput">Agroinput</option>
-                    <option value="paspa">Pasar Pertanian (Paspa)</option>
+                <label for="tahun">Tahun</label>
+                {{-- <input type="date" id="tanggal" name="tanggal"> --}}
+                <select name="tahun" id="tahun">
+                    <option value="">All</option>
+                    @for ($i = now()->year; $i >= 2000; $i--)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
                 </select>
             </div>
             <div class="form-group">
+                <label for="sip">SIP</label>
+                <select id="sip" name="sip_id">
+                    <option value="">All</option>
+                    @foreach ($sip as $sp)
+                        <option value="{{ $sp->id }}" {{ request()->sip_id == $sp->id ? 'selected' : '' }}>{{ $sp->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            {{-- <div class="form-group">
                 <label for="tahun">Tahun</label>
                 <select id="tahun" name="tahun">
                     <option value="all">All</option>
                     <option value="2023">2023</option>
                     <option value="2024">2024</option>
                 </select>
-            </div>
+            </div> --}}
             <div class="form-group">
-                <label for="provinsi">Provinsi</label>
-                <select id="provinsi" name="provinsi">
-                    <option value="all">All</option>
-                    <option value="jakarta">DKI Jakarta</option>
-                    <option value="jabar">Jawa Barat</option>
-                    <option value="jatim">Jawa Timur</option>
-                    <option value="bali">Bali</option>
-                    <option value="papua">Papua</option>
+                <label for="provinsi-input">Provinsi</label>
+                <select id="provinsi-input" name="provinsi_id" onchange="handleFilterProvinsi()">
+                    <option value="">All</option>
+                    @foreach ($provinsi as $pr)
+                        <option value="{{ $pr->id }}" {{ request()->provinsi_id == $pr->id ? 'selected' : '' }}>{{ $pr->name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group">
-                <label for="kabupaten">Kabupaten</label>
-                <select id="kabupaten" name="kabupaten">
-                    <option value="all">All</option>
-                    <option value="jakarta">Jakarta Pusat</option>
-                    <option value="bandung">Bandung</option>
-                    <option value="surabaya">Surabaya</option>
-                    <option value="denpasar">Denpasar</option>
-                    <option value="jayapura">Jayapura</option>
+                <label for="kabupaten-input">Kabupaten</label>
+                <select id="kabupaten-input" name="kabupaten_id" onchange="handleFilterKabupaten()">
+                    <option value="">All</option>
+                    @foreach ($kabupaten as $kb)
+                        <option value="{{ $kb->id }}" {{ request()->kabupaten_id == $kb->id ? 'selected' : '' }}>{{ $kb->name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group">
-                <label for="kecamatan">Kecamatan</label>
-                <select id="kecamatan" name="kecamatan">
-                    <option value="all">All</option>
-                    <option value="gambir">Gambir</option>
-                    <option value="kuta">Kuta</option>
-                    <option value="cicadas">Cicadas</option>
-                    <option value="wonokromo">Wonokromo</option>
-                    <option value="abepura">Abepura</option>
+                <label for="kecamatan-input">Kecamatan</label>
+                <select id="kecamatan-input" name="kecamatan_id" onchange="handleFilterKecamatan()">
+                    <option value="">All</option>
+                    @foreach ($kecamatan as $kc)
+                        <option value="{{ $kc->id }}" {{ request()->kecamatan_id == $kc->id ? 'selected' : '' }}>{{ $kc->name }}</option>
+                    @endforeach
                 </select>
             </div>
-        </div>
+        </form>
 
         <!-- Buttons Container -->
         <div class="btn-container">
-            <button class="btn-search">Cari</button>
+            <button onclick="submitFilter()" class="btn-search">Cari</button>
             <a href="{{ route('formriset') }}" class="btn-search">Isi Form</a>
         </div>
 
@@ -164,7 +161,7 @@
                 <tr>
                     <th>No</th>
                     <th>Judul Pengkajian Spesifik Lokasi</th>
-                    <th>Komoditas</th>
+                    <th>SIP</th>
                     <th>Tahun</th>
                     <th>Provinsi</th>
                     <th>Kabupaten</th>
@@ -172,61 +169,45 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Implementasi Pertanian</td>
-                    <td>Tanaman Pangan (TP)</td>
-                    <td>2023</td>
-                    <td>Jawa Barat</td>
-                    <td>Bandung</td>
-                    <td>Cicadas</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Implementasi Pertanian</td>
-                    <td>Hortikultura (Horti)</td>
-                    <td>2023</td>
-                    <td>Jawa Timur</td>
-                    <td>Surabaya</td>
-                    <td>Wonokromo</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Implementasi Pertanian</td>
-                    <td>Buah-Buahan (Bun)</td>
-                    <td>2024</td>
-                    <td>Bali</td>
-                    <td>Denpasar</td>
-                    <td>Kuta</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Implementasi Pertanian</td>
-                    <td>Peternakan (Nak)</td>
-                    <td>2024</td>
-                    <td>Papua</td>
-                    <td>Jayapura</td>
-                    <td>Abepura</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Implementasi Pertanian</td>
-                    <td>Agroinput</td>
-                    <td>2023</td>
-                    <td>DKI Jakarta</td>
-                    <td>Jakarta Pusat</td>
-                    <td>Gambir</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>Implementasi Pertanian</td>
-                    <td>Pasar Pertanian (Paspa)</td>
-                    <td>2024</td>
-                    <td>Jawa Barat</td>
-                    <td>Bandung</td>
-                    <td>Cicadas</td>
-                </tr>
+                @foreach ($riset as $rs)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $rs->judul }}</td>
+                        <td>{{ $rs->sip->name }}</td>
+                        <td>{{ $rs->tahun }}</td>
+                        <td>{{ $rs->kecamatan->kabupaten->provinsi->name }}</td>
+                        <td>{{ $rs->kecamatan->kabupaten->name }}</td>
+                        <td>{{ $rs->kecamatan->name }}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
+
+    <script>
+
+        const inputProvinsi = document.getElementById('provinsi-input')
+        const inputKabupaten = document.getElementById('kabupaten-input')
+        const inputKecamatan = document.getElementById('kecamatan-input')
+        const formFilter = document.getElementById('form-filter')
+
+        const handleFilterProvinsi = () => {
+            inputKabupaten.value = ''
+            inputKecamatan.value = ''
+        }
+        
+        const handleFilterKabupaten = () => {
+            inputProvinsi.value = ''
+            inputKecamatan.value = ''
+        }
+        
+        const handleFilterKecamatan = () => {
+            inputProvinsi.value = ''
+            inputKabupaten.value = ''
+        }
+
+        const submitFilter = () => {
+            formFilter.submit()
+        }
+    </script>
 @endsection
