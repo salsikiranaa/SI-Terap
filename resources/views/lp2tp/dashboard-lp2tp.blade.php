@@ -175,6 +175,15 @@
                 <p>23/07/2018 13:40:18</p>
             </div>
         </div>
+
+        <div class="carousel-item active">
+            <img src="/assets/img/kp_cipaku.PNG" class="d-block w-100" alt="slide 2">
+            <div class="carousel-caption d-none d-md-block">
+                <h4>Gapoknak Wijaya Kusumah, Danda Jaya, Barito Kuala</h4>
+                <p>3°6'38",114°40'30",51.0m, 178°</p>
+                <p>23/07/2018 13:40:18</p>
+            </div>
+        </div>
         <!-- Slide lainnya -->
     </div>
 
