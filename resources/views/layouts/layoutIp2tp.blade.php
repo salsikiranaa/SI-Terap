@@ -343,7 +343,7 @@
 <body>
     <header>
         <div class="header-container">
-            <img src="/storage/cms/logo_light.png" alt="Logo" style="height: 50px;"> 
+            <img src="/assets/img/logo_light.png" alt="Logo" style="height: 50px;"> 
             <nav class="navbar">
                 <a class="nav-link {{ request()->is('dashboard-lp2tp') ? 'active' : '' }}" href="{{ route('dashboard-lp2tp') }}">Beranda</a>
                 <div class="dropdown">
