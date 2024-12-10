@@ -244,6 +244,8 @@ Route::prefix('/kinerja-kegiatan')->group(function () {
     });
     Route::prefix('/diseminasi')->group(function () {
         Route::get('/', [DiseminasiController::class, 'index'])->name('diseminasi_beranda');
+        Route::get('/provinsi/{bsip_id}', [DiseminasiController::class, 'provinsi'])->name('diseminasi.provinsiDiseminasi');
+        Route::post('/provinsi', [DiseminasiController::class, 'filter_provinsi'])->name('diseminasi.provinsi.filter');
         Route::get('/peserta', function () { return view('kinerja.diseminasi.peserta'); })->name('diseminasi.peserta');
         Route::get('/sip-sub-sektor', function () { return view('kinerja.diseminasi.sip_sub_sektor'); })->name('diseminasi.sip_sub_sektor');
     });
@@ -298,10 +300,10 @@ Route::get('/diseminasi/form', function () {
 // })->name('identifikasi.provinsi');
 // Route::get('/identifikasi/provinsi/{province}', [ProvinceIdentifikasiController::class, 'show'])->name('provinsi');
 
-Route::get('diseminasi/provinsiDiseminasi/{province}', function ($province) {
-    return view('kinerja.diseminasi.provinsiDiseminasi', ['province' => $province]);
-})->name('diseminasi.provinsiDiseminasi');
-Route::get('/diseminasi/provinsiDiseminasi/{province}', [ProvinceDiseminasiController::class, 'show'])->name('provinsi');
+// Route::get('diseminasi/provinsiDiseminasi/{province}', function ($province) {
+//     return view('kinerja.diseminasi.provinsiDiseminasi', ['province' => $province]);
+// })->name('diseminasi.provinsiDiseminasi');
+// Route::get('/diseminasi/provinsiDiseminasi/{province}', [ProvinceDiseminasiController::class, 'show'])->name('provinsi');
 
 
 // PENGELOLAAN

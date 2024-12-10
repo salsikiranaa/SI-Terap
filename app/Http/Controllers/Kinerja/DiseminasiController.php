@@ -37,13 +37,61 @@ class DiseminasiController extends Controller
         foreach ($bsip as $b) {
             $b->provinsi = $b->provinsi;
         }
+        $sasaran_diseminasi = new pDiseminasiSasaran();
+        $sasaran = (object) [
+            'petani' => $sasaran_diseminasi->where('sasaran_id', 1)->count(),
+            'umkm' => $sasaran_diseminasi->where('sasaran_id', 2)->count(),
+            'pelaku_usaha' => $sasaran_diseminasi->where('sasaran_id', 3)->count(),
+            'koperasi' => $sasaran_diseminasi->where('sasaran_id', 4)->count(),
+            'bumd' => $sasaran_diseminasi->where('sasaran_id', 5)->count(),
+        ];
+        $sip_diseminasi = new pDiseminasiSIP();
+        $standard = (object) [
+            'tp' => $sip_diseminasi->where('sip_id', 1)->count(),
+            'horti' => $sip_diseminasi->where('sip_id', 2)->count(),
+            'bun' => $sip_diseminasi->where('sip_id', 3)->count(),
+            'nak' => $sip_diseminasi->where('sip_id', 4)->count(),
+            'agroinput' => $sip_diseminasi->where('sip_id', 5)->count(),
+            'paspa' => $sip_diseminasi->where('sip_id', 6)->count(),
+        ];
         return view('kinerja.diseminasi.beranda', [
             'diseminasi' => $diseminasi,
             'jumlah_sasaran' => $jumlah_sasaran,
             'bsip' => $bsip,
             'sip' => $sip,
             'jenis_standard' => $jenis_standard,
+            'sasaran' => $sasaran,
+            'standard' => $standard,
         ]);
+    }
+
+    public function provinsi($bsip_id, Request $request) {
+        $bsip = mBSIP::find($bsip_id);
+        if (!$bsip) return back()->withErrors('BSIP belum terdaftar');
+        $provinceName = $bsip->name;
+        $bsip_diseminasi = mBSIP::whereHas('diseminasi')->get();
+        $sip = mSIP::get();
+        $metode = mMetode::get();
+        $diseminasi = Diseminasi::where('bsip_id', $bsip_id);
+        if ($request->tanggal) $diseminasi = $diseminasi->where('tanggal', $request->tanggal);
+        if ($request->sip_id) $diseminasi = $diseminasi->whereHas('sip', function ($query) use ($request) {
+            $query->where('sip_id', $request->sip_id);
+        });
+        if ($request->metode_id) $diseminasi = $diseminasi->where('metode_id', $request->sip_id);
+        $diseminasi = $diseminasi->get();
+        // dd($sip);
+        return view('kinerja.diseminasi.provinsiDiseminasi', [
+            'provinceName' => $provinceName,
+            'diseminasi' => $diseminasi,
+            'bsip_diseminasi' => $bsip_diseminasi,
+            'sip' => $sip,
+            'metode' => $metode,
+        ]);
+    }
+
+    public function filter_provinsi(Request $request) {
+        $request->validate(['bsip_id' => 'required']);
+        return redirect()->route('diseminasi.provinsiDiseminasi', $request->except('_token'));
     }
 
     public function create(Request $request) {
