@@ -38,10 +38,10 @@ class Diseminasi extends Model
     }
 
     public function sip() : BelongsToMany {
-        return $this->belongsToMany(mSIP::class, 'm_sip', 'diseminasi_id', 'sip_id');
+        return $this->belongsToMany(mSIP::class, 'p_diseminasi_sip', 'diseminasi_id', 'sip_id');
     }
 
     public function sasaran() : BelongsToMany {
-        return $this->belongsToMany(mSasaran::class, 'm_sasaran', 'diseminasi_id', 'sasaran_id');
+        return $this->belongsToMany(mSasaran::class, 'p_diseminasi_sasaran', 'diseminasi_id', 'sasaran_id');
     }
 }
