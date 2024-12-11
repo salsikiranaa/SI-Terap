@@ -249,40 +249,40 @@
         // property by default. See API docs for 'joinBy' for more info on linking
         // data and map.
         const data = [
-            { 'hc-key': 'id-ac', value: 11, name: 'Aceh' },
-            { 'hc-key': 'id-jt', value: 12, name: 'Jawa Tengah' },
-            { 'hc-key': 'id-be', value: 13, name: 'Bengkulu' },
-            { 'hc-key': 'id-bt', value: 14, name: 'Banten' },
-            { 'hc-key': 'id-kb', value: 15, name: 'Kalimantan Barat' },
-            { 'hc-key': 'id-bb', value: 16, name: 'Bangka Belitung' },
-            { 'hc-key': 'id-ba', value: 17, name: 'Bali' },
-            { 'hc-key': 'id-ji', value: 18, name: 'Jawa Timur' },
-            { 'hc-key': 'id-ks', value: 19, name: 'Kalimantan Selatan' },
-            { 'hc-key': 'id-nt', value: 20, name: 'Nusa Tenggara Timur' },
-            { 'hc-key': 'id-se', value: 21, name: 'Sulawesi Selatan' },
-            { 'hc-key': 'id-kr', value: 22, name: 'Kepulauan Riau' },
-            { 'hc-key': 'id-ib', value: 23, name: 'Papua Barat' },
-            { 'hc-key': 'id-su', value: 24, name: 'Sumatera Utara' },
-            { 'hc-key': 'id-ri', value: 25, name: 'Riau' },
-            { 'hc-key': 'id-sw', value: 26, name: 'Sulawesi Utara' },
-            { 'hc-key': 'id-ku', value: 27, name: 'Kalimantan Utara' },
-            { 'hc-key': 'id-la', value: 28, name: 'Maluku Utara' },
-            { 'hc-key': 'id-sb', value: 29, name: 'Sumatera Barat' },
-            { 'hc-key': 'id-ma', value: 30, name: 'Maluku' },
-            { 'hc-key': 'id-nb', value: 31, name: 'Nusa Tenggara Barat' },
-            { 'hc-key': 'id-sg', value: 32, name: 'Sulawesi Tenggara' },
-            { 'hc-key': 'id-st', value: 33, name: 'Sulawesi Tengah' },
-            { 'hc-key': 'id-pa', value: 34, name: 'Papua' },
-            { 'hc-key': 'id-jr', value: 35, name: 'Jawa Barat' },
-            { 'hc-key': 'id-ki', value: 36, name: 'Kalimantan Timur' },
-            { 'hc-key': 'id-1024', value: 37, name: 'Lampung' },
-            { 'hc-key': 'id-jk', value: 38, name: 'Jakarta' },
-            { 'hc-key': 'id-go', value: 39, name: 'Gorontalo' },
-            { 'hc-key': 'id-yo', value: 40, name: 'Yogyakarta' },
-            { 'hc-key': 'id-sl', value: 41, name: 'Sumatera Selatan' },
-            { 'hc-key': 'id-sr', value: 42, name: 'Sulawesi Barat' },
-            { 'hc-key': 'id-ja', value: 43, name: 'Jambi' },
-            { 'hc-key': 'id-kt', value: 44, name: 'Kalimantan Tengah' }
+            { id: 1,'hc-key': 'id-ac', value: 11, name: 'Aceh' },
+            { id: 10,'hc-key': 'id-jt', value: 12, name: 'Jawa Tengah' },
+            { id: null,'hc-key': 'id-be', value: 13, name: 'Bengkulu' },
+            { id: 13,'hc-key': 'id-bt', value: 14, name: 'Banten' },
+            { id: 16,'hc-key': 'id-kb', value: 15, name: 'Kalimantan Barat' },
+            { id: 8,'hc-key': 'id-bb', value: 16, name: 'Bangka Belitung' },
+            { id: null,'hc-key': 'id-ba', value: 17, name: 'Bali' },
+            { id: 12,'hc-key': 'id-ji', value: 18, name: 'Jawa Timur' },
+            { id: 18,'hc-key': 'id-ks', value: 19, name: 'Kalimantan Selatan' },
+            { id: 15,'hc-key': 'id-nt', value: 20, name: 'Nusa Tenggara Timur' },
+            { id: 22,'hc-key': 'id-se', value: 21, name: 'Sulawesi Selatan' },
+            { id: null,'hc-key': 'id-kr', value: 22, name: 'Kepulauan Riau' },
+            { id: 28,'hc-key': 'id-ib', value: 23, name: 'Papua Barat' },
+            { id: 2,'hc-key': 'id-su', value: 24, name: 'Sumatera Utara' },
+            { id: 4,'hc-key': 'id-ri', value: 25, name: 'Riau' },
+            { id: 20,'hc-key': 'id-sw', value: 26, name: 'Sulawesi Utara' },
+            { id: null,'hc-key': 'id-ku', value: 27, name: 'Kalimantan Utara' },
+            { id: 27,'hc-key': 'id-la', value: 28, name: 'Maluku Utara' },
+            { id: 3,'hc-key': 'id-sb', value: 29, name: 'Sumatera Barat' },
+            { id: 26,'hc-key': 'id-ma', value: 30, name: 'Maluku' },
+            { id: 14,'hc-key': 'id-nb', value: 31, name: 'Nusa Tenggara Barat' },
+            { id: 23,'hc-key': 'id-sg', value: 32, name: 'Sulawesi Tenggara' },
+            { id: 21,'hc-key': 'id-st', value: 33, name: 'Sulawesi Tengah' },
+            { id: 29,'hc-key': 'id-pa', value: 34, name: 'Papua' },
+            { id: 9,'hc-key': 'id-jr', value: 35, name: 'Jawa Barat' },
+            { id: 19,'hc-key': 'id-ki', value: 36, name: 'Kalimantan Timur' },
+            { id: 7,'hc-key': 'id-1024', value: 37, name: 'Lampung' },
+            { id: null,'hc-key': 'id-jk', value: 38, name: 'Jakarta' },
+            { id: 24,'hc-key': 'id-go', value: 39, name: 'Gorontalo' },
+            { id: 11,'hc-key': 'id-yo', value: 40, name: 'Yogyakarta' },
+            { id: 6,'hc-key': 'id-sl', value: 41, name: 'Sumatera Selatan' },
+            { id: 25,'hc-key': 'id-sr', value: 42, name: 'Sulawesi Barat' },
+            { id: 5,'hc-key': 'id-ja', value: 43, name: 'Jambi' },
+            { id: 17,'hc-key': 'id-kt', value: 44, name: 'Kalimantan Tengah' }
         ];
 
         // Create the chart
@@ -334,7 +334,7 @@
                     events: {
                         click: function () {
                             // Arahkan ke halaman lain berdasarkan `hc-key`
-                            const route = `/lp2tp/tabelPeta/${this['hc-key']}`;
+                            const route = `/ip2sip/tabelPeta/${this.id}`;
                             window.location.href = route;  // Redirect ke halaman yang sesuai
                         }
                     }
@@ -347,58 +347,58 @@
 </div>
 
 <div class="content-slider container mt-5">
-  <h1 class="text-center mb-4">Profil Instalasi Penelitian dan Pengkajian Teknologi Pertanian</h1>
-  <div id="contentCarousel" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-          <!-- Slide 1 -->
-          <div class="carousel-item active">
-              <div class="row align-items-center">
-                  <div class="col-md-8">
-                      <p class="text-justify">
-                          Sejarah singkat asal usul Kebun Percobaan ini berawal dari adanya proyek IDAP (1976-1986) kerja sama Indonesia dengan Kerajaan Belanda. Pada tahun 1980 masyarakat petani kopi di Aceh Tengah tergantung kehidupannya pada komoditi kopi sementara produksi hanya 500 kg/hektar dalam setahun. Selain itu, mutu kopi juga masih rendah akibat tidak adanya proses pengolahan yang baik. Pada tahun 1984 dibangun pabrik pengolahan kopi arabika dengan kapasitas 15 ton kopi glondong per hari untuk meningkatkan kualitas mutu kopi sehingga dapat meningkatkan pendapatan masyarakat sekitar.
-                      </p>
-                      <p class="text-justify">
-                          Kemudian Balai Pengkajian Teknologi Pertanian (BPTP) NAD kembali mengubah namanya menjadi Kebun Percobaan (KP) Gayo hingga sekarang. Luas Kebun Percobaan ini sekitar 18 hektar, terdiri dari bangunan perkantoran, gedung Lab, perumahan, dan kebun kopi sertifikasi. Fasilitas tersebut digunakan untuk penelitian, pembibitan, serta pengembangan Flasma Nutfah Varitas kopi arabika.
-                      </p>
-                  </div>
-                  <div class="col-md-4 text-center">
-                      <img src="/assets/img/kp-gayo.jpg" class="img-fluid rounded" alt="KP Gayo">
-                      <p class="mt-2 text-center text-warning">
-                          <b>📍 KP Gayo (Aceh)</b><br> Kepala IP2TP Gayo - Bardi Ali, S.Pt
-                      </p>
-                  </div>
-              </div>
-          </div>
-          <!-- Slide 2 -->
-          <div class="carousel-item">
-              <div class="row align-items-center">
-                  <div class="col-md-8">
-                      <p class="text-justify">
-                          Kebun Percobaan KP Malang merupakan salah satu instalasi penelitian terbesar di Jawa Timur. Dengan luas lebih dari 50 hektar, kebun ini menjadi pusat penelitian untuk pengembangan teknologi pertanian berbasis hortikultura, seperti buah-buahan dan sayuran. Selain itu, KP Malang juga memiliki fasilitas lengkap seperti laboratorium tanah, gedung percontohan irigasi, serta pusat pelatihan petani.
-                      </p>
-                      <p class="text-justify">
-                          Tujuan utama dari kebun ini adalah untuk mendukung inovasi teknologi pertanian di Jawa Timur. Penelitian di kebun ini banyak difokuskan pada pengembangan varietas hortikultura unggul serta budidaya organik, yang bertujuan untuk meningkatkan hasil panen dengan cara yang ramah lingkungan.
-                      </p>
-                  </div>
-                  <div class="col-md-4 text-center">
-                      <img src="/assets/img/bpkgayo.jpg" class="img-fluid rounded" alt="KP Malang">
-                      <p class="mt-2 text-center text-warning">
-                          <b>📍 KP Malang (Jawa Timur)</b><br> Kepala IP2TP Malang - Andi Supriyanto, S.Pt
-                      </p>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <!-- Navigasi Carousel -->
-      <button class="carousel-control-prev" type="button" data-bs-target="#contentCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#contentCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-      </button>
-  </div>
+    <h1 class="text-center mb-4">Profil Instalasi Penelitian dan Pengkajian Teknologi Pertanian</h1>
+    <div id="contentCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <!-- Slide 1 -->
+            <div class="carousel-item active">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <p class="text-justify">
+                            Sejarah singkat asal usul Kebun Percobaan ini berawal dari adanya proyek IDAP (1976-1986) kerja sama Indonesia dengan Kerajaan Belanda. Pada tahun 1980 masyarakat petani kopi di Aceh Tengah tergantung kehidupannya pada komoditi kopi sementara produksi hanya 500 kg/hektar dalam setahun. Selain itu, mutu kopi juga masih rendah akibat tidak adanya proses pengolahan yang baik. Pada tahun 1984 dibangun pabrik pengolahan kopi arabika dengan kapasitas 15 ton kopi glondong per hari untuk meningkatkan kualitas mutu kopi sehingga dapat meningkatkan pendapatan masyarakat sekitar.
+                        </p>
+                        <p class="text-justify">
+                            Kemudian Balai Pengkajian Teknologi Pertanian (BPTP) NAD kembali mengubah namanya menjadi Kebun Percobaan (KP) Gayo hingga sekarang. Luas Kebun Percobaan ini sekitar 18 hektar, terdiri dari bangunan perkantoran, gedung Lab, perumahan, dan kebun kopi sertifikasi. Fasilitas tersebut digunakan untuk penelitian, pembibitan, serta pengembangan Flasma Nutfah Varitas kopi arabika.
+                        </p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <img src="/assets/img/kp-gayo.jpg" class="img-fluid rounded" alt="KP Gayo">
+                        <p class="mt-2 text-center text-warning">
+                            <b>📍 KP Gayo (Aceh)</b><br> Kepala IP2TP Gayo - Bardi Ali, S.Pt
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="carousel-item">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <p class="text-justify">
+                            Kebun Percobaan KP Malang merupakan salah satu instalasi penelitian terbesar di Jawa Timur. Dengan luas lebih dari 50 hektar, kebun ini menjadi pusat penelitian untuk pengembangan teknologi pertanian berbasis hortikultura, seperti buah-buahan dan sayuran. Selain itu, KP Malang juga memiliki fasilitas lengkap seperti laboratorium tanah, gedung percontohan irigasi, serta pusat pelatihan petani.
+                        </p>
+                        <p class="text-justify">
+                            Tujuan utama dari kebun ini adalah untuk mendukung inovasi teknologi pertanian di Jawa Timur. Penelitian di kebun ini banyak difokuskan pada pengembangan varietas hortikultura unggul serta budidaya organik, yang bertujuan untuk meningkatkan hasil panen dengan cara yang ramah lingkungan.
+                        </p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <img src="/assets/img/bpkgayo.jpg" class="img-fluid rounded" alt="KP Malang">
+                        <p class="mt-2 text-center text-warning">
+                            <b>📍 KP Malang (Jawa Timur)</b><br> Kepala IP2TP Malang - Andi Supriyanto, S.Pt
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Navigasi Carousel -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#contentCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#contentCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
 </div>
 
 @endsection
