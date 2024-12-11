@@ -2,6 +2,10 @@
 
 @section('content')
 <style>
+    body {
+        background-color: #ffffff;
+    }
+
     /* Carousel Styling */
     #carousel-siterap .carousel-item img {
         width: 100%;
@@ -76,24 +80,52 @@
         align-items: flex-start;
     }
 
-    .map-container {
-        margin-top: 40px;
-        text-align: center;
-    }
-
-    .map-container h1 {
-        font-size: 20px;
-        font-weight: bold;
-        margin-top: 50px;
-        margin-bottom: 20px;
-    }
-
-    #map {
-        width: 90%;
-        height: 500px;
+    .stylish-content {
         margin: 0 auto;
-        border: 1px solid #ddd;
-        border-radius: 8px;
+        max-width: 1200px;
+        padding: 20px 10px; /* Mengurangi padding */
+        border-radius: 0px;
+    }
+
+    .page-title {
+        text-align: center;
+        font-size: 2em;
+        color: #00452C;
+        margin: 10px 0; /* Mengurangi jarak vertikal */
+    }
+
+    .map-container {
+        padding: 15px; 
+        background-color: #ffffff;
+        border-radius: 15px; 
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+        margin-bottom: 10px;
+    }
+
+    #mapindo {
+        height: 500px;
+        width: 100%;
+        /* max-width: 800px; */
+        margin: 0 auto;
+        margin-bottom: 50px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .loading {
+        margin-top: 10em;
+        text-align: center;
+        color: gray;
+    }
+
+    .highcharts-title{
+        opacity: 0% !important;
+    } 
+
+    .highcharts-background{
+        fill: #f4f4f4 !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5) !important; 
     }
 
     /* Responsiveness */
@@ -129,10 +161,23 @@
     }
 </style>
 
+<script src="https://code.highcharts.com/maps/highmaps.js"></script>
+<script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
 <div id="carousel-siterap" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
             <img src="/assets/img/kebun1.png" class="d-block w-100" alt="slide 1">
+            <div class="carousel-caption d-none d-md-block">
+                <h4>Gapoknak Wijaya Kusumah, Danda Jaya, Barito Kuala</h4>
+                <p>3°6'38",114°40'30",51.0m, 178°</p>
+                <p>23/07/2018 13:40:18</p>
+            </div>
+        </div>
+
+        <div class="carousel-item active">
+            <img src="/assets/img/kp_cipaku.PNG" class="d-block w-100" alt="slide 2">
             <div class="carousel-caption d-none d-md-block">
                 <h4>Gapoknak Wijaya Kusumah, Danda Jaya, Barito Kuala</h4>
                 <p>3°6'38",114°40'30",51.0m, 178°</p>
@@ -183,31 +228,121 @@
                 </div>
             </div>
         </div>
-        <a href="#" class="cta">Info Selengkapnya →</a>
+        <a href="{{ route('profil_bsip') }}" class="cta">Info Selengkapnya →</a>
+
     </div>
 </div>
 
-<div class="map-container">
-    <h1>Sebaran Instalasi Penelitian dan Pengkajian Teknologi Pertanian di Indonesia</h1>
-    <div id="map"></div>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-        var map = L.map('map').setView([-2.5489, 118.0149], 5);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+<div class="content stylish-content">
+        <h1 class="page-title">Peta Sebaran Instalasi Penelitian dan Pengkajian Teknologi Pertanian di Indonesia </h1>    
+        <div class="map">      
+            <div id="mapindo"></div>
+        </div>
+        <script>
+        (async () => {
 
-        var provinces = [
-            { name: "Aceh", coords: [4.695135, 96.749397] },
-            { name: "Sumatera Utara", coords: [3.585242, 98.675598] },
-            { name: "Jawa Barat", coords: [-6.917464, 107.619125] }
+        const topology = await fetch(
+            'https://code.highcharts.com/mapdata/countries/id/id-all.topo.json'
+        ).then(response => response.json());
+
+        // Prepare demo data. The data is joined to map using value of 'hc-key'
+        // property by default. See API docs for 'joinBy' for more info on linking
+        // data and map.
+        const data = [
+            { 'hc-key': 'id-ac', value: 11, name: 'Aceh' },
+            { 'hc-key': 'id-jt', value: 12, name: 'Jawa Tengah' },
+            { 'hc-key': 'id-be', value: 13, name: 'Bengkulu' },
+            { 'hc-key': 'id-bt', value: 14, name: 'Banten' },
+            { 'hc-key': 'id-kb', value: 15, name: 'Kalimantan Barat' },
+            { 'hc-key': 'id-bb', value: 16, name: 'Bangka Belitung' },
+            { 'hc-key': 'id-ba', value: 17, name: 'Bali' },
+            { 'hc-key': 'id-ji', value: 18, name: 'Jawa Timur' },
+            { 'hc-key': 'id-ks', value: 19, name: 'Kalimantan Selatan' },
+            { 'hc-key': 'id-nt', value: 20, name: 'Nusa Tenggara Timur' },
+            { 'hc-key': 'id-se', value: 21, name: 'Sulawesi Selatan' },
+            { 'hc-key': 'id-kr', value: 22, name: 'Kepulauan Riau' },
+            { 'hc-key': 'id-ib', value: 23, name: 'Papua Barat' },
+            { 'hc-key': 'id-su', value: 24, name: 'Sumatera Utara' },
+            { 'hc-key': 'id-ri', value: 25, name: 'Riau' },
+            { 'hc-key': 'id-sw', value: 26, name: 'Sulawesi Utara' },
+            { 'hc-key': 'id-ku', value: 27, name: 'Kalimantan Utara' },
+            { 'hc-key': 'id-la', value: 28, name: 'Maluku Utara' },
+            { 'hc-key': 'id-sb', value: 29, name: 'Sumatera Barat' },
+            { 'hc-key': 'id-ma', value: 30, name: 'Maluku' },
+            { 'hc-key': 'id-nb', value: 31, name: 'Nusa Tenggara Barat' },
+            { 'hc-key': 'id-sg', value: 32, name: 'Sulawesi Tenggara' },
+            { 'hc-key': 'id-st', value: 33, name: 'Sulawesi Tengah' },
+            { 'hc-key': 'id-pa', value: 34, name: 'Papua' },
+            { 'hc-key': 'id-jr', value: 35, name: 'Jawa Barat' },
+            { 'hc-key': 'id-ki', value: 36, name: 'Kalimantan Timur' },
+            { 'hc-key': 'id-1024', value: 37, name: 'Lampung' },
+            { 'hc-key': 'id-jk', value: 38, name: 'Jakarta' },
+            { 'hc-key': 'id-go', value: 39, name: 'Gorontalo' },
+            { 'hc-key': 'id-yo', value: 40, name: 'Yogyakarta' },
+            { 'hc-key': 'id-sl', value: 41, name: 'Sumatera Selatan' },
+            { 'hc-key': 'id-sr', value: 42, name: 'Sulawesi Barat' },
+            { 'hc-key': 'id-ja', value: 43, name: 'Jambi' },
+            { 'hc-key': 'id-kt', value: 44, name: 'Kalimantan Tengah' }
         ];
 
-        provinces.forEach(function(province) {
-            var marker = L.marker(province.coords).addTo(map);
-            marker.bindPopup("<b>" + province.name + "</b><br><a href='#'>Klik untuk melihat detail</a>");
+        // Create the chart
+        Highcharts.mapChart('mapindo', {
+            chart: {
+                map: topology
+            },
+
+            mapNavigation: {
+                enabled: true,
+                buttonOptions: {
+                    verticalAlign: 'bottom'
+                }
+            },
+
+            colorAxis: {
+                min: 0,
+                max: 75, // Rentang nilai data
+                stops: [
+                    [0, '#95be95'],     // tipis
+                    [0.5, '#4c924c'],   // tengah
+                    [1, '#006400']      // pekat
+                ]
+                
+            },
+
+            series: [{
+                data: data,
+                name: 'Sebaran KP',
+                states: {
+                    hover: {
+                        color: '#e3eee3'
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.name}',
+                    style: {
+                        fontFamily: 'Arial, sans-serif',
+                        fontSize: '12px',
+                        fontWeight: 'normal',
+                        color: '#000000',
+                        fontWeight: 'bold',
+                        // textOutline: 'none'
+                    }
+                },
+
+                point: {
+                    events: {
+                        click: function () {
+                            // Arahkan ke halaman lain berdasarkan `hc-key`
+                            const route = `/lp2tp/tabelPeta/${this['hc-key']}`;
+                            window.location.href = route;  // Redirect ke halaman yang sesuai
+                        }
+                    }
+                }
+            }]
         });
+
+        })();
     </script>
 </div>
 

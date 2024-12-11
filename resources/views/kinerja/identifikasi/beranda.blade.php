@@ -1,90 +1,198 @@
 @extends('layouts.layoutKinerja')
 
 @section('content')
-    <style>
-        .content.stylish-content {
-            padding: 20px;
-        }
+<style>
+    .content.stylish-content {
+        padding: 20px;
+    }
 
-        .page-title {
-            text-align: center;
-            font-size: 2em;
-            color: #00452C;
-            margin: 20px 0;
-        }
+    .page-title {
+        text-align: center;
+        font-size: 2em;
+        color: #00452C;
+        margin: 10px 0; /* Mengurangi jarak vertikal */
+    }
 
-        .stylish-button {
-            display: block;
-            width: fit-content;
-            margin: 20px auto;
-            padding: 12px 25px;
-            color: white;
-            background-color: #006633;
-            text-decoration: none;
-            border-radius: 5px;
-            text-align: center;
-            font-size: 1.1em;
-        }
+    .stylish-button {
+        display: block !important;
+        width: fit-content;
+        margin: 10px auto;
+        padding: 10px 20px;
+        color: white;
+        background-color: #006633;
+        text-decoration: none;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 1em;
+        z-index: 1000;
+        position: relative;
+    }
 
-        .stylish-button:hover {
-            background-color: #009144;
-        }
+    .stylish-button:hover {
+        background-color: #009144;
+    }
 
-        .stylish-content {
-            margin: 0 auto;
-            max-width: 1200px;
-            padding: 40px 20px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        }
+    .stylish-content {
+        margin: 0 auto;
+        max-width: 1200px;
+        padding: 20px 10px; /* Mengurangi padding */
+    }
 
-        #map {
-            height: 500px;
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+    .map-container {
+        padding: 20px; 
+        background-color: #ffff;
+        border-radius: 0px; 
+        margin-bottom: 10px;
+    }
 
-    <div class="content stylish-content">
-        <h1 class="page-title">Peta Sebaran Identifikasi dan Inventarisasi SIP</h1>
-        <div id="map"></div> 
-        <a href="{{ route('form_sip') }}" class="stylish-button">Isi Data Lembaga Penerap SIP</a>
+    #mapindo {
+        height: 500px;
+        width: 100%;
+        /* max-width: 800px; */
+        margin: 0 auto;
+        margin-bottom: 50px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .loading {
+        margin-top: 10em;
+        text-align: center;
+        color: gray;
+    }
+
+    .highcharts-title{
+        opacity: 0% !important;
+    } 
+
+    .highcharts-background{
+        fill: #f4f4f4 !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5) !important; 
+    }
+</style>
+
+<script src="https://code.highcharts.com/maps/highmaps.js"></script>
+<script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<div class="content stylish-content">
+    <h1 class="page-title">Peta Sebaran Identifikasi dan Inventarisasi SIP </h1>    
+    <div class="map-container">
+        <div class="map">      
+            <div id="mapindo"></div>
+            <a href="{{route('form_sip')}}" class="stylish-button">Isi Data SIP</a>
+        </div>
     </div>
+</div>
+<script>
+    (async () => {
 
-    <!-- Add Leaflet JS after the map -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    const topology = await fetch(
+        'https://code.highcharts.com/mapdata/countries/id/id-all.topo.json'
+    ).then(response => response.json());
 
-    <script>
-        // Inisialisasi peta dengan koordinat pusat Indonesia
-        var map = L.map('map').setView([-2.5489, 118.0149], 5); // Koordinat Indonesia
+    // Prepare demo data. The data is joined to map using value of 'hc-key'
+    // property by default. See API docs for 'joinBy' for more info on linking
+    // data and map.
+    const data = [
+        { id: 1,'hc-key': 'id-ac', value: 11, name: 'Aceh' },
+        { id: 10,'hc-key': 'id-jt', value: 12, name: 'Jawa Tengah' },
+        { id: null,'hc-key': 'id-be', value: 13, name: 'Bengkulu' },
+        { id: 13,'hc-key': 'id-bt', value: 14, name: 'Banten' },
+        { id: 16,'hc-key': 'id-kb', value: 15, name: 'Kalimantan Barat' },
+        { id: 8,'hc-key': 'id-bb', value: 16, name: 'Bangka Belitung' },
+        { id: null,'hc-key': 'id-ba', value: 17, name: 'Bali' },
+        { id: 12,'hc-key': 'id-ji', value: 18, name: 'Jawa Timur' },
+        { id: 18,'hc-key': 'id-ks', value: 19, name: 'Kalimantan Selatan' },
+        { id: 15,'hc-key': 'id-nt', value: 20, name: 'Nusa Tenggara Timur' },
+        { id: 22,'hc-key': 'id-se', value: 21, name: 'Sulawesi Selatan' },
+        { id: null,'hc-key': 'id-kr', value: 22, name: 'Kepulauan Riau' },
+        { id: 28,'hc-key': 'id-ib', value: 23, name: 'Papua Barat' },
+        { id: 2,'hc-key': 'id-su', value: 24, name: 'Sumatera Utara' },
+        { id: 4,'hc-key': 'id-ri', value: 25, name: 'Riau' },
+        { id: 20,'hc-key': 'id-sw', value: 26, name: 'Sulawesi Utara' },
+        { id: null,'hc-key': 'id-ku', value: 27, name: 'Kalimantan Utara' },
+        { id: 27,'hc-key': 'id-la', value: 28, name: 'Maluku Utara' },
+        { id: 3,'hc-key': 'id-sb', value: 29, name: 'Sumatera Barat' },
+        { id: 26,'hc-key': 'id-ma', value: 30, name: 'Maluku' },
+        { id: 14,'hc-key': 'id-nb', value: 31, name: 'Nusa Tenggara Barat' },
+        { id: 23,'hc-key': 'id-sg', value: 32, name: 'Sulawesi Tenggara' },
+        { id: 21,'hc-key': 'id-st', value: 33, name: 'Sulawesi Tengah' },
+        { id: 29,'hc-key': 'id-pa', value: 34, name: 'Papua' },
+        { id: 9,'hc-key': 'id-jr', value: 35, name: 'Jawa Barat' },
+        { id: 19,'hc-key': 'id-ki', value: 36, name: 'Kalimantan Timur' },
+        { id: 7,'hc-key': 'id-1024', value: 37, name: 'Lampung' },
+        { id: null,'hc-key': 'id-jk', value: 38, name: 'Jakarta' },
+        { id: 24,'hc-key': 'id-go', value: 39, name: 'Gorontalo' },
+        { id: 11,'hc-key': 'id-yo', value: 40, name: 'Yogyakarta' },
+        { id: 6,'hc-key': 'id-sl', value: 41, name: 'Sumatera Selatan' },
+        { id: 25,'hc-key': 'id-sr', value: 42, name: 'Sulawesi Barat' },
+        { id: 5,'hc-key': 'id-ja', value: 43, name: 'Jambi' },
+        { id: 17,'hc-key': 'id-kt', value: 44, name: 'Kalimantan Tengah' }
+    ];
+    // const data = {!! $bsip !!}
+    // console.log(data);
+    
 
-        // Tambahkan tile layer dari OpenStreetMap
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+    // Create the chart
+    Highcharts.mapChart('mapindo', {
+        chart: {
+            map: topology
+        },
 
-        // Data koordinat untuk beberapa provinsi di Indonesia
-        var provinces = [
-            { name: "Aceh", coords: [4.695135, 96.749397] },
-            { name: "Sumatera Utara", coords: [3.585242, 98.675598] },
-            { name: "Sumatera Barat", coords: [-0.789275, 100.650558] },
-            { name: "Riau", coords: [0.507068, 101.447777] },
-            { name: "Jawa Barat", coords: [-6.917464, 107.619125] },
-            { name: "Jawa Tengah", coords: [-7.566298, 110.831787] },
-            { name: "Jawa Timur", coords: [-7.250445, 112.768845] },
-            { name: "Kalimantan Timur", coords: [-0.502106, 117.153709] },
-            { name: "Sulawesi Selatan", coords: [-5.147665, 119.432732] },
-            { name: "Papua", coords: [-4.269928, 138.080353] }
-        ];
+        mapNavigation: {
+            enabled: true,
+            buttonOptions: {
+                verticalAlign: 'bottom'
+            }
+        },
 
-        // Loop untuk menambahkan marker dan popup untuk setiap provinsi
-        provinces.forEach(function(province) {
-            var marker = L.marker(province.coords).addTo(map);
-            marker.bindPopup("<b>" + province.name + "</b><br><a href='{{ route('identifikasi.provinsi') }}?provinsi=" + encodeURIComponent(province.name) + "' target='_blank'>Klik untuk melihat detail</a>");
-        });
-    </script>
+        colorAxis: {
+            min: 0,
+            max: 75, // Rentang nilai data
+            stops: [
+                [0, '#95be95'],     // tipis
+                [0.5, '#4c924c'],   // tengah
+                [1, '#006400']      // pekat
+            ]
+            
+        },
+
+        series: [{
+            data: data,
+            name: 'Jumlah Benih (ton)',
+            states: {
+                hover: {
+                    color: '#e3eee3'
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}',
+                style: {
+                    fontFamily: 'Arial, sans-serif',
+                    fontSize: '12px',
+                    fontWeight: 'normal',
+                    color: '#000000',
+                    fontWeight: 'bold',
+                    // textOutline: 'none'
+                }
+            },
+
+            point: {
+                events: {
+                    click: function () {
+                        // Arahkan ke halaman lain berdasarkan `hc-key`
+                        const route = `/kinerja-kegiatan/identifikasi/provinsi/${this.id}`;
+                        window.location.href = route;  // Redirect ke halaman yang sesuai
+                    }
+                }
+            }
+        }]
+
+    });
+
+    })();
+</script>
 @endsection

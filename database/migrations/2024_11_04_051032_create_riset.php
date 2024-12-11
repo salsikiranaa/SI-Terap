@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('riset', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('kecamatan_id')->unsigned();
-            $table->string('judul')->unique();
+            $table->unsignedBigInteger('kecamatan_id');
+            $table->unsignedBigInteger('sip_id');
+            $table->string('judul');
+            $table->year('tahun');
             $table->timestamps();
 
             $table->foreign('kecamatan_id')->references('id')->on('m_kecamatan');
+            $table->foreign('sip_id')->references('id')->on('m_sip');
         });
     }
 
