@@ -27,6 +27,11 @@ use App\Http\Controllers\IP2SIP\GalleryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Direktori\PenyuluhController;
+use App\Http\Controllers\IP2SIP\AsetAlatController;
+use App\Http\Controllers\IP2SIP\AsetGedungController;
+use App\Http\Controllers\IP2SIP\AsetLabController;
+use App\Http\Controllers\IP2SIP\AsetRumahController;
+use App\Http\Controllers\IP2SIP\AsetTanahController;
 use App\Http\Controllers\IP2SIP\PemanfaatanSIPController;
 use App\Http\Controllers\Manage\AdminDashboardController;
 use App\Http\Controllers\Manage\CMSController;
@@ -218,6 +223,33 @@ Route::middleware('authenticated')->group(function () {
             Route::get('/form', [PemanfaatanSIPController::class, 'create'])->name('lp2tp.pemanfaatan_kp.create');
             Route::post('/store', [PemanfaatanSIPController::class, 'store'])->name('lp2tp.pemanfaatan_kp.store');
         });
+        Route::prefix('/aset')->group(function () {
+            Route::prefix('/tanah')->group(function () {
+                Route::post('/', [AsetTanahController::class, 'store'])->name('aset.tanah.store');
+                Route::put('/{id}', [AsetTanahController::class, 'update'])->name('aset.tanah.update');
+                Route::delete('/{id}', [AsetTanahController::class, 'destroy'])->name('aset.tanah.destroy');
+            });
+            Route::prefix('/gedung')->group(function () {
+                Route::post('/', [AsetGedungController::class, 'store'])->name('aset.gedung.store');
+                Route::put('/{id}', [AsetGedungController::class, 'update'])->name('aset.gedung.update');
+                Route::delete('/{id}', [AsetGedungController::class, 'destroy'])->name('aset.gedung.destroy');
+            });
+            Route::prefix('/lab')->group(function () {
+                Route::post('/', [AsetLabController::class, 'store'])->name('aset.lab.store');
+                Route::put('/{id}', [AsetLabController::class, 'update'])->name('aset.lab.update');
+                Route::delete('/{id}', [AsetLabController::class, 'destroy'])->name('aset.lab.destroy');
+            });
+            Route::prefix('/rumah-negara')->group(function () {
+                Route::post('/', [AsetRumahController::class, 'store'])->name('aset.rumah.store');
+                Route::put('/{id}', [AsetRumahController::class, 'update'])->name('aset.rumah.update');
+                Route::delete('/{id}', [AsetRumahController::class, 'destroy'])->name('aset.rumah.destroy');
+            });
+            Route::prefix('/alat-mesin')->group(function () {
+                Route::post('/', [AsetAlatController::class, 'store'])->name('aset.alat.store');
+                Route::put('/{id}', [AsetAlatController::class, 'update'])->name('aset.alat.update');
+                Route::delete('/{id}', [AsetAlatController::class, 'destroy'])->name('aset.alat.destroy');
+            });
+        });
     });
 
     Route::middleware('service:5')->prefix('/direktori-penyuluh')->group(function () {
@@ -281,11 +313,11 @@ Route::prefix('/ip2sip')->group(function () {
     })->name('profil_bsip');    
     
     Route::prefix('/aset')->group(function () {
-        Route::get('/tanah', function () { return view('lp2tp.aset.tanah'); })->name('aset.tanah');
-        Route::get('/gedung', function () { return view('lp2tp.aset.gedung'); })->name('aset.gedung');
-        Route::get('/lab', function () { return view('lp2tp.aset.lab'); })->name('aset.lab');
-        Route::get('/rumah_negara', function () { return view('lp2tp.aset.rumah_negara'); })->name('aset.rumah_negara');
-        Route::get('/alat_mesin', function () { return view('lp2tp.aset.alat_mesin'); })->name('aset.alat_mesin');
+        Route::get('/tanah', [AsetTanahController::class, 'index'])->name('aset.tanah');
+        Route::get('/gedung', [AsetGedungController::class, 'index'])->name('aset.gedung');
+        Route::get('/lab', [AsetLabController::class, 'index'])->name('aset.lab');
+        Route::get('/rumah_negara', [AsetRumahController::class, 'index'])->name('aset.rumah_negara');
+        Route::get('/alat_mesin', [AsetAlatController::class, 'index'])->name('aset.alat_mesin');
     });
     Route::get('/tabelPeta/{bsip_id}', [ProvinceDashboardController::class, 'show'])->name('ip2sip.provinsi');
     Route::get('/pemanfaatan_kp', [PemanfaatanSIPController::class, 'index'])->name('lp2tp.pemanfaatan_kp');
