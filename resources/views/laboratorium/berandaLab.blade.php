@@ -89,7 +89,7 @@
     </style>
 
     <div class="content stylish-content">
-        <h1 class="page-title">Peta Sebaran Identifikasi dan Inventarisasi SIP 
+        <h1 class="page-title">Peta Sebaran Laboratorium Pengujian 
         </h1>
 
         <!-- Leaflet Map -->
@@ -154,7 +154,7 @@
 
         // Example markers in Jawa Barat
         var provinces = [
-          { name: "Aceh", coords: [4.695135, 96.749397] },
+        { name: "Aceh", coords: [4.695135, 96.749397] },
         { name: "Sumatera Utara", coords: [3.585242, 98.675598] },
         { name: "Sumatera Barat", coords: [-0.789275, 100.650558] },
         { name: "Riau", coords: [0.507068, 101.447777] },
