@@ -30,6 +30,7 @@ use App\Http\Controllers\Direktori\PenyuluhController;
 use App\Http\Controllers\IP2SIP\PemanfaatanSIPController;
 use App\Http\Controllers\Manage\AdminDashboardController;
 use App\Http\Controllers\Manage\CMSController;
+use App\Http\Controllers\Manage\mFungsionalController;
 use App\Http\Controllers\Manage\mKelasBenihController;
 use App\Http\Controllers\Manage\mKomoditasController;
 use App\Http\Controllers\Perbenihan\PerbenihanController;
@@ -172,6 +173,12 @@ Route::middleware('authenticated')->group(function () {
             Route::put('/{id}/update', [mKelasBenihController::class, 'update'])->name('manage.kelas_benih.update');
             Route::delete('/{id}/destroy', [mKelasBenihController::class, 'destroy'])->name('manage.kelas_benih.update');
         });
+        Route::prefix('/fungsional')->group(function () {
+            Route::get('/', [mFungsionalController::class, 'index'])->name('manage.fungsional.view');
+            Route::post('/', [mFungsionalController::class, 'store'])->name('manage.fungsional.store');
+            Route::put('/{id}', [mFungsionalController::class, 'update'])->name('manage.fungsional.update');
+            Route::delete('/{id}', [mFungsionalController::class, 'destroy'])->name('manage.fungsional.destroy');
+        });
     });
 
     Route::middleware('service:1')->prefix('/kinerja-kegiatan')->group(function () {
@@ -229,15 +236,6 @@ Route::middleware('authenticated')->group(function () {
     });
 });
 
-
-
-Route::get('lp2tp/tabelPeta/{province}', function ($province) {
-    return view('lp2tp.tabelPeta', ['province' => $province]);
-})->name('lp2tp.tabelPeta');
-Route::get('/lp2tp/tabelPeta/{province}', [ProvinceDashboardController::class, 'show'])->name('provinsi');
-
-
-
 // (1) KINERJA KEGIATAN
 Route::prefix('/kinerja-kegiatan')->group(function () {
     Route::get('/', function () { return view('kinerja.berandakinerja'); })->name('beranda_kinerja');
@@ -289,12 +287,9 @@ Route::prefix('/ip2sip')->group(function () {
         Route::get('/rumah_negara', function () { return view('lp2tp.aset.rumah_negara'); })->name('aset.rumah_negara');
         Route::get('/alat_mesin', function () { return view('lp2tp.aset.alat_mesin'); })->name('aset.alat_mesin');
     });
-    
+    Route::get('/tabelPeta/{bsip_id}', [ProvinceDashboardController::class, 'show'])->name('ip2sip.provinsi');
     Route::get('/pemanfaatan_kp', [PemanfaatanSIPController::class, 'index'])->name('lp2tp.pemanfaatan_kp');
     Route::get('/galeri', [GalleryController::class, 'index'])->name('lp2tp.galeri');
-
-    // Route::get('/form_riset', function () { return view('lp2tp.form_riset'); })->name('form_riset');
-    // Route::get('/form_sdm', function () { return view('lp2tp.form_sdm'); })->name('form_sdm');
 });
 // (4) END IP2SIP
 
