@@ -71,41 +71,11 @@
             <form class="w-75 d-flex align-items-center gap-2 mb-3">
                    <!-- Filter Section -->
                 <div class="filter-container">
-                    <select id="bpsip" placeholder="BPTP">
-                        <option value="">BPTP</option>
-                        <option value="aceh">Aceh</option>
-                        <option value="sumut">Sumatera Utara</option>
-                        <option value="sumbar">Sumatera Barat</option>
-                        <option value="riau">Riau</option>
-                        <option value="kepri">Kepulauan Riau</option>
-                        <option value="jambi">Jambi</option>
-                        <option value="sumsel">Sumatera Selatan</option>
-                        <option value="bengkulu">Bengkulu</option>
-                        <option value="babel">Bangka Belitung</option>
-                        <option value="lampung">Lampung</option>
-                        <option value="banten">Banten</option>
-                        <option value="jakarta">DKI Jakarta</option>
-                        <option value="jabar">Jawa Barat</option>
-                        <option value="jateng">Jawa Tengah</option>
-                        <option value="yogyakarta">Yogyakarta</option>
-                        <option value="jatim">Jawa Timur</option>
-                        <option value="kalbar">Kalimantan Barat</option>
-                        <option value="kalteng">Kalimantan Tengah</option>
-                        <option value="kaltim">Kalimantan Timur</option>
-                        <option value="kalsel">Kalimantan Selatan</option>
-                        <option value="bali">Bali</option>
-                        <option value="ntb">Nusa Tenggara Barat</option>
-                        <option value="ntt">Nusa Tenggara Timur</option>
-                        <option value="sulut">Sulawesi Utara</option>
-                        <option value="gorontalo">Gorontalo</option>
-                        <option value="sulteng">Sulawesi Tengah</option>
-                        <option value="sultra">Sulawesi Tenggara</option>
-                        <option value="sulsel">Sulawesi Selatan</option>
-                        <option value="sulbar">Sulawesi Barat</option>
-                        <option value="malut">Maluku Utara</option>
-                        <option value="maluku">Maluku</option>
-                        <option value="papbar">Papua Barat</option>
-                        <option value="papua">Papua</option>
+                    <select id="bpsip" name="bsip_id" placeholder="BSIP">
+                        <option value="">Semua BSIP</option>
+                        @foreach ($all_bsip as $bs)
+                            <option value="{{ $bs->id }}" {{ request()->bsip_id == $bs->id ? 'selected' : '' }}>{{ $bs->name }}</option>
+                        @endforeach
                     </select>
                     
                     <button type="submit" class="btn btn-success">Cari</button>
