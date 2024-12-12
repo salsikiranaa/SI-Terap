@@ -2,6 +2,57 @@
 
 @section('content')
     <style>
+        .disabled {
+            pointer-events: none;
+            opacity: 0.6;
+            color: white !important;
+            background-color: gray;
+            border: none !important;
+        }
+
+        .pagination {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            padding: 25px;
+        }
+
+        .page-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 25px;
+            height: 25px;
+            border: 1.5px solid #00452C; 
+            color: #00452C;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .page-item.active {
+            background-color: #00452C;
+            color: white;
+            border: none;
+        }
+
+        .page-item.active:hover {
+            background-color: #00452C;
+            color: white;
+            border: none;
+        }
+
+
+        .dots {
+            font-size: 24px;
+            color: #00a652;
+        }
+
+        .page-item:hover {
+            background-color: #d6f7e1;
+        }
         .asset-dashboard {
             background-color: #f5f5f5;
         }
@@ -97,8 +148,8 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>BPTP</th>
-                            <th>Nama KP</th>
+                            <th>BSIP</th>
+                            <th>Nama IP2SIP</th>
                             <th>Jenis Aset</th>
                             <th>Luas Lahan (m<sup>2</sup>)</th>
                             <th>Tahun Perolehan</th>
@@ -108,81 +159,40 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Aceh</td>
-                            <td>KP. Gayo</td>
-                            <td>Tanah Bangunan Kantor Pemerintahan</td>
-                            <td>1300,5</td>
-                            <td>2008</td>
-                            <td>Sertifikat Hak Pakai No.03 Tanggal 14 Januari 2013</td>
-                            <td>47847765252</td>
-                            <td>Muspitawati,S.AP</td>
-                        </tr>
-
-                        <tr>
-                            <td>2</td>
-                            <td>Papua</td>
-                            <td>KP. Gayo</td>
-                            <td>Tanah Bangunan Kantor Pemerintahan</td>
-                            <td>11,00</td>
-                            <td>2014</td>
-                            <td>Sertifikat Hak Pakai No.03 Tanggal 14 Januari 2013</td>
-                            <td>47847765252</td>
-                            <td>Muspitawati,S.AP</td>
-                        </tr>
-
-                        <tr>
-                            <td>3</td>
-                            <td>Aceh</td>
-                            <td>KP. Gayo</td>
-                            <td>Tanah Bangunan Kantor Pemerintahan</td>
-                            <td>11,00</td>
-                            <td>2013</td>
-                            <td>Sertifikat Hak Pakai No.03 Tanggal 14 Januari 2013</td>
-                            <td>47847765252</td>
-                            <td>Muspitawati,S.AP</td>
-                        </tr>
-
-                        <tr>
-                            <td>4</td>
-                            <td>Papua</td>
-                            <td>KP. Gayo</td>
-                            <td>Tanah Bangunan Kantor Pemerintahan</td>
-                            <td>11,00</td>
-                            <td>2013</td>
-                            <td>Sertifikat Hak Pakai No.03 Tanggal 14 Januari 2013</td>
-                            <td>47847765252</td>
-                            <td>Muspitawati,S.AP</td>
-                        </tr>
-
-                        <tr>
-                            <td>5</td>
-                            <td>Aceh</td>
-                            <td>KP. Gayo</td>
-                            <td>Tanah Bangunan Kantor Pemerintahan</td>
-                            <td>11,00</td>
-                            <td>2013</td>
-                            <td>Sertifikat Hak Pakai No.03 Tanggal 14 Januari 2013</td>
-                            <td>47847765252</td>
-                            <td>Muspitawati,S.AP</td>
-                        </tr>
+                        @foreach ($aset_tanah as $at)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $at->ip2sip->bsip->name }}</td>
+                                <td>{{ $at->ip2sip->name }}</td>
+                                <td>{{ $at->jenis_aset }}</td>
+                                <td>{{ $at->luas_lahan }}</td>
+                                <td>{{ $at->tahun_perolehan }}</td>
+                                <td>{{ $at->bukti_kepemilikan }}</td>
+                                <td>{{ $at->nomor_sertifikat }}</td>
+                                <td>{{ $at->pj_sertifikat }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
-                <nav aria-label="...">
-                    <ul class="pagination">
-                      <li class="page-item disabled">
-                        <span class="page-link">Previous</span>
-                      </li>
-                      <li class="page-item active" aria-current="page">
-                        <span class="page-link">1</span>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">2</a></li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                      </li>
-                    </ul>
-                  </nav>
+                <div class="pagination">
+                    <a href="{{ route('aset.tanah', [...request()->query(), 'page' => $aset_tanah->currentPage()-1]) }}" class="page-item text-decoration-none {{ $aset_tanah->currentPage() == 1 ? 'disabled' : '' }}">&lt;</a> <!-- Left arrow -->
+                    @if ($aset_tanah->lastPage() > 5 && $aset_tanah->currentPage() - 5 > 1)
+                        <span class="dots">...</span> <!-- Dots -->
+                    @endif
+                    @for ($i = 1; $i < $aset_tanah->currentPage()+1; $i++)
+                        @if ($i >= $aset_tanah->currentPage() - 5 || $i <= $aset_tanah->currentPage() + 5)
+                            @if ($i == $aset_tanah->currentPage())
+                                <div class="page-item text-decoration-none active">{{ $i }}</div> <!-- Active page -->
+                            @else
+                                <a href="{{ route('aset.tanah', [...request()->query(), 'page' => $i]) }}" class="page-item text-decoration-none">{{ $i }}</a>
+                            @endif
+                        @endif
+                    @endfor
+                    @if ($aset_tanah->lastPage() > 5 && $aset_tanah->lastPage() > $aset_tanah->currentPage() + 5)
+                        <span class="dots">...</span> <!-- Dots -->
+                    @endif
+                    <a href="{{ route('aset.tanah', [...request()->query(), 'page' => $aset_tanah->currentPage()+1]) }}" class="page-item text-decoration-none {{ $aset_tanah->currentPage() == $aset_tanah->lastPage() ? 'disabled' : '' }}">&gt;</a> <!-- Right arrow -->
+                </div>
             </div>
 
 
