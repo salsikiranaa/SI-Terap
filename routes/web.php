@@ -33,9 +33,11 @@ use App\Http\Controllers\IP2SIP\AsetLabController;
 use App\Http\Controllers\IP2SIP\AsetRumahController;
 use App\Http\Controllers\IP2SIP\AsetTanahController;
 use App\Http\Controllers\IP2SIP\PemanfaatanSIPController;
+use App\Http\Controllers\Lab\LaboratoriumController;
 use App\Http\Controllers\Manage\AdminDashboardController;
 use App\Http\Controllers\Manage\CMSController;
 use App\Http\Controllers\Manage\mFungsionalController;
+use App\Http\Controllers\Manage\mJenisLabController;
 use App\Http\Controllers\Manage\mKelasBenihController;
 use App\Http\Controllers\Manage\mKomoditasController;
 use App\Http\Controllers\Perbenihan\PerbenihanController;
@@ -184,6 +186,12 @@ Route::middleware('authenticated')->group(function () {
             Route::put('/{id}', [mFungsionalController::class, 'update'])->name('manage.fungsional.update');
             Route::delete('/{id}', [mFungsionalController::class, 'destroy'])->name('manage.fungsional.destroy');
         });
+        Route::prefix('/jenis-lab')->group(function () {
+            Route::get('/', [mJenisLabController::class, 'index'])->name('manage.jenis_lab.view');
+            Route::post('/', [mJenisLabController::class, 'store'])->name('manage.jenis_lab.store');
+            Route::put('/{id}', [mJenisLabController::class, 'update'])->name('manage.jenis_lab.update');
+            Route::delete('/{id}', [mJenisLabController::class, 'destroy'])->name('manage.jenis_lab.destroy');
+        });
     });
 
     Route::middleware('service:1')->prefix('/kinerja-kegiatan')->group(function () {
@@ -208,8 +216,11 @@ Route::middleware('authenticated')->group(function () {
         });
     });
 
-    Route::middleware('service:2')->prefix('/lab')->group(function () {
-        
+    Route::middleware('service:2')->prefix('/lab-pengujian')->group(function () {
+        Route::get('/form', [LaboratoriumController::class, 'create'])->name('form-Lab');
+        Route::post('/', [LaboratoriumController::class, 'store'])->name('lab.store');
+        Route::put('/{id}', [LaboratoriumController::class, 'update'])->name('lab.update');
+        Route::delete('/{id}', [LaboratoriumController::class, 'destroy'])->name('lab.destroy');
     });
 
     Route::middleware('service:3')->prefix('/perbenihan')->group(function () {
@@ -294,7 +305,8 @@ Route::prefix('/kinerja-kegiatan')->group(function () {
 
 // (2) LAB PENGUJIAN
 Route::prefix('/lab-pengujian')->group(function () {
-
+    Route::get('/', [LaboratoriumController::class, 'index'])->name('beranda-Lab');
+    Route::get('/data-Lab', [LaboratoriumController::class, 'show'])->name('data-Lab');
 });
 // (2) END LAB PENGUJIAN
 
@@ -392,11 +404,5 @@ Route::get('/diseminasi/form', function () {
 // })->name('tabelBenih');
 // Route::get('/pengelolaan/tabelBenih/{province}', [ProvinceBenihController::class, 'show'])->name('tabelBenih');
 
-//Lab
-Route::get('/beranda-Lab', function () { return view('laboratorium.berandaLab');  })->name('beranda-Lab');
-
-Route::get('/data-Lab', function () { return view('laboratorium.lab.beranda');  })->name('data-Lab');
-
-Route::get('/form-Lab', function () { return view('laboratorium.lab.form_lab');  })->name('form-Lab');
 
 //Pengkajian

@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             mKomoditasSeeder::class,
             mKelasBenihSeeder::class,
             mFungsionalSeeder::class,
+            mJenisLabSeeder::class,
 
             CMSSeeder::class,
             SocialSeeder::class,
