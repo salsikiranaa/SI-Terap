@@ -2,6 +2,57 @@
 
 @section('content')
     <style>
+        .disabled {
+            pointer-events: none;
+            opacity: 0.6;
+            color: white !important;
+            background-color: gray;
+            border: none !important;
+        }
+
+        .pagination {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            padding: 25px;
+        }
+
+        .page-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 25px;
+            height: 25px;
+            border: 1.5px solid #00452C; 
+            color: #00452C;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .page-item.active {
+            background-color: #00452C;
+            color: white;
+            border: none;
+        }
+
+        .page-item.active:hover {
+            background-color: #00452C;
+            color: white;
+            border: none;
+        }
+
+
+        .dots {
+            font-size: 24px;
+            color: #00a652;
+        }
+
+        .page-item:hover {
+            background-color: #d6f7e1;
+        }
         .asset-dashboard {
             background-color: #f5f5f5;
         }
@@ -108,81 +159,40 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Aceh</td>
-                            <td>KP. Gayo</td>
-                            <td>Tanah Bangunan Kantor Pemerintahan</td>
-                            <td>1300,5</td>
-                            <td>2008</td>
-                            <td>Sertifikat Hak Pakai No.03 Tanggal 14 Januari 2013</td>
-                            <td>47847765252</td>
-                            <td>Muspitawati,S.AP</td>
-                        </tr>
-
-                        <tr>
-                            <td>2</td>
-                            <td>Papua</td>
-                            <td>KP. Gayo</td>
-                            <td>Tanah Bangunan Kantor Pemerintahan</td>
-                            <td>11,00</td>
-                            <td>2014</td>
-                            <td>Sertifikat Hak Pakai No.03 Tanggal 14 Januari 2013</td>
-                            <td>47847765252</td>
-                            <td>Muspitawati,S.AP</td>
-                        </tr>
-
-                        <tr>
-                            <td>3</td>
-                            <td>Aceh</td>
-                            <td>KP. Gayo</td>
-                            <td>Tanah Bangunan Kantor Pemerintahan</td>
-                            <td>11,00</td>
-                            <td>2013</td>
-                            <td>Sertifikat Hak Pakai No.03 Tanggal 14 Januari 2013</td>
-                            <td>47847765252</td>
-                            <td>Muspitawati,S.AP</td>
-                        </tr>
-
-                        <tr>
-                            <td>4</td>
-                            <td>Papua</td>
-                            <td>KP. Gayo</td>
-                            <td>Tanah Bangunan Kantor Pemerintahan</td>
-                            <td>11,00</td>
-                            <td>2013</td>
-                            <td>Sertifikat Hak Pakai No.03 Tanggal 14 Januari 2013</td>
-                            <td>47847765252</td>
-                            <td>Muspitawati,S.AP</td>
-                        </tr>
-
-                        <tr>
-                            <td>5</td>
-                            <td>Aceh</td>
-                            <td>KP. Gayo</td>
-                            <td>Tanah Bangunan Kantor Pemerintahan</td>
-                            <td>11,00</td>
-                            <td>2013</td>
-                            <td>Sertifikat Hak Pakai No.03 Tanggal 14 Januari 2013</td>
-                            <td>47847765252</td>
-                            <td>Muspitawati,S.AP</td>
-                        </tr>
+                        @foreach ($aset_lab as $al)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $al->ip2sip->bsip->name }}</td>
+                                <td>{{ $al->ip2sip->name }}</td>
+                                <td>{{ $al->jenis_aset }}</td>
+                                <td>{{ $al->luas_lahan }}</td>
+                                <td>{{ $al->tahun_perolehan }}</td>
+                                <td>{{ $al->bukti_kepemilikan }}</td>
+                                <td>{{ $al->nomor_sertifikat }}</td>
+                                <td>{{ $al->pj_sertifikat }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
-                <nav aria-label="...">
-                    <ul class="pagination">
-                      <li class="page-item disabled">
-                        <span class="page-link">Previous</span>
-                      </li>
-                      <li class="page-item active" aria-current="page">
-                        <span class="page-link">1</span>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">2</a></li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                      </li>
-                    </ul>
-                  </nav>
+                <div class="pagination">
+                    <a href="{{ route('aset.lab', [...request()->query(), 'page' => $aset_lab->currentPage()-1]) }}" class="page-item text-decoration-none {{ $aset_lab->currentPage() == 1 ? 'disabled' : '' }}">&lt;</a> <!-- Left arrow -->
+                    @if ($aset_lab->lastPage() > 5 && $aset_lab->currentPage() - 5 > 1)
+                        <span class="dots">...</span> <!-- Dots -->
+                    @endif
+                    @for ($i = 1; $i < $aset_lab->currentPage()+1; $i++)
+                        @if ($i >= $aset_lab->currentPage() - 5 || $i <= $aset_lab->currentPage() + 5)
+                            @if ($i == $aset_lab->currentPage())
+                                <div class="page-item text-decoration-none active">{{ $i }}</div> <!-- Active page -->
+                            @else
+                                <a href="{{ route('aset.lab', [...request()->query(), 'page' => $i]) }}" class="page-item text-decoration-none">{{ $i }}</a>
+                            @endif
+                        @endif
+                    @endfor
+                    @if ($aset_lab->lastPage() > 5 && $aset_lab->lastPage() > $aset_lab->currentPage() + 5)
+                        <span class="dots">...</span> <!-- Dots -->
+                    @endif
+                    <a href="{{ route('aset.lab', [...request()->query(), 'page' => $aset_lab->currentPage()+1]) }}" class="page-item text-decoration-none {{ $aset_lab->currentPage() == $aset_lab->lastPage() ? 'disabled' : '' }}">&gt;</a> <!-- Right arrow -->
+                </div>
             </div>
 
 
