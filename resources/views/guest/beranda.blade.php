@@ -211,7 +211,7 @@
 <body>
     <header class="header">
         <div class="container">
-            <a href=""><img src="/storage/cms/logo_green.png" alt="Logo" style="height: 50px;"></a>
+            <a href=""><img src="/assets/img/logo_green.png" alt="Logo" style="height: 50px;"></a>
             <div>
                 @if (auth()->user())
                     {{-- <div style="color: #006400">{{ auth()->user()->name }}</div> --}}
@@ -269,7 +269,7 @@
                     </a>
                 </div>
                 <div class="col-md-2">
-                    <a href="{{route('beranda_pengelolaan')}}" style="text-decoration: none">
+                    <a href="{{route('perbenihan.index')}}" style="text-decoration: none">
                         <div class="card border">
                             <img src="https://img.freepik.com/free-vector/bug-fixing-software-testing-computer-virus-searching-tool-devops-web-optimization-antivirus-app-magnifier-cogwheel-monitor-design-element_335657-211.jpg?t=st=1730187126~exp=1730190726~hmac=66b3253705fcec65c36d963573a90c2fae0a167433173ae3ad9caee35e6ce6cc&w=740" alt="Perbenihan" class="card-img-top">
                             <div class="card-body">
@@ -289,7 +289,7 @@
                     </a>
                 </div>
                 <div class="col-md-2">
-                    <a href="#" style="text-decoration: none">
+                    <a href="{{route('sdm')}}" style="text-decoration: none">
                         <div class="card border">
                             <img src="https://img.freepik.com/free-vector/dashboard-analytics-computer-performance-evaluation-chart-screen-statistics-analysis-infographic-assessment-business-report-display-isolated-concept-metaphor-illustration_335657-1149.jpg?t=st=1730188574~exp=1730192174~hmac=062d414ad7f4ba7ea2bff35402cca9842a482fe9ff3607cbf442e81a40e3b083&w=740" alt="Direktori SDM Penyuluh" class="card-img-top">
                             <div class="card-body">

@@ -3,6 +3,14 @@
 @section('content')
 
 <style>
+    .disabled {
+        pointer-events: none;
+        opacity: 0.6;
+        color: white !important;
+        background-color: gray;
+        border: none !important;
+    }
+
     .content.stylish-content {
         padding: 20px;
     }
@@ -283,79 +291,63 @@
     }
 </style>
 
-<h1 class="page-title">Data Perbenihan - Provinsi {{ $provinceName }}</h1>
+<h1 class="page-title">Data Perbenihan - Provinsi {{ $bsip ? $bsip->name : '' }}</h1>
 
 <div class="content stylish-content">
     <!-- Filter Section -->
     <div class="filter">
-        <div class="form-row">
+        <form action="{{ route('perbenihan.provinsi', request()->bsip_id) }}" class="form-row">
             <div class="form-group col-md-5">
                 <label for="kotaKabupatenBenih">Nama Kota/Kabupaten</label>
-                <input type="text" name="kotaKabupatenBenih" id="kotaKabupatenBenih" placeholder="Masukkan Nama Kota/Kabupaten" style="width: 360px" required>
+                {{-- <input type="text" name="kotaKabupatenBenih" id="kotaKabupatenBenih" placeholder="Masukkan Nama Kota/Kabupaten" style="width: 360px" required> --}}
+                <select name="kabupaten_id" id="kotaKabupatenBenih">
+                    <option value="">Pilih Kota/Kabupaten</option>
+                    @foreach ($kabupaten as $kb)
+                        <option value="{{ $kb->id }}" {{ request()->kabupaten_id == $kb->id ? 'selected' : '' }}>{{ $kb->name }}</option>
+                    @endforeach
+                </select>
             </div>
             
             <div class="form-group col-md-5">
                 <label for="komoditasBenih">Komoditas</label>
-                <select name="komoditasBenih" id="komoditasBenih" required style="height: 52px">
-                    <option value="" disabled selected>Pilih Salah Satu</option>
-                    <option value="padi">Padi</option>
-                    <option value="jagung">Jagung</option>
-                    <option value="kacangkedelai">Kacang Kedelai</option>
-                    <option value="ayamkub">Ayam KUB</option>
-                    <option value="domba">Domba</option>
-                    <option value="kopi">Kopi</option>
-                    <option value="sapi">Sapi</option>
-                    <option value="bebekhibrida">Bebek Hibrida</option>
-                    <option value="bawangputih">Bawang Putih</option>
-                    <option value="cabai">Cabai</option>
-                    <option value="bawangmerah">Bawang Merah</option>
-                    <option value="kelapasawit">Kelapa Sawit</option>
-                    <option value="krisan">Krisan</option>
-                    <option value="kacangtanah">Kacang Tanah</option>
-                    <option value="ubikayu">Ubi Kayu</option>
-                    <option value="ubijalar">Ubi Jalar</option>
+                <select name="komoditas_id" id="komoditasBenih" style="height: 52px">
+                    <option value="">Pilih Salah Satu</option>
+                    @foreach ($komoditas as $km)
+                        <option value="{{ $km->id }}" {{ request()->komoditas_id == $km->id ? 'selected' : '' }}>{{ $km->name }}</option>
+                    @endforeach
                 </select>
             </div>
     
             <div class="form-group col-md-5">
                 <label for="kelasBenih">Kelas Benih</label>
-                <select name="kelasBenih" id="kelasBenih" required style="height: 52px">
-                    <option value="" disabled selected>Pilih Salah Satu</option>
-                    <option value="bs">BS (Breeder Seed)</option>
-                    <option value="fs">FS (Foundation Seed)</option>
-                    <option value="ss">SS (Stock Seed)</option>
-                    <option value="es">ES (Extention Seed)</option>
+                <select name="kelas_benih_id" id="kelasBenih" style="height: 52px">
+                    <option value="">Pilih Salah Satu</option>
+                    @foreach ($kelas_benih as $kb)
+                        <option value="{{ $kb->id }}" {{ request()->kelas_benih_id == $kb->id ? 'selected' : '' }}>{{ $kb->name }}</option>
+                    @endforeach
                 </select>
             </div>
 
             <div class="form-group col-md-5">
                 <label for="bulanPerbenihan">Bulan</label>
-                <select name="bulanPerbenihan" id="bulanPerbenihan" required style="height: 52px">
-                    <option value="" disabled selected>Pilih Salah Satu</option>
-                    <option value="benihJanuari">Januari</option>
-                    <option value="benihFebruari">Februari</option>
-                    <option value="benihMaret">Maret</option>
-                    <option value="benihApril">April</option>
-                    <option value="benihMei">Mei</option>
-                    <option value="benihJuni">Juni</option>
-                    <option value="benihJuli">Juli</option>
-                    <option value="benihAgustus">Agustus</option>
-                    <option value="benihSeptember">September</option>
-                    <option value="benihOktober">Oktober</option>
-                    <option value="benihNovember">November</option>
-                    <option value="benihDesember">Desember</option>
+                <select name="bulan" id="bulanPerbenihan" style="height: 52px">
+                    <option value="">Pilih Salah Satu</option>
+                    @foreach ($bulan as $bl)
+                        <option value="{{ $bl }}" {{ request()->bulan == $bl ? 'selected' : '' }}>{{ $bl }}</option>
+                    @endforeach
                 </select>
             </div>
 
             <div class="form-group col-md-5">
                 <label for="tahunPerbenihan">Tahun</label>
-                <input type="number" name="tahunPerbenihan" class="form-control" id="tahunPerbenihan" placeholder="Masukkan Tahun" required>
+                <input type="number" name="tahun" value="{{ request()->tahun }}" class="form-control" id="tahunPerbenihan" placeholder="Masukkan Tahun">
             </div>
             
-            <button type="button" onclick="filterData()">Filter</button>
+            {{-- <button type="button" onclick="filterData()">Filter</button> --}}
+            <button type="submit">Filter</button>
 
-            <button id="resetFilter" class="btn btn-secondary" type="button">Reset</button>
-        </div>
+            <a href="{{ route('perbenihan.provinsi', request()->bsip_id) }}" id="resetFilter" class="btn btn-secondary d-flex align-items-center" type="button">Reset</a>
+        </form>
     </div>
 
     <!-- Kegiatan Table -->
@@ -371,32 +363,53 @@
             </tr>
         </thead>
         <tbody>
+            @foreach ($perbenihan as $pb)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $pb->kabupaten->name }}</td>
+                    <td>{{ $pb->komoditas->name }}</td>
+                    <td>{{ $pb->kelas_benih->name }}</td>
+                    <td>{{ $pb->bulan }}</td>
+                    <td>{{ $pb->tahun }}</td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
-
+    {{-- {{ dd($perbenihan) }} --}}
     <div class="pagination">
-        <div class="page-item">&lt;</div> <!-- Left arrow -->
-        <div class="page-item active">1</div> <!-- Active page -->
-        <div class="page-item">2</div>
-        <div class="page-item">3</div>
-        <span class="dots">...</span> <!-- Dots -->
-        <div class="page-item">&gt;</div> <!-- Right arrow -->
+        <a href="{{ route('perbenihan.provinsi', ['bsip_id' => request()->bsip_id, ...request()->query(), 'page' => $perbenihan->currentPage()-1]) }}" class="page-item text-decoration-none {{ $perbenihan->currentPage() == 1 ? 'disabled' : '' }}">&lt;</a> <!-- Left arrow -->
+        @if ($perbenihan->lastPage() > 5 && $perbenihan->currentPage() - 5 > 1)
+            <span class="dots">...</span> <!-- Dots -->
+        @endif
+        @for ($i = 1; $i < $perbenihan->currentPage()+1; $i++)
+            @if ($i >= $perbenihan->currentPage() - 5 || $i <= $perbenihan->currentPage() + 5)
+                @if ($i == $perbenihan->currentPage())
+                    <div class="page-item text-decoration-none active">{{ $i }}</div> <!-- Active page -->
+                @else
+                    <a href="{{ route('perbenihan.provinsi', ['bsip_id' => request()->bsip_id, ...request()->query(), 'page' => $i]) }}" class="page-item text-decoration-none">{{ $i }}</a>
+                @endif
+            @endif
+        @endfor
+        @if ($perbenihan->lastPage() > 5 && $perbenihan->lastPage() > $perbenihan->currentPage() + 5)
+            <span class="dots">...</span> <!-- Dots -->
+        @endif
+        <a href="{{ route('perbenihan.provinsi', ['bsip_id' => request()->bsip_id, ...request()->query(), 'page' => $perbenihan->currentPage()+1]) }}" class="page-item text-decoration-none {{ $perbenihan->currentPage() == $perbenihan->lastPage() ? 'disabled' : '' }}">&gt;</a> <!-- Right arrow -->
     </div>
 </div>
 
 <script>
-    const perbenihanData = [
-        { no: 1, id: 1, kotaKabupatenBenih: 'Kabupaten Aceh Besar', komoditasBenih: 'Padi', kelasBenih: 'BS', bulanPerbenihan: 'Februari', tahunPerbenihan: 2023 },
-        { no: 2, id: 2, kotaKabupatenBenih: 'Kabupaten Bireuen', komoditasBenih: 'Jagung', kelasBenih: 'FS', bulanPerbenihan: 'Maret', tahunPerbenihan: 2022 },
-        { no: 3, id: 3, kotaKabupatenBenih: 'Kota Banda Aceh', komoditasBenih: 'Kacang Kedelai', kelasBenih: 'SS', bulanPerbenihan: 'April', tahunPerbenihan: 2024 },
-        { no: 4, id: 4, kotaKabupatenBenih: 'Kabupaten Aceh Tengah', komoditasBenih: 'Bawang Putih', kelasBenih: 'ES', bulanPerbenihan: 'Mei', tahunPerbenihan: 2023 },
-        { no: 5, id: 5, kotaKabupatenBenih: 'Kabupaten Aceh Timur', komoditasBenih: 'Cabai', kelasBenih: 'BS', bulanPerbenihan: 'Juni', tahunPerbenihan: 2022 },
-        { no: 6, id: 6, kotaKabupatenBenih: 'Kabupaten Aceh Barat', komoditasBenih: 'Padi', kelasBenih: 'FS', bulanPerbenihan: 'Juli', tahunPerbenihan: 2024 },
-        { no: 7, id: 7, kotaKabupatenBenih: 'Kabupaten Aceh Selatan', komoditasBenih: 'Jagung', kelasBenih: 'SS', bulanPerbenihan: 'Agustus', tahunPerbenihan: 2023 },
-        { no: 8, id: 8, kotaKabupatenBenih: 'Kabupaten Aceh Singkil', komoditasBenih: 'Kacang Kedelai', kelasBenih: 'ES', bulanPerbenihan: 'September', tahunPerbenihan: 2022 },
-        { no: 9, id: 9, kotaKabupatenBenih: 'Kabupaten Aceh Jaya', komoditasBenih: 'Bawang Putih', kelasBenih: 'BS', bulanPerbenihan: 'Oktober', tahunPerbenihan: 2023 },
-        { no: 10, id: 10, kotaKabupatenBenih: 'Kabupaten Aceh Tamiang', komoditasBenih: 'Cabai', kelasBenih: 'FS', bulanPerbenihan: 'November', tahunPerbenihan: 2024 }
-    ];
+    // const perbenihanData = [
+    //     { no: 1, id: 1, kotaKabupatenBenih: 'Kabupaten Aceh Besar', komoditasBenih: 'Padi', kelasBenih: 'BS', bulanPerbenihan: 'Februari', tahunPerbenihan: 2023 },
+    //     { no: 2, id: 2, kotaKabupatenBenih: 'Kabupaten Bireuen', komoditasBenih: 'Jagung', kelasBenih: 'FS', bulanPerbenihan: 'Maret', tahunPerbenihan: 2022 },
+    //     { no: 3, id: 3, kotaKabupatenBenih: 'Kota Banda Aceh', komoditasBenih: 'Kacang Kedelai', kelasBenih: 'SS', bulanPerbenihan: 'April', tahunPerbenihan: 2024 },
+    //     { no: 4, id: 4, kotaKabupatenBenih: 'Kabupaten Aceh Tengah', komoditasBenih: 'Bawang Putih', kelasBenih: 'ES', bulanPerbenihan: 'Mei', tahunPerbenihan: 2023 },
+    //     { no: 5, id: 5, kotaKabupatenBenih: 'Kabupaten Aceh Timur', komoditasBenih: 'Cabai', kelasBenih: 'BS', bulanPerbenihan: 'Juni', tahunPerbenihan: 2022 },
+    //     { no: 6, id: 6, kotaKabupatenBenih: 'Kabupaten Aceh Barat', komoditasBenih: 'Padi', kelasBenih: 'FS', bulanPerbenihan: 'Juli', tahunPerbenihan: 2024 },
+    //     { no: 7, id: 7, kotaKabupatenBenih: 'Kabupaten Aceh Selatan', komoditasBenih: 'Jagung', kelasBenih: 'SS', bulanPerbenihan: 'Agustus', tahunPerbenihan: 2023 },
+    //     { no: 8, id: 8, kotaKabupatenBenih: 'Kabupaten Aceh Singkil', komoditasBenih: 'Kacang Kedelai', kelasBenih: 'ES', bulanPerbenihan: 'September', tahunPerbenihan: 2022 },
+    //     { no: 9, id: 9, kotaKabupatenBenih: 'Kabupaten Aceh Jaya', komoditasBenih: 'Bawang Putih', kelasBenih: 'BS', bulanPerbenihan: 'Oktober', tahunPerbenihan: 2023 },
+    //     { no: 10, id: 10, kotaKabupatenBenih: 'Kabupaten Aceh Tamiang', komoditasBenih: 'Cabai', kelasBenih: 'FS', bulanPerbenihan: 'November', tahunPerbenihan: 2024 }
+    // ];
 
     function filterData() {
         const kotaKabupatenBenih = document.getElementById('kotaKabupatenBenih').value.toLowerCase();

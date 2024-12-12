@@ -294,7 +294,7 @@
 <body>
     <header class="header">
         <div class="container">
-            <a href="{{ route('home') }}"><img src="/storage/cms/logo_light.png" alt="Logo" style="height: 50px;"></a>
+            <a href="{{ route('home') }}"><img src="/assets/img/logo_light.png" alt="Logo" style="height: 50px;"></a>
             <nav class="navbar">
                 <a class="nav-link {{ request()->is('beranda_kinerja') ? 'active' : '' }}" href="{{ route('beranda_kinerja') }}">Beranda</a>
                 <a class="nav-link {{ request()->routeIs('identifikasi_beranda') ? 'active' : '' }}" href="{{ route('identifikasi_beranda') }}">Identifikasi</a>
@@ -309,7 +309,23 @@
                 <a class="nav-link {{ request()->routeIs('pendampingan_main') ? 'active' : '' }}" href="{{ route('pendampingan_main') }}">Pendampingan</a>
             </nav>
             <div>
-                <a href="" class="btn btn-outline-light-logout mr-2">Logout</a>
+                @if (auth()->user())
+                    <div class="dropdown">
+                        <button class="bg-transparent border-0 dropdown-toggle" style="color: #fff;" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ auth()->user()->name }}
+                        </button>
+                    
+                        <ul class="dropdown-menu">
+                            @if (auth()->user()->role_id == 1)
+                                <li><a class="dropdown-item" href="{{ route('manage.dashboard') }}" style="color: #006400">Dashboard</a></li>
+                            @endif
+                            <li><a class="dropdown-item" href="{{ route('auth.logout') }}" style="color: #006400">Logout</a></li>
+                        </ul>
+                    </div>
+                @else
+                    <a href="{{ route('auth.register.view') }}" class="btn btn-outline-light mr-2">Daftar</a>
+                    <a href="{{ route('auth.login.view') }}" class="btn mr-2" style="color: #006400; background-color:white">Masuk</a>
+                @endif
             </div>
         </div>
     </header>

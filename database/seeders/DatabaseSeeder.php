@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -30,6 +31,9 @@ class DatabaseSeeder extends Seeder
             mLembagaSeeder::class,
             mBSIPSeeder::class,
             mIP2SIPSeeder::class,
+            mKomoditasSeeder::class,
+            mKelasBenihSeeder::class,
+            mFungsionalSeeder::class,
 
             CMSSeeder::class,
             SocialSeeder::class,

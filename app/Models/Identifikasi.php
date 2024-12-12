@@ -30,10 +30,10 @@ class Identifikasi extends Model
     }
 
     public function sip() : BelongsToMany {
-        return $this->belongsToMany(mSIP::class, 'm_sip', 'identifikasi_id', 'sip_id');
+        return $this->belongsToMany(mSIP::class, 'p_identifikasi_sip', 'identifikasi_id', 'sip_id');
     }
 
     public function sasaran() : BelongsToMany {
-        return $this->belongsToMany(mSasaran::class, 'm_sasaran', 'identifikasi_id', 'sasaran_id');
+        return $this->belongsToMany(mSasaran::class, 'p_identifikasi_sasaran', 'identifikasi_id', 'sasaran_id');
     }
 }
