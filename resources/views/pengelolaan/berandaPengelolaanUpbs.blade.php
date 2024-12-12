@@ -56,9 +56,9 @@
         color: gray;
     }
 
-    /* .highcharts-title{
+    .highcharts-title{
         opacity: 0% !important;
-    } */
+    }
 
     .highcharts-background{
         fill: #f4f4f4 !important;
