@@ -18,6 +18,31 @@ class PendampinganController extends Controller
         return view('kinerja.pendampingan.mainPendampingan');
     }
 
+    public function show(Request $request) {
+        $pendampingan = new Pendampingan();
+        if ($request->nama_lembaga) $pendampingan = $pendampingan->where('nama_lembaga', 'LIKE', "%$request->nama_lembaga%");
+        if ($request->lembaga_id) $pendampingan = $pendampingan->where('lembaga_id', $request->lembaga_id);
+        if ($request->tahun) $pendampingan = $pendampingan->where('tanggal', 'LIKE', "$request->tahun%");
+        if ($request->jenis_standard_id) $pendampingan = $pendampingan->where('jenis_standard_id', $request->jenis_standard_id);
+        $pendampingan = $pendampingan->paginate(10);
+
+        $lembaga = mLembaga::select(['id', 'name'])->get();
+        $jenis_standard = mJenisStandard::select(['id', 'name'])->get();
+        return view('kinerja.pendampingan.tabelPendampingan', [
+            'pendampingan' => $pendampingan,
+            'lembaga' => $lembaga,
+            'jenis_standard' => $jenis_standard,
+        ]);
+    }
+
+    public function detail($id) {
+        $pendampingan = Pendampingan::find(Crypt::decryptString($id));
+        if (!$pendampingan) return back()->withErrors('data not found');
+        return view('kinerja.pendampingan.detailDataPendampingan', [
+            'pendampingan' => $pendampingan,
+        ]);
+    }
+
     public function create() {
         $bsip = mBSIP::select(['id', 'name'])->get();
         $lembaga = mLembaga::select(['id', 'name'])->get();
