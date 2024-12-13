@@ -103,54 +103,51 @@
 
 <div class="form-container">
     <h2 class="form-title">Form Data Lembaga Penerap SIP</h2>
-    <form action="#" method="POST"> 
+    <form action="{{ route('kinerja.pendampingan.store') }}" method="POST"> 
+        @csrf
         <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="bsip">BSIP</label>
-                <select name="bsip" id="bsip" required>
+                <select name="bsip_id" id="bsip" required>
                     <option value="" disabled selected>Pilih Daerah BSIP</option>
-                    <option value="nad">NAD</option>
-                    <option value="sumut">Sumatera Utara</option>
-                    <option value="sumbar">Sumatera Barat</option>
+                    @foreach ($bsip as $bs)
+                        <option value="{{ $bs->id }}">{{ $bs->name }}</option>
+                    @endforeach
                 </select>
             </div>
             
             <div class="form-group col-md-5">
                 <label for="lembagapenerap">Nama Lembaga Penerap</label>
-                <input type="text" name="lembagapenerap" id="lembagapenerap" placeholder="Masukkan Nama Lembaga Penerap" required>
+                <input type="text" name="nama_lembaga" id="lembagapenerap" placeholder="Masukkan Nama Lembaga Penerap" required>
             </div>
             
             <div class="form-group col-md-5">
                 <label for="alamatpendampingan">Alamat</label>
-                <input type="text" name="alamatpendampingan" id="alamatpendampingan" placeholder="Masukkan Alamat lengkap" required>
+                <input type="text" name="alamat" id="alamatpendampingan" placeholder="Masukkan Alamat lengkap" required>
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="tanggalpendampingan">Tanggal</label>
-                <input type="date" name="tanggalpendampingan" class="form-control" id="tanggalpendampingan" required>
+                <input type="date" name="tanggal" class="form-control" id="tanggalpendampingan" required>
             </div>
 
             <div class="form-group col-md-5">
                 <label for="bentukLembaga">Bentuk Lembaga</label>
-                <select name="bentukLembaga" id="bentukLembaga" required>
+                <select name="lembaga_id" id="bentukLembaga" required>
                     <option value="" disabled selected>Pilih Salah Satu</option>
-                    <option value="pt">PT</option>
-                    <option value="cv">CV</option>
-                    <option value="koperasi">Koperasi</option>
-                    <option value="kelompok">Kelompok</option>
-                    <option value="ud">UD</option>
-                    <option value="bumdes">BUMDes</option>
-                    <option value="BUMD">BUMD</option>
+                    @foreach ($lembaga as $lm)
+                        <option value="{{ $lm->id }}">{{ $lm->name }}</option>
+                    @endforeach
                 </select>
             </div>
             
             <div class="form-group col-md-5">
                 <label for="skalaPenerapan">Skala Penerapan</label>
                 <div class="form-row">
-                    <input type="number" name="noSkalaPenerapan" id="noSkalaPenerapan" placeholder="Isi Nomor Skala" required>
-                    <select name="skalaPenerapan" id="skalaPenerapan" required>
+                    <input type="number" name="skala" id="noSkalaPenerapan" placeholder="Isi Nomor Skala" required>
+                    <select name="unit_skala" id="skalaPenerapan" required>
                         <option value="" disabled selected>Satuan</option>
                         <option value="ton">Ton</option>
                         <option value="ha">Hektar (Ha)</option>
@@ -168,25 +165,21 @@
 
             <div class="form-group col-md-5">
                 <label for="standarDitetapkan">Standar yang Ditetapkan</label>
-                <select name="standarDitetapkan" id="standarDitetapkan" required>
+                <select name="jenis_standard_id" id="standarDitetapkan" required>
                     <option value="" disabled selected>Pilih Salah Satu</option>
-                    <option value="sni">SNI</option>
-                    <option value="GAP">GAP</option>
-                    <option value="GHP">GHP</option>
-                    <option value="GMP">GMP</option>
-                    <option value="PTM">PTM</option>
+                    @foreach ($jenis_standard as $js)
+                        <option value="{{ $js->id }}">{{ $js->name }}</option>
+                    @endforeach
                 </select>
             </div>
     
             <div class="form-group col-md-5">
                 <label for="kelompokStandar">Kelompok Standar</label>
-                <select name="kelompokStandar" id="kelompokStandar" required>
+                <select name="kelompok_standard_id" id="kelompokStandar" required>
                     <option value="" disabled selected>Pilih Salah Satu</option>
-                    <option value="produk">Produk</option>
-                    <option value="sistem">Sistem</option>
-                    <option value="proses">Proses</option>
-                    <option value="sdm">SDM</option>
-                    <option value="jasa">Jasa</option>
+                    @foreach ($kelompok_standard as $ks)
+                        <option value="{{ $ks->id }}">{{ $ks->name }}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
@@ -194,21 +187,21 @@
         <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="judulStandar">Judul Standar</label>
-                <input type="text" name="judulStandar" id="judulStandar" placeholder="Masukkan Judul Standar" required>
+                <input type="text" name="judul_standard" id="judulStandar" placeholder="Masukkan Judul Standar" required>
             </div>
 
             <div class="form-group col-md-5">
                 <label for="nostandar">Nomor Tanda Standar</label>
-                <input type="number" name="nostandar" id="nostandar" placeholder="Masukkan Nomor Tanda Standar" required>
+                <input type="number" name="nomor_standard" id="nostandar" placeholder="Masukkan Nomor Tanda Standar" required>
             </div>
 
             <div class="form-group col-md-5">
                 <label for="capaianKegiatan">Capaian Kegiatan</label>
-                <select name="capaianKegiatan" id="capaianKegiatan" required>
+                <select name="capaian_kegiatan" id="capaianKegiatan" required>
                     <option value="" disabled selected>Pilih Salah Satu</option>
-                    <option value="belumSertif">Belum Dapat Sertifikat</option>
-                    <option value="SertifBinaUmk">Sertifikat Bina UMK</option>
-                    <option value="SertifSni">Sertifikat SNI</option>
+                    <option value="belum dapat sertifikat">Belum Dapat Sertifikat</option>
+                    <option value="sertifikat bina UMKM">Sertifikat Bina UMK</option>
+                    <option value="sertifikat SNI">Sertifikat SNI</option>
                 </select>
             </div>
         </div>

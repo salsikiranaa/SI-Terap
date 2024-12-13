@@ -115,68 +115,111 @@
         <div class="detail-row">
             <div class="detail-group col-md-5">
                 <label for="bsip">BSIP</label>
-                <p>BSIP Nanggroe Aceh Darussalam</p>
+                <p>{{ $pendampingan->bsip->name }}</p>
             </div>
             
             <div class="detail-group col-md-5">
                 <label for="lembagapenerap">Nama Lembaga Penerap</label>
-                <p>PT Perkebunan Indonesia</p>
+                <p>{{ $pendampingan->nama_lembaga }}</p>
             </div>
 
             <div class="detail-group col-md-5">
                 <label for="alamat">Alamat</label>
-                <p>Jl. Tentara Pelajar No.10, RT.01/RW.07, Ciwaringin, Kecamatan Kuta Alam, Kota Banda Aceh, Nanggroe Aceh Darussalam 23126</p>
+                <p>{{ $pendampingan->alamat }}</p>
             </div>
         </div>
 
         <div class="detail-row">
             <div class="detail-group col-md-5">
                 <label for="tanggalpendampingan">Tanggal</label>
-                <p>23 November 2024</p>
+                <p>
+                    {{ substr($pendampingan->tanggal, 8, 2) }}
+                    @switch(substr($pendampingan->tanggal, 5, 2))
+                        @case(1)
+                            {{ 'Januari' }}
+                            @break
+                        @case(2)
+                            {{ 'Februari' }}
+                            @break
+                        @case(3)
+                            {{ 'Maret' }}
+                            @break
+                        @case(4)
+                            {{ 'April' }}
+                            @break
+                        @case(5)
+                            {{ 'Mei' }}
+                            @break
+                        @case(6)
+                            {{ 'Juni' }}
+                            @break
+                        @case(7)
+                            {{ 'Juli' }}
+                            @break
+                        @case(8)
+                            {{ 'Agustus' }}
+                            @break
+                        @case(9)
+                            {{ 'September' }}
+                            @break
+                        @case(10)
+                            {{ 'Oktober' }}
+                            @break
+                        @case(11)
+                            {{ 'November' }}
+                            @break
+                        @case(12)
+                            {{ 'Desember' }}
+                            @break
+                        @default
+                            {{ 'N/A' }}
+                    @endswitch
+                    {{ substr($pendampingan->tanggal, 0, 4) }}
+                </p>
             </div>
 
             <div class="detail-group col-md-5">
                 <label for="bentukLembaga">Bentuk Lembaga</label>
-                <p>PT</p>
+                <p>{{ $pendampingan->lembaga->name }}</p>
             </div>
 
             <div class="detail-group col-md-5">
                 <label for="skalaPenerapan">Skala Penerapan</label>
-                <p>150 Hektar (ha)</p>
+                <p>{{ $pendampingan->skala }} <span style="text-transform: capitalize;">{{ $pendampingan->unit_skala }}</span></p>
             </div>
         </div>
 
         <div class="detail-row">
             <div class="detail-group col-md-5">
                 <label for="lpk">LPK</label>
-                <p>123svipb890</p>
+                <p>{{ $pendampingan->lpk }}</p>
             </div>
 
             <div class="detail-group col-md-5">
                 <label for="standarDitetapkan">Standar yang Ditetapkan</label>
-                <p>SNI</p>
+                <p>{{ $pendampingan->jenis_standard->name }}</p>
             </div>
     
             <div class="detail-group col-md-5">
                 <label for="kelompokStandar">Kelompok Standar</label>
-                <p>Produk</p>
+                <p>{{ $pendampingan->kelompok_standard->name }}</p>
             </div>
         </div>
 
         <div class="detail-row">
             <div class="detail-group col-md-5">
                 <label for="judulStandar">Judul Standar</label>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+                <p>{{ $pendampingan->judul_standard }}</p>
             </div>
 
             <div class="detail-group col-md-5">
                 <label for="nostandar">Nomor Tanda Standar</label>
-                <p>123456789</p>
+                <p>{{ $pendampingan->nomor_standard }}</p>
             </div>
 
             <div class="detail-group col-md-5">
                 <label for="capaianKegiatan">Capaian Kegiatan</label>
-                <p>Sertifikat SNI</p>
+                <p>{{ $pendampingan->capaian_kegiatan }}</p>
             </div>
         </div>
 

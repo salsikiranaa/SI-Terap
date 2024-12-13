@@ -1,7 +1,7 @@
 @extends('layouts.layoutIp2tp')
 
 @section('content')
-    <style>
+  <style>
 
       .disabled {
         pointer-events: none;

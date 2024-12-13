@@ -32,4 +32,8 @@ class mBSIP extends Model
     public function ip2sip() : HasMany {
         return $this->hasMany(mIP2SIP::class, 'bsip_id', 'id');
     }
+
+    public function laboratorium() : HasMany {
+        return $this->hasMany(Laboratorium::class, 'bsip_id', 'id');
+    }
 }

@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{ route('auth.login') }}" method="POST">
+    <form action="{{ route('auth.login', ['previous_url' => $previous_url]) }}" method="POST">
         @csrf
         <input type="email" name="email" id="" placeholder="email" required><br>
         <input type="password" name="password" id="" placeholder="password" required><br>
