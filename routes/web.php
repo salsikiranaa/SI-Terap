@@ -53,8 +53,8 @@ Route::get('/', [GuestController::class, 'home'])->name('home');
 
 
 Route::middleware('guest')->prefix('/auth')->group(function () {
-    Route::get('/login', function () {return view('auth.login');})->name('auth.login.view');
-    Route::get('/register', function () {return view('auth.register');})->name('auth.register.view');
+    Route::get('/login', [AuthController::class, 'loginView'])->name('auth.login.view');
+    Route::get('/register', [AuthController::class, 'registerView'])->name('auth.register.view');
     Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
     Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 });
@@ -202,7 +202,7 @@ Route::middleware('authenticated')->group(function () {
             Route::delete('/{id}', [DiseminasiController::class, 'destroy'])->name('kinerja.diseminasi.destroy');
         });
         Route::prefix('/pendampingan')->group(function () {
-            Route::get('/form', function () { return view('kinerja.pendampingan.formPendampingan'); })->name('pendampingan_form');
+            Route::get('/form', [PendampinganController::class, 'create'])->name('pendampingan_form');
             Route::post('/', [PendampinganController::class, 'store'])->name('kinerja.pendampingan.store');
             Route::put('/{id}', [PendampinganController::class, 'update'])->name('kinerja.pendampingan.update');
             Route::delete('/{id}', [PendampinganController::class, 'destroy'])->name('kinerja.pendampingan.destroy');
@@ -288,7 +288,7 @@ Route::prefix('/kinerja-kegiatan')->group(function () {
         Route::get('/sip-sub-sektor', function () { return view('kinerja.diseminasi.sip_sub_sektor'); })->name('diseminasi.sip_sub_sektor');
     });
     Route::prefix('/pendampingan')->group(function () {
-        Route::get('/', function () { return view('kinerja.pendampingan.mainPendampingan'); })->name('pendampingan_main');
+        Route::get('/', [PendampinganController::class, 'index'])->name('pendampingan_main');
         Route::get('/tabel-data', function () { return view('kinerja.pendampingan.tabelPendampingan'); })->name('pendampingan_tabel');
         Route::get('/detail-data', function () { return view('kinerja.pendampingan.detailDataPendampingan'); })->name('pendampingan_detail');
     });
