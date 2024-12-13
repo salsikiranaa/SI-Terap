@@ -2,6 +2,13 @@
 
 @section('content')
 <style>
+    .anchor-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
     .content.stylish-content {
         padding: 20px;
     }
@@ -16,7 +23,6 @@
     .stylish-button {
         display: block;
         width: fit-content;
-        margin: 00px auto;
         padding: 12px 25px;
         color: white;
         background-color: #006633;
@@ -78,7 +84,10 @@
             
             <div id="mapindo"></div>
 
-            <a href="{{route('pendampingan_form')}}" class="stylish-button">Isi Data Lembaga Penerap SIP</a>
+            <div class="anchor-container">
+                <a href="{{route('pendampingan_tabel')}}" class="stylish-button text-black" style="background-color: #ffa200;">Lihat Tabel Data</a>
+                <a href="{{route('pendampingan_form')}}" class="stylish-button">Isi Data Lembaga Penerap SIP</a>
+            </div>
         </div>
     </div>
 
@@ -178,15 +187,15 @@
                     }
                 },
 
-                point: {
-                    events: {
-                        click: function () {
-                            // Arahkan ke halaman lain berdasarkan `hc-key`
-                            const route = `/kinerja-kegiatan/pendampingan/provinsi/${this.id}`;
-                            window.location.href = route;  // Redirect ke halaman yang sesuai
-                        }
-                    }
-                }
+                // point: {
+                //     events: {
+                //         click: function () {
+                //             // Arahkan ke halaman lain berdasarkan `hc-key`
+                //             const route = `/kinerja-kegiatan/pendampingan/provinsi/${this.id}`;
+                //             window.location.href = route;  // Redirect ke halaman yang sesuai
+                //         }
+                //     }
+                // }
             }]
         });
 

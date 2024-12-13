@@ -289,8 +289,8 @@ Route::prefix('/kinerja-kegiatan')->group(function () {
     });
     Route::prefix('/pendampingan')->group(function () {
         Route::get('/', [PendampinganController::class, 'index'])->name('pendampingan_main');
-        Route::get('/tabel-data', function () { return view('kinerja.pendampingan.tabelPendampingan'); })->name('pendampingan_tabel');
-        Route::get('/detail-data', function () { return view('kinerja.pendampingan.detailDataPendampingan'); })->name('pendampingan_detail');
+        Route::get('/tabel-data', [PendampinganController::class, 'show'])->name('pendampingan_tabel');
+        Route::get('/{id}/detail-data', [PendampinganController::class, 'detail'])->name('pendampingan_detail');
     });
 
 });

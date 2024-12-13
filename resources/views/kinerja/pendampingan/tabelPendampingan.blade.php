@@ -3,6 +3,57 @@
 @section('content')
 
 <style>
+    .disabled {
+        pointer-events: none;
+        opacity: 0.6;
+        color: white !important;
+        background-color: gray;
+        border: none !important;
+    }
+    .pagination {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        justify-content: center;
+        padding: 25px;
+    }
+
+    .page-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 25px;
+        height: 25px;
+        border: 1.5px solid #00452C; 
+        color: #00452C;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .page-item.active {
+        background-color: #00452C;
+        color: white;
+        border: none;
+    }
+
+    .page-item.active:hover {
+        background-color: #00452C;
+        color: white;
+        border: none;
+    }
+
+
+    .dots {
+        font-size: 24px;
+        color: #00a652;
+    }
+
+    .page-item:hover {
+        background-color: #d6f7e1;
+    }
+
     .content.stylish-content {
         padding: 20px;
     }
@@ -288,47 +339,47 @@
 <div class="content stylish-content">
     <!-- Filter Section -->
     <div class="filter">
-        <div class="form-row">
+        <form class="form-row">
             <div class="form-group col-md-5">
                 <label for="namaLembaga">Nama Lembaga Penerap</label>
-                <input type="text" name="namaLembaga" id="namaLembaga" placeholder="Masukkan Nama Lembaga Penerap" style="width: 360px" required>
+                <input type="text" name="nama_lembaga" id="namaLembaga" placeholder="Masukkan Nama Lembaga Penerap" style="width: 360px">
             </div>
             
             <div class="form-group col-md-5">
                 <label for="bentukLembaga">Bentuk Lembaga</label>
-                <select name="bentukLembaga" id="bentukLembaga" required style="height: 52px">
-                    <option value="" disabled selected>Pilih Salah Satu</option>
-                    <option value="pt">PT</option>
-                    <option value="cv">CV</option>
-                    <option value="koperasi">Koperasi</option>
-                    <option value="kelompok">Kelompok</option>
-                    <option value="ud">UD</option>
-                    <option value="bumdes">BUMDes</option>
-                    <option value="BUMD">BUMD</option>
+                <select name="lembaga_id" id="bentukLembaga" style="height: 52px">
+                    <option value="">Pilih Salah Satu</option>
+                    @foreach ($lembaga as $lm)
+                        <option value="{{ $lm->id }}" {{ request()->lembaga_id == $lm->id ? 'selected' : '' }}>{{ $lm->name }}</option>
+                    @endforeach
                 </select>
             </div>
     
             <div class="form-group col-md-5">
                 <label for="tahunPendampingan">Tahun</label>
-                <input type="number" name="tahunPendampingan" class="form-control" id="tahunPendampingan" placeholder="Masukkan Tahun" required>
+                {{-- <input type="number" name="tahunPendampingan" class="form-control" id="tahunPendampingan" placeholder="Masukkan Tahun" required> --}}
+                <select name="tahun" id="tahunPendampingan" style="height: 52px">
+                    <option value="">Pilih Tahun</option>
+                    @for ($i = now()->year; $i >= 2000; $i--)
+                        <option value="{{ $i }}" {{ request()->tahun == $i ? 'selected' : '' }}>{{ $i }}</option>
+                    @endfor
+                </select>
             </div>
 
             <div class="form-group col-md-5">
                 <label for="sipDiterapkan">SIP</label>
-                <select name="sipDiterapkan" id="sipDiterapkan" required style="height: 52px">
+                <select name="jenis_standard_id" id="sipDiterapkan" style="height: 52px">
                     <option value="" disabled selected>Pilih Salah Satu</option>
-                    <option value="sni">SNI</option>
-                    <option value="gap">GAP</option>
-                    <option value="ghp">GHP</option>
-                    <option value="gmp">GMP</option>
-                    <option value="ptm">PTM</option>
+                    @foreach ($jenis_standard as $js)
+                        <option value="{{ $js->id }}" {{ request()->jenis_standard_id == $js->id ? 'selected' : '' }}>{{ $js->name }}</option>
+                    @endforeach
                 </select>
             </div>
             
-            <button type="button" onclick="filterData()">Filter</button>
+            <button type="submit">Filter</button>
 
-            <button id="resetFilter" class="btn btn-secondary" type="button">Reset</button>
-        </div>
+            <a href="{{ route('pendampingan_tabel') }}" id="resetFilter" class="btn btn-secondary d-flex align-items-center" type="button">Reset</a>
+        </form>
     </div>
 
     <!-- Kegiatan Table -->
@@ -343,88 +394,108 @@
             </tr>
         </thead>
         <tbody>
+            @foreach ($pendampingan as $pd)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td><a href="{{ route('pendampingan_detail', Crypt::encryptString($pd->id)) }}" class="link-lembaga">{{ $pd->nama_lembaga }}</a></td>
+                    <td>{{ $pd->lembaga->name }}</td>
+                    <td>{{ substr($pd->tanggal, 0, 4) }}</td>
+                    <td>{{ $pd->jenis_standard->name }}</td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 
     <div class="pagination">
-        <div class="page-item">&lt;</div> <!-- Left arrow -->
-        <div class="page-item active">1</div> <!-- Active page -->
-        <div class="page-item">2</div>
-        <div class="page-item">3</div>
-        <span class="dots">...</span> <!-- Dots -->
-        <div class="page-item">&gt;</div> <!-- Right arrow -->
+        <a href="{{ route('pendampingan_tabel', [...request()->query(), 'page' => $pendampingan->currentPage()-1]) }}" class="page-item text-decoration-none {{ $pendampingan->currentPage() == 1 ? 'disabled' : '' }}">&lt;</a> <!-- Left arrow -->
+        @if ($pendampingan->lastPage() > 5 && $pendampingan->currentPage() - 5 > 1)
+            <span class="dots">...</span> <!-- Dots -->
+        @endif
+        @for ($i = 1; $i < $pendampingan->currentPage()+1; $i++)
+            @if ($i >= $pendampingan->currentPage() - 5 || $i <= $pendampingan->currentPage() + 5)
+                @if ($i == $pendampingan->currentPage())
+                    <div class="page-item text-decoration-none active">{{ $i }}</div> <!-- Active page -->
+                @else
+                    <a href="{{ route('pendampingan_tabel', [...request()->query(), 'page' => $i]) }}" class="page-item text-decoration-none">{{ $i }}</a>
+                @endif
+            @endif
+        @endfor
+        @if ($pendampingan->lastPage() > 5 && $pendampingan->lastPage() > $pendampingan->currentPage() + 5)
+            <span class="dots">...</span> <!-- Dots -->
+        @endif
+        <a href="{{ route('pendampingan_tabel', [...request()->query(), 'page' => $pendampingan->currentPage()+1]) }}" class="page-item text-decoration-none {{ $pendampingan->currentPage() == $pendampingan->lastPage() ? 'disabled' : '' }}">&gt;</a> <!-- Right arrow -->
     </div>
 </div>
 
 <script>
-    const lembagaSipData = [
-        { no: 1, id: 1, namaLembaga: 'PT Perkebunan Indonesia', bentukLembaga: 'PT', tahunPendampingan: 2023, sipDiterapkan: 'SNI' },
-        { no: 2, id: 2, namaLembaga: 'Koperasi Tani Makmur', bentukLembaga: 'Koperasi', tahunPendampingan: 2022, sipDiterapkan: 'GAP' },
-        { no: 3, id: 3, namaLembaga: 'UD Sumber Pangan', bentukLembaga: 'UD', tahunPendampingan: 2024, sipDiterapkan: 'GHP' },
-        { no: 4, id: 4, namaLembaga: 'CV Agro Pratama', bentukLembaga: 'CV', tahunPendampingan: 2023, sipDiterapkan: 'GMP' },
-        { no: 5, id: 5, namaLembaga: 'Kelompok Tani Sido Maju', bentukLembaga: 'Kelompok', tahunPendampingan: 2024, sipDiterapkan: 'PTM' },
-        { no: 6, id: 6, namaLembaga: 'BUMDes Tani Jaya', bentukLembaga: 'BUMDes', tahunPendampingan: 2022, sipDiterapkan: 'GHP' },
-        { no: 7, id: 7, namaLembaga: 'PT Agro Sejahtera', bentukLembaga: 'PT', tahunPendampingan: 2023, sipDiterapkan: 'SNI' },
-        { no: 8, id: 8, namaLembaga: 'CV Agri Nusantara', bentukLembaga: 'CV', tahunPendampingan: 2024, sipDiterapkan: 'GAP' },
-        { no: 9, id: 9, namaLembaga: 'Kelompok Tani Bersatu', bentukLembaga: 'Kelompok', tahunPendampingan: 2022, sipDiterapkan: 'PTM' },
-        { no: 10, id: 10, namaLembaga: 'BUMD Agro Mandiri', bentukLembaga: 'BUMD', tahunPendampingan: 2023, sipDiterapkan: 'GMP' }
-    ];
+    // const lembagaSipData = [
+    //     { no: 1, id: 1, namaLembaga: 'PT Perkebunan Indonesia', bentukLembaga: 'PT', tahunPendampingan: 2023, sipDiterapkan: 'SNI' },
+    //     { no: 2, id: 2, namaLembaga: 'Koperasi Tani Makmur', bentukLembaga: 'Koperasi', tahunPendampingan: 2022, sipDiterapkan: 'GAP' },
+    //     { no: 3, id: 3, namaLembaga: 'UD Sumber Pangan', bentukLembaga: 'UD', tahunPendampingan: 2024, sipDiterapkan: 'GHP' },
+    //     { no: 4, id: 4, namaLembaga: 'CV Agro Pratama', bentukLembaga: 'CV', tahunPendampingan: 2023, sipDiterapkan: 'GMP' },
+    //     { no: 5, id: 5, namaLembaga: 'Kelompok Tani Sido Maju', bentukLembaga: 'Kelompok', tahunPendampingan: 2024, sipDiterapkan: 'PTM' },
+    //     { no: 6, id: 6, namaLembaga: 'BUMDes Tani Jaya', bentukLembaga: 'BUMDes', tahunPendampingan: 2022, sipDiterapkan: 'GHP' },
+    //     { no: 7, id: 7, namaLembaga: 'PT Agro Sejahtera', bentukLembaga: 'PT', tahunPendampingan: 2023, sipDiterapkan: 'SNI' },
+    //     { no: 8, id: 8, namaLembaga: 'CV Agri Nusantara', bentukLembaga: 'CV', tahunPendampingan: 2024, sipDiterapkan: 'GAP' },
+    //     { no: 9, id: 9, namaLembaga: 'Kelompok Tani Bersatu', bentukLembaga: 'Kelompok', tahunPendampingan: 2022, sipDiterapkan: 'PTM' },
+    //     { no: 10, id: 10, namaLembaga: 'BUMD Agro Mandiri', bentukLembaga: 'BUMD', tahunPendampingan: 2023, sipDiterapkan: 'GMP' }
+    // ];
 
-    function filterData() {
-        const namaLembaga = document.getElementById('namaLembaga').value.toLowerCase();
-        const tahunPendampingan = document.getElementById('tahunPendampingan').value;
-        const bentukLembaga = document.getElementById('bentukLembaga').value.toLowerCase();
-        const sipDiterapkan = document.getElementById('sipDiterapkan').value.toLowerCase();
+    // function filterData() {
+    //     const namaLembaga = document.getElementById('namaLembaga').value.toLowerCase();
+    //     const tahunPendampingan = document.getElementById('tahunPendampingan').value;
+    //     const bentukLembaga = document.getElementById('bentukLembaga').value.toLowerCase();
+    //     const sipDiterapkan = document.getElementById('sipDiterapkan').value.toLowerCase();
 
-        console.log("Filter values - Nama Lembaga:", namaLembaga, "Tahun Pendampingan:", tahunPendampingan, "Bentuk Lembaga:", bentukLembaga, "SIP Diterapkan:", sipDiterapkan);
+    //     console.log("Filter values - Nama Lembaga:", namaLembaga, "Tahun Pendampingan:", tahunPendampingan, "Bentuk Lembaga:", bentukLembaga, "SIP Diterapkan:", sipDiterapkan);
 
-        const filteredData = lembagaSipData.filter(item => {
-            return (
-                (namaLembaga === '' || item.namaLembaga.toLowerCase().includes(namaLembaga)) &&
-                (tahunPendampingan === '' || item.tahunPendampingan === parseInt(tahunPendampingan, 10)) &&
-                (bentukLembaga === '' || item.bentukLembaga.toLowerCase() === bentukLembaga) &&
-                (sipDiterapkan === '' || item.sipDiterapkan.toLowerCase() === sipDiterapkan)
-            );
-        });
+    //     const filteredData = lembagaSipData.filter(item => {
+    //         return (
+    //             (namaLembaga === '' || item.namaLembaga.toLowerCase().includes(namaLembaga)) &&
+    //             (tahunPendampingan === '' || item.tahunPendampingan === parseInt(tahunPendampingan, 10)) &&
+    //             (bentukLembaga === '' || item.bentukLembaga.toLowerCase() === bentukLembaga) &&
+    //             (sipDiterapkan === '' || item.sipDiterapkan.toLowerCase() === sipDiterapkan)
+    //         );
+    //     });
 
-        displayData(filteredData);
-        }
+    //     displayData(filteredData);
+    //     }
 
-        function displayData(data) {
-            const tableBody = document.querySelector('#pendampingan-table tbody');
-            tableBody.innerHTML = ''; 
+    //     function displayData(data) {
+    //         const tableBody = document.querySelector('#pendampingan-table tbody');
+    //         tableBody.innerHTML = ''; 
 
-            data.forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${item.no}</td>
-                    <td>
-                        <a href="${toDetail}" class="link-lembaga">
-                            ${item.namaLembaga}
-                        </a>    
-                    </td>
-                    <td>${item.bentukLembaga}</td>
-                    <td>${item.tahunPendampingan}</td>
-                    <td>${item.sipDiterapkan}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-        }
+    //         data.forEach(item => {
+    //             const row = document.createElement('tr');
+    //             row.innerHTML = `
+    //                 <td>${item.no}</td>
+    //                 <td>
+    //                     <a href="${toDetail}" class="link-lembaga">
+    //                         ${item.namaLembaga}
+    //                     </a>    
+    //                 </td>
+    //                 <td>${item.bentukLembaga}</td>
+    //                 <td>${item.tahunPendampingan}</td>
+    //                 <td>${item.sipDiterapkan}</td>
+    //             `;
+    //             tableBody.appendChild(row);
+    //         });
+    //     }
 
-        const toDetail = "{{ route('pendampingan_detail') }}";
+    //     const toDetail = "{{-- route('pendampingan_detail') --}}";
 
-        document.getElementById('resetFilter').addEventListener('click', () => {
-    // Reset all input fields to their default values
-            document.getElementById('namaLembaga').value = '';
-            document.getElementById('tahunPendampingan').value = '';
-            document.getElementById('bentukLembaga').value = '';
-            document.getElementById('sipDiterapkan').value = ''; // Reset dropdown to default
+    //     document.getElementById('resetFilter').addEventListener('click', () => {
+    // // Reset all input fields to their default values
+    //         document.getElementById('namaLembaga').value = '';
+    //         document.getElementById('tahunPendampingan').value = '';
+    //         document.getElementById('bentukLembaga').value = '';
+    //         document.getElementById('sipDiterapkan').value = ''; // Reset dropdown to default
 
-            // Display all data since filter is cleared
-            displayData(lembagaSipData);
-        });
+    //         // Display all data since filter is cleared
+    //         displayData(lembagaSipData);
+    //     });
 
-        displayData(lembagaSipData);
+    //     displayData(lembagaSipData);
 </script>
 
 @endsection
