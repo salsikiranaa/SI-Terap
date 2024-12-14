@@ -79,7 +79,7 @@
             
             <div id="mapindo"></div>
 
-            <a href="{{route('pendampingan_form')}}" class="stylish-button">Isi Data Perbenihan</a>
+            <a href="{{route('perbenihan.form')}}" class="stylish-button">Isi Data Perbenihan</a>
         </div>
     </div>
 

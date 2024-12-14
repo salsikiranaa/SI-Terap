@@ -455,7 +455,7 @@
             });
         }
 
-        const toDetail = "{{ route('pendampingan_detail') }}";
+        // const toDetail = "{{-- route('pendampingan_detail') --}}";
 
         document.getElementById('resetFilter').addEventListener('click', () => {
     // Reset all input fields to their default values

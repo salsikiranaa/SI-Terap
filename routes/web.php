@@ -217,6 +217,7 @@ Route::middleware('authenticated')->group(function () {
     });
 
     Route::middleware('service:3')->prefix('/perbenihan')->group(function () {
+        Route::get('/form', [PerbenihanController::class, 'create'])->name('perbenihan.form');
         Route::post('/', [PerbenihanController::class, 'store'])->name('perbenihan.store');
         Route::put('/{id}', [PerbenihanController::class, 'update'])->name('perbenihan.update');
         Route::delete('/{id}', [PerbenihanController::class, 'destroy'])->name('perbenihan.destroy');
