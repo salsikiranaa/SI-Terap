@@ -18,8 +18,10 @@ class PendampinganController extends Controller
         return view('kinerja.pendampingan.mainPendampingan');
     }
 
-    public function show(Request $request) {
-        $pendampingan = new Pendampingan();
+    public function show($bsip_id, Request $request) {
+        $bsip = mBSIP::find($bsip_id);
+        if (!$bsip) return back()->withErrors('BSIP belum terdaftar');
+        $pendampingan = Pendampingan::where('bsip_id', $bsip_id);
         if ($request->nama_lembaga) $pendampingan = $pendampingan->where('nama_lembaga', 'LIKE', "%$request->nama_lembaga%");
         if ($request->lembaga_id) $pendampingan = $pendampingan->where('lembaga_id', $request->lembaga_id);
         if ($request->tahun) $pendampingan = $pendampingan->where('tanggal', 'LIKE', "$request->tahun%");
@@ -29,6 +31,7 @@ class PendampinganController extends Controller
         $lembaga = mLembaga::select(['id', 'name'])->get();
         $jenis_standard = mJenisStandard::select(['id', 'name'])->get();
         return view('kinerja.pendampingan.tabelPendampingan', [
+            'bsip' => $bsip,
             'pendampingan' => $pendampingan,
             'lembaga' => $lembaga,
             'jenis_standard' => $jenis_standard,
