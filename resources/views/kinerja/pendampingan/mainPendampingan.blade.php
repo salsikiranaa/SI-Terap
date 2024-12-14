@@ -85,7 +85,6 @@
             <div id="mapindo"></div>
 
             <div class="anchor-container">
-                <a href="{{route('pendampingan_tabel')}}" class="stylish-button text-black" style="background-color: #ffa200;">Lihat Tabel Data</a>
                 <a href="{{route('pendampingan_form')}}" class="stylish-button">Isi Data Lembaga Penerap SIP</a>
             </div>
         </div>
@@ -187,15 +186,15 @@
                     }
                 },
 
-                // point: {
-                //     events: {
-                //         click: function () {
-                //             // Arahkan ke halaman lain berdasarkan `hc-key`
-                //             const route = `/kinerja-kegiatan/pendampingan/provinsi/${this.id}`;
-                //             window.location.href = route;  // Redirect ke halaman yang sesuai
-                //         }
-                //     }
-                // }
+                point: {
+                    events: {
+                        click: function () {
+                            // Arahkan ke halaman lain berdasarkan `hc-key`
+                            const route = `/kinerja-kegiatan/pendampingan/tabel-data/${this.id}`;
+                            window.location.href = route;  // Redirect ke halaman yang sesuai
+                        }
+                    }
+                }
             }]
         });
 
