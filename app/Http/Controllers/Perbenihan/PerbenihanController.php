@@ -56,9 +56,9 @@ class PerbenihanController extends Controller
         ]);
     }
 
-    // public function create() {
-    //     return view('perbenihan form view path');
-    // }
+    public function create() {
+        return '<h1>BUATKAN FRONTEND NYA !!!</h1>';
+    }
 
     public function store(Request $request) {
         $request->validate([
