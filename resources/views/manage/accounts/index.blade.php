@@ -15,6 +15,7 @@
         background-color: green;
         color: #fff;
         width: fit-content;
+        font-size: 12px;
     }
     .access-container {
         display: flex;
@@ -41,11 +42,11 @@
         color: #fff;
     }
     .btn-secondary {
-        background-color: #999;
+        background-color: #cbcbcb;
         padding: 5px 10px;
         border-radius: 5px;
         border: none;
-        color: #fff;
+        color: #000;
     }
 </style>
 <div>
@@ -106,8 +107,9 @@
                                         {{ $service->name }}
                                     </label><br>
                                 @endforeach
+                                <br>
                                 <div style="display: flex;justify-content: flex-end;">
-                                    <button type="submit" class="btn-submit">Sync</button>
+                                    <button type="submit" class="btn-submit">Save</button>
                                 </div>
                             </form>
                         </div>
