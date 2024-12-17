@@ -217,6 +217,7 @@ Route::middleware('authenticated')->group(function () {
     });
 
     Route::middleware('service:3')->prefix('/perbenihan')->group(function () {
+        Route::get('/form', [PerbenihanController::class, 'create'])->name('perbenihan.form');
         Route::post('/', [PerbenihanController::class, 'store'])->name('perbenihan.store');
         Route::put('/{id}', [PerbenihanController::class, 'update'])->name('perbenihan.update');
         Route::delete('/{id}', [PerbenihanController::class, 'destroy'])->name('perbenihan.destroy');
@@ -289,7 +290,7 @@ Route::prefix('/kinerja-kegiatan')->group(function () {
     });
     Route::prefix('/pendampingan')->group(function () {
         Route::get('/', [PendampinganController::class, 'index'])->name('pendampingan_main');
-        Route::get('/tabel-data', [PendampinganController::class, 'show'])->name('pendampingan_tabel');
+        Route::get('/tabel-data/{bsip_id}', [PendampinganController::class, 'show'])->name('pendampingan_tabel');
         Route::get('/{id}/detail-data', [PendampinganController::class, 'detail'])->name('pendampingan_detail');
     });
 

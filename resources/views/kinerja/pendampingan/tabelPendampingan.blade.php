@@ -334,12 +334,12 @@
     }
 </style>
 
-<h1 class="page-title">Data Lembaga Penerap SIP - Nanggroe Aceh Darussalam</h1>
+<h1 class="page-title">Data Lembaga Penerap SIP - {{ $bsip->name }}</h1>
 
 <div class="content stylish-content">
     <!-- Filter Section -->
     <div class="filter">
-        <form class="form-row">
+        <form action="{{ route('pendampingan_tabel', $bsip->id) }}" class="form-row">
             <div class="form-group col-md-5">
                 <label for="namaLembaga">Nama Lembaga Penerap</label>
                 <input type="text" name="nama_lembaga" id="namaLembaga" placeholder="Masukkan Nama Lembaga Penerap" style="width: 360px">
@@ -378,7 +378,7 @@
             
             <button type="submit">Filter</button>
 
-            <a href="{{ route('pendampingan_tabel') }}" id="resetFilter" class="btn btn-secondary d-flex align-items-center" type="button">Reset</a>
+            <a href="{{ route('pendampingan_tabel', $bsip->id) }}" id="resetFilter" class="btn btn-secondary d-flex align-items-center" type="button">Reset</a>
         </form>
     </div>
 
@@ -407,7 +407,7 @@
     </table>
 
     <div class="pagination">
-        <a href="{{ route('pendampingan_tabel', [...request()->query(), 'page' => $pendampingan->currentPage()-1]) }}" class="page-item text-decoration-none {{ $pendampingan->currentPage() == 1 ? 'disabled' : '' }}">&lt;</a> <!-- Left arrow -->
+        <a href="{{ route('pendampingan_tabel', ['bsip_id' => $bsip->id, ...request()->query(), 'page' => $pendampingan->currentPage()-1]) }}" class="page-item text-decoration-none {{ $pendampingan->currentPage() == 1 ? 'disabled' : '' }}">&lt;</a> <!-- Left arrow -->
         @if ($pendampingan->lastPage() > 5 && $pendampingan->currentPage() - 5 > 1)
             <span class="dots">...</span> <!-- Dots -->
         @endif
@@ -416,14 +416,14 @@
                 @if ($i == $pendampingan->currentPage())
                     <div class="page-item text-decoration-none active">{{ $i }}</div> <!-- Active page -->
                 @else
-                    <a href="{{ route('pendampingan_tabel', [...request()->query(), 'page' => $i]) }}" class="page-item text-decoration-none">{{ $i }}</a>
+                    <a href="{{ route('pendampingan_tabel', ['bsip_id' => $bsip->id, ...request()->query(), 'page' => $i]) }}" class="page-item text-decoration-none">{{ $i }}</a>
                 @endif
             @endif
         @endfor
         @if ($pendampingan->lastPage() > 5 && $pendampingan->lastPage() > $pendampingan->currentPage() + 5)
             <span class="dots">...</span> <!-- Dots -->
         @endif
-        <a href="{{ route('pendampingan_tabel', [...request()->query(), 'page' => $pendampingan->currentPage()+1]) }}" class="page-item text-decoration-none {{ $pendampingan->currentPage() == $pendampingan->lastPage() ? 'disabled' : '' }}">&gt;</a> <!-- Right arrow -->
+        <a href="{{ route('pendampingan_tabel', ['bsip_id' => $bsip->id, ...request()->query(), 'page' => $pendampingan->currentPage()+1]) }}" class="page-item text-decoration-none {{ $pendampingan->currentPage() == $pendampingan->lastPage() ? 'disabled' : '' }}">&gt;</a> <!-- Right arrow -->
     </div>
 </div>
 

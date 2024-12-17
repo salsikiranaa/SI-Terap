@@ -14,14 +14,15 @@ use Illuminate\Support\Facades\DB;
 class AccountsController extends Controller
 {
     public function index(Request $request) {
-        $users = User::where('id', '!=', Auth::user()->id)->get();
+        $users = User::where('id', '!=', Auth::user()->id);
         if ($request->search) {
-            $query = $request->search;
-            $users = User::where('id', '!=', Auth::user()->id)
-                ->where('name', 'LIKE', "%$query%")
-                ->orWhere('email', 'LIKE', "%$query%")
-                ->get();
+            $search = $request->search;
+            $users = $users->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', "%$search%")
+                    ->orWhere('email', 'LIKE', "%$search%");
+            });
         }
+        $users = $users->get();
         $services = mService::get();
         // dd($users[0]->service);
         return view('manage.accounts.index', [
