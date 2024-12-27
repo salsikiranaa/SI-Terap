@@ -23,7 +23,7 @@ class ServiceAccess
         // dd($user_services);
         if (count($user_services) == 0) return redirect()->route('auth.no_service');
         foreach ($user_services as $service) {
-            if ($service->service_id == $guard && !$service->is_locked) return $next($request);
+            if ($service->service_id == $guard) return $next($request);
         }
         return redirect()->route('home');
     }
