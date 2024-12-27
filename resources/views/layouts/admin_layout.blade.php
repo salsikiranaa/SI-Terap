@@ -49,6 +49,20 @@
         }
     </style>
 </head>
+@php
+    $common = [
+        ['name' => 'Jenis Standar', 'table' => 'm_jenis_standard'],
+        ['name' => 'Kelompok Standar', 'table' => 'm_kelompok_standard'],
+        ['name' => 'Lembaga', 'table' => 'm_lembaga'],
+        ['name' => 'Metode', 'table' => 'm_metode'],
+        ['name' => 'Sasaran', 'table' => 'm_sasaran'],
+        ['name' => 'SIP', 'table' => 'm_sip'],
+        ['name' => 'Komoditas', 'table' => 'm_komoditas'],
+        ['name' => 'Kelas Benih', 'table' => 'm_kelas_benih'],
+        ['name' => 'Fungsional', 'table' => 'm_fungsional'],
+        ['name' => 'Jenis Lab', 'table' => 'm_jenis_lab'],
+    ];
+@endphp
 <body>
     <nav>
         <div>
@@ -70,18 +84,16 @@
                 <a href="{{ route('manage.kecamatan.view') }}" class="nav-item">kecamatan</a>
                 <a href="{{ route('manage.bsip.view') }}" class="nav-item">BSIP</a>
                 <a href="{{ route('manage.ip2sip.view') }}" class="nav-item">IP2SIP</a>
-                <a href="{{ route('manage.jenis_standard.view') }}" class="nav-item">jenis standard</a>
-                <a href="{{ route('manage.kelompok_standard.view') }}" class="nav-item">kelompok standard</a>
-                <a href="{{ route('manage.lembaga.view') }}" class="nav-item">lembaga</a>
-                <a href="{{ route('manage.metode.view') }}" class="nav-item">metode</a>
-                <a href="{{ route('manage.sasaran.view') }}" class="nav-item">sasaran</a>
-                <a href="{{ route('manage.sip.view') }}" class="nav-item">SIP</a>
                 <a href="{{ route('manage.cms.view') }}" class="nav-item">CMS</a>
+                @foreach ($common as $cm)
+                    <a href="{{ route('manage.data.common', ['name' => $cm['name'], 'table' => Crypt::encryptString($cm['table'])]) }}" class="nav-item">{{ $cm['name'] }}</a>
+                @endforeach
             </div>
         </div>
         <div>
             <a href="{{ route('auth.logout') }}" class="nav-item">Logout</a>
         </div>
+        <br><br>
     </nav>
     <div class="body-content">
         <div>

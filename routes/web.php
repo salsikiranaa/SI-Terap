@@ -32,6 +32,7 @@ use App\Http\Controllers\IP2SIP\PemanfaatanSIPController;
 use App\Http\Controllers\Lab\LaboratoriumController;
 use App\Http\Controllers\Manage\AdminDashboardController;
 use App\Http\Controllers\Manage\CMSController;
+use App\Http\Controllers\Manage\CommonDataController;
 use App\Http\Controllers\Manage\mFungsionalController;
 use App\Http\Controllers\Manage\mJenisLabController;
 use App\Http\Controllers\Manage\mKelasBenihController;
@@ -68,6 +69,12 @@ Route::middleware('authenticated')->group(function () {
             return view('api-test.index');
         });
         Route::get('/', [AdminDashboardController::class, 'index'])->name('manage.dashboard');
+        Route::prefix('/common')->group(function () {
+            Route::get('/{name}/{table}', [CommonDataController::class, 'index'])->name('manage.data.common');
+            Route::post('/{table}', [CommonDataController::class, 'store'])->name('manage.data.common.store');
+            Route::put('/{table}/{id}', [CommonDataController::class, 'update'])->name('manage.data.common.update');
+            Route::delete('/{table}/{id}', [CommonDataController::class, 'destroy'])->name('manage.data.common.destroy');
+        });
         Route::prefix('/cms')->group(function () {
             Route::get('/', [CMSController::class, 'index'])->name('manage.cms.view');
             Route::put('/cms-update', [CMSController::class, 'cms_update'])->name('manage.cms.update');
@@ -77,11 +84,11 @@ Route::middleware('authenticated')->group(function () {
         });
         Route::prefix('/service')->group(function () {
             Route::get('/', [mServiceController::class, 'get'])->name('manage.service.view');
-            Route::post('/', [mServiceController::class, 'store'])->name('manage.service.store');
-            Route::put('/{id}', [mServiceController::class, 'update'])->name('manage.service.update');
+            // Route::post('/', [mServiceController::class, 'store'])->name('manage.service.store');
+            // Route::put('/{id}', [mServiceController::class, 'update'])->name('manage.service.update');
             Route::put('/{id}/lock', [mServiceController::class, 'lock'])->name('manage.service.lock');
             Route::put('/{id}/unlock', [mServiceController::class, 'unlock'])->name('manage.service.unlock');
-            Route::delete('/{id}', [mServiceController::class, 'destroy'])->name('manage.service.destroy');
+            // Route::delete('/{id}', [mServiceController::class, 'destroy'])->name('manage.service.destroy');
         });
         Route::prefix('/accounts')->group(function () {
             Route::get('/', [AccountsController::class, 'index'])->name('manage.accounts.view');
@@ -120,70 +127,6 @@ Route::middleware('authenticated')->group(function () {
             Route::post('/', [mIP2SIPController::class, 'store'])->name('manage.ip2sip.store');
             Route::put('/{id}', [mIP2SIPController::class, 'update'])->name('manage.ip2sip.update');
             Route::delete('/{id}', [mIP2SIPController::class, 'destroy'])->name('manage.ip2sip.destroy');
-        });
-        Route::prefix('/jenis-standard')->group(function () {
-            Route::get('/', [mJenisStandardController::class, 'get'])->name('manage.jenis_standard.view');
-            Route::post('/', [mJenisStandardController::class, 'store'])->name('manage.jenis_standard.store');
-            Route::put('/{id}', [mJenisStandardController::class, 'update'])->name('manage.jenis_standard.update');
-            Route::delete('/{id}', [mJenisStandardController::class, 'destroy'])->name('manage.jenis_standard.destroy');
-        });
-        Route::prefix('/kelompok-standard')->group(function () {
-            Route::get('/', [mKelompokStandardController::class, 'get'])->name('manage.kelompok_standard.view');
-            Route::post('/', [mKelompokStandardController::class, 'store'])->name('manage.kelompok_standard.store');
-            Route::put('/{id}', [mKelompokStandardController::class, 'update'])->name('manage.kelompok_standard.update');
-            Route::delete('/{id}', [mKelompokStandardController::class, 'destroy'])->name('manage.kelompok_standard.destroy');
-        });
-        Route::prefix('/lembaga')->group(function () {
-            Route::get('/', [mLembagaController::class, 'get'])->name('manage.lembaga.view');
-            Route::post('/', [mLembagaController::class, 'store'])->name('manage.lembaga.store');
-            Route::put('/{id}', [mLembagaController::class, 'update'])->name('manage.lembaga.update');
-            Route::delete('/{id}', [mLembagaController::class, 'destroy'])->name('manage.lembaga.destroy');
-        });
-        Route::prefix('/metode')->group(function () {
-            Route::get('/', [mMetodeController::class, 'get'])->name('manage.metode.view');
-            Route::post('/', [mMetodeController::class, 'store'])->name('manage.metode.store');
-            Route::put('/{id}', [mMetodeController::class, 'update'])->name('manage.metode.update');
-            Route::delete('/{id}', [mMetodeController::class, 'destroy'])->name('manage.metode.destroy');
-        });
-        Route::prefix('/sasaran')->group(function () {
-            Route::get('/', [mSasaranController::class, 'get'])->name('manage.sasaran.view');
-            Route::post('/', [mSasaranController::class, 'store'])->name('manage.sasaran.store');
-            Route::put('/{id}', [mSasaranController::class, 'update'])->name('manage.sasaran.update');
-            Route::delete('/{id}', [mSasaranController::class, 'destroy'])->name('manage.sasaran.destroy');
-        });
-        Route::prefix('/sip')->group(function () {
-            Route::get('/', [mSIPController::class, 'get'])->name('manage.sip.view');
-            Route::post('/', [mSIPController::class, 'store'])->name('manage.sip.store');
-            Route::put('/{id}', [mSIPController::class, 'update'])->name('manage.sip.update');
-            Route::delete('/{id}', [mSIPController::class, 'destroy'])->name('manage.sip.destroy');
-        });
-        Route::prefix('/komoditas')->group(function () {
-            Route::get('/', [mKomoditasController::class, 'index'])->name('manage.komoditas.view');
-            Route::get('/create', [mKomoditasController::class, 'create'])->name('manage.komoditas.create');
-            Route::post('/post', [mKomoditasController::class, 'post'])->name('manage.komoditas.post');
-            Route::get('/{id}/edit', [mKomoditasController::class, 'create'])->name('manage.komoditas.create');
-            Route::put('/{id}/update', [mKomoditasController::class, 'update'])->name('manage.komoditas.update');
-            Route::delete('/{id}/destroy', [mKomoditasController::class, 'destroy'])->name('manage.komoditas.update');
-        });
-        Route::prefix('/kelas-benih')->group(function () {
-            Route::get('/', [mKelasBenihController::class, 'index'])->name('manage.kelas_benih.view');
-            Route::get('/create', [mKelasBenihController::class, 'create'])->name('manage.kelas_benih.create');
-            Route::post('/post', [mKelasBenihController::class, 'post'])->name('manage.kelas_benih.post');
-            Route::get('/{id}/edit', [mKelasBenihController::class, 'create'])->name('manage.kelas_benih.create');
-            Route::put('/{id}/update', [mKelasBenihController::class, 'update'])->name('manage.kelas_benih.update');
-            Route::delete('/{id}/destroy', [mKelasBenihController::class, 'destroy'])->name('manage.kelas_benih.update');
-        });
-        Route::prefix('/fungsional')->group(function () {
-            Route::get('/', [mFungsionalController::class, 'index'])->name('manage.fungsional.view');
-            Route::post('/', [mFungsionalController::class, 'store'])->name('manage.fungsional.store');
-            Route::put('/{id}', [mFungsionalController::class, 'update'])->name('manage.fungsional.update');
-            Route::delete('/{id}', [mFungsionalController::class, 'destroy'])->name('manage.fungsional.destroy');
-        });
-        Route::prefix('/jenis-lab')->group(function () {
-            Route::get('/', [mJenisLabController::class, 'index'])->name('manage.jenis_lab.view');
-            Route::post('/', [mJenisLabController::class, 'store'])->name('manage.jenis_lab.store');
-            Route::put('/{id}', [mJenisLabController::class, 'update'])->name('manage.jenis_lab.update');
-            Route::delete('/{id}', [mJenisLabController::class, 'destroy'])->name('manage.jenis_lab.destroy');
         });
     });
 
