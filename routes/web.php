@@ -38,6 +38,8 @@ use App\Http\Controllers\Manage\mJenisLabController;
 use App\Http\Controllers\Manage\mKelasBenihController;
 use App\Http\Controllers\Manage\mKomoditasController;
 use App\Http\Controllers\Perbenihan\PerbenihanController;
+use App\Models\mService;
+use Illuminate\Support\Facades\Crypt;
 
 /*
 |--------------------------------------------------------------------------
@@ -130,7 +132,7 @@ Route::middleware('authenticated')->group(function () {
         });
     });
 
-    Route::middleware('service:1')->prefix('/kinerja-kegiatan')->group(function () {
+    Route::middleware(['service:1', 'lock_service:1'])->prefix('/kinerja-kegiatan')->group(function () {
         Route::prefix('/identifikasi')->group(function () {
             Route::get('/form', [IdentifikasiController::class, 'create'])->name('form_sip');
             Route::post('/', [IdentifikasiController::class, 'store'])->name('kinerja.identifikasi.store');
@@ -152,21 +154,21 @@ Route::middleware('authenticated')->group(function () {
         });
     });
 
-    Route::middleware('service:2')->prefix('/lab-pengujian')->group(function () {
+    Route::middleware(['service:2', 'lock_service:2'])->prefix('/lab-pengujian')->group(function () {
         Route::get('/form', [LaboratoriumController::class, 'create'])->name('form-Lab');
         Route::post('/', [LaboratoriumController::class, 'store'])->name('lab.store');
         Route::put('/{id}', [LaboratoriumController::class, 'update'])->name('lab.update');
         Route::delete('/{id}', [LaboratoriumController::class, 'destroy'])->name('lab.destroy');
     });
 
-    Route::middleware('service:3')->prefix('/perbenihan')->group(function () {
+    Route::middleware(['service:3', 'lock_service:3'])->prefix('/perbenihan')->group(function () {
         Route::get('/form', [PerbenihanController::class, 'create'])->name('perbenihan.form');
         Route::post('/', [PerbenihanController::class, 'store'])->name('perbenihan.store');
         Route::put('/{id}', [PerbenihanController::class, 'update'])->name('perbenihan.update');
         Route::delete('/{id}', [PerbenihanController::class, 'destroy'])->name('perbenihan.destroy');
     });
 
-    Route::middleware('service:4')->prefix('/ip2sip')->group(function () {
+    Route::middleware(['service:4', 'lock_service:4'])->prefix('/ip2sip')->group(function () {
         Route::prefix('/pemanfaatan_kp')->group(function () {
             Route::get('/form', [PemanfaatanSIPController::class, 'create'])->name('lp2tp.pemanfaatan_kp.create');
             Route::post('/store', [PemanfaatanSIPController::class, 'store'])->name('lp2tp.pemanfaatan_kp.store');
@@ -200,7 +202,7 @@ Route::middleware('authenticated')->group(function () {
         });
     });
 
-    Route::middleware('service:5')->prefix('/direktori-penyuluh')->group(function () {
+    Route::middleware(['service:5', 'lock_service:5'])->prefix('/direktori-penyuluh')->group(function () {
         Route::prefix('/penyuluh')->group(function () {
             Route::post('/', [PenyuluhController::class, 'store'])->name('direktori_penyuluh.penyuluh.store');
             Route::put('/{id}', [PenyuluhController::class, 'update'])->name('direktori_penyuluh.penyuluh.update');
@@ -217,7 +219,7 @@ Route::middleware('authenticated')->group(function () {
 });
 
 // (1) KINERJA KEGIATAN
-Route::prefix('/kinerja-kegiatan')->group(function () {
+Route::prefix('/kinerja-kegiatan')->middleware('lock_service:1')->group(function () {
     Route::get('/', function () { return view('kinerja.berandakinerja'); })->name('beranda_kinerja');
     Route::prefix('/identifikasi')->group(function () {
         Route::get('/', [IdentifikasiController::class, 'index'])->name('identifikasi_beranda');
@@ -240,19 +242,19 @@ Route::prefix('/kinerja-kegiatan')->group(function () {
 });
 // (1) END KINERJA KEGIATAN
 // (2) LAB PENGUJIAN
-Route::prefix('/lab-pengujian')->group(function () {
+Route::prefix('/lab-pengujian')->middleware('lock_service:2')->group(function () {
     Route::get('/', [LaboratoriumController::class, 'index'])->name('beranda-Lab');
     Route::get('/data-Lab', [LaboratoriumController::class, 'show'])->name('data-Lab');
 });
 // (2) END LAB PENGUJIAN
 // (3) PERBENIHAN
-Route::prefix('/perbenihan')->group(function () {
+Route::prefix('/perbenihan')->middleware('lock_service:3')->group(function () {
     Route::get('/', [PerbenihanController::class, 'index'])->name('perbenihan.index');
     Route::get('/provinsi/{bsip_id}', [PerbenihanController::class, 'provinsi'])->name('perbenihan.provinsi');
 });
 // (3) END PERBENIHAN
 // (4) IP2SIP
-Route::prefix('/ip2sip')->group(function () {
+Route::prefix('/ip2sip')->middleware('lock_service:4')->group(function () {
     Route::get('/', function () { return view('lp2tp.dashboard-lp2tp'); })->name('dashboard-lp2tp');
     Route::get('/profil_bsip', function () {
         return view('lp2tp.profil_bsip');
@@ -271,11 +273,17 @@ Route::prefix('/ip2sip')->group(function () {
 });
 // (4) END IP2SIP
 // (5) DIREKTORI SDM
-Route::prefix('/direktori-sdm')->group(function () {
+Route::prefix('/direktori-sdm')->middleware('lock_service:5')->group(function () {
     Route::get('/pengkajian-sdm', [PenyuluhController::class, 'index'])->name('sdm');
     Route::get('/pengkajian-riset', [RisetController::class, 'index'])->name('riset');
 });
 // (5) END DIREKTORI SDM
+
+Route::get('/service/locked/{id}', function ($id) {
+    $service = mService::find(Crypt::decryptString($id));
+    if (!$service->is_locked) return back();
+    return view('auth.lockedService');
+})->name('service.locked');
 
 
 // Route::get('/identifikasi/detail', function () {
