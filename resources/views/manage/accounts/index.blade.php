@@ -48,6 +48,30 @@
         border: none;
         color: #000;
     }
+    .paginate-item {
+        border: 1px solid black;
+        padding: 0 5px;
+        text-decoration: none;
+    }
+    .paginate-button {
+        /* border: 1px solid black; */
+        background-color: #3d943d;
+        color: white;
+        padding: 0 5px;
+        text-decoration: none;
+    }
+    .disabled-paginate {
+        pointer-events: none;
+        background-color: #cacaca;
+        color: white;
+        border: none;
+    }
+    .active-paginate {
+        pointer-events: none;
+        background-color: green;
+        color: white;
+        border: none;
+    }
 </style>
 <div>
     <h2>Accounts</h2>
@@ -118,6 +142,17 @@
             @endforeach
         </tbody>
     </table>
+    {{-- pagination --}}
+    <div style="margin: 10px;display:flex;align-items:center;justify-content:center;gap: 5px;">
+        <a href="{{ route('manage.accounts.view', [...request()->all(), 'page' => 1]) }}" class="paginate-button {{ $users->currentPage() == 1 ? 'disabled-paginate' : '' }}">First</a>
+        <a href="{{ route('manage.accounts.view', [...request()->all(), 'page' => $users->currentPage() - 1]) }}" class="paginate-button {{ $users->currentPage() == 1 ? 'disabled-paginate' : '' }}"><<</a>
+        @for ($i = 1; $i <= $users->lastPage(); $i++)
+            <a href="{{ route('manage.accounts.view', [...request()->all(), 'page' => $i]) }}" class="paginate-item {{ $users->currentPage() == $i ? 'active-paginate' : '' }}">{{ $i }}</a>
+        @endfor
+        <a href="{{ route('manage.accounts.view', [...request()->all(), 'page' => $users->currentPage() + 1]) }}" class="paginate-button {{ $users->currentPage() == $users->lastPage() ? 'disabled-paginate' : '' }}">>></a>
+        <a href="{{ route('manage.accounts.view', [...request()->all(), 'page' => $users->lastPage()]) }}" class="paginate-button {{ $users->currentPage() == $users->lastPage() ? 'disabled-paginate' : '' }}">Last</a>
+    </div>
+    {{--  end pagination --}}
 </div>
 
 <script>
