@@ -3,16 +3,19 @@
 namespace App\Http\Controllers\Manage;
 
 use App\Http\Controllers\Controller;
+use App\Models\mKabupaten;
 use App\Models\mKecamatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
 class mKecamatanController extends Controller
 {
-    public function get() {
-        $kecamatan = mKecamatan::get();
-        return $kecamatan;
-        // return view('<manage kecamatan view>', ['kecamatan' => $kecamatan]);
+    public function get(Request $request) {
+        $kecamatan = new mKecamatan();
+        if ($request->search) $kecamatan = $kecamatan->where('name', 'LIKE', "%$request->search%");
+        $kecamatan = $kecamatan->paginate(10);
+        $kabupaten = mKabupaten::select(['id', 'name'])->get();
+        return view('manage.kecamatan.index', ['kecamatan' => $kecamatan, 'kabupaten' => $kabupaten]);
     }
 
     public function store(Request $request) {
@@ -38,7 +41,7 @@ class mKecamatanController extends Controller
         if (!$kecamatan) return back()->withErrors('data not found');
         $request->validate([
             'kabupaten_id' => 'required',
-            'name' => 'required|string|max:255|unique:m_kecamatan'
+            'name' => 'required|string|max:255'
         ], [
             'kabupaten_id.required' => 'Kabupaten cannot be null',
             'name.required' => 'Kecamatan name cannot be null',
