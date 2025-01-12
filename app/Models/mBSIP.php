@@ -36,4 +36,9 @@ class mBSIP extends Model
     public function laboratorium() : HasMany {
         return $this->hasMany(Laboratorium::class, 'bsip_id', 'id');
     }
+
+    public function bsipProfile()
+    {
+        return $this->hasOne(BsipProfile::class, 'm_bsip_id');
+    }
 }

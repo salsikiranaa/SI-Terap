@@ -298,6 +298,12 @@ Route::get('/profil-daerah', function () {
     return view('profile', $data); // Memastikan file view adalah `profile.blade.php`
 });
 
+Route::get('/identifikasi/provinsi/{bsip_id}/export-pdf', [IdentifikasiController::class, 'exportPdf'])->name('identifikasi.provinsi.export-pdf');
+
+Route::get('/diseminasi/export_pdf', [DiseminasiController::class, 'exportPdf'])->name('diseminasi.export_pdf');
+
+
+
 // Route::get('/identifikasi/detail', function () {
 //     return view('kinerja.identifikasi.detail');
 // })->name('identifikasi_detail');
