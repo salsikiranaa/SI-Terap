@@ -48,8 +48,9 @@ class DetailPemanfaatanSipController extends Controller
         return redirect()->route('lp2tp.pemanfaatan_kp.detail');
     }
 
-    public function edit() {
-        // return view("...");
+    public function edit($id) {
+        $detail = DetailPemanfaatanSip::find($id)->paginate(10);
+        // return view("...", ['detail' => $detail]);
         return "form edit detail";
     }
 
