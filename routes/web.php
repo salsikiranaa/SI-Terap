@@ -285,6 +285,18 @@ Route::get('/service/locked/{id}', function ($id) {
     return view('auth.lockedService');
 })->name('service.locked');
 
+//profile//
+
+Route::get('/profil-daerah', function () {
+    // Data statis
+    $data = [
+        'title' => 'Nama Daerah',
+        'image' => 'images/daerah.jpg', // Lokasi gambar (pastikan file ini ada di folder `public/images/`)
+        'description' => 'Ini adalah deskripsi tentang daerah ini. Anda dapat menambahkan informasi lebih detail mengenai daerah ini di sini.',
+    ];
+
+    return view('profile', $data); // Memastikan file view adalah `profile.blade.php`
+});
 
 // Route::get('/identifikasi/detail', function () {
 //     return view('kinerja.identifikasi.detail');
