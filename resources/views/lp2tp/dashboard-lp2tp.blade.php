@@ -346,59 +346,22 @@
     </script>
 </div>
 
-<div class="content-slider container mt-5">
-    <h1 class="text-center mb-4">Profil Instalasi Penelitian dan Pengkajian Teknologi Pertanian</h1>
-    <div id="contentCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <!-- Slide 1 -->
-            <div class="carousel-item active">
-                <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <p class="text-justify">
-                            Sejarah singkat asal usul Kebun Percobaan ini berawal dari adanya proyek IDAP (1976-1986) kerja sama Indonesia dengan Kerajaan Belanda. Pada tahun 1980 masyarakat petani kopi di Aceh Tengah tergantung kehidupannya pada komoditi kopi sementara produksi hanya 500 kg/hektar dalam setahun. Selain itu, mutu kopi juga masih rendah akibat tidak adanya proses pengolahan yang baik. Pada tahun 1984 dibangun pabrik pengolahan kopi arabika dengan kapasitas 15 ton kopi glondong per hari untuk meningkatkan kualitas mutu kopi sehingga dapat meningkatkan pendapatan masyarakat sekitar.
-                        </p>
-                        <p class="text-justify">
-                            Kemudian Balai Pengkajian Teknologi Pertanian (BPTP) NAD kembali mengubah namanya menjadi Kebun Percobaan (KP) Gayo hingga sekarang. Luas Kebun Percobaan ini sekitar 18 hektar, terdiri dari bangunan perkantoran, gedung Lab, perumahan, dan kebun kopi sertifikasi. Fasilitas tersebut digunakan untuk penelitian, pembibitan, serta pengembangan Flasma Nutfah Varitas kopi arabika.
-                        </p>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <img src="/assets/img/kp-gayo.jpg" class="img-fluid rounded" alt="KP Gayo">
-                        <p class="mt-2 text-center text-warning">
-                            <b>📍 KP Gayo (Aceh)</b><br> Kepala IP2TP Gayo - Bardi Ali, S.Pt
-                        </p>
-                    </div>
-                </div>
+<div class="container profil-section">
+    <h1>Profil Instalasi Penelitian dan Pengkajian Teknologi Pertanian</h1>
+        <div class="row">
+            <div style="max-width: 400px; overflow: hidden;">
+                <img src="/assets/img/kp-gayo.jpg" alt="Gambar BBPSIP">
+                <p class="mt-2 text-center text-warning">
+                    <b><span style="color: black;">📍 KP Malang (Jawa Timur)</span></b><br> 
+                    <span style="color: green;">Kepala IP2SIP Malang - Andi Supriyanto, S.Pt</span>
+                </p>
             </div>
-            <!-- Slide 2 -->
-            <div class="carousel-item">
-                <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <p class="text-justify">
-                            Kebun Percobaan KP Malang merupakan salah satu instalasi penelitian terbesar di Jawa Timur. Dengan luas lebih dari 50 hektar, kebun ini menjadi pusat penelitian untuk pengembangan teknologi pertanian berbasis hortikultura, seperti buah-buahan dan sayuran. Selain itu, KP Malang juga memiliki fasilitas lengkap seperti laboratorium tanah, gedung percontohan irigasi, serta pusat pelatihan petani.
-                        </p>
-                        <p class="text-justify">
-                            Tujuan utama dari kebun ini adalah untuk mendukung inovasi teknologi pertanian di Jawa Timur. Penelitian di kebun ini banyak difokuskan pada pengembangan varietas hortikultura unggul serta budidaya organik, yang bertujuan untuk meningkatkan hasil panen dengan cara yang ramah lingkungan.
-                        </p>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <img src="/assets/img/bpkgayo.jpg" class="img-fluid rounded" alt="KP Malang">
-                        <p class="mt-2 text-center text-warning">
-                            <b>📍 KP Malang (Jawa Timur)</b><br> Kepala IP2TP Malang - Andi Supriyanto, S.Pt
-                        </p>
-                    </div>
-                </div>
+            <div style="max-width: 600px;">
+                <p class="description">
+                Sejarah singkat asal usul Kebun Percobaan ini berawal dari adanya proyek IDAP (1976-1986) kerjasana Indonesia dengan kerajoon Belanda. Pada tahun 1980 masyarakat petani kop di Aceh Tengah tergantung kehidupannya pada komoditi kopi sementora produksi hanya 500 kg/ hektar dalam setahun. Selain itu mutu kopi juga masih rendah akibat tidak adanya prosesing yang baik sehingga pada tahun 1984 dibangun pabrik prosesing kopi arabika. sengan kapas tas 15 ton kopi glondong nerah perharinya. Hal ini bertujuan untuk meningkatkan kualitas mutu kopi sehinggo meningkatkan pendapatan masyarakat tani sekitarnya. 
+                </p>
             </div>
         </div>
-        <!-- Navigasi Carousel -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#contentCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#contentCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
 </div>
 
 @endsection
