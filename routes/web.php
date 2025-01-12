@@ -176,7 +176,7 @@ Route::middleware('authenticated')->group(function () {
             Route::prefix('/detail')->group(function () {
                 Route::get('/create', [DetailPemanfaatanSipController::class, 'create'])->name('lp2tp.pemanfaatan_kp.detail.create');
                 Route::post('/store', [DetailPemanfaatanSipController::class, 'store'])->name('lp2tp.pemanfaatan_kp.detail.store');
-                Route::get('/edit', [DetailPemanfaatanSipController::class, 'edit'])->name('lp2tp.pemanfaatan_kp.detail.edit');
+                Route::get('/{id}/edit', [DetailPemanfaatanSipController::class, 'edit'])->name('lp2tp.pemanfaatan_kp.detail.edit');
                 Route::put('/{id}/update', [DetailPemanfaatanSipController::class, 'update'])->name('lp2tp.pemanfaatan_kp.detail.update');
                 Route::delete('/{id}/destroy', [DetailPemanfaatanSipController::class, 'destroy'])->name('lp2tp.pemanfaatan_kp.detail.destroy');
             });
