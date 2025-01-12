@@ -18,7 +18,7 @@
 </style>
 
 @php
-    $input_types = ['text','textarea', 'number', 'date', 'month', 'array_text'];
+    $input_types = ['text','textarea', 'number', 'date', 'month', 'array_text', 'file'];
     $methods = ['GET', 'POST', 'PUT', 'DELETE'];
 @endphp
 
