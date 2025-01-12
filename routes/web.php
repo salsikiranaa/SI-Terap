@@ -315,10 +315,6 @@ Route::get('/diseminasi/export_pdf', [DiseminasiController::class, 'exportPdf'])
 
 
 
-// Route::get('/identifikasi/detail', function () {
-//     return view('kinerja.identifikasi.detail');
-// })->name('identifikasi_detail');
-
 
 // Route::get('/diseminasi/peserta', function () {
 //     return view('kinerja.diseminasi.peserta'); 
