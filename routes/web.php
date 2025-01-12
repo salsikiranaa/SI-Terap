@@ -28,6 +28,7 @@ use App\Http\Controllers\IP2SIP\AsetGedungController;
 use App\Http\Controllers\IP2SIP\AsetLabController;
 use App\Http\Controllers\IP2SIP\AsetRumahController;
 use App\Http\Controllers\IP2SIP\AsetTanahController;
+use App\Http\Controllers\IP2SIP\DetailPemanfaatanSipController;
 use App\Http\Controllers\IP2SIP\PemanfaatanSIPController;
 use App\Http\Controllers\Lab\LaboratoriumController;
 use App\Http\Controllers\Manage\AdminDashboardController;
@@ -172,6 +173,13 @@ Route::middleware('authenticated')->group(function () {
         Route::prefix('/pemanfaatan_kp')->group(function () {
             Route::get('/form', [PemanfaatanSIPController::class, 'create'])->name('lp2tp.pemanfaatan_kp.create');
             Route::post('/store', [PemanfaatanSIPController::class, 'store'])->name('lp2tp.pemanfaatan_kp.store');
+            Route::prefix('/detail')->group(function () {
+                Route::get('/create', [DetailPemanfaatanSipController::class, 'create'])->name('lp2tp.pemanfaatan_kp.detail.create');
+                Route::post('/store', [DetailPemanfaatanSipController::class, 'store'])->name('lp2tp.pemanfaatan_kp.detail.store');
+                Route::get('/edit', [DetailPemanfaatanSipController::class, 'edit'])->name('lp2tp.pemanfaatan_kp.detail.edit');
+                Route::put('/{id}/update', [DetailPemanfaatanSipController::class, 'update'])->name('lp2tp.pemanfaatan_kp.detail.update');
+                Route::delete('/{id}/destroy', [DetailPemanfaatanSipController::class, 'destroy'])->name('lp2tp.pemanfaatan_kp.detail.destroy');
+            });
         });
         Route::prefix('/aset')->group(function () {
             Route::prefix('/tanah')->group(function () {
@@ -268,7 +276,10 @@ Route::prefix('/ip2sip')->middleware('lock_service:4')->group(function () {
         Route::get('/alat_mesin', [AsetAlatController::class, 'index'])->name('aset.alat_mesin');
     });
     Route::get('/tabelPeta/{bsip_id}', [ProvinceDashboardController::class, 'show'])->name('ip2sip.provinsi');
-    Route::get('/pemanfaatan_kp', [PemanfaatanSIPController::class, 'index'])->name('lp2tp.pemanfaatan_kp');
+    Route::prefix('/pemanfaatan_kp')->group(function () {
+        Route::get('/', [PemanfaatanSIPController::class, 'index'])->name('lp2tp.pemanfaatan_kp');
+        Route::get('/{pemanfaatan_id}/detail', [DetailPemanfaatanSipController::class, 'index'])->name('lp2tp.pemanfaatan_kp.detail');
+    });
     Route::get('/galeri', [GalleryController::class, 'index'])->name('lp2tp.galeri');
 });
 // (4) END IP2SIP
