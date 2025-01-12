@@ -40,12 +40,14 @@
 </style>
 
 <h1>Manage Kecamatan</h1>
+
 <div>
     <form action="{{ route('manage.kecamatan.view') }}">
         <input type="search" name="search" placeholder="Search here" value="{{ request()->search }}">
         <button type="submit">Search</button>
     </form>
 </div>
+
 <div style="display: flex;flex-direction: column;align-items:flex-end; gap: 10px ;padding: 0 0 10px 0;">
     <button onclick="toggleCreate()">+ Create</button>
     <form action="{{ route('manage.kecamatan.store') }}" method="POST" id="create" style="display: none;flex-direction: column;align-items:flex-start; gap: 10px ;">
@@ -65,6 +67,7 @@
         </div>
     </form>
 </div>
+
 <table>
     <thead>
         <tr>

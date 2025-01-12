@@ -32,6 +32,7 @@ use App\Http\Controllers\IP2SIP\DetailPemanfaatanSipController;
 use App\Http\Controllers\IP2SIP\PemanfaatanSIPController;
 use App\Http\Controllers\Lab\LaboratoriumController;
 use App\Http\Controllers\Manage\AdminDashboardController;
+use App\Http\Controllers\Manage\BsipProfileController;
 use App\Http\Controllers\Manage\CMSController;
 use App\Http\Controllers\Manage\CommonDataController;
 use App\Http\Controllers\Manage\mFungsionalController;
@@ -130,6 +131,12 @@ Route::middleware('authenticated')->group(function () {
             Route::post('/', [mIP2SIPController::class, 'store'])->name('manage.ip2sip.store');
             Route::put('/{id}', [mIP2SIPController::class, 'update'])->name('manage.ip2sip.update');
             Route::delete('/{id}', [mIP2SIPController::class, 'destroy'])->name('manage.ip2sip.destroy');
+        });
+        Route::prefix('/profile-bsip')->group(function () {
+            Route::get('/', [BsipProfileController::class, 'manage'])->name('manage.profile_bsip.index');
+            Route::post('/store', [BsipProfileController::class, 'store'])->name('manage.profile_bsip.store');
+            Route::put('/{id}/update', [BsipProfileController::class, 'update'])->name('manage.profile_bsip.update');
+            Route::delete('/{id}/destroy', [BsipProfileController::class, 'destroy'])->name('manage.profile_bsip.destroy');
         });
     });
 
@@ -298,16 +305,7 @@ Route::get('/service/locked/{id}', function ($id) {
 
 //profile//
 
-Route::get('/profil-daerah', function () {
-    // Data statis
-    $data = [
-        'title' => 'Nama Daerah',
-        'image' => 'images/daerah.jpg', // Lokasi gambar (pastikan file ini ada di folder `public/images/`)
-        'description' => 'Ini adalah deskripsi tentang daerah ini. Anda dapat menambahkan informasi lebih detail mengenai daerah ini di sini.',
-    ];
-
-    return view('profile', $data); // Memastikan file view adalah `profile.blade.php`
-});
+Route::get('/profil-daerah', [BsipProfileController::class, 'index'])->name('profile.bsip');
 
 Route::get('/identifikasi/provinsi/{bsip_id}/export-pdf', [IdentifikasiController::class, 'exportPdf'])->name('identifikasi.provinsi.export-pdf');
 

@@ -11,7 +11,8 @@ class CreateBsipProfileTable extends Migration
         Schema::create('bsip_profile', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('m_bsip_id'); 
-            $table->string('profile_field'); 
+            $table->text('description');
+            $table->string('image_url');
             $table->timestamps();
 
             $table->foreign('m_bsip_id')->references('id')->on('m_bsip')->onDelete('cascade');

@@ -83,16 +83,17 @@
 
 <div class="profile-container">
     <!-- Judul -->
-    <h1 class="profile-title">Nama Daerah</h1>
+    <h1 class="profile-title">{{ $profile->m_bsip->name }}</h1>
 
     <!-- Foto -->
-    <img src="{{ asset('images/daeerah.jpg') }}" alt="Foto Nama Daerah" class="profile-image">
+    <img src="{{ $profile->image_url }}" alt="Foto Nama Daerah" class="profile-image">
 
     <!-- Deskripsi -->
     <p class="profile-description">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+        {{-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
-        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. --}}
+        {{ $profile->description }}
     </p>
 
     <!-- Tombol -->
