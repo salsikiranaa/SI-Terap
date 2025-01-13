@@ -111,6 +111,7 @@
                     <a href="{{ route('manage.bsip.view') }}" class="nav-child">BSIP</a>
                     <a href="{{ route('manage.profile_bsip.index') }}" class="nav-child">BSIP Profile</a>
                     <a href="{{ route('manage.ip2sip.view') }}" class="nav-child">IP2SIP</a>
+                    <a href="{{ route('manage.gallery.index') }}" class="nav-child">Gallery</a>
                     @foreach ($common as $cm)
                         <a href="{{ route('manage.data.common', ['name' => $cm['name'], 'table' => Crypt::encryptString($cm['table'])]) }}" class="nav-child">{{ $cm['name'] }}</a>
                     @endforeach

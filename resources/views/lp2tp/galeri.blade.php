@@ -106,10 +106,10 @@
 
 <h2>Dokumentasi Kegiatan</h2>
 <div class="gallery-container">
-    @foreach ($galleries as $gallery)
-        <div class="gallery-item" onclick="openModal('{{ $gallery['title'] }}', '{{ asset('assets/img/galeri/' . $gallery['image']) }}', 'Deskripsi kegiatan yang lebih panjang tentang {{ $gallery['title'] }}. Misalnya, ini adalah deskripsi kegiatan yang mencakup tujuan, kegiatan yang dilakukan, hasil yang dicapai, dan dampaknya. Dengan deskripsi ini, pengunjung dapat mengetahui lebih banyak detail terkait kegiatan ini.')">
-            <img src="{{ asset('assets/img/galeri/' . $gallery['image']) }}" alt="{{ $gallery['title'] }}">
-            <div class="gallery-caption">{{ $gallery['title'] }}</div>
+    @foreach ($gallery as $gal)
+        <div class="gallery-item" onclick="openModal('{{ $gal->title }}', '{{ $gal->image_url }}', 'Deskripsi kegiatan yang lebih panjang tentang {{ $gal->title }}. Misalnya, ini adalah deskripsi kegiatan yang mencakup tujuan, kegiatan yang dilakukan, hasil yang dicapai, dan dampaknya. Dengan deskripsi ini, pengunjung dapat mengetahui lebih banyak detail terkait kegiatan ini.')">
+            <img src="{{ $gal->image_url }}" alt="{{ $gal->title }}">
+            <div class="gallery-caption">{{ $gal->title }}</div>
         </div>
     @endforeach
 </div>
