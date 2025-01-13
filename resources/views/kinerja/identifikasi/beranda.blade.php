@@ -92,9 +92,7 @@
         'https://code.highcharts.com/mapdata/countries/id/id-all.topo.json'
     ).then(response => response.json());
 
-    // Prepare demo data. The data is joined to map using value of 'hc-key'
-    // property by default. See API docs for 'joinBy' for more info on linking
-    // data and map.
+
     const data = [
         { id: 1,'hc-key': 'id-ac', value: 11, name: 'Aceh' },
         { id: 10,'hc-key': 'id-jt', value: 12, name: 'Jawa Tengah' },
@@ -161,7 +159,7 @@
 
         series: [{
             data: data,
-            name: 'Jumlah Benih (ton)',
+            name: ' Jumlah dokumen usulan PNPS',
             states: {
                 hover: {
                     color: '#e3eee3'

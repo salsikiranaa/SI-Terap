@@ -26,6 +26,8 @@
     h3 {
         font-size: 20px;
         font-weight: bold;
+        margin-top: 20px;
+        margin-bottom: 20px; 
     }
 
     .filter-container {
@@ -82,6 +84,7 @@
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 20px;
         margin: 30px 0;
+        margin-top: 10px;
     }
 
     .infographic {
@@ -244,9 +247,9 @@
                 <p>{{ $jumlah_sasaran }}</p>
             </div>
 
+            
             <!-- Sasaran Diseminasi -->
             <h3>Sasaran Diseminasi</h3>
-
             <div class="infographics">
                 <!-- Target dan Pencapaian -->
                 <div class="infographic">
@@ -387,7 +390,7 @@
                     </div>
                     <div class="infographic">
                         <h2>Agroinput</h2>
-                        <div class="icon"><i class="fas fa-sharp fa-solid fa-bag-seedling"></i></div>
+                        <div class="icon"><i class="fa-solid fa-leaf"></i></div>
                         <p>Jumlah SNI: {{ $standard->agroinput }}</p>
                         <p>Kelompok SNI: 2</p>
                     </div>
@@ -472,7 +475,7 @@
 
                 series: [{
                     data: data,
-                    name: 'Jumlah Benih (ton)',
+                    name: 'Jumlah Peserta',
                     states: {
                         hover: {
                             color: '#e3eee3'

@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Manage;
 
 use App\Http\Controllers\Controller;
 use App\Models\mKabupaten;
+use App\Models\mProvinsi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
 class mKabupatenController extends Controller
 {
-    public function get() {
-        $kabupaten = mKabupaten::get();
-        return $kabupaten;
-        // return view('<manage kabupaten view>', ['kabupaten' => $kabupaten]);
+    public function get(Request $request) {
+        $kabupaten = new mKabupaten();
+        if ($request->search) $kabupaten = $kabupaten->where('name', 'LIKE', "%$request->search%");
+        $kabupaten = $kabupaten->paginate(10);
+        $provinsi = mProvinsi::select(['id', 'name'])->get();
+        return view('manage.kabupaten.index', ['kabupaten' => $kabupaten, 'provinsi' => $provinsi]);
     }
 
     public function store(Request $request) {
@@ -38,7 +41,7 @@ class mKabupatenController extends Controller
         if (!$kabupaten) return back()->withErrors('data not found');
         $request->validate([
             'provinsi_id' => 'required',
-            'name' => 'required|string|max:255|unique:m_kabupaten'
+            'name' => 'required|string|max:255'
         ], [
             'provinsi_id.required' => 'Provinsi cannot be null',
             'name.required' => 'Kabupaten name cannot be null',

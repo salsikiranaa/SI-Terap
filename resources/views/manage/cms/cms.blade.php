@@ -50,7 +50,7 @@
     }
 </style>
 <div style="padding: 10px 20px;">
-    <h2>CMS</h2>
+    <h2>App Management</h2>
     <div class="card">
         <h4>App Setting</h4>
         <div>
