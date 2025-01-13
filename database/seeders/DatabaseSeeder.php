@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
 
             CMSSeeder::class,
             SocialSeeder::class,
+            GallerySeeder::class,
         ]);
     }
 }

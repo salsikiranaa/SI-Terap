@@ -1,5 +1,6 @@
 @extends('layouts.admin_layout')
 @section('content')
+
 <style>
     table {
         width: 100%;
@@ -40,11 +41,11 @@
 </style>
 
 <div>
-
-    <h2>Manage BSIP Profile</h2>
+    
+    <h1>Manage Gallery</h1>
 
     <div>
-        <form action="{{ route('manage.profile_bsip.index') }}">
+        <form action="{{ route('manage.gallery.index') }}">
             <input type="search" name="search" placeholder="Search here" value="{{ request()->search }}">
             <button type="submit">Search</button>
         </form>
@@ -52,19 +53,14 @@
 
     <div style="display: flex;flex-direction: column;align-items:flex-end; gap: 10px ;padding: 0 0 10px 0;">
         <button onclick="toggleCreate()">+ Create</button>
-        <form action="{{ route('manage.profile_bsip.store') }}" method="POST" enctype="multipart/form-data" id="create" style="display: none;flex-direction: column;align-items:flex-start; gap: 10px ;">
+        <form action="{{ route('manage.gallery.store', request()->table) }}" method="POST" enctype="multipart/form-data" id="create" style="display: none;flex-direction: column;align-items:flex-start; gap: 10px ;">
             @csrf
-            <label for="bsip">BSIP</label>
-            <select name="m_bsip_id" id="bsip" required>
-                <option value="" selected disabled>-- Select One --</option>
-                @foreach ($m_bsip as $bs)
-                    <option value="{{ $bs->id }}">{{ $bs->name }}</option>
-                @endforeach
-            </select>
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" placeholder="Type here" required>
             <label for="description">Description</label>
-            <textarea name="description" id="description" cols="30" rows="10" required></textarea>
+            <textarea name="description" id="description" placeholder="Type here" required cols="30" rows="10"></textarea>
             <label for="image">Image</label>
-            <input type="file" name="image" id="image" accept=".jpg,.jpeg,.png" required>
+            <input type="file" accept=".png,.jpg,.jpeg" name="image" id="image" required>
             <div style="display: flex;align-items:center;justify-content:flex-end;gap:5px;">
                 <button type="submit">Submit</button>
                 <button type="button" onclick="toggleCreate()">Cancel</button>
@@ -83,26 +79,27 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($profiles as $key=>$prof)
+            @foreach ($gallery as $key=>$gal)
                 <tr>
-                    <td class="number">{{ $loop->iteration + ( $profiles->currentPage() - 1 ) * $profiles->perPage() }}</td>
-                    <form action="{{ route('manage.profile_bsip.update', Crypt::encryptString($prof->id)) }}" method="POST" enctype="multipart/form-data" class="edit">
+                    <td class="number">{{ $loop->iteration + ( $gallery->currentPage() - 1 ) * $gallery->perPage() }}</td>
+                    <form action="{{ route('manage.gallery.update', Crypt::encryptString($gal->id)) }}" method="POST" enctype="multipart/form-data" class="edit">
                         @csrf
                         @method('PUT')
                         <td>
-                            <div class="bsip-data" style="display: block;">
-                                {{ $prof->m_bsip->name }}
+                            <div class="title-data" style="display: block;">
+                                {{ $gal->title }}
                             </div>
+                            <input type="text" name="title" value="{{ $gal->title }}" class="title-input" placeholder="Type here" required style="display: none">
                         </td>
                         <td>
                             <div class="description-data" style="display: block;">
-                                {{ $prof->description }}
+                                {{ $gal->description }}
                             </div>
-                            <textarea name="description" id="" cols="30" rows="10" class="description-input" style="display: none" required>{{ $prof->description }}</textarea>
+                            <textarea name="description" id="" cols="30" rows="10" class="description-input" style="display: none" required>{{ $gal->description }}</textarea>
                         </td>
                         <td>
                             <div class="image-data" style="display: block;">
-                                <a href="{{ $prof->image_url }}" target="_blank">Look Image >></a>
+                                <a href="{{ $gal->image_url }}" target="_blank">Look Image >></a>
                             </div>
                             <input type="file" name="image" accept=".jpg,.jpeg,.png" class="image-input" style="display: none">
                         </td>
@@ -116,7 +113,7 @@
                             <button onclick="update({{ $key }})">Submit</button>
                             <button onclick="toggleEdit({{ $key }})">Cancel</button>
                         </div>
-                        <form action="{{ route('manage.profile_bsip.destroy', Crypt::encryptString($prof->id)) }}" method="POST" class="delete" style="display: none; border: 1px solid black;padding:5px 10px;">
+                        <form action="{{ route('manage.gallery.destroy', Crypt::encryptString($gal->id)) }}" method="POST" class="delete" style="display: none; border: 1px solid black;padding:5px 10px;">
                             @csrf
                             @method('DELETE')
                             <div>Are you sure <span style="color: red;">delete</span> this entry?</div>
@@ -132,13 +129,13 @@
     </table>
 
     <div style="margin: 10px;display:flex;align-items:center;justify-content:center;gap: 5px;">
-        <a href="{{ route('manage.profile_bsip.index', [...request()->all(), 'page' => 1]) }}" class="paginate-button {{ $profiles->currentPage() == 1 ? 'disabled-paginate' : '' }}">First</a>
-        <a href="{{ route('manage.profile_bsip.index', [...request()->all(), 'page' => $profiles->currentPage() - 1]) }}" class="paginate-button {{ $profiles->currentPage() == 1 ? 'disabled-paginate' : '' }}"><<</a>
-        @for ($i = 1; $i <= $profiles->lastPage(); $i++)
-            <a href="{{ route('manage.profile_bsip.index', [...request()->all(), 'page' => $i]) }}" class="paginate-item {{ $profiles->currentPage() == $i ? 'active-paginate' : '' }}">{{ $i }}</a>
+        <a href="{{ route('manage.gallery.index', [...request()->all(), 'page' => 1]) }}" class="paginate-button {{ $gallery->currentPage() == 1 ? 'disabled-paginate' : '' }}">First</a>
+        <a href="{{ route('manage.gallery.index', [...request()->all(), 'page' => $gallery->currentPage() - 1]) }}" class="paginate-button {{ $gallery->currentPage() == 1 ? 'disabled-paginate' : '' }}"><<</a>
+        @for ($i = 1; $i <= $gallery->lastPage(); $i++)
+            <a href="{{ route('manage.gallery.index', [...request()->all(), 'page' => $i]) }}" class="paginate-item {{ $gallery->currentPage() == $i ? 'active-paginate' : '' }}">{{ $i }}</a>
         @endfor
-        <a href="{{ route('manage.profile_bsip.index', [...request()->all(), 'page' => $profiles->currentPage() + 1]) }}" class="paginate-button {{ $profiles->currentPage() == $profiles->lastPage() ? 'disabled-paginate' : '' }}">>></a>
-        <a href="{{ route('manage.profile_bsip.index', [...request()->all(), 'page' => $profiles->lastPage()]) }}" class="paginate-button {{ $profiles->currentPage() == $profiles->lastPage() ? 'disabled-paginate' : '' }}">Last</a>
+        <a href="{{ route('manage.gallery.index', [...request()->all(), 'page' => $gallery->currentPage() + 1]) }}" class="paginate-button {{ $gallery->currentPage() == $gallery->lastPage() ? 'disabled-paginate' : '' }}">>></a>
+        <a href="{{ route('manage.gallery.index', [...request()->all(), 'page' => $gallery->lastPage()]) }}" class="paginate-button {{ $gallery->currentPage() == $gallery->lastPage() ? 'disabled-paginate' : '' }}">Last</a>
     </div>
 
 </div>
@@ -162,6 +159,8 @@
     const toggleEdit = (index) => {
         const actions = document.getElementsByClassName('actions')[index]
         const editAction = document.getElementsByClassName('edit-action')[index]
+        const titleData = document.getElementsByClassName('title-data')[index]
+        const titleInput = document.getElementsByClassName('title-input')[index]
         const descriptionData = document.getElementsByClassName('description-data')[index]
         const descriptionInput = document.getElementsByClassName('description-input')[index]
         const imageData = document.getElementsByClassName('image-data')[index]
@@ -170,6 +169,10 @@
         else if (actions.style.display == 'none') actions.style.display = 'block'
         if (editAction.style.display == 'block') editAction.style.display = 'none'
         else if (editAction.style.display == 'none') editAction.style.display = 'block'
+        if (titleData.style.display == 'block') titleData.style.display = 'none'
+        else if (titleData.style.display == 'none') titleData.style.display = 'block'
+        if (titleInput.style.display == 'block') titleInput.style.display = 'none'
+        else if (titleInput.style.display == 'none') titleInput.style.display = 'block'
         if (descriptionData.style.display == 'block') descriptionData.style.display = 'none'
         else if (descriptionData.style.display == 'none') descriptionData.style.display = 'block'
         if (descriptionInput.style.display == 'block') descriptionInput.style.display = 'none'
@@ -185,4 +188,5 @@
         form.submit()
     }
 </script>
+
 @endsection

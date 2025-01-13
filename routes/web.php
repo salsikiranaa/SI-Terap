@@ -35,6 +35,7 @@ use App\Http\Controllers\Manage\AdminDashboardController;
 use App\Http\Controllers\Manage\BsipProfileController;
 use App\Http\Controllers\Manage\CMSController;
 use App\Http\Controllers\Manage\CommonDataController;
+use App\Http\Controllers\Manage\ManageGalleryController;
 use App\Http\Controllers\Manage\mFungsionalController;
 use App\Http\Controllers\Manage\mJenisLabController;
 use App\Http\Controllers\Manage\mKelasBenihController;
@@ -137,6 +138,12 @@ Route::middleware('authenticated')->group(function () {
             Route::post('/store', [BsipProfileController::class, 'store'])->name('manage.profile_bsip.store');
             Route::put('/{id}/update', [BsipProfileController::class, 'update'])->name('manage.profile_bsip.update');
             Route::delete('/{id}/destroy', [BsipProfileController::class, 'destroy'])->name('manage.profile_bsip.destroy');
+        });
+        Route::prefix('/gallery')->group(function () {
+            Route::get('/', [ManageGalleryController::class, 'manage'])->name('manage.gallery.index');
+            Route::post('/store', [ManageGalleryController::class, 'store'])->name('manage.gallery.store');
+            Route::put('/{id}/update', [ManageGalleryController::class, 'update'])->name('manage.gallery.update');
+            Route::delete('/{id}/destroy', [ManageGalleryController::class, 'destroy'])->name('manage.gallery.destroy');
         });
     });
 
