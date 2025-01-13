@@ -109,6 +109,7 @@
                 <button class="nav-item" onclick="showCommon()">Common &#11206;</button>
                 <div id="common" class="group-child" style="display: none;flex-direction:column;">
                     <a href="{{ route('manage.bsip.view') }}" class="nav-child">BSIP</a>
+                    <a href="{{ route('manage.profile_bsip.index') }}" class="nav-child">BSIP Profile</a>
                     <a href="{{ route('manage.ip2sip.view') }}" class="nav-child">IP2SIP</a>
                     @foreach ($common as $cm)
                         <a href="{{ route('manage.data.common', ['name' => $cm['name'], 'table' => Crypt::encryptString($cm['table'])]) }}" class="nav-child">{{ $cm['name'] }}</a>
@@ -123,6 +124,46 @@
     </nav>
     <div class="body-content">
         <div>
+            @if ($errors->any())
+                <button style="
+                    padding: 5px 10px;
+                    color: red;
+                    border: 1px solid red;
+                    border-radius: 5px;
+                    background-color: #efbbbb;
+                    width: 100%;
+                    text-align: start;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;
+                " onclick="hideAlert(this)">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </button>
+            @endif
+            @if (session('success'))
+                <button style="
+                    padding: 5px 10px;
+                    color: green;
+                    border: 1px solid green;
+                    border-radius: 5px;
+                    background-color: #bbefbb;
+                    width: 100%;
+                    text-align: start;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;
+                " onclick="hideAlert(this)">
+                    {{ session('success') }}
+                </button>
+            @endif
+        </div>
+        <div>
             @yield('content')
         </div>
     </div>
@@ -135,6 +176,9 @@
         const showRegion = () => {
             const region = document.getElementById('region');
             region.style.display = region.style.display === 'flex' ? 'none' : 'flex';
+        }
+        const hideAlert = (e) => {
+            e.style.display = 'none';
         }
     </script>
 </body>
