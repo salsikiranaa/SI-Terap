@@ -14,8 +14,24 @@ use Illuminate\Support\Facades\Crypt;
 
 class PendampinganController extends Controller
 {
-    public function index() {
-        return view('kinerja.pendampingan.mainPendampingan');
+    public function index(Request $request) {
+        $pendampingan = new Pendampingan();
+        if ($request->nama_lembaga) $pendampingan = $pendampingan->where('nama_lembaga', 'LIKE', "%$request->nama_lembaga%");
+        if ($request->bsip) $pendampingan = $pendampingan->where('bsip_id', $request->bsip);
+        if ($request->lembaga) $pendampingan = $pendampingan->where('lembaga_id', $request->lembaga);
+        if ($request->jenis_standard) $pendampingan = $pendampingan->where('jenis_standard_id', $request->jenis_standard);
+        if ($request->tanggal) $pendampingan = $pendampingan->where('tanggal_id', $request->tanggal);
+        $pendampingan = $pendampingan->get();
+
+        $bsip = mBSIP::select(['id', 'name'])->get();
+        $lembaga = mLembaga::select(['id', 'name'])->get();
+        $jenis_standard = mJenisStandard::select(['id', 'name'])->get();
+        return view('kinerja.pendampingan.mainPendampingan', [
+            'pendampingan' => $pendampingan,
+            'bsip' => $bsip,
+            'lembaga' => $lembaga,
+            'jenis_standard' => $jenis_standard,
+        ]);
     }
 
     public function show($bsip_id, Request $request) {
