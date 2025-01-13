@@ -263,20 +263,6 @@
         padding: 25px;
     }
 
-    .page-item {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 25px;
-        height: 25px;
-        border: 1.5px solid #00452C; 
-        color: #00452C;
-        border-radius: 5px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
     .page-item.active {
         background-color: #00452C;
         color: white;
@@ -288,7 +274,6 @@
         color: white;
         border: none;
     }
-
 
     .dots {
         font-size: 24px;
