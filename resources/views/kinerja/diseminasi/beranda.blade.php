@@ -210,7 +210,7 @@
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
     <div class="maincontainer">
-        <h1>Dashboard Diseminasi SIP dan Peserta</h1>
+        <h1>Dashboard Diseminasi Standar Instrumen Pertanian</h1>
 
         <div class="filter-container" style="margin-bottom: 20px; text-align: left; display: flex; align-items: center;">
                     <label for="sasaran-diseminasi" class="page-title" style="margin-right: 10px;">
@@ -229,7 +229,7 @@
                 </div>
 
         <div class="content stylish-content">
-            <h1 class="page-title">Peta Sebaran Identifikasi dan Inventarisasi SIP </h1>    
+            <h1 class="page-title">Peta Sebaran Diseminasi Standar Instrumen Pertanian</h1>    
             <div class="map-container">
             <div class="map">      
                 <div id="mapindo"></div>
@@ -362,7 +362,7 @@
                 </tbody>
             </table>
 
-            <h3>SIP yang didiseminasikan</h3>
+            <h3>Standar Instrumen Pertanian yang didiseminasikan</h3>
                 <div class="infographics">
                     <div class="infographic">
                         <h2>Tanaman Pangan (TP)</h2>

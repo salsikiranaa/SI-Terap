@@ -50,7 +50,7 @@
     </style>
 
     <div class="container">
-        <h2 class="header-title">Form Data SDM Penyuluh</h2>
+        <h2 class="header-title">Form Direktori SDM</h2>
 
         <form action="{{ route('direktori_penyuluh.penyuluh.store') }}" method="POST">
             @csrf

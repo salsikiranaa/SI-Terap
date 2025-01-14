@@ -89,14 +89,14 @@
     </style>
 
     <div class="container">
-        <h2 class="header-title">Direktori SDM Penyuluh</h2>
+        <h2 class="header-title">Direktori SDM</h2>
 
         <!-- Filter Section -->
         <form action="{{ route('sdm') }}" class="form-row" id="form-filter">
             <div class="form-group">
                 {{-- <label for="tanggal">Tanggal</label>
                 <input type="date" id="tanggal" name="tanggal"> --}}
-                <label for="nama">Nama Penyuluh</label>
+                <label for="nama">Nama</label>
                 <input type="text" name="name" id="nama">
             </div>
             <div class="form-group">
@@ -148,7 +148,7 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama Penyuluh</th>
+                    <th>Nama</th>
                     <th>Fungsional</th>
                     <th>Nomor Kontak</th>
                     <th>Provinsi</th>

@@ -346,15 +346,28 @@
     </script>
 </div>
 
-<div class="container profil-section">
-    <h1>Profil Instalasi Penelitian dan Pengkajian Teknologi Pertanian</h1>
-        <div class="row">
-            <div style="max-width: 400px; overflow: hidden;">
-                <img src="/assets/img/kp-gayo.jpg" alt="Gambar BBPSIP">
-                <p class="mt-2 text-center text-warning">
-                    <b><span style="color: black;">📍 KP Malang (Jawa Timur)</span></b><br> 
-                    <span style="color: green;">Kepala IP2SIP Malang - Andi Supriyanto, S.Pt</span>
-                </p>
+<div class="content-slider container mt-5">
+    <h1 class="text-center mb-4">Profil Instalasi Penelitian dan Pengkajian Teknologi Pertanian</h1>
+    <div id="contentCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <!-- Slide 1 -->
+            <div class="carousel-item active">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <p class="text-justify">
+                            Sejarah singkat asal usul Kebun Percobaan ini berawal dari adanya proyek IDAP (1976-1986) kerja sama Indonesia dengan Kerajaan Belanda. Pada tahun 1980 masyarakat petani kopi di Aceh Tengah tergantung kehidupannya pada komoditi kopi sementara produksi hanya 500 kg/hektar dalam setahun. Selain itu, mutu kopi juga masih rendah akibat tidak adanya proses pengolahan yang baik. Pada tahun 1984 dibangun pabrik pengolahan kopi arabika dengan kapasitas 15 ton kopi glondong per hari untuk meningkatkan kualitas mutu kopi sehingga dapat meningkatkan pendapatan masyarakat sekitar.
+                        </p>
+                        <p class="text-justify">
+                            Kemudian Balai Pengkajian Teknologi Pertanian (BPTP) NAD kembali mengubah namanya menjadi Kebun Percobaan (KP) Gayo hingga sekarang. Luas Kebun Percobaan ini sekitar 18 hektar, terdiri dari bangunan perkantoran, gedung Lab, perumahan, dan kebun kopi sertifikasi. Fasilitas tersebut digunakan untuk penelitian, pembibitan, serta pengembangan Flasma Nutfah Varitas kopi arabika.
+                        </p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <img src="/assets/img/kp-gayo.jpg" class="img-fluid rounded" alt="KP Gayo">
+                        <p class="mt-2 text-center text-warning">
+                            <b>📍 KP Gayo (Aceh)</b><br> Kepala IP2TP Gayo - Bardi Ali, S.Pt
+                        </p>
+                    </div>
+                </div>
             </div>
             <div style="max-width: 600px;">
                 <p class="description">

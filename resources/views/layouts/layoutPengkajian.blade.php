@@ -341,7 +341,7 @@
                 <img src="/assets/img/logo_light.png" alt="Logo" style="height: 50px;">
             </a>
             <nav class="navbar">
-                <a class="nav-link {{ request()->is('sdm') ? 'active' : '' }}" href="{{ route('sdm') }}">Pengkajian</a>
+                <a class="nav-link {{ request()->is('sdm') ? 'active' : '' }}" href="{{ route('sdm') }}">Direktori SDM</a>
                 <a class="nav-link {{ request()->is('riset') ? 'active' : '' }}" href="{{ route('riset') }}">Riset</a>
             </nav>
 
