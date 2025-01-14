@@ -102,7 +102,7 @@
 </style>
 
 <div class="form-container">
-    <h2 class="form-title">Form Data Lembaga Penerap SIP</h2>
+    <h2 class="form-title">Form Data Lembaga Penerap Standar Instrumen Pertanian</h2>
     <form action="{{ route('kinerja.pendampingan.store') }}" method="POST"> 
         @csrf
         <div class="form-row">

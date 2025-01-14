@@ -313,9 +313,9 @@ Route::get('/identifikasi/provinsi/{bsip_id}/export-pdf', [IdentifikasiControlle
 
 Route::get('/diseminasi/export_pdf', [DiseminasiController::class, 'exportPdf'])->name('diseminasi.export_pdf');
 
-
-
-
+Route::get('/pemanfaatan/detail', function () {
+    return view('lp2tp.pemanfaatan.detail');
+})->name('lp2tp_detail');
 // Route::get('/diseminasi/peserta', function () {
 //     return view('kinerja.diseminasi.peserta'); 
 // })->name('diseminasi.peserta');

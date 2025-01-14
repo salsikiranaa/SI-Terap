@@ -1,59 +1,7 @@
 @extends('layouts.layoutIp2tp')
 
 @section('content')
-  <style>
-
-      .disabled {
-        pointer-events: none;
-        opacity: 0.6;
-        color: white !important;
-        background-color: gray;
-        border: none !important;
-      }
-
-      .pagination {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        justify-content: center;
-        padding: 25px;
-    }
-
-    .page-item {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 25px;
-        height: 25px;
-        border: 1.5px solid #00452C; 
-        color: #00452C;
-        border-radius: 5px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .page-item.active {
-        background-color: #00452C;
-        color: white;
-        border: none;
-    }
-
-    .page-item.active:hover {
-        background-color: #00452C;
-        color: white;
-        border: none;
-    }
-
-
-    .dots {
-        font-size: 24px;
-        color: #00a652;
-    }
-
-    .page-item:hover {
-        background-color: #d6f7e1;
-    }
+    <style>
         .asset-dashboard {
             background-color: #f5f5f5;
         }
@@ -118,18 +66,48 @@
             
             <div class="d-flex align-items-center justify-content-between">
               <form class="w-75 d-flex align-items-center gap-2 mb-3">
-                <!-- Filter Section -->
-                <div class="filter-container">
-                    <select id="bpsip" name="bsip_id" placeholder="BPTP">
-                        <option value="">Semua BSIP</option>
-                        @foreach ($all_bsip as $bs)
-                          <option value="{{ $bs->id }}" {{ request()->bsip_id == $bs->id ? 'selected' : '' }}>{{ $bs->name }}</option>
-                        @endforeach
-                    </select>
-                    
-                    <button type="submit" class="btn btn-success">Cari</button>
-                </div>
-              </form>
+                     <!-- Filter Section -->
+                  <div class="filter-container">
+                      <select id="bpsip" placeholder="BPTP">
+                          <option value="">BPTP</option>
+                          <option value="aceh">Aceh</option>
+                          <option value="sumut">Sumatera Utara</option>
+                          <option value="sumbar">Sumatera Barat</option>
+                          <option value="riau">Riau</option>
+                          <option value="kepri">Kepulauan Riau</option>
+                          <option value="jambi">Jambi</option>
+                          <option value="sumsel">Sumatera Selatan</option>
+                          <option value="bengkulu">Bengkulu</option>
+                          <option value="babel">Bangka Belitung</option>
+                          <option value="lampung">Lampung</option>
+                          <option value="banten">Banten</option>
+                          <option value="jakarta">DKI Jakarta</option>
+                          <option value="jabar">Jawa Barat</option>
+                          <option value="jateng">Jawa Tengah</option>
+                          <option value="yogyakarta">Yogyakarta</option>
+                          <option value="jatim">Jawa Timur</option>
+                          <option value="kalbar">Kalimantan Barat</option>
+                          <option value="kalteng">Kalimantan Tengah</option>
+                          <option value="kaltim">Kalimantan Timur</option>
+                          <option value="kalsel">Kalimantan Selatan</option>
+                          <option value="bali">Bali</option>
+                          <option value="ntb">Nusa Tenggara Barat</option>
+                          <option value="ntt">Nusa Tenggara Timur</option>
+                          <option value="sulut">Sulawesi Utara</option>
+                          <option value="gorontalo">Gorontalo</option>
+                          <option value="sulteng">Sulawesi Tengah</option>
+                          <option value="sultra">Sulawesi Tenggara</option>
+                          <option value="sulsel">Sulawesi Selatan</option>
+                          <option value="sulbar">Sulawesi Barat</option>
+                          <option value="malut">Maluku Utara</option>
+                          <option value="maluku">Maluku</option>
+                          <option value="papbar">Papua Barat</option>
+                          <option value="papua">Papua</option>
+                      </select>
+                      
+                      <button type="submit" class="btn btn-success">Cari</button>
+                  </div>
+                </form>
                 
               <div class="d-flex align-items center justify-content-end gap-2 w-50">
                   <a  class="btn btn-success">
@@ -143,54 +121,37 @@
 
             <!-- Table with Static Data -->
             <div class="table-container">
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>BPTP/KP</th>
-                    <th>Luas IP2SIP (Ha)</th>
-                    <th>Agroekosistem</th>
-                    <th>Pengkajian/Diseminasi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($pemanfaatan_sip as $ps)
+                <table class="table table-bordered">
                     <tr>
-                      <td>{{ $loop->iteration }}</td>
-                      <td>{{ $ps->ip2sip->bsip->name }} - {{ $ps->ip2sip->name }}</td>
-                      <td>{{ $ps->luas_sip }}</td>
-                      <td>{{ $ps->agroekosistem }}</td>
-                      <td>
-                        <ol>
-                          @foreach ($ps->pemanfaatan_diseminasi as $pd)
-                            <li>{{ $pd->name }}</li>
-                          @endforeach
-                        </ol>
-                      </td>
+                      <th>No</th>
+                      <th>BPTP/KP</th>
+                      <th>Luas IP2SIP (Ha)</th>
+                      <th>Agroekosistem</th>
+                      <th>Pengkajian/Diseminasi</th>
                     </tr>
-                  @endforeach
-                </tbody>
-              </table>
+                    <tr>
+                      <td>1</td>
+                      <td> <a href="{{ route('lp2tp_detail') }}" style="text-decoration: none; color: inherit;">Aceh KP. Gayo</a></td>
+                      <td>18,88</td>
+                      <td>Lahan Kering Dataran Tinggi</td>
+                      <td>1. Pengkajian<br>2. Plasma Nutfah<br>3. Kebun Produksi<br>4. Visitor Plot</td>
+                    </tr>
+                  </table>
 
-              <div class="pagination">
-                <a href="{{ route('lp2tp.pemanfaatan_kp', [...request()->query(), 'page' => $pemanfaatan_sip->currentPage()-1]) }}" class="page-item text-decoration-none {{ $pemanfaatan_sip->currentPage() == 1 ? 'disabled' : '' }}">&lt;</a> <!-- Left arrow -->
-                @if ($pemanfaatan_sip->lastPage() > 5 && $pemanfaatan_sip->currentPage() - 5 > 1)
-                    <span class="dots">...</span> <!-- Dots -->
-                @endif
-                @for ($i = 1; $i < $pemanfaatan_sip->currentPage()+1; $i++)
-                    @if ($i >= $pemanfaatan_sip->currentPage() - 5 || $i <= $pemanfaatan_sip->currentPage() + 5)
-                        @if ($i == $pemanfaatan_sip->currentPage())
-                            <div class="page-item text-decoration-none active">{{ $i }}</div> <!-- Active page -->
-                        @else
-                            <a href="{{ route('lp2tp.pemanfaatan_kp', [...request()->query(), 'page' => $i]) }}" class="page-item text-decoration-none">{{ $i }}</a>
-                        @endif
-                    @endif
-                @endfor
-                @if ($pemanfaatan_sip->lastPage() > 5 && $pemanfaatan_sip->lastPage() > $pemanfaatan_sip->currentPage() + 5)
-                    <span class="dots">...</span> <!-- Dots -->
-                @endif
-                <a href="{{ route('lp2tp.pemanfaatan_kp', [...request()->query(), 'page' => $pemanfaatan_sip->currentPage()+1]) }}" class="page-item text-decoration-none {{ $pemanfaatan_sip->currentPage() == $pemanfaatan_sip->lastPage() ? 'disabled' : '' }}">&gt;</a> <!-- Right arrow -->
-              </div>
+                <nav aria-label="...">
+                    <ul class="pagination">
+                      <li class="page-item disabled">
+                        <span class="page-link">Previous</span>
+                      </li>
+                      <li class="page-item active" aria-current="page">
+                        <span class="page-link">1</span>
+                      </li>
+                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                      </li>
+                    </ul>
+                  </nav>
             </div>
 
 
