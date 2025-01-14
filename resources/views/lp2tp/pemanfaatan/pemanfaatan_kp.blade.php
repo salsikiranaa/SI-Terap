@@ -110,10 +110,14 @@
                 </form>
                 
               <div class="d-flex align-items center justify-content-end gap-2 w-50">
-                  <a  class="btn btn-success">
-                      <i class="fa-solid fa-file-excel"></i>&ensp;
-                      Import Excel
+                  <a href="{{route('lp2tp.pemanfaatan_kp.create')}}" class="btn btn-success">
+                      <i class="fa-solid fa fa-plus"></i>&ensp;
+                      Tambah data
                   </a>
+                  <a  class="btn btn-success">
+                    <i class="fa-solid fa-file-excel"></i>&ensp;
+                    Import Excel
+                </a>
               </div>
           </div>
 

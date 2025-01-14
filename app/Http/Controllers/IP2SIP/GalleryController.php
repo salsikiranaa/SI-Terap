@@ -11,11 +11,14 @@ class GalleryController extends Controller
     {
         // Data manual untuk galeri
         $galleries = [
-            ['image' => 'infografis_kp_sumbar.png', 'title' => 'KP Sumbar'],
-            ['image' => 'kp_bandabuat.jpg', 'title' => 'KP Bandabuat'],
-            ['image' => 'kp_cipaku.PNG', 'title' => 'KP Cipaku'],
-            ['image' => 'kp_gayo.jpg', 'title' => 'KP Gayo'],
-            ['image' => 'kp_gugur.PNG', 'title' => 'KP Gugur'],
+            ['image' => 'kp_bandabuat.jpg', 'title' => 'KP.Bandabuat'],
+            ['image' => 'kp_cipaku.PNG', 'title' => 'KP.Cipaku'],
+            ['image' => 'kp_gayo.jpg', 'title' => 'KP.Gayo'],
+            ['image' => 'kp_gugur.PNG', 'title' => 'KP.Gugur'],
+            ['image' => 'kp_karangagung.jpg', 'title' => 'KP.Karang Agung'],
+            ['image' => 'kp_kayuagung.jpg', 'title' => 'KP.Kayu Agung'],
+            ['image' => 'kp_pasarmiring.jpg', 'title' => 'KP.Pasar Miring'],
+            ['image' => 'kp_sitiung.jpg', 'title' => 'KP.Sitiung'],
         ];
 
         // Kirim data ke view

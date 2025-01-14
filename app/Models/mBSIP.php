@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class mBSIP extends Model
 {
@@ -37,8 +38,7 @@ class mBSIP extends Model
         return $this->hasMany(Laboratorium::class, 'bsip_id', 'id');
     }
 
-    public function bsipProfile()
-    {
-        return $this->hasOne(BsipProfile::class, 'm_bsip_id');
+    public function bsip_profile() : HasOne {
+        return $this->hasOne(BsipProfile::class, 'm_bsip_id', 'id');
     }
 }
