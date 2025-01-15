@@ -10,9 +10,8 @@ use Illuminate\Support\Facades\Crypt;
 class mServiceController extends Controller
 {
     public function get() {
-        $services = mService::get();
-        return $services;
-        // return view('<manage service view>', ['services' => $services]);
+        $services = mService::paginate(10);
+        return view('manage.service.index', ['services' => $services]);
     }
 
     public function store(Request $request) {

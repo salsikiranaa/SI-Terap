@@ -9,10 +9,11 @@ use Illuminate\Support\Facades\Crypt;
 
 class mProvinsiController extends Controller
 {
-    public function get() {
-        $provinsi = mProvinsi::get();
-        return $provinsi;
-        // return view('<manage provinsi view>', ['provinsi' => $provinsi]);
+    public function get(Request $request) {
+        $provinsi = new mProvinsi();
+        if ($request->search) $provinsi = $provinsi->where('name', 'LIKE', "%$request->search%");
+        $provinsi = $provinsi->paginate(10);
+        return view('manage.provinsi.index', ['provinsi' => $provinsi]);
     }
 
     public function store(Request $request) {
@@ -45,7 +46,7 @@ class mProvinsiController extends Controller
         $provinsi = mProvinsi::find(Crypt::decryptString($id));
         if (!$provinsi) return back()->withErrors('data not found');
         $request->validate([
-            'name' => 'required|string|max:255|unique:m_provinsi',
+            'name' => 'required|string|max:255',
             'longitude' => 'required|numeric',
             'latitude' => 'required|numeric',
         ], [

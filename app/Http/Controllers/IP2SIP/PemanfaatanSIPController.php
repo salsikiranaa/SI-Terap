@@ -11,10 +11,18 @@ use Illuminate\Support\Facades\DB;
 
 class PemanfaatanSIPController extends Controller
 {
-    public function index() {
-        $pemanfaatan_sip = PemanfaatanSIP::get();
+    public function index(Request $request) {
+        $pemanfaatan_sip = new PemanfaatanSIP();
+        if ($request->bsip_id) {
+            $ip2sip_id = mIP2SIP::where('bsip_id', $request->bsip_id)->distinct()->pluck('id');
+            $pemanfaatan_sip = PemanfaatanSIP::whereIn('ip2sip_id', $ip2sip_id);
+        }
+        $pemanfaatan_sip = $pemanfaatan_sip->paginate(10);
+
+        $all_bsip = mBSIP::select(['id', 'name'])->get();
         return view('lp2tp.pemanfaatan.pemanfaatan_kp', [
             'pemanfaatan_sip' => $pemanfaatan_sip,
+            'all_bsip' => $all_bsip,
         ]);
     }
 

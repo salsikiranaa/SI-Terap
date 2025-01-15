@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\ServiceLockMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -67,5 +68,6 @@ class Kernel extends HttpKernel
         'service' => \App\Http\Middleware\ServiceAccess::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'lock_service' => ServiceLockMiddleware::class,
     ];
 }

@@ -15,4 +15,8 @@ class Penyuluh extends Model
     public function kecamatan() : BelongsTo {
         return $this->belongsTo(mKecamatan::class, 'kecamatan_id', 'id');
     }
+
+    public function fungsional() : BelongsTo {
+        return $this->belongsTo(mFungsional::class, 'fungsional_id', 'id');
+    }
 }

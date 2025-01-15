@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Manage;
 
 use App\Http\Controllers\Controller;
 use App\Models\mBSIP;
+use App\Models\mProvinsi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
 class mBSIPController extends Controller
 {
-    public function get() {
-        $bsip = mBSIP::get();
-        return $bsip;
-        // return view('<manage bsip view>', ['bsip' => $bsip]);
+    public function get(Request $request) {
+        $bsip = new mBSIP();
+        if ($request->search) $bsip = $bsip->where('name', 'LIKE', "%$request->search%");
+        $bsip = $bsip->paginate(10);
+        $provinsi = mProvinsi::select(['id', 'name'])->get();
+        return view('manage.bsip.index', ['bsip' => $bsip, 'provinsi' => $provinsi]);
     }
 
     public function store(Request $request) {
