@@ -31,18 +31,19 @@
         h1, h2, h3 {
             margin-bottom: 1rem;
         }
-        .btn-gr {
-    background-color: #006400;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    text-decoration: none;
-}
 
-.btn-gr:hover {
-    background-color: #004c00; /* Warna lebih gelap saat hover */
-}
+        .btn-gr {
+            background-color: #006400;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .btn-gr:hover {
+            background-color: #004c00; /* Warna lebih gelap saat hover */
+        }
 
     </style>
 
@@ -54,7 +55,20 @@
             'analisis' => 'Pengukuran kadar asam',
             'kompetensi_personal' => 'Kimia Analitik',
             'nama_pelatihan' => 'Pelatihan Titrasi Asam-Basa',
-            'tahun' => 2024
+            'tahun' => 2024,
+            'akreditasi' => 'Terakreditasi',
+            'masa_berlaku' => '2025-12-31',
+            'no_akreditasi' => 'LAB123456',
+            'pelatihan' => [
+                ['nama' => 'Pelatihan Titrasi', 'jenis' => 'Titrasi Asam-Basa', 'waktu' => '2024-03-01'],
+                ['nama' => 'Pelatihan Kimia Analitik', 'jenis' => 'Kimia Analitik Dasar', 'waktu' => '2024-06-15']
+            ],
+            'auditor_internal' => 'Dr. Siti Aisyah, M.Sc.',
+            'fungsional_lainnya' => 'Asisten Kimia, Peneliti Junior',
+            'gedung' => ['jumlah' => 3, 'memadai' => 'Memadai'],
+            'jenis_peralatan' => 'Mikroskop, Alat Titrasi, pH Meter, Perangkat Lunak Analisis Data',
+            'alamat_lab' => 'Jl. Ilmiah No. 123, Kota Riset',
+            'telepon_lab' => '+62 123 456 7890'
         ];
     @endphp
 
@@ -79,30 +93,36 @@
         </div>
 
         <div class="sections mt-5 d-flex flex-column">
-            <div id="about" class="section mb-4">
-                <h2>Tentang Laboratorium</h2>
-                <p>
-                    Laboratorium kami bertujuan untuk mendukung penelitian dan pengembangan di berbagai bidang ilmiah. Kami menyediakan peralatan canggih serta lingkungan kolaboratif bagi mahasiswa, peneliti, dan profesional industri. Selain itu, laboratorium kami sering mengadakan seminar, workshop, dan pelatihan untuk meningkatkan keterampilan peserta dalam bidang penelitian.
-                </p>
+
+            <div id="akreditasi" class="section mb-4">
+                <h2>Akreditasi</h2>
+                <p><strong>Status Akreditasi:</strong> {{ $lab->akreditasi }}</p>
+                <p><strong>Masa Berlaku:</strong> {{ $lab->masa_berlaku }}</p>
+                <p><strong>No Akreditasi:</strong> {{ $lab->no_akreditasi }}</p>
             </div>
+
             <div id="facilities" class="section mb-4">
                 <h2>Fasilitas</h2>
-                <p>
-                    Laboratorium kami dilengkapi dengan berbagai fasilitas modern, seperti mikroskop canggih, komputer berkecepatan tinggi, serta perangkat lunak khusus untuk analisis data. Selain itu, tersedia ruang kerja yang nyaman, ruang diskusi, dan perpustakaan mini yang mendukung kegiatan penelitian dan pembelajaran.
-                </p>
+                <h4>Pelatihan dan Auditor Internal</h4>
+                <p><strong>Pelatihan:</strong></p>
+                <ul>
+                    @foreach($lab->pelatihan as $item)
+                        <li>{{ $item['nama'] }} ({{ $item['jenis'] }}) - Waktu: {{ $item['waktu'] }}</li>
+                    @endforeach
+                </ul>
+                <p><strong>Auditor Internal:</strong> {{ $lab->auditor_internal }}</p>
+                <p><strong>Fungsional Lainnya:</strong> {{ $lab->fungsional_lainnya }}</p>
+                <h4>Sarana dan Prasarana:</h4>
+                <p><strong>Gedung:</strong> Jumlah: {{ $lab->gedung['jumlah'] }} - Status: {{ $lab->gedung['memadai'] }}</p>
+                <p><strong>Jenis Peralatan:</strong> {{ $lab->jenis_peralatan }}</p>
             </div>
-            <div id="team" class="section mb-4">
-                <h2>Tim Kami</h2>
-                <p>
-                    Tim kami terdiri dari peneliti berpengalaman, asisten laboratorium yang berdedikasi, serta mahasiswa antusias yang bekerja sama untuk mendorong inovasi. Dengan latar belakang yang beragam, tim kami memiliki keahlian di berbagai bidang, mulai dari bioteknologi hingga teknologi informasi.
-                </p>
-            </div>
+
             <div id="contact" class="section mb-4">
                 <h2>Kontak Kami</h2>
-                <p>Email: info@labkami.com</p>
-                <p>Telepon: +62 123 456 7890</p>
-                <p>Alamat: Jl. Ilmiah No. 123, Kota Riset</p>
+                <p><strong>Alamat:</strong> {{ $lab->alamat_lab }}</p>
+                <p><strong>Telepon:</strong> {{ $lab->telepon_lab }}</p>
             </div>
+
         </div>
 
         <div class="card-footer text-center">
