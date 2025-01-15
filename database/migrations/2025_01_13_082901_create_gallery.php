@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('m_bsip', function (Blueprint $table) {
+        Schema::create('gallery', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->bigInteger('provinsi_id')->unsigned()->unique();
-            $table->string('alamat', 255)->unique();
-
+            $table->string('title');
+            $table->string('image_url');
+            $table->text('description');
             $table->timestamps();
-
-            $table->foreign('provinsi_id')->references('id')->on('m_provinsi');
         });
     }
 
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('m_bsip');
+        Schema::dropIfExists('gallery');
     }
 };

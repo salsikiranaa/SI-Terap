@@ -237,9 +237,9 @@ class DiseminasiController extends Controller
         ];
 
         // Load view untuk PDF
-        $pdf = PDF::loadView('kinerja.diseminasi.export_pdf', $data);
+        // $pdf = PDF::loadView('kinerja.diseminasi.export_pdf', $data);
 
         // Download PDF dengan nama 'diseminasi_report.pdf'
-        return $pdf->download('diseminasi_report.pdf');
+        // return $pdf->download('diseminasi_report.pdf');
     }
 }

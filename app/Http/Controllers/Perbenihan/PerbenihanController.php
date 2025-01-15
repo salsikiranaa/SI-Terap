@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Perbenihan;
 use App\Http\Controllers\Controller;
 use App\Models\mBSIP;
 use App\Models\mKabupaten;
+use App\Models\mKecamatan;
 use App\Models\mKelasBenih;
 use App\Models\mKomoditas;
 use App\Models\Perbenihan;
@@ -59,10 +60,12 @@ class PerbenihanController extends Controller
 
     public function create() {
         $kabupaten = mKabupaten::select(['id', 'name'])->get();
+        $kecamatan = mKecamatan::select(['id', 'name'])->get();
         $komoditas = mKomoditas::select(['id', 'name'])->get();
         $kelas_benih = mKelasBenih::select(['id', 'name'])->get();
         return view('pengelolaan.form', [
             'kabupaten' => $kabupaten,
+            'kecamatan' => $kecamatan,
             'komoditas' => $komoditas,
             'kelas_benih' => $kelas_benih,
         ]);

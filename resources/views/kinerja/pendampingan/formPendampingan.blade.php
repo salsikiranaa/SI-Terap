@@ -206,6 +206,13 @@
             </div>
         </div>
 
+        <div class="form-row">
+            <div class="form-group col-md-5">
+                <label for="deskripsiLembaga">Deskripsi Singkat Lembaga</label>
+                <input type="text" name="deskripsi_lembaga" id="deskripsiLembaga" placeholder="Masukkan Deskripsi Singkat Lembaga" required>
+            </div>
+        </div>
+
         <div class="form-group">
             <button type="submit" class="submit-button">Kirim Data</button>
         </div>

@@ -11,7 +11,9 @@ class CommonDataController extends Controller
 {
     public function index(Request $request, $name, $table) {
         $table = Crypt::decryptString($table);
-        $data = DB::table($table)->paginate(10);
+        $data = DB::table($table);
+        if ($request->search) $data = $data->where('name', 'LIKE', "%$request->search%");
+        $data = $data->paginate(10);
         return view('manage.common.index', [
             'name' => $name,
             'data' => $data,

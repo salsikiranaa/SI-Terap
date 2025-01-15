@@ -35,6 +35,7 @@ use App\Http\Controllers\Manage\AdminDashboardController;
 use App\Http\Controllers\Manage\BsipProfileController;
 use App\Http\Controllers\Manage\CMSController;
 use App\Http\Controllers\Manage\CommonDataController;
+use App\Http\Controllers\Manage\ManageGalleryController;
 use App\Http\Controllers\Manage\mFungsionalController;
 use App\Http\Controllers\Manage\mJenisLabController;
 use App\Http\Controllers\Manage\mKelasBenihController;
@@ -138,6 +139,12 @@ Route::middleware('authenticated')->group(function () {
             Route::put('/{id}/update', [BsipProfileController::class, 'update'])->name('manage.profile_bsip.update');
             Route::delete('/{id}/destroy', [BsipProfileController::class, 'destroy'])->name('manage.profile_bsip.destroy');
         });
+        Route::prefix('/gallery')->group(function () {
+            Route::get('/', [ManageGalleryController::class, 'manage'])->name('manage.gallery.index');
+            Route::post('/store', [ManageGalleryController::class, 'store'])->name('manage.gallery.store');
+            Route::put('/{id}/update', [ManageGalleryController::class, 'update'])->name('manage.gallery.update');
+            Route::delete('/{id}/destroy', [ManageGalleryController::class, 'destroy'])->name('manage.gallery.destroy');
+        });
     });
 
     Route::middleware(['service:1', 'lock_service:1'])->prefix('/kinerja-kegiatan')->group(function () {
@@ -166,7 +173,9 @@ Route::middleware('authenticated')->group(function () {
         Route::get('/form', [LaboratoriumController::class, 'create'])->name('form-Lab');
         Route::post('/', [LaboratoriumController::class, 'store'])->name('lab.store');
         Route::put('/{id}', [LaboratoriumController::class, 'update'])->name('lab.update');
-        Route::delete('/{id}', [LaboratoriumController::class, 'destroy'])->name('lab.destroy');
+        Route:: delete('/{id}', [LaboratoriumController::class, 'destroy'])->name('lab.destroy');
+        Route::get('/laboratoriumview/{id}', [LaboratoriumController::class, 'showDetail'])->name('lab.detail');
+        
     });
 
     Route::middleware(['service:3', 'lock_service:3'])->prefix('/perbenihan')->group(function () {
