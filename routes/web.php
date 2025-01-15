@@ -173,7 +173,9 @@ Route::middleware('authenticated')->group(function () {
         Route::get('/form', [LaboratoriumController::class, 'create'])->name('form-Lab');
         Route::post('/', [LaboratoriumController::class, 'store'])->name('lab.store');
         Route::put('/{id}', [LaboratoriumController::class, 'update'])->name('lab.update');
-        Route::delete('/{id}', [LaboratoriumController::class, 'destroy'])->name('lab.destroy');
+        Route:: delete('/{id}', [LaboratoriumController::class, 'destroy'])->name('lab.destroy');
+        Route::get('/laboratoriumview/{id}', [LaboratoriumController::class, 'showDetail'])->name('lab.detail');
+        
     });
 
     Route::middleware(['service:3', 'lock_service:3'])->prefix('/perbenihan')->group(function () {
