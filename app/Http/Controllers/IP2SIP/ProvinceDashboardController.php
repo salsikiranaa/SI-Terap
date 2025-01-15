@@ -3,54 +3,25 @@
 namespace App\Http\Controllers\IP2SIP;
 
 use App\Http\Controllers\Controller; // Tambahkan ini
+use App\Models\mBSIP;
+use App\Models\PemanfaatanSIP;
 use Illuminate\Http\Request;
 
 class provinceDashboardController extends Controller
 {
-    public function show($province)
+    public function show($bsip_id)
     {
-        // Mapping hc-key ke nama provinsi
-        $provinceNames = [
-            'id-ac' => 'Aceh',
-            'id-jt' => 'Jawa Tengah',
-            'id-be' => 'Bengkulu',
-            'id-bt' => 'Banten',
-            'id-kb' => 'Kalimantan Barat',
-            'id-bb' => 'Bangka Belitung',
-            'id-ba' => 'Bali',
-            'id-ji' => 'Jawa Timur',
-            'id-ks' => 'Kalimantan Selatan',
-            'id-nt' => 'Nusa Tenggara Timur',
-            'id-se' => 'Sulawesi Selatan',
-            'id-kr' => 'Kepulauan Riau',
-            'id-ib' => 'Papua Barat',
-            'id-su' => 'Sumatra Utara',
-            'id-ri' => 'Riau',
-            'id-sw' => 'Sulawesi Utara',
-            'id-ku' => 'Kalimantan Utara',
-            'id-la' => 'Maluku Utara',
-            'id-sb' => 'Sumatera Barat',
-            'id-ma' => 'Maluku',
-            'id-nb' => 'Nusa Tenggara Barat',
-            'id-sg' => 'Sulawesi Tenggara',
-            'id-st' => 'Sulawesi Tengah',
-            'id-pa' => 'Papua',
-            'id-jr' => 'Jawa Barat',
-            'id-ki' => 'Kalimantan Timur',
-            'id-1024' => 'Lampung',
-            'id-jk' => 'Jakarta',
-            'id-go' => 'Gorontalo',
-            'id-yo' => 'Yogyakarta',
-            'id-sl' => 'Sumatera Selatan',
-            'id-sr' => 'Sulawesi Barat',
-            'id-ja' => 'Jambi',
-            'id-kt' => 'Kalimantan Tengah',
-        ];
+        $bsip = mBSIP::find($bsip_id);
+        if (!$bsip) return back()->withErrors('BSIP Belum terdaftar');
+        $ip2sip_id = $bsip->ip2sip->pluck('id');
+        $pemanfaatan_sip = PemanfaatanSIP::whereIn('ip2sip_id', $ip2sip_id)->get();
+        // dd($pemanfaatan_sip);
 
-        // Cari nama provinsi berdasarkan hc-key
-        $provinceName = $provinceNames[$province] ?? 'Provinsi Tidak Dikenal';
-
-        // Kirim data ke view
-        return view('lp2tp.tabelPeta', compact('province', 'provinceName'));
+        $bsip_ip2sip = mBSIP::whereHas('ip2sip')->get();
+        return view('lp2tp.tabelPeta', [
+            'bsip' => $bsip,
+            'bsip_ip2sip' => $bsip_ip2sip,
+            'pemanfaatan_sip' => $pemanfaatan_sip,
+        ]);
     }
 }

@@ -26,6 +26,8 @@
     h3 {
         font-size: 20px;
         font-weight: bold;
+        margin-top: 20px;
+        margin-bottom: 20px; 
     }
 
     .filter-container {
@@ -82,6 +84,7 @@
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 20px;
         margin: 30px 0;
+        margin-top: 10px;
     }
 
     .infographic {
@@ -207,7 +210,7 @@
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
     <div class="maincontainer">
-        <h1>Dashboard Diseminasi SIP dan Peserta</h1>
+        <h1>Dashboard Diseminasi Standar Instrumen Pertanian</h1>
 
         <div class="filter-container" style="margin-bottom: 20px; text-align: left; display: flex; align-items: center;">
                     <label for="sasaran-diseminasi" class="page-title" style="margin-right: 10px;">
@@ -226,7 +229,7 @@
                 </div>
 
         <div class="content stylish-content">
-            <h1 class="page-title">Peta Sebaran Identifikasi dan Inventarisasi SIP </h1>    
+            <h1 class="page-title">Peta Sebaran Diseminasi Standar Instrumen Pertanian</h1>    
             <div class="map-container">
             <div class="map">      
                 <div id="mapindo"></div>
@@ -244,9 +247,9 @@
                 <p>{{ $jumlah_sasaran }}</p>
             </div>
 
+            
             <!-- Sasaran Diseminasi -->
             <h3>Sasaran Diseminasi</h3>
-
             <div class="infographics">
                 <!-- Target dan Pencapaian -->
                 <div class="infographic">
@@ -359,7 +362,7 @@
                 </tbody>
             </table>
 
-            <h3>SIP yang didiseminasikan</h3>
+            <h3>Standar Instrumen Pertanian yang didiseminasikan</h3>
                 <div class="infographics">
                     <div class="infographic">
                         <h2>Tanaman Pangan (TP)</h2>
@@ -387,7 +390,7 @@
                     </div>
                     <div class="infographic">
                         <h2>Agroinput</h2>
-                        <div class="icon"><i class="fas fa-sharp fa-solid fa-bag-seedling"></i></div>
+                        <div class="icon"><i class="fa-solid fa-leaf"></i></div>
                         <p>Jumlah SNI: {{ $standard->agroinput }}</p>
                         <p>Kelompok SNI: 2</p>
                     </div>
@@ -472,7 +475,7 @@
 
                 series: [{
                     data: data,
-                    name: 'Jumlah Benih (ton)',
+                    name: 'Jumlah Peserta',
                     states: {
                         hover: {
                             color: '#e3eee3'

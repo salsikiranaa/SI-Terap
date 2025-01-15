@@ -104,7 +104,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="sip">SIP</label>
+                <label for="sip">Sub Sektor</label>
                 <select id="sip" name="sip_id">
                     <option value="">All</option>
                     @foreach ($sip as $sp)
@@ -161,7 +161,7 @@
                 <tr>
                     <th>No</th>
                     <th>Judul Pengkajian Spesifik Lokasi</th>
-                    <th>SIP</th>
+                    <th>Sub Sektor</th>
                     <th>Tahun</th>
                     <th>Provinsi</th>
                     <th>Kabupaten</th>

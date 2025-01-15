@@ -16,8 +16,8 @@
         .stylish-button {
             display: block;
             width: fit-content;
-            margin: 20px auto;
-            padding: 12px 25px;
+            margin: 15px auto;
+            padding: 8px 15px;
             color: white;
             background-color: #00452C;
             text-decoration: none;
@@ -58,6 +58,8 @@
 
         .filter-container {
             margin-bottom: 20px;
+            display: flex;
+            align-items: center;
         }
 
         .filter-container select, .filter-container input {
@@ -74,6 +76,7 @@
             color: white;
             border: none;
             border-radius: 5px;
+            margin-right: 10px;
         }
 
         .filter-container button:hover {
@@ -95,7 +98,6 @@
             </select>
 
             <label for="year">Tahun:</label>
-            {{-- <input type="number" id="year" placeholder="Tahun" name="tahun" /> --}}
             <select name="tahun" id="year">
                 <option value="">Tahun</option>
                 @for ($i = intval(date('Y')); $i >= 2000; $i--)
@@ -110,9 +112,11 @@
                 <option value="revisi">Revisi SIP</option>
             </select>
 
-            {{-- <button type="submit" onclick="filterData()">Filter</button> --}}
-            <button type="submit" >Filter</button>
-        </form>
+            <button type="submit">Filter</button>
+
+            <!-- Export PDF Button -->
+            <a href="{{ route('identifikasi.provinsi.export-pdf', $bsip_identifikasi->id) }}" class="stylish-button">Export PDF</a>
+            </form>
 
         <!-- Kegiatan Table -->
         <h2>Data Kegiatan yang Dilakukan</h2>

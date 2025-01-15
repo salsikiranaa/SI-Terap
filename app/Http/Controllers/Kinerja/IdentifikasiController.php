@@ -147,11 +147,12 @@ class IdentifikasiController extends Controller
         return redirect()->route('identifikasi_beranda')->with('success', 'updated');
     }
 
-    public function destroy($id) {
-        $identifikasi = Identifikasi::find(Crypt::decryptString($id));
-        if (!$identifikasi) return back()->withErrors('data not found');
-        $identifikasi->delete();
-        // return back()->with('success', 'delete data successful');
-        return redirect()->route('identifikasi_beranda')->with('success', 'deleted');
+    public function exportPdf($bsip_id)
+    {
+        $identifikasi = Identifikasi::where('bsip_id', $bsip_id)->get();
+
+        $pdf = PDF::loadView('kinerja.identifikasi.pdf', ['identifikasi' => $identifikasi]);
+
+        return $pdf->download('identifikasi-provinsi.pdf');
     }
 }

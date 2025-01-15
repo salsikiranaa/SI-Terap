@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Kinerja;
 
 use App\Http\Controllers\Controller;
+use App\Models\mBSIP;
+use App\Models\mJenisStandard;
+use App\Models\mKelompokStandard;
+use App\Models\mLembaga;
 use App\Models\Pendampingan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,17 +14,65 @@ use Illuminate\Support\Facades\Crypt;
 
 class PendampinganController extends Controller
 {
-    public function get() {
-        $pendampingan = Pendampingan::get();
-        return $pendampingan;
-        // return view('<pendampingan view>', ['pendampingan' => $pendampingan]);
+    public function index(Request $request) {
+        $pendampingan = new Pendampingan();
+        if ($request->nama_lembaga) $pendampingan = $pendampingan->where('nama_lembaga', 'LIKE', "%$request->nama_lembaga%");
+        if ($request->bsip) $pendampingan = $pendampingan->where('bsip_id', $request->bsip);
+        if ($request->lembaga) $pendampingan = $pendampingan->where('lembaga_id', $request->lembaga);
+        if ($request->jenis_standard) $pendampingan = $pendampingan->where('jenis_standard_id', $request->jenis_standard);
+        if ($request->tanggal) $pendampingan = $pendampingan->where('tanggal_id', $request->tanggal);
+        $pendampingan = $pendampingan->get();
+
+        $bsip = mBSIP::select(['id', 'name'])->get();
+        $lembaga = mLembaga::select(['id', 'name'])->get();
+        $jenis_standard = mJenisStandard::select(['id', 'name'])->get();
+        return view('kinerja.pendampingan.mainPendampingan', [
+            'pendampingan' => $pendampingan,
+            'bsip' => $bsip,
+            'lembaga' => $lembaga,
+            'jenis_standard' => $jenis_standard,
+        ]);
     }
 
-    public function getById($id) {
+    public function show($bsip_id, Request $request) {
+        $bsip = mBSIP::find($bsip_id);
+        if (!$bsip) return back()->withErrors('BSIP belum terdaftar');
+        $pendampingan = Pendampingan::where('bsip_id', $bsip_id);
+        if ($request->nama_lembaga) $pendampingan = $pendampingan->where('nama_lembaga', 'LIKE', "%$request->nama_lembaga%");
+        if ($request->lembaga_id) $pendampingan = $pendampingan->where('lembaga_id', $request->lembaga_id);
+        if ($request->tahun) $pendampingan = $pendampingan->where('tanggal', 'LIKE', "$request->tahun%");
+        if ($request->jenis_standard_id) $pendampingan = $pendampingan->where('jenis_standard_id', $request->jenis_standard_id);
+        $pendampingan = $pendampingan->paginate(10);
+
+        $lembaga = mLembaga::select(['id', 'name'])->get();
+        $jenis_standard = mJenisStandard::select(['id', 'name'])->get();
+        return view('kinerja.pendampingan.tabelPendampingan', [
+            'bsip' => $bsip,
+            'pendampingan' => $pendampingan,
+            'lembaga' => $lembaga,
+            'jenis_standard' => $jenis_standard,
+        ]);
+    }
+
+    public function detail($id) {
         $pendampingan = Pendampingan::find(Crypt::decryptString($id));
         if (!$pendampingan) return back()->withErrors('data not found');
-        return $pendampingan;
-        // return view('<pendampingan detail view>', ['pendampingan' => $pendampingan]);
+        return view('kinerja.pendampingan.detailDataPendampingan', [
+            'pendampingan' => $pendampingan,
+        ]);
+    }
+
+    public function create() {
+        $bsip = mBSIP::select(['id', 'name'])->get();
+        $lembaga = mLembaga::select(['id', 'name'])->get();
+        $jenis_standard = mJenisStandard::select(['id', 'name'])->get();
+        $kelompok_standard = mKelompokStandard::select(['id', 'name'])->get();
+        return view('kinerja.pendampingan.formPendampingan', [
+            'bsip' => $bsip,
+            'lembaga' => $lembaga,
+            'jenis_standard' => $jenis_standard,
+            'kelompok_standard' => $kelompok_standard,
+        ]);
     }
 
     public function store(Request $request) {
@@ -29,6 +81,7 @@ class PendampinganController extends Controller
             'tanggal' => 'required|date',
             'nama_lembaga' => 'required|string',
             'lembaga_id' => 'required',
+            'alamat' => 'required|string',
             'skala' => 'required|integer',
             'unit_skala' => 'required|in:ton,ha,unit', // enum ['ton', 'ha', 'unit']
             'lpk' => 'required|string',
@@ -44,6 +97,8 @@ class PendampinganController extends Controller
             'nama_lembaga.required' => 'Nama Lembaga cannot be null',
             'nama_lembaga.string' => 'Nama Lembaga must be a string',
             'lembaga_id.required' => 'Lembaga cannot be null',
+            'alamat.required' => 'Alamat cannot be null',
+            'alamat.string' => 'Alamat must be a string',
             'skala.required' => 'Skala cannot be null',
             'skala.integer' => 'Skala must be an integer',
             'unit_skala.required' => 'Unit Skala cannot be null',
@@ -64,6 +119,7 @@ class PendampinganController extends Controller
             'tanggal' => $request->tanggal,
             'nama_lembaga' => $request->nama_lembaga,
             'lembaga_id' => $request->lembaga_id,
+            'alamat' => $request->alamat,
             'skala' => $request->skala,
             'unit_skala' => $request->unit_skala,
             'lpk' => $request->lpk,
@@ -77,7 +133,7 @@ class PendampinganController extends Controller
         ];
         Pendampingan::create($data_pendampingan);
         // return back()->with('success', 'created');
-        return redirect()->route('kinerja.pendampingan.view')->with('success', 'created');
+        return redirect()->route('pendampingan_main')->with('success', 'created');
     }
 
     public function update($id, Request $request) {
@@ -88,6 +144,7 @@ class PendampinganController extends Controller
             'tanggal' => 'required|date',
             'nama_lembaga' => 'required|string',
             'lembaga_id' => 'required',
+            'alamat' => 'required|string',
             'skala' => 'required|integer',
             'unit_skala' => 'required|in:ton,ha,unit', // enum ['ton', 'ha', 'unit']
             'lpk' => 'required|string',
@@ -103,6 +160,8 @@ class PendampinganController extends Controller
             'nama_lembaga.required' => 'Nama Lembaga cannot be null',
             'nama_lembaga.string' => 'Nama Lembaga must be a string',
             'lembaga_id.required' => 'Lembaga cannot be null',
+            'alamat.required' => 'Alamat cannot be null',
+            'alamat.string' => 'Alamat must be a string',
             'skala.required' => 'Skala cannot be null',
             'skala.integer' => 'Skala must be an integer',
             'unit_skala.required' => 'Unit Skala cannot be null',
@@ -123,6 +182,7 @@ class PendampinganController extends Controller
             'tanggal' => $request->tanggal,
             'nama_lembaga' => $request->nama_lembaga,
             'lembaga_id' => $request->lembaga_id,
+            'alamat' => $request->alamat,
             'skala' => $request->skala,
             'unit_skala' => $request->unit_skala,
             'lpk' => $request->lpk,
@@ -135,7 +195,7 @@ class PendampinganController extends Controller
         ];
         $pendampingan->update($data_pendampingan);
         // return back()->with('success', 'updated');
-        return redirect()->route('kinerja.pendampingan.view')->with('success', 'updated');
+        return redirect()->route('pendampingan_main')->with('success', 'updated');
     }
     
     public function destroy($id) {
@@ -143,6 +203,6 @@ class PendampinganController extends Controller
         if (!$pendampingan) return back()->withErrors('data not found');
         $pendampingan->delete();
         // return back()->with('success', 'deleted');
-        return redirect()->route('kinerja.pendampingan.view')->with('success', 'deleted');
+        return redirect()->route('pendampingan_main')->with('success', 'deleted');
     }
 }

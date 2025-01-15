@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Perbenihan;
 
 use App\Http\Controllers\Controller;
 use App\Models\mBSIP;
+use App\Models\mKabupaten;
+use App\Models\mKecamatan;
 use App\Models\mKelasBenih;
 use App\Models\mKomoditas;
 use App\Models\Perbenihan;
@@ -56,9 +58,18 @@ class PerbenihanController extends Controller
         ]);
     }
 
-    // public function create() {
-    //     return view('perbenihan form view path');
-    // }
+    public function create() {
+        $kabupaten = mKabupaten::select(['id', 'name'])->get();
+        $kecamatan = mKecamatan::select(['id', 'name'])->get();
+        $komoditas = mKomoditas::select(['id', 'name'])->get();
+        $kelas_benih = mKelasBenih::select(['id', 'name'])->get();
+        return view('pengelolaan.form', [
+            'kabupaten' => $kabupaten,
+            'kecamatan' => $kecamatan,
+            'komoditas' => $komoditas,
+            'kelas_benih' => $kelas_benih,
+        ]);
+    }
 
     public function store(Request $request) {
         $request->validate([
@@ -66,7 +77,7 @@ class PerbenihanController extends Controller
             'komoditas_id' => 'required|integer',
             'kelas_benih_id' => 'required|integer',
             'bulan' => 'required|in:Januari,Februari,Maret,April,Mei,Juni,Juli,Agustus,September,Oktober,November,Desember',
-            'tahun' => 'required|year'
+            'tahun' => 'required|numeric'
         ], [
             'kabupaten_id.required' => 'Kabupaten tidak boleh kosong',
             'kabupaten_id.integer' => 'Kabupaten harus berupa angka',
@@ -77,7 +88,7 @@ class PerbenihanController extends Controller
             'bulan.required' => 'Bulan tidak boleh kosong',
             'bulan.in' => 'Bulan tidak valid',
             'tahun.required' => 'Tahun tidak boleh kosong',
-            'tahun.year' => 'Tahun harus berupa angka',
+            'tahun.numeric' => 'Tahun harus berupa angka',
         ]);
         $perbenihan = Perbenihan::create([
             'kabupaten_id' => $request->kabupaten_id,
@@ -104,7 +115,7 @@ class PerbenihanController extends Controller
             'komoditas_id' => 'required|integer',
             'kelas_benih_id' => 'required|integer',
             'bulan' => 'required|in:Januari,Februari,Maret,April,Mei,Juni,Juli,Agustus,September,Oktober,November,Desember',
-            'tahun' => 'required|year'
+            'tahun' => 'required|numeric'
         ], [
             'kabupaten_id.required' => 'Kabupaten tidak boleh kosong',
             'kabupaten_id.integer' => 'Kabupaten harus berupa angka',
@@ -115,7 +126,7 @@ class PerbenihanController extends Controller
             'bulan.required' => 'Bulan tidak boleh kosong',
             'bulan.in' => 'Bulan tidak valid',
             'tahun.required' => 'Tahun tidak boleh kosong',
-            'tahun.year' => 'Tahun harus berupa angka',
+            'tahun.numeric' => 'Tahun harus berupa angka',
         ]);
         $perbenihan = $perbenihan->update([
             'kabupaten_id' => $request->kabupaten_id,

@@ -217,4 +217,29 @@ class DiseminasiController extends Controller
         // return back()->with('success', 'deleted');
         return redirect()->route('diseminasi_beranda')->with('success', 'deleted');
     }
+
+    public function exportPDF(Request $request)
+    {
+        $diseminasi = Diseminasi::all();
+        $bsip = mBSIP::all();
+        $sip = mSIP::all();
+        $jenis_standard = mJenisStandard::all();
+        $sasaran = pDiseminasiSasaran::all();
+        $standard = pDiseminasiSIP::all();
+
+        $data = [
+            'diseminasi' => $diseminasi,
+            'bsip' => $bsip,
+            'sip' => $sip,
+            'jenis_standard' => $jenis_standard,
+            'sasaran' => $sasaran,
+            'standard' => $standard,
+        ];
+
+        // Load view untuk PDF
+        // $pdf = PDF::loadView('kinerja.diseminasi.export_pdf', $data);
+
+        // Download PDF dengan nama 'diseminasi_report.pdf'
+        // return $pdf->download('diseminasi_report.pdf');
+    }
 }

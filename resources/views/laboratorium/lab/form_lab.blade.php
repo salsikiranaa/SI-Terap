@@ -77,17 +77,30 @@
 
     <div class="form-container">
         <h2 class="form-title">Form Data Laboratorium</h2>
-        <form action="#" method="POST">
+        <form action="{{ route('lab.store') }}" method="POST">
+            @csrf
             <!-- Bagian Nama BPSIP -->
             <div class="form-group">
                 <label for="nama_bpsip">Nama BPSIP</label>
-                <input type="text" name="nama_bpsip" id="nama_bpsip" placeholder="Masukkan nama BPSIP" required>
+                {{-- <input type="text" name="nama_bpsip" id="nama_bpsip" placeholder="Masukkan nama BPSIP" required> --}}
+                <select id="nama_bpsip" name="bsip_id" required>
+                    <option value="" selected disabled>-- Pilih BSIP --</option>
+                    @foreach ($bsip as $bs)
+                        <option value="{{ $bs->id }}">{{ $bs->name }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <!-- Bagian Jenis Laboratorium -->
             <div class="form-group">
                 <label for="jenis_lab">Jenis Laboratorium</label>
-                <input type="text" name="jenis_lab" id="jenis_lab" placeholder="Masukkan jenis laboratorium" required>
+                {{-- <input type="text" name="jenis_lab" id="jenis_lab" placeholder="Masukkan jenis laboratorium" required> --}}
+                <select name="jenis_lab_id" id="jenis_lab" required>
+                    <option value="" selected disabled>-- Pilih Jenis Laboratorium --</option>
+                    @foreach ($jenis_lab as $jb)
+                        <option value="{{ $jb->id }}">{{ $jb->name }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <!-- Ruang Lingkup Analisis -->
@@ -116,12 +129,12 @@
             <div class="form-section-title">Pelatihan</div>
             <div class="form-group">
                 <label for="pelatihan">Nama Pelatihan</label>
-                <textarea name="pelatihan" id="pelatihan" rows="3" placeholder="Masukkan nama dan jenis pelatihan" required></textarea>
+                <textarea name="nama_pelatihan" id="pelatihan" rows="3" placeholder="Masukkan nama dan jenis pelatihan" required></textarea>
             </div>
             <div class="form-group">
                 <label for="waktu">Waktu</label>
-                <select name="waktu" id="waktu" required>
-                    <option value="" disabled selected>Pilih Tahun</option>
+                <select name="tahun" id="waktu" required>
+                    <option value="" disabled selected>-- Pilih Tahun --</option>
                     @for ($year = now()->year; $year >= 2000; $year--)
                         <option value="{{ $year }}">{{ $year }}</option>
                     @endfor

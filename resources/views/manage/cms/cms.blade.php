@@ -6,23 +6,36 @@
         border-radius: 5px;
         padding: 5px 10px;
     }
+
     label {
         text-transform: capitalize;
     }
+    
     .input-item {
         width: 250px;
         display: flex;
         flex-direction: column;
         margin-bottom: 10px;
     }
+    
     .submit {
-        background-color: green;
+        background-color: #00452C;
         color: white;
         padding: 10px 15px;
         border-radius: 5px;
         border: none;
         font-size: 16px;
     }
+
+    .submit:hover {
+        background-color: #005737;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        border: none;
+        font-size: 16px;
+    }
+    
     .update {
         background-color: rgb(255, 191, 0);
         color: black;
@@ -32,6 +45,17 @@
         font-size: 14px;
         margin: 5px;
     }
+
+    .update:hover {
+        background-color: rgb(255, 206, 57);
+        color: black;
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: none;
+        font-size: 14px;
+        margin: 5px;
+    }
+    
     .delete {
         background-color: rgb(166, 0, 0);
         color: white;
@@ -41,16 +65,39 @@
         font-size: 14px;
         margin: 5px;
     }
+
+    .delete:hover {
+        background-color: rgb(186, 0, 0);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: none;
+        font-size: 14px;
+        margin: 5px;
+    }
+
     table {
         width: 100%;
         border-collapse: collapse;
+        margin-top: 20px;
+        overflow: hidden;
+        border-radius: 7px;
     }
+
     th, td {
-        border: 1px solid black;
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: center;
     }
+
+    th {
+        background-color: #00452C;
+        color: white;
+    }
+
 </style>
 <div style="padding: 10px 20px;">
-    <h2>CMS</h2>
+    <h2>App Management</h2>
     <div class="card">
         <h4>App Setting</h4>
         <div>
@@ -152,7 +199,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
                                     {{-- <input type="text" name="name" value="{{ $sc->name }}" style="width:450px; border:none;padding: 10px;"> --}}
-                                    <select name="name" id="" style="width:450px; border:none;padding: 10px;">
+                                    <select name="name" id="" style="width:150px; border:none;padding: 10px; background-color: lightgray; border-radius: 5px;">
                                         <option value="facebook" {{ $sc->name == 'facebook' ? 'selected' : '' }}>Facebook</option>
                                         <option value="youtube" {{ $sc->name == 'youtube' ? 'selected' : '' }}>Youtube</option>
                                         <option value="instagram" {{ $sc->name == 'instagram' ? 'selected' : '' }}>Instagram</option>

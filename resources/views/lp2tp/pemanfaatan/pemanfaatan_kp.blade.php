@@ -110,10 +110,14 @@
                 </form>
                 
               <div class="d-flex align-items center justify-content-end gap-2 w-50">
-                  <a  class="btn btn-success">
-                      <i class="fa-solid fa-file-excel"></i>&ensp;
-                      Import Excel
+                  <a href="{{route('lp2tp.pemanfaatan_kp.create')}}" class="btn btn-success">
+                      <i class="fa-solid fa fa-plus"></i>&ensp;
+                      Tambah data
                   </a>
+                  <a  class="btn btn-success">
+                    <i class="fa-solid fa-file-excel"></i>&ensp;
+                    Import Excel
+                </a>
               </div>
           </div>
 
@@ -131,7 +135,7 @@
                     </tr>
                     <tr>
                       <td>1</td>
-                      <td>Aceh KP. Gayo</td>
+                      <td> <a href="{{ route('lp2tp_detail') }}" style="text-decoration: none; color: inherit;">Aceh KP. Gayo</a></td>
                       <td>18,88</td>
                       <td>Lahan Kering Dataran Tinggi</td>
                       <td>1. Pengkajian<br>2. Plasma Nutfah<br>3. Kebun Produksi<br>4. Visitor Plot</td>

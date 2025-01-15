@@ -83,19 +83,21 @@
     </style>
 
     <div class="content stylish-content">
-        <h1 class="page-title">Persebaran Instalasi Penelitian dan Pengkajian Teknologi Pertanian Provinsi {{ $provinceName }}</h1>
+        <h1 class="page-title">Persebaran Instalasi Penelitian dan Pengkajian Teknologi Pertanian Provinsi {{ $bsip->name }}</h1>
 
         <!-- Filter Section -->
-        <div class="filter-container">
+        <form id="form-filter" class="filter-container">
             <label for="bpsip">BP2TP:</label>
-            <select id="bpsip">
+            <select id="bpsip" onchange="handleChangeFilter(this)">
                 <option value="">Pilih BP2TP</option>
-                <option value="Nama KP 1">Nama KP 1</option>
-                <option value="Nama KP 2">Nama KP 2</option>
+                @foreach ($bsip_ip2sip as $bi)
+                    <option value="{{ $bi->id }}" {{ request()->bsip_id == $bi->id ? 'selected' : '' }}>{{ $bi->name }}</option>
+                @endforeach
             </select>
 
-            <button type="button" onclick="filterData()">Filter</button>
-        </div>
+            {{-- <button type="button" onclick="filterData()">Filter</button> --}}
+            <button type="submit">Filter</button>
+        </form>
 
         <!-- Kegiatan Table -->
         <h2>Data IP2SIP</h2>
@@ -103,51 +105,64 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama KP</th>
+                    <th>IP2SIP</th>
                     <th>Luas</th>
                     <th>Agro</th>
                     <th>Pemanfaatan</th>
                 </tr>
             </thead>
             <tbody>
+                @foreach ($pemanfaatan_sip as $ps)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $ps->ip2sip->name }}</td>
+                        <td>{{ $ps->luas_sip }}</td>
+                        <td>{{ $ps->agroekosistem }}</td>
+                        <td>---</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
 
     <script>
-        const kegiatanData = [
-            { no: 1, namaKP: 'Nama KP 1', luas: '50 Ha', agro: 'Sawah', pemanfaatan: 'Produksi Padi' },
-            { no: 2, namaKP: 'Nama KP 2', luas: '30 Ha', agro: 'Kebun', pemanfaatan: 'Penelitian Jeruk' },
-            { no: 3, namaKP: 'Nama KP 1', luas: '20 Ha', agro: 'Ladang', pemanfaatan: 'Peternakan Ayam' },
-        ];
-
-        function filterData() {
-            const bpsip = document.getElementById('bpsip').value;
-
-            const filteredData = kegiatanData.filter(item => {
-                return bpsip === '' || item.namaKP === bpsip;
-            });
-
-            displayData(filteredData);
+        const handleChangeFilter = (e) => {
+            document.getElementById('form-filter').action = `/ip2sip/tabelPeta/${e.value}`
         }
 
-        function displayData(data) {
-            const tableBody = document.querySelector('#kegiatan-table tbody');
-            tableBody.innerHTML = '';
+        // const kegiatanData = [
+        //     { no: 1, namaKP: 'Nama KP 1', luas: '50 Ha', agro: 'Sawah', pemanfaatan: 'Produksi Padi' },
+        //     { no: 2, namaKP: 'Nama KP 2', luas: '30 Ha', agro: 'Kebun', pemanfaatan: 'Penelitian Jeruk' },
+        //     { no: 3, namaKP: 'Nama KP 1', luas: '20 Ha', agro: 'Ladang', pemanfaatan: 'Peternakan Ayam' },
+        // ];
 
-            data.forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${item.no}</td>
-                    <td>${item.namaKP}</td>
-                    <td>${item.luas}</td>
-                    <td>${item.agro}</td>
-                    <td>${item.pemanfaatan}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-        }
+        // function filterData() {
+        //     const bpsip = document.getElementById('bpsip').value;
 
-        displayData(kegiatanData);
+        //     const filteredData = kegiatanData.filter(item => {
+        //         return bpsip === '' || item.namaKP === bpsip;
+        //     });
+
+        //     displayData(filteredData);
+        // }
+
+        // function displayData(data) {
+        //     const tableBody = document.querySelector('#kegiatan-table tbody');
+        //     tableBody.innerHTML = '';
+
+        //     data.forEach(item => {
+        //         const row = document.createElement('tr');
+        //         row.innerHTML = `
+        //             <td>${item.no}</td>
+        //             <td>${item.namaKP}</td>
+        //             <td>${item.luas}</td>
+        //             <td>${item.agro}</td>
+        //             <td>${item.pemanfaatan}</td>
+        //         `;
+        //         tableBody.appendChild(row);
+        //     });
+        // }
+
+        // displayData(kegiatanData);
     </script>
 @endsection
