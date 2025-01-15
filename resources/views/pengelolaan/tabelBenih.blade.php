@@ -291,20 +291,42 @@
     }
 </style>
 
-<h1 class="page-title">Data Perbenihan - Provinsi {{ $bsip ? $bsip->name : '' }}</h1>
+<h1 class="page-title">Data Distribusi Benih - Provinsi {{ $bsip ? $bsip->name : '' }}</h1>
 
 <div class="content stylish-content">
     <!-- Filter Section -->
     <div class="filter">
         <form action="{{ route('perbenihan.provinsi', request()->bsip_id) }}" class="form-row">
             <div class="form-group col-md-5">
-                <label for="kotaKabupatenBenih">Nama Kota/Kabupaten</label>
+                <label for="bsip">BSIP</label>
+                {{-- <input type="text" name="bsip" id="bsip" placeholder="Masukkan Nama BSIP" style="width: 360px" required> --}}
+                <select name="bsip_id" id="bsip">
+                    <option value="">Pilih BSIP</option>
+                    {{-- @foreach ($bsip as $kb)
+                        <option value="{{ $kb->id }}" {{ request()->bsip_id == $kb->id ? 'selected' : '' }}>{{ $kb->name }}</option>
+                    @endforeach --}}
+                </select>
+            </div>
+            
+            <div class="form-group col-md-5">
+                <label for="kotaKabupatenBenih">Kota/Kabupaten</label>
                 {{-- <input type="text" name="kotaKabupatenBenih" id="kotaKabupatenBenih" placeholder="Masukkan Nama Kota/Kabupaten" style="width: 360px" required> --}}
                 <select name="kabupaten_id" id="kotaKabupatenBenih">
                     <option value="">Pilih Kota/Kabupaten</option>
                     @foreach ($kabupaten as $kb)
                         <option value="{{ $kb->id }}" {{ request()->kabupaten_id == $kb->id ? 'selected' : '' }}>{{ $kb->name }}</option>
                     @endforeach
+                </select>
+            </div>
+
+            <div class="form-group col-md-5">
+                <label for="kecamatanBenih">Kecamatan</label>
+                {{-- <input type="text" name="kecamatanBenih" id="kecamatanBenih" placeholder="Masukkan Nama Kecamatan" style="width: 360px" required> --}}
+                <select name="kecamatan_id" id="kecamatanBenih">
+                    <option value="">Pilih Kecamatan</option>
+                    {{-- @foreach ($kecamatan as $kb)
+                        <option value="{{ $kb->id }}" {{ request()->kecamatan_id == $kb->id ? 'selected' : '' }}>{{ $kb->name }}</option>
+                    @endforeach --}}
                 </select>
             </div>
             
@@ -329,18 +351,8 @@
             </div>
 
             <div class="form-group col-md-5">
-                <label for="bulanPerbenihan">Bulan</label>
-                <select name="bulan" id="bulanPerbenihan" style="height: 52px">
-                    <option value="">Pilih Salah Satu</option>
-                    @foreach ($bulan as $bl)
-                        <option value="{{ $bl }}" {{ request()->bulan == $bl ? 'selected' : '' }}>{{ $bl }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="form-group col-md-5">
-                <label for="tahunPerbenihan">Tahun</label>
-                <input type="number" name="tahun" value="{{ request()->tahun }}" class="form-control" id="tahunPerbenihan" placeholder="Masukkan Tahun">
+                <label for="tanggalPerbenihan">Tanggal</label>
+                <input type="date" name="tanggalBenih" class="form-control" id="tanggalperbenihan"></input>
             </div>
             
             {{-- <button type="button" onclick="filterData()">Filter</button> --}}
@@ -355,22 +367,31 @@
         <thead>
             <tr>
                 <th>No</th>
+                <th>BSIP</th>
                 <th>Kota/Kabupaten</th>
+                <th>Kecamatan</th>
+                <th>Desa</th>
+                <th>Nama</th>
+                <th>No HP</th>
                 <th>Komoditas</th>
                 <th>Kelas Benih</th>
-                <th>Bulan</th>
-                <th>Tahun</th>
+                <th>Jumlah</th>
+                <th>Tanggal</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($perbenihan as $pb)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
+                    <td>{{ $pb->bsip->name }}</td>
                     <td>{{ $pb->kabupaten->name }}</td>
+                    <td>{{ $pb->kecamatan->name }}</td>
+                    <td>{{ $pb->namapenerap->name }}</td>
+                    <td>{{ $pb->nopenerap->name }}</td>
                     <td>{{ $pb->komoditas->name }}</td>
                     <td>{{ $pb->kelas_benih->name }}</td>
-                    <td>{{ $pb->bulan }}</td>
-                    <td>{{ $pb->tahun }}</td>
+                    <td>{{ $pb->Jumlah }}</td>
+                    <td>{{ $pb->tanggal }}</td>
                 </tr>
             @endforeach
         </tbody>

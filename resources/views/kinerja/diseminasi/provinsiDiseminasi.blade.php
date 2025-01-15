@@ -126,7 +126,7 @@
                 <th>No</th>
                 <th>BSIP</th>
                 <th>Tanggal</th>
-                <th>Jenis SIP</th>
+                <th>Sub Sektor SIP</th>
                 <th>Metode</th>
                 <th>Sasaran</th>
                 <th>Jumlah Sasaran</th>

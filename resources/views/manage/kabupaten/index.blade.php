@@ -4,50 +4,146 @@
     table {
         width: 100%;
         border-collapse: collapse;
+        margin-top: 20px;
+        overflow: hidden;
+        border-radius: 7px;
     }
+
     th, td {
-        border: 1px solid black;
-        padding: 5px 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: center;
     }
+
+    th {
+        background-color: #00452C;
+        color: white;
+    }
+    
     .number {
         width: 20px;
         text-align: center;
     }
+    
     .paginate-item {
-        border: 1px solid black;
+        border: 1px solid gray;
+        border-radius: 3px;
         padding: 0 5px;
         text-decoration: none;
+        color: black;
     }
+
+    .paginate-item:hover {
+        border: 1px solid gray;
+        background-color: lightgray;
+        border-radius: 3px;
+        padding: 0 5px;
+        text-decoration: none;
+        color: black;
+    }
+    
     .paginate-button {
         /* border: 1px solid black; */
         background-color: #3d943d;
         color: white;
         padding: 0 5px;
         text-decoration: none;
+        border: 0px solid gray;
+        border-radius: 3px;
     }
+
+    .paginate-button:hover {
+        /* border: 1px solid black; */
+        background-color: #51ac51;
+        color: white;
+        padding: 0 5px;
+        text-decoration: none;
+        border: 0px solid gray;
+        border-radius: 3px;
+    }
+    
     .disabled-paginate {
         pointer-events: none;
         background-color: #cacaca;
         color: white;
         border: none;
     }
+    
     .active-paginate {
         pointer-events: none;
-        background-color: green;
+        background-color: #00452C;
         color: white;
         border: none;
+    }
+
+    .submit {
+        background-color: #00452C;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        border: none;
+        font-size: 16px;
+    }
+
+    .submit:hover {
+        background-color: #005737;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        border: none;
+        font-size: 16px;
+    }
+    
+    .update {
+        background-color: rgb(255, 191, 0);
+        color: black;
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: none;
+        font-size: 14px;
+        margin: 5px;
+    }
+
+    .update:hover {
+        background-color: rgb(255, 206, 57);
+        color: black;
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: none;
+        font-size: 14px;
+        margin: 5px;
+    }
+    
+    .delete {
+        background-color: rgb(166, 0, 0);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: none;
+        font-size: 14px;
+        margin: 5px;
+    }
+
+    .delete:hover {
+        background-color: rgb(186, 0, 0);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: none;
+        font-size: 14px;
+        margin: 5px;
     }
 </style>
 
 <h1>Manage Kabupaten</h1>
 <div>
     <form action="{{ route('manage.kabupaten.view') }}">
-        <input type="search" name="search" placeholder="Search here" value="{{ request()->search }}">
-        <button type="submit">Search</button>
+        <input type="search" name="search" style="height: 40px; width: 250px; border-radius:5px; border: solid 1px; border-color: gray" placeholder="Search here" value="{{ request()->search }}">
+        <button class="submit" type="submit">Search</button>
     </form>
 </div>
 <div style="display: flex;flex-direction: column;align-items:flex-end; gap: 10px ;padding: 0 0 10px 0;">
-    <button onclick="toggleCreate()">+ Create</button>
+    <button class="submit" onclick="toggleCreate()">+ Create</button>
     <form action="{{ route('manage.kabupaten.store') }}" method="POST" id="create" style="display: none;flex-direction: column;align-items:flex-start; gap: 10px ;">
         @csrf
         <label for="name">Name</label>
@@ -101,12 +197,12 @@
                 </form>
                 <td>
                     <div class="actions" style="display: block;">
-                        <button onclick="toggleEdit({{ $key }})">Edit</button>
-                        <button onclick="toggleDelete({{ $key }})">Delete</button>
+                        <button class="update" onclick="toggleEdit({{ $key }})">Edit</button>
+                        <button class="delete" onclick="toggleDelete({{ $key }})">Delete</button>
                     </div>
                     <div class="edit-action" style="display: none;">
-                        <button onclick="update({{ $key }})">Submit</button>
-                        <button onclick="toggleEdit({{ $key }})">Cancel</button>
+                        <button class="update" onclick="update({{ $key }})">Submit</button>
+                        <button class="delete" onclick="toggleEdit({{ $key }})">Cancel</button>
                     </div>
                     <form action="{{ route('manage.kabupaten.destroy', Crypt::encryptString($dt->id)) }}" method="POST" class="delete" style="display: none; border: 1px solid black;padding:5px 10px;">
                         @csrf

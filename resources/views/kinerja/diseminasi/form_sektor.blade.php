@@ -76,7 +76,7 @@
         </div>
         <!--SIP-->
         <div class="form-group">
-            <label for="sip">SIP</label>
+            <label for="sip">Sub Sektor Standar Instrumen Pertanian</label>
             <div class="checkbox-group">
                 @foreach ($sip as $sp)
                 <label><input type="checkbox" name="sip_id[]" value="{{ $sp->id }}">{{$sp->name}}</label>

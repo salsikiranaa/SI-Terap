@@ -89,14 +89,12 @@
     </style>
 
     <div class="container">
-        <h2 class="header-title">Direktori SDM Penyuluh</h2>
+        <h2 class="header-title">Direktori SDM</h2>
 
         <!-- Filter Section -->
         <form action="{{ route('sdm') }}" class="form-row" id="form-filter">
             <div class="form-group">
-                {{-- <label for="tanggal">Tanggal</label>
-                <input type="date" id="tanggal" name="tanggal"> --}}
-                <label for="nama">Nama Penyuluh</label>
+                <label for="nama">Nama</label>
                 <input type="text" name="name" id="nama">
             </div>
             <div class="form-group">
@@ -106,6 +104,15 @@
                     @foreach ($fungsional as $fn)
                         <option value="{{ $fn->id }}" {{ request()->fungsional_id == $fn->id ? 'selected' : '' }}>{{ $fn->name }}</option>
                     @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="jenjang">Jenjang Pendidikan</label>
+                <select id="jenjang" name="jenjang_id">
+                    <option value="">All</option>
+                    {{-- @foreach ($jenjang as $jj)
+                        <option value="{{ $jj->id }}" {{ request()->jenjang_id == $jj->id ? 'selected' : '' }}>{{ $jj->name }}</option>
+                    @endforeach --}}
                 </select>
             </div>
             <div class="form-group">
@@ -148,8 +155,9 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama Penyuluh</th>
+                    <th>Nama</th>
                     <th>Fungsional</th>
+                    <th>Jenjang Pendidikan</th>
                     <th>Nomor Kontak</th>
                     <th>Provinsi</th>
                     <th>Kabupaten</th>
@@ -162,11 +170,12 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $pn->name }}</td>
                         <td>{{ $pn->fungsional->name }}</td>
+                        <td>{{ $pn->jenjang->name }}</td>
                         <td>{{ $pn->contact }}</td>
                         <td>{{ $pn->kecamatan->kabupaten->provinsi->name }}</td>
                         <td>{{ $pn->kecamatan->kabupaten->name }}</td>
                         <td>{{ $pn->kecamatan->name }}</td>
-                    </tr>               
+                    </tr>
                 @endforeach
             </tbody>
         </table>
@@ -187,7 +196,7 @@
             input_provinsi.value = ''
             input_kecamatan.value = ''
         }
-        
+
         const handleInputKecamatan = () => {
             input_provinsi.value = ''
             input_kabupaten.value = ''

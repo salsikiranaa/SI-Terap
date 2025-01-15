@@ -60,13 +60,18 @@
             </div>
 
             <div class="form-group">
-                <label for="sip">SIP</label>
+                <label for="sip">Sub Sektor</label>
                 <select id="sip" name="sip_id" required>
-                    <option value="" selected disabled>-- Pilih SIP --</option>
+                    <option value="" selected disabled>-- Pilih Sub Sektor --</option>
                     @foreach ($sip as $sp)
                         <option value="{{ $sp->id }}">{{ $sp->name }}</option>
                     @endforeach
                 </select>
+            </div>
+
+            <div class="form-group">
+                <label for="komoditas">Komoditas</label>
+                <input type="text" id="komoditas" name="komoditas" placeholder="Masukkan komoditas" required>
             </div>
 
             <div class="form-group">
