@@ -348,6 +348,7 @@
             </a>
             <nav class="navbar">
                 <a class="nav-link {{ request()->is('dashboard-lp2tp') ? 'active' : '' }}" href="{{ route('dashboard-lp2tp') }}">Beranda</a>
+                <a class="{{ request()->routeIs('lp2tp.galeri') ? 'active' : '' }}" href="{{ route('lp2tp.galeri') }}">Profil</a>
                 <div class="dropdown">
                     <a class="nav-link {{ request()->routeIs('aset.index') ? 'active' : '' }}" href="#">Aset</a>
                     <div class="dropdown-content">
@@ -359,7 +360,6 @@
                     </div>
                 </div>
                 <a class="{{ request()->routeIs('lp2tp.pemanfaatan_kp') ? 'active' : '' }}" href="{{ route('lp2tp.pemanfaatan_kp') }}">Pemanfaatan KP</a>
-                <a class="{{ request()->routeIs('lp2tp.galeri') ? 'active' : '' }}" href="{{ route('lp2tp.galeri') }}">Galeri</a>
             </nav>
 
             <div>
