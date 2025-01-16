@@ -11,7 +11,7 @@ class mProvinsi extends Model
 {
     use HasFactory;
     protected $table = 'm_provinsi';
-    protected $fillable = ['nama_provinsi', 'latitude', 'longitude', 'jumlah_dokumen'];
+    protected $guarded = [];
 
     public function bsip() : HasOne {
         return $this->hasOne(mBSIP::class, 'provinsi_id', 'id');

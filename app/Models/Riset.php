@@ -16,4 +16,8 @@ class Riset extends Model
     public function kecamatan() : BelongsTo {
         return $this->belongsTo(mKecamatan::class, 'kecamatan_id', 'id');
     }
+
+    public function sip() : BelongsTo {
+        return $this->belongsTo(mSIP::class, 'sip_id', 'id');
+    }
 };

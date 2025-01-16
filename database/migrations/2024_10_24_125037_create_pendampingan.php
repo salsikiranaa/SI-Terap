@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->string('nama_lembaga');
             $table->bigInteger('lembaga_id')->unsigned(); //
+            $table->text('alamat');
             $table->integer('skala')->unsigned();
             $table->enum('unit_skala', ['ton', 'ha', 'unit']);
             $table->string('lpk');

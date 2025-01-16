@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    public function registerView() {
+        return view('auth.register');
+    }
+
     public function register(Request $request) {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -44,6 +48,13 @@ class AuthController extends Controller
         return redirect()->route('home')->with('success', 'Registration successful');
     }
 
+    public function loginView() {
+        $previous_url = session('_previous')['url'];
+        return view('auth.login', [
+            'previous_url' => $previous_url,
+        ]);
+    }
+
     public function login(Request $request) {
         $request->validate([
             'email' => 'required|string|email|max:255',
@@ -64,12 +75,15 @@ class AuthController extends Controller
         $attempt = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
         if (!$attempt) return back()->withErrors('invalid email or password');
 
+        if ($request->previous_url) return redirect($request->previous_url)->with('success', 'login successful');
         if (Auth::user()->role_id == 1) return redirect()->route('manage.dashboard')->with('success', 'login successful');
         return redirect()->route('home')->with('success', 'login successful');
     }
 
     public function logout() {
         Auth::logout();
+        $previous_url = session('_previous')['url'];
+        if ($previous_url) return redirect($previous_url);
         return redirect()->route('home')->with('success', 'logout successful');
     }
 }

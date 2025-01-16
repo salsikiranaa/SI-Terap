@@ -84,21 +84,25 @@
 
     <div class="content stylish-content">
         <!-- Filter Section -->
-        <div class="filter-container">
+        <form class="filter-container">
             <label for="bpsip">BPSIP:</label>
-            <select id="bpsip">
-                <option value="">Pilih BPSIP</option>
-                <option value="bpsip1">BPSIP 1</option>
-                <option value="bpsip2">BPSIP 2</option>
-                <!-- Tambahkan pilihan lainnya sesuai kebutuhan -->
+            <select id="bpsip" name="bsip_id">
+                <option value="">Semua BPSIP</option>
+                @foreach ($bsip as $bs)
+                    <option value="{{ $bs->id }}" {{ request()->bsip_id == $bs->id ? 'selected' : '' }}>{{ $bs->name }}</option>
+                @endforeach
             </select>
 
             <label for="year">Tahun:</label>
-            <input type="number" id="year" placeholder="Tahun" />
+            <select id="year" name="tahun">
+                <option value="">Semua Tahun</option>
+                @for ($i = now()->year; $i >= 2000; $i--)
+                    <option value="{{ $i }}" {{ request()->tahun == $i ? 'selected' : '' }}>{{ $i }}</option>
+                @endfor
+            </select>
 
-
-            <button type="button" onclick="filterData()">Filter</button>
-        </div>
+            <button type="submit">Filter</button>
+        </form>
 
         <!-- Kegiatan Table -->
 <div style="display: flex; align-items: center; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
@@ -133,106 +137,119 @@
     </tr>
   </thead>
   <tbody>
+    @foreach ($lab as $l)
+        <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $l->bsip->name }}</td>
+            <td>{{ $l->jenis_lab->name }}</td>
+            <td>{{ $l->jenis_analisis }}</td>
+            <td>{{ $l->metode_analisis }}</td>
+            <td>{{ $l->analisis }}</td>
+            <td>{{ $l->kompetensi_personal }}</td>
+            <td>{{ $l->nama_pelatihan }}</td>
+            <td>{{ $l->tahun }}</td>
+        </tr>
+    @endforeach
   </tbody>
 </table>
 
 <script>
     // Data kegiatan (dummy data)
-    const kegiatanData = [
-            {
-        no: 1,
-        bpsip: "BPSIP SUMSEL",
-        jenisLab: "Laboratorium Pengujian Kimia Tanah dan Mutu Beras",
-        jenisAnalisis: "Analisa Kimia Tanah Rutin dan Analisa Mutu Beras",
-        metodeAnalisis: "Kolorimetri/Pewarnaan",
-        analisis: "Tidak ada",
-        kompetensiPersonal: "Belum ada",
-        namaPelatihan: "Pelatihan Pemahaman SNI ISO/IEC 17025:2017",
-        waktu: "2023"
-    },
-    {
-        no: 2,
-        bpsip: "BPSIP JAWA BARAT",
-        jenisLab: "Laboratorium Analisa Pupuk",
-        jenisAnalisis: "Analisa Nitrogen dan Fosfat",
-        metodeAnalisis: "Spektrofotometri dan Titrasi",
-        analisis: "Nitrogen total, Fosfat total",
-        kompetensiPersonal: "Ada",
-        namaPelatihan: "Pelatihan Analisa Pupuk dan Tanah",
-        waktu: "2022"
-    },
-    {
-        no: 3,
-        bpsip: "BPSIP JAWA TIMUR",
-        jenisLab: "Laboratorium Mutu Pangan",
-        jenisAnalisis: "Analisa Kimia Pangan",
-        metodeAnalisis: "Kromatografi Gas dan Cair",
-        analisis: "Kadar Air, Protein, Lemak, dan Karbohidrat",
-        kompetensiPersonal: "Tidak ada",
-        namaPelatihan: "Pelatihan Penerapan ISO 17025",
-        waktu: "2021"
-    },
-    {
-        no: 4,
-        bpsip: "BPSIP SUMATERA BARAT",
-        jenisLab: "Laboratorium Uji Sampel Air",
-        jenisAnalisis: "Analisa Parameter Fisika dan Kimia Air",
-        metodeAnalisis: "Spektrofotometri, TDS, dan pH Meter",
-        analisis: "TSS, COD, BOD, dan pH",
-        kompetensiPersonal: "Ada",
-        namaPelatihan: "Pelatihan Pengendalian Mutu Air",
-        waktu: "2023"
-    },
-    {
-        no: 5,
-        bpsip: "BPSIP KALIMANTAN TENGAH",
-        jenisLab: "Laboratorium Uji Kesuburan Tanah",
-        jenisAnalisis: "Analisa Unsur Hara Makro dan Mikro",
-        metodeAnalisis: "Titrasi dan Spektrofotometri",
-        analisis: "Nitrogen, Fosfat, Kalium, Magnesium, dan Kalsium",
-        kompetensiPersonal: "Ada",
-        namaPelatihan: "Workshop Penilaian Kesuburan Tanah",
-        waktu: "2020"
-    }
-        ];
+    // const kegiatanData = [
+    //         {
+    //     no: 1,
+    //     bpsip: "BPSIP SUMSEL",
+    //     jenisLab: "Laboratorium Pengujian Kimia Tanah dan Mutu Beras",
+    //     jenisAnalisis: "Analisa Kimia Tanah Rutin dan Analisa Mutu Beras",
+    //     metodeAnalisis: "Kolorimetri/Pewarnaan",
+    //     analisis: "Tidak ada",
+    //     kompetensiPersonal: "Belum ada",
+    //     namaPelatihan: "Pelatihan Pemahaman SNI ISO/IEC 17025:2017",
+    //     waktu: "2023"
+    // },
+    // {
+    //     no: 2,
+    //     bpsip: "BPSIP JAWA BARAT",
+    //     jenisLab: "Laboratorium Analisa Pupuk",
+    //     jenisAnalisis: "Analisa Nitrogen dan Fosfat",
+    //     metodeAnalisis: "Spektrofotometri dan Titrasi",
+    //     analisis: "Nitrogen total, Fosfat total",
+    //     kompetensiPersonal: "Ada",
+    //     namaPelatihan: "Pelatihan Analisa Pupuk dan Tanah",
+    //     waktu: "2022"
+    // },
+    // {
+    //     no: 3,
+    //     bpsip: "BPSIP JAWA TIMUR",
+    //     jenisLab: "Laboratorium Mutu Pangan",
+    //     jenisAnalisis: "Analisa Kimia Pangan",
+    //     metodeAnalisis: "Kromatografi Gas dan Cair",
+    //     analisis: "Kadar Air, Protein, Lemak, dan Karbohidrat",
+    //     kompetensiPersonal: "Tidak ada",
+    //     namaPelatihan: "Pelatihan Penerapan ISO 17025",
+    //     waktu: "2021"
+    // },
+    // {
+    //     no: 4,
+    //     bpsip: "BPSIP SUMATERA BARAT",
+    //     jenisLab: "Laboratorium Uji Sampel Air",
+    //     jenisAnalisis: "Analisa Parameter Fisika dan Kimia Air",
+    //     metodeAnalisis: "Spektrofotometri, TDS, dan pH Meter",
+    //     analisis: "TSS, COD, BOD, dan pH",
+    //     kompetensiPersonal: "Ada",
+    //     namaPelatihan: "Pelatihan Pengendalian Mutu Air",
+    //     waktu: "2023"
+    // },
+    // {
+    //     no: 5,
+    //     bpsip: "BPSIP KALIMANTAN TENGAH",
+    //     jenisLab: "Laboratorium Uji Kesuburan Tanah",
+    //     jenisAnalisis: "Analisa Unsur Hara Makro dan Mikro",
+    //     metodeAnalisis: "Titrasi dan Spektrofotometri",
+    //     analisis: "Nitrogen, Fosfat, Kalium, Magnesium, dan Kalsium",
+    //     kompetensiPersonal: "Ada",
+    //     namaPelatihan: "Workshop Penilaian Kesuburan Tanah",
+    //     waktu: "2020"
+    // }
+    //     ];
 
-        function filterData() {
-            const bpsip = document.getElementById('bpsip').value;
-            const year = document.getElementById('year').value;
-            const sipType = document.getElementById('sip-type').value;
+    //     function filterData() {
+    //         const bpsip = document.getElementById('bpsip').value;
+    //         const year = document.getElementById('year').value;
+    //         const sipType = document.getElementById('sip-type').value;
 
-            const filteredData = kegiatanData.filter(item => {
-                return (
-                    (bpsip === '' || item.bpsip === bpsip) &&
-                    (year === '' || item.tahun === parseInt(year)) &&
-                    (sipType === '' || item.type === sipType)
-                );
-            });
+    //         const filteredData = kegiatanData.filter(item => {
+    //             return (
+    //                 (bpsip === '' || item.bpsip === bpsip) &&
+    //                 (year === '' || item.tahun === parseInt(year)) &&
+    //                 (sipType === '' || item.type === sipType)
+    //             );
+    //         });
 
-            displayData(filteredData);
-        }
+    //         displayData(filteredData);
+    //     }
 
-        function displayData(data) {
-            const tableBody = document.querySelector('#kegiatan-table tbody');
-            tableBody.innerHTML = ''; 
+    //     function displayData(data) {
+    //         const tableBody = document.querySelector('#kegiatan-table tbody');
+    //         tableBody.innerHTML = ''; 
 
-            data.forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${item.no}</td>
-                    <td>${item.bpsip}</td>
-                    <td>${item.jenisLab}</td>
-                    <td>${item.jenisAnalisis}</td>
-                    <td>${item.metodeAnalisis}</td>
-                    <td>${item.analisis}</td>
-                    <td>${item.kompetensiPersonal}</td>
-                    <td>${item.namaPelatihan}</td>
-                    <td>${item.waktu}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-        }
+    //         data.forEach(item => {
+    //             const row = document.createElement('tr');
+    //             row.innerHTML = `
+    //                 <td>${item.no}</td>
+    //                 <td>${item.bpsip}</td>
+    //                 <td>${item.jenisLab}</td>
+    //                 <td>${item.jenisAnalisis}</td>
+    //                 <td>${item.metodeAnalisis}</td>
+    //                 <td>${item.analisis}</td>
+    //                 <td>${item.kompetensiPersonal}</td>
+    //                 <td>${item.namaPelatihan}</td>
+    //                 <td>${item.waktu}</td>
+    //             `;
+    //             tableBody.appendChild(row);
+    //         });
+    //     }
 
-        displayData(kegiatanData);
+    //     displayData(kegiatanData);
 </script>
 @endsection

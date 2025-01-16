@@ -300,12 +300,70 @@
             <a href="{{ route('home') }}"><img src="/storage/cms/logo_light.png" alt="Logo" style="height: 50px;"></a>
             
             <div>
-                <a href="" class="btn btn-outline-light-logout mr-2">Logout</a>
+                @if (auth()->user())
+                    <div class="dropdown">
+                        <button class="bg-transparent border-0 dropdown-toggle" style="color: #fff;" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ auth()->user()->name }}
+                        </button>
+                    
+                        <ul class="dropdown-menu">
+                            @if (auth()->user()->role_id == 1)
+                                <li><a class="dropdown-item" href="{{ route('manage.dashboard') }}" style="color: #006400">Dashboard</a></li>
+                            @endif
+                            <li><a class="dropdown-item" href="{{ route('auth.logout') }}" style="color: #006400">Logout</a></li>
+                        </ul>
+                    </div>
+                @else
+                    <a href="{{ route('auth.register.view') }}" class="btn btn-outline-light mr-2">Daftar</a>
+                    <a href="{{ route('auth.login.view') }}" class="btn mr-2" style="color: #006400; background-color:white">Masuk</a>
+                @endif
             </div>
         </div>
     </header>
 
     <div style="margin-top: 80px;">
+
+        <div>
+            @if ($errors->any())
+                <button style="
+                    padding: 5px 10px;
+                    color: red;
+                    border: 1px solid red;
+                    border-radius: 5px;
+                    background-color: #efbbbb;
+                    width: 100%;
+                    text-align: start;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;
+                " onclick="hideAlert(this)">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </button>
+            @endif
+            @if (session('success'))
+                <button style="
+                    padding: 5px 10px;
+                    color: green;
+                    border: 1px solid green;
+                    border-radius: 5px;
+                    background-color: #bbefbb;
+                    width: 100%;
+                    text-align: start;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;
+                " onclick="hideAlert(this)">
+                    {{ session('success') }}
+                </button>
+            @endif
+        </div>
+
         @yield('content')
     </div>
 
@@ -377,5 +435,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        const hideAlert = (e) => {
+            e.style.display = 'none';
+        }
+    </script>
 </body>
 </html>
