@@ -69,7 +69,7 @@
                   <!-- Filter Section -->
                   <div class="filter-container">
                       <select id="bpsip" name="bsip_id">
-                          <option selected disabled>BSIP</option>
+                          <option selected disabled>BPSIP</option>
                           @foreach ($all_bsip as $item)
                             <option value="{{ $item->id }}" {{ request()->bsip_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
                           @endforeach
@@ -86,7 +86,7 @@
                   </a>
                   <a  class="btn btn-success">
                     <i class="fa-solid fa-file-excel"></i>&ensp;
-                    Import Excel
+                    Export Excel
                 </a>
               </div>
           </div>
@@ -98,28 +98,34 @@
                 <table class="table table-bordered">
                     <tr>
                       <th>No</th>
-                      <th>BPTP/KP</th>
+                      <th>BPSIP</th>
                       <th>Luas IP2SIP (Ha)</th>
                       <th>Agroekosistem</th>
                       <th>Pengkajian/Diseminasi</th>
                     </tr>
                     <tr>
-                      @foreach ($pemanfaatan_sip as $item)
-                        <td>{{ $loop->iteration }}</td>
-                        <td> <a href="{{ route('lp2tp_detail', $item->id) }}" style="text-decoration: none; color: inherit;">
-                          {{ $item->ip2sip->bsip->name }}/KP. {{ $item->ip2sip->name }}
-                        </a></td>
-                        <td>{{ $item->luas_sip }}</td>
-                        <td>{{ $item->agro_ekosistem }}</td>
-                        <td>
-                          <ol>
-                            @foreach ($item->pemanfaatan_diseminasi as $pd)
-                              <li>{{ $pd->name }}</li>
-                            @endforeach
-                          </ol>
-                        </td>
-                      @endforeach
+                      <tr>
+                        @foreach ($pemanfaatan_sip as $item)
+                            <tr> <!-- Buat baris baru untuk setiap item -->
+                                <td>{{ $loop->iteration }}</td>
+                                <td>
+                                    <a href="{{ route('lp2tp_detail', $item->id) }}" style="text-decoration: none; color: inherit;">
+                                        {{ $item->ip2sip->bsip->name }}/KP. {{ $item->ip2sip->name }}
+                                    </a>
+                                </td>
+                                <td>{{ $item->luas_sip }}</td>
+                                <td>{{ $item->agro_ekosistem }}</td>
+                                <td>
+                                    <ol>
+                                        @foreach ($item->pemanfaatan_diseminasi as $pd)
+                                            <li>{{ $pd->name }}</li>
+                                        @endforeach
+                                    </ol>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tr>
+                    
                   </table>
 
                 <nav aria-label="...">

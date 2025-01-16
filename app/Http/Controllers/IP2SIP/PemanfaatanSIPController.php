@@ -33,6 +33,7 @@ class PemanfaatanSIPController extends Controller
             'ip2sip' => $ip2sip,
         ]);
     }
+    
 
     public function store(Request $request) {
         $request->validate([
