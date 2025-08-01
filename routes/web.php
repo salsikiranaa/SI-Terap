@@ -298,12 +298,27 @@ Route::prefix('/ip2sip')->middleware('lock_service:4')->group(function () {
         Route::get('/{pemanfaatan_id}/detail', [DetailPemanfaatanSipController::class, 'index'])->name('lp2tp.pemanfaatan_kp.detail');
     });
     Route::get('/galeri', [GalleryController::class, 'index'])->name('lp2tp.galeri');
+
 });
-// (4) END IP2SIP
-// (5) DIREKTORI SDM
-Route::prefix('/direktori-sdm')->middleware('lock_service:5')->group(function () {
-    Route::get('/pengkajian-sdm', [PenyuluhController::class, 'index'])->name('sdm');
-    Route::get('/pengkajian-riset', [RisetController::class, 'index'])->name('riset');
+
+Route::prefix('lp2tp')->name('lp2tp.')->group(function () {
+    // Routes untuk Pemanfaatan KP
+    Route::get('/pemanfaatan-kp', [PemanfaatanSIPController::class, 'index'])->name('pemanfaatan_kp');
+    Route::get('/pemanfaatan-kp/create', [PemanfaatanSIPController::class, 'create'])->name('pemanfaatan_kp.create');
+    Route::post('/pemanfaatan-kp', [PemanfaatanSIPController::class, 'store'])->name('pemanfaatan_kp.store');
+    Route::get('/pemanfaatan-kp/{id}/edit', [PemanfaatanSIPController::class, 'edit'])->name('pemanfaatan_kp.edit');
+    // Tambahkan di bagian routes pemanfaatan KP yang sudah ada
+    Route::get('/lp2tp/pemanfaatan-kp/{id}/dokumentasi', [PemanfaatanSIPController::class, 'viewDokumentasi'])->name('lp2tp.pemanfaatan_kp.dokumentasi');
+    Route::delete('/lp2tp/pemanfaatan-kp/dokumentasi/{dokumentasi_id}', [PemanfaatanSIPController::class, 'deleteDokumentasi'])->name('lp2tp.pemanfaatan_kp.dokumentasi.delete');
+    Route::put('/pemanfaatan-kp/{id}', [PemanfaatanSIPController::class, 'update'])->name('pemanfaatan_kp.update');
+    Route::delete('/pemanfaatan-kp/{id}', [PemanfaatanSIPController::class, 'destroy'])->name('pemanfaatan_kp.destroy');
+    Route::get('/pemanfaatan-kp/{id}', [PemanfaatanSIPController::class, 'show'])->name('pemanfaatan_kp.show');
+    // Routes untuk pemanfaatan KP dokumentasi
+    Route::get('/pemanfaatan-kp/{id}/dokumentasi', [PemanfaatanSIPController::class, 'viewDokumentasi'])->name('pemanfaatan_kp.dokumentasi');
+    Route::delete('/pemanfaatan-kp/dokumentasi/{dokumentasi_id}', [PemanfaatanSIPController::class, 'deleteDokumentasi'])->name('pemanfaatan_kp.dokumentasi.delete');
+    
+    // Route untuk detail (seperti yang ada di view Anda)
+    Route::get('/detail/{id}', [PemanfaatanSIPController::class, 'show'])->name('lp2tp_detail');
 });
 // (5) END DIREKTORI SDM
 
@@ -324,14 +339,3 @@ Route::get('/diseminasi/export_pdf', [DiseminasiController::class, 'exportPdf'])
 Route::get('/pemanfaatan/detail', function () {
     return view('lp2tp.pemanfaatan.detail');
 })->name('lp2tp_detail');
-// Route::get('/diseminasi/peserta', function () {
-//     return view('kinerja.diseminasi.peserta'); 
-// })->name('diseminasi.peserta');
-
-// Route::get('/diseminasi/sip-sub-sektor', function () {
-//     return view('kinerja.diseminasi.sip_sub_sektor');
-// })->name('diseminasi.sip_sub_sektor');
-
-// Route::get('/diseminasi/form', function () {
-//     return view('kinerja.diseminasi.form_peserta'); // Adjust the view path if necessary
-// })->name('diseminasi.form_peserta');

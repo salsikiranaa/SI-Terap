@@ -13,11 +13,17 @@ class PemanfaatanSIP extends Model
     protected $table = 'pemanfaatan_sip';
     protected $guarded = [];
 
-    public function ip2sip() : BelongsTo {
+    public function ip2sip(): BelongsTo {
         return $this->belongsTo(mIP2SIP::class, 'ip2sip_id', 'id');
     }
 
-    public function pemanfaatan_diseminasi() : HasMany {
+    public function pemanfaatan_diseminasi(): HasMany {
         return $this->hasMany(PemanfaatanDiseminasi::class, 'pemanfaatan_sip_id', 'id');
+    }
+
+    // TAMBAHKAN INI
+    public function dokumentasi(): HasMany
+    {
+        return $this->hasMany(PemanfaatanSipDokumentasi::class, 'pemanfaatan_sip_id', 'id');
     }
 }
